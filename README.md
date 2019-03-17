@@ -1,7 +1,5 @@
  
-<a href="https://github.com/Murrengan/murr">
-    <img src="base/static/base/logo.png" alt="Murrengan logo" title="Murrengan" align="left" height="40" />
-</a>
+<span><img src="base/static/base/logo.png" alt="Murrengan logo" title="Murrengan" align="left" height="40" /></span>
 
 Murrengan
 ======================
