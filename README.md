@@ -1,7 +1,6 @@
  
 <img src="base/static/base/logo.png" title="Murrengan" align="left" height="40" />
-
-<h1>Murrengan</h1>
+<h1 style="text-align:left;">Murrengan</h1>
 
 
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
