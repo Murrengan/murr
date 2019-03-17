@@ -1,0 +1,37 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  background: pink;
+}
+
+.navbar {
+  //толщина шрифта
+  font-weight: 100;
+
+  .navbar-brand h3 {
+    font-weight: 100;
+  }
+
+  .nav-item {
+    font-size: 1.3rem;
+  }
+
+  //выделение линка при наведении
+  .nav-link:hover {
+    //background: #00ccff;
+    transition: border 0.2s;
+    border-bottom: 1px solid white;
+  }
+
+}
+
+// навбар появляется прималеньком разрешении
+@media (max-width: 575px) {
+  .navbar {
+    background: #202020;
+
+    .nav-link:hover {
+      border-bottom: none;
+    }
+  }
+
+}
