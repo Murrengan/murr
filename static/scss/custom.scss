@@ -62,6 +62,16 @@ body {
 
 }
 
+#in_a_team{
+  font-family: 'PT Sans', sans-serif;
+}
+
+#quotes {
+  i {
+    opacity: 0.3;
+  }
+}
+
 // навбар появляется прималеньком разрешении
 @media (max-width: 575px) {
   .navbar {
