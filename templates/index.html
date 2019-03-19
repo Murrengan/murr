@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+
+    <title>Murrengan</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/app.css">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'base/favicon.ico' %}">
+
+</head>
+
+<body>
+
+{#navbar#}
+<div class="navbar navbar-expand-sm navbar-dark navbar-static-top">
+
+    <a class="navbar-brand" href="#">
+
+
+        <h3 class="mb-1">
+            <img src="{% static 'base/favicon.ico' %}" width="35" height="35" class="d-inline-block align-top" alt="">
+            Murrengan</h3>
+
+    </a>
+
+
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNavbar">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a href="#" class="nav-link text-center">Домой</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-center">О нас</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-center">Преимущество</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+{#navbar#}
+
+
+</div>
+
+
+<section id="showcase" class="d-flex justify-content-center align-items-center">
+
+    <div id="overlay"></div>
+
+    <div id="header" class="container text-white text-center">
+
+        <h3 class="display-5 mb-0">Onward to the stars</h3>
+        <h1 class="display-3">Murrengan</h1>
+        <p class="lead d-none d-sm-block">Обьединяйся, для достижения поставленных целей</p>
+        <button id="where_i_am" class="btn btn-lg btn-primary px-5 mt-2">Куда я попал?</button>
+
+    </div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
