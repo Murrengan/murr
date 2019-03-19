@@ -1,6 +1,5 @@
 body {
   font-family: 'Raleway', sans-serif;
-  background: pink;
 }
 
 .navbar {
@@ -61,6 +60,16 @@ body {
     border-radius: 2rem;
   }
 
+}
+
+#in_a_team{
+  font-family: 'PT Sans', sans-serif;
+}
+
+#quotes {
+  i {
+    opacity: 0.3;
+  }
 }
 
 // навбар появляется прималеньком разрешении

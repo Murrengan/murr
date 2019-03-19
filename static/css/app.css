@@ -7591,8 +7591,7 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6; } }
 body {
-  font-family: 'Raleway', sans-serif;
-  background: pink; }
+  font-family: 'Raleway', sans-serif; }
 
 .navbar {
   font-weight: 100;
@@ -7626,6 +7625,12 @@ body {
   #showcase #where_i_am {
     font-size: 1.5rem;
     border-radius: 2rem; }
+
+#in_a_team {
+  font-family: 'PT Sans', sans-serif; }
+
+#quotes i {
+  opacity: 0.3; }
 
 @media (max-width: 575px) {
   .navbar {
