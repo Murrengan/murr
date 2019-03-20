@@ -72,6 +72,10 @@ body {
   }
 }
 
+#footer {
+  font-weight: 100;
+}
+
 // навбар появляется прималеньком разрешении
 @media (max-width: 575px) {
   .navbar {
