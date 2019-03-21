@@ -1,11 +1,5 @@
- 
-<a href="https://github.com/Murrengan/murr">
-    <img src="base/static/base/logo.png" alt="Murrengan logo" title="Murrengan" align="left" height="60" />
-</a>
-
-Murrengan
-======================
-
+ <img src="base/static/base/logo.png" title="Murrengan" align="left" height="40" />
+<h1 style="text-align:left;">Murrengan</h1>
 
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 
@@ -18,6 +12,6 @@ Murrengan
 
 ## Команда
 
-[![Murrengan](https://avatars3.githubusercontent.com/u/40840064?s=460&v=4)](https://github.com/Murrengan)  | .
----|---
-[Murrengan](https://github.com/Murrengan) | .
+[![Murrengan](https://avatars3.githubusercontent.com/u/40840064?s=460&v=4)](https://github.com/Murrengan)  |
+---|
+**Murrengan** |

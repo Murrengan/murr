@@ -1,0 +1,23 @@
+{
+  "name": "gulp-django",
+  "version": "2.1.1",
+  "description": "Settings gulp for django projects",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "Sergiej Selin",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "child_process": "^1.0.2",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2"
+  },
+  "dependencies": {}
+}
