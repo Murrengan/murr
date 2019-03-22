@@ -22,7 +22,7 @@
 <body>
 
 {#navbar#}
-<div class="navbar navbar-expand-sm navbar-dark navbar-static-top">
+<div class="navbar navbar-expand-sm navbar-dark">
 
     <a class="navbar-brand" href="#">
 
@@ -45,13 +45,13 @@
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-                <a href="#" class="nav-link text-center">Домой</a>
+                <a href="#Start" class="nav-link scroll text-center">Start</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-center">О нас</a>
+                <a href="#About" class="nav-link scroll text-center">About</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-center">Преимущество</a>
+                <a href="#Rock" class="nav-link scroll text-center">Rock</a>
             </li>
 
         </ul>
@@ -82,7 +82,7 @@
 </section>
 
 
-<section>
+<section id="Start">
     <div class="container text-center mt-5">
         <h2 id="in_a_team">В команде единомышленников добьешься большего, чем в одиночку.</h2>
         <div class="row">
@@ -110,7 +110,7 @@
 </section>
 
 
-<section>
+<section id="About">
     <div class="container text-center mt-3">
         <h3>Мурренган - это группа людей, объединенная для достижения общей цели!</h3>
 
@@ -145,7 +145,7 @@
 </section>
 
 
-<section id="quotes">
+<section id="Rock">
     <div class="container text-center mt-5">
         <h3>3 правила достижения цели:</h3>
         <div class="row">
@@ -193,7 +193,7 @@
                         </div>
 
                         <div class="carousel-item">
-                            <img src="{% static "/img/carusel/elf_girl.png" %}" alt="" class="d-block w-100">
+                            <img src="{% static "/img/carusel/../static/img/elf_girl.png" %}" alt="" class="d-block w-100">
                         </div>
 
                         <a href="#mainCarousel" class="carousel-control-prev" data-slide="prev" role="button">
@@ -241,7 +241,7 @@
 
 
 <section class="bg-dark py-5">
-    <div class="container text-white text-center">
+    <div class="container text-white text-center" >
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, quo!</p>
     </div>
 </section>
@@ -280,11 +280,12 @@
             <form>
                 <div class="modal-body">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda enim obcaecati porro qui reiciendis unde!</p>
-                    <div class="form-group">
 
+                    <div class="form-group">
                         <label for="email">Email adress</label>
                         <input type="email" class="form-control" id="email" placeholder="rrrrr">
                     </div>
+
                     <div class="form-group">
                         <label for="adults">Number</label>
                         <select class="form-control" id="adults">
@@ -295,12 +296,26 @@
                         </select>
                     </div>
 
-
+                    <div class="form-group">
+                        <label for="requests">New text</label>
+                        <textarea class="form-control" id="requests" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-secondary" data-dissmiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

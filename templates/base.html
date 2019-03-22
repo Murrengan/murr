@@ -8,7 +8,9 @@
 
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/base.css">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'base/favicon.ico' %}">
 
@@ -18,8 +20,9 @@
 
 <body>
 
-<div class="container">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container">
         <a class="navbar-brand" href="https://www.google.com/">
             <img src="{% static 'base/favicon.ico' %}" width="30" height="30" class="d-inline-block align-top">
             Murrengan
@@ -33,31 +36,121 @@
 
 
         <div class="collapse navbar-collapse" id="base_navbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://www.google.com/" class="nav-link active">link1</a>
+                    <a href="https://www.google.com/" class="nav-link active text-center">link1</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://www.google.com/" class="nav-link">link2</a>
+                    <a href="https://www.google.com/" class="nav-link text-center">link2</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://www.google.com/" class="nav-link disabled">link3</a>
+                    <a href="https://www.google.com/" class="nav-link text-center">link3</a>
                 </li>
             </ul>
         </div>
+    </div>
+</nav>
 
 
-    </nav>
-</div>
+<section id="Start">
+    <div class="container text-center mt-5 ">
+        <h2 id="in_a_team">В команде единомышленников<br> добьешься большего,<br> чем в одиночку!</h2>
 
-<div class="container mt-5 text-center">
-<h1>Hello, Murrengan! =)</h1>
-</div>
+        <div class="p-3 mt-4">
+            <img src="{% static "/img/wolf.svg" %}" width="200" height="200" class="img-fluid">
+            <p class="lead font-weight-bolder mt-3">Одинокий волк погибает,<br> но стая живёт.</p>
+        </div>
+
+
+    </div>
+</section>
+
+
+<section id="showcase" class="d-flex justify-content-center align-items-center">
+    <div id="overlay"></div>
+    <div id="header" class="container text-white text-center">
+        <h1 class="display-4">Murrengan</h1>
+        <p class="lead">Создай команду или присоеденись к существующей</p>
+        <button id="where_i_am" class="btn btn-lg btn-info px-5 mt-2" data-toggle="modal" data-target="#bokingModel">
+            Куда я попал?
+        </button>
+        <button id="where_i_am" class="btn btn-lg btn-danger px-5 mt-2" data-toggle="modal" data-target="#bokingModel">
+            Вступить!
+        </button>
+    </div>
+</section>
+
+
+<section id="About" class="">
+    <div class="container text-center">
+        <h2>Murrengan - это группа людей, обьединенная для достижения цели.</h2>
+    </div>
+</section>
+
+
+<section id="Master" class="d-flex justify-content-center align-items-center">
+    <div id="overlay"></div>
+    <div id="header" class="container text-black text-left">
+        <h1 class="display-4 ">Мастер</h1>
+        <p class="lead font-weight-normal">Лидер команды по постижению цели</p>
+
+        <button id="where_i_am" class="btn btn-lg btn-info mt-2" data-toggle="modal" data-target="#bokingModel">
+            Стать Мастером!
+        </button>
+    </div>
+</section>
+
+
+<section id="Murren" class="d-flex justify-content-center align-items-center">
+    <div id="overlay"></div>
+    <div id="header" class="container text-white text-right">
+        <h1 class="display-4 ">Муррен</h1>
+        <p class="lead font-weight-normal">Участник команды по постижению цели</p>
+
+        <button id="where_i_am" class="btn btn-lg btn-info mt-2" data-toggle="modal" data-target="#bokingModel">
+            Стать Мурреном!
+        </button>
+    </div>
+</section>
+
+<section id="footer" class="bg-secondary py-1">
+    <ul class="nav text-center justify-content-center flex-column flex-sm-row">
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Murr</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Вступить</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Документация</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Текс1</a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-white">Текс2</a>
+        </li>
+    </ul>
+
+</section>
+
+
+
+
+
+
+
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </html>
