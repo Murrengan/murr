@@ -12,6 +12,6 @@
 
 ## Команда
 
-[![Murrengan](https://avatars3.githubusercontent.com/u/40840064?s=460&v=4)](https://github.com/Murrengan)  |
----|
-**Murrengan** |
+[![Murrengan](https://avatars3.githubusercontent.com/u/40840064?s=460&v=4)](https://github.com/Murrengan)  | [![SelinCodes](https://avatars2.githubusercontent.com/u/29122136?s=460&v=4)](https://github.com/selincodes)
+---|---
+**Murrengan** | **Sergiej Selin**
