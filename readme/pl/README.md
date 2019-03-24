@@ -2,7 +2,7 @@
 	<img src="../examples/murr-logo.png" title="Murrengan" />
 </h2>
 
-**Wybierz język:**&nbsp; [<img src="../examples/en.png" title="Angielski"  />](../en) &nbsp; [<img src="../examples/ru.png" title="Rosyjski"  />](../../)
+**Wybierz język:**&nbsp; [<img src="../examples/en.png" title="Angielski"  />](../en) &nbsp; [<img src="../examples/ru.png" title="Rosyjski"  />](../../readme.md)
 
 Serwis społecznościowy, w którym ludzie pomagają sobie nawzajem w osiągnięciu postawionych celów.
 
@@ -17,4 +17,4 @@ Niech moc będzie z nami!
 
 [<img src="https://avatars3.githubusercontent.com/u/40840064?s=460&v=4" width="150" height="150" />](https://github.com/Murrengan)  | [<img src="https://avatars2.githubusercontent.com/u/29122136?s=460&v=4" width="150" height="150" />](https://github.com/selincodes)
 ---|---
-<div align="center">**Murrengan**</div> | <div align="center">**Sergiej Selin**</div>
+**Murrengan** | **Sergiej Selin**
