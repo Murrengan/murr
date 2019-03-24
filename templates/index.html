@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'base/favicon.ico' %}">
+    <title>Murrengan</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light sticky-top bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="https://www.youtube.com/murrengan">
+            <img src="{% static 'base/favicon.ico' %}" width="30" height="30" alt="" class="d-inline-block align-top">
+            Murrengan
+        </a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#base_navbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="base_navbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active text-center">О нас</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-center">Как работает?</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.youtube.com/murrengan" class="nav-link text-center">Я в деле!</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'add' %}" class="nav-link text-center">Добавить</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-3">
+
+<h1>Обьявления</h1>
+
+<div>
+
+    <a href="{% url 'index' %}">Главная</a>
+
+    <br>
+
+    {% for rubric in rubrics %}
+        <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.rubric }}</a>
+    {% endfor %}
+
+</div>
+
+
+{% for work in works %}
+    <h2>{{ work.title }}</h2>
+    <p>{{ work.description }}</p>
+    <p><a href="{% url 'by_rubric' work.rubric.pk %}">{{ work.rubric.rubric }}</a></p>
+    <p>{{ work.published }}</p>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
