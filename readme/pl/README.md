@@ -1,6 +1,7 @@
 <img src="readme/examples/murr-logo.png" title="Murrengan" align="left" />
 
-Wybierz język: [<img src="readme/examples/en.png" title="Angielski" align="left" />](readme/en) [<img src="readme/examples/ru.png" title="Rosyjski" align="left" />](readme/ru)
+###### Wybierz język: 
+[<img src="../examples/en.png" title="Angielski" align="left" />](../en) [<img src="../examples/ru.png" title="Rosyjski" align="left" />](/)
 
 Serwis społecznościowy, w którym ludzie pomagają sobie nawzajem w osiągnięciu postawionych celów.
 
