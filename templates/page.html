@@ -7,7 +7,11 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/base.css">
         <link rel="shortcut icon" type="image/png" href="{% static 'base/favicon.ico' %}">
-        <title>Murrengan</title>
+        <title>
+            {% block title %}
+                
+            {% endblock %}
+        </title>
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-light sticky-top bg-light">

@@ -57,14 +57,27 @@
     {% endfor %}
 
 </div>
-
-
-{% for work in works %}
-    <h2>{{ work.title }}</h2>
-    <p>{{ work.description }}</p>
-    <p><a href="{% url 'by_rubric' work.rubric.pk %}">{{ work.rubric.rubric }}</a></p>
-    <p>{{ work.published }}</p>
-{% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="card-columns">
+        {% for work in works %}
+                <div class="card">
+                    <img src="http://placehold.it/286x180" class="card-img-top"/>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ work.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <a href="{% url 'by_rubric' work.rubric.pk %}">{{ work.rubric }}</a>
+                        </h6>
+                        <p class="card-text">{{ work.description }}</p>
+                        <p class="card-text"><small class="text-muted">{{ work.published }}</small></p>
+                        <a href="{% url 'by_rubric' work.rubric.pk %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            
+        {% endfor %}
+        </div>
+    </div>
+</div>
 
 </div>
 
