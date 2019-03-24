@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a href="https://www.youtube.com/murrengan" class="nav-link text-center">Я в деле!</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{% url 'add' %}" class="nav-link text-center">Добавить</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -45,12 +48,12 @@
 
 <div>
 
-    <a href="/cards/">Главная</a>
+    <a href="{% url 'index' %}">Главная</a>
 
     <br>
 
     {% for rubric in rubrics %}
-        <a href="/cards/{{ rubric.pk }}/">{{ rubric.rubric }}</a>
+        <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.rubric }}</a>
     {% endfor %}
 
 </div>
@@ -59,7 +62,7 @@
 {% for work in works %}
     <h2>{{ work.title }}</h2>
     <p>{{ work.description }}</p>
-    <p><a href="/cards/{{ work.rubric.pk }}">{{ work.rubric.rubric }}</a></p>
+    <p><a href="{% url 'by_rubric' work.rubric.pk %}">{{ work.rubric.rubric }}</a></p>
     <p>{{ work.published }}</p>
 {% endfor %}
 
