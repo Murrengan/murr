@@ -2,7 +2,7 @@
 	<img src="../examples/murr-logo.png" title="Murrengan" />
 </h2>
 
-**Wybierz język:**&nbsp; [<img src="../examples/en.png" title="Angielski"  />](../en) &nbsp; [<img src="../examples/ru.png" title="Rosyjski"  />](../../readme.md)
+**Wybierz język:**&nbsp; [<img src="../examples/en.png" title="Angielski"  />](../en) &nbsp; [<img src="../examples/ru.png" title="Rosyjski"  />](../../../../)
 
 Serwis społecznościowy, w którym ludzie pomagają sobie nawzajem w osiągnięciu postawionych celów.
 
