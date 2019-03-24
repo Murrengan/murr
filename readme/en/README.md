@@ -1,6 +1,6 @@
 <img src="readme/examples/murr-logo.png" title="Murrengan" align="left" />
 
-Выберите язык: [<img src="readme/examples/en.png" title="Английский" align="left" />](readme/en) [<img src="readme/examples/pl.png" title="Польский" align="left" />](readme/pl)
+Selected language: [<img src="readme/examples/ru.png" title="Russian" align="left" />](readme/ru) [<img src="readme/examples/pl.png" title="Poland" align="left" />](readme/pl)
 
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 
