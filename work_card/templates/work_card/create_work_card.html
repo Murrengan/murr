@@ -1,21 +1,37 @@
-<!doctype html>
-<head>
-    <title>Добавление Мурра</title>
-</head>
-<body>
-<h1>Добавление Мурра</h1>
-<div>
-    <a href="{% url 'index' %}">Главная</a>
-    {% for rubric in rubrics %}
-        <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
-    {% endfor %}
+{% extends 'page.html' %}
+{% block page %}
+<div class="container page-wrapper">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <h1 class="header-page">Добавление Мурра</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10">
+            <div>
+                {% for rubric in rubrics %}
+                    <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
+                {% endfor %}
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {% if field.errors %}
+                            <div class="alert alert-danger">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="Добавить">
+            </form>
+
+        </div>
+    </div>
 </div>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Добавить">
-</form>
-
-</body>
-</html>
+{% endblock %}
