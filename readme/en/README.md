@@ -1,8 +1,8 @@
 <h2 align="center">
-	<img src="readme/examples/murr-logo.png" title="Murrengan" />
+	<img src="../examples/murr-logo.png" title="Murrengan" />
 </h2>
 
-**Выберите язык:**&nbsp; [<img src="readme/examples/en.png" title="Английский" />](readme/en) &nbsp; [<img src="readme/examples/pl.png" title="Польский" />](readme/pl)
+**Selected language:**&nbsp; [<img src="../examples/ru.png" title="Russian" />](../../../../) &nbsp; [<img src="../examples/pl.png" title="Poland" />](../pl)
 
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 

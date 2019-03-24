@@ -35,6 +35,11 @@
 #Start {
   padding-top: 50px;
 }
-.sticky-offset {
-  top: 56px;
+@media (max-width: 768px){
+  .sticky-top{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }  
 }
