@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+    {% for murr in murrs %}
+
+        <a href="{{ murr.get_absolute_url }}"><h1>{{ murr.title }}</h1></a>
+        <p>{{ murr.content }}</p>
+        <p>{{ murr.timestamp|date:'F d, Y' }}</p>
+        <p>{{ murr.author }}</p>
+
+    {% endfor %}
+
+
+{% endblock %}

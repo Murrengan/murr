@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 
-def home(request):
+def count_murren(request):
     count = User.objects.count()
-    return render(request, 'home.html', {
+    return render(request, 'Murren/count_murren.html', {
         'count': count
     })
 

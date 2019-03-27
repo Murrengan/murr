@@ -1,11 +1,20 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from Murren.views import home, signup
+from Murren.views import count_murren, signup
+from murr import settings
 
 urlpatterns = [
-    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+
     path('signup/', signup, name='signup'),
-    path('', home, name='home')
+
+    path('', count_murren, name='count_murren'),
+
+    path('murrs/', include('Murr_card.urls'))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
