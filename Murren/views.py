@@ -1,6 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
 from django.shortcuts import render, redirect
 
 
@@ -16,8 +16,10 @@ def signup(request):
         form = UserCreationForm(request.POST)
 
         if form.is_valid():
+            username = form.cleaned_data.get('username')
             form.save()
-            return redirect('home')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'registration/singup.html', {

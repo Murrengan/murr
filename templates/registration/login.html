@@ -2,6 +2,16 @@
 
 {% block content %}
 
+
+{% if messages %}
+
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}"> {{ message }}</div>
+
+    {% endfor %}
+
+{% endif %}
+
     <h2>Log in</h2>
     <form method="POST">
     {% csrf_token %}
