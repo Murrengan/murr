@@ -1,7 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from .forms import MurrenRegisterForm
 
 
 def count_murren(request):
@@ -13,7 +14,7 @@ def count_murren(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MurrenRegisterForm(request.POST)
 
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -21,7 +22,7 @@ def signup(request):
             messages.success(request, f'Account created for {username}!')
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = MurrenRegisterForm()
     return render(request, 'registration/singup.html', {
         'form': form
     })
