@@ -4,19 +4,10 @@ from Murr_card.models import Murr
 
 
 def murrs_list(requset):
-    murrs = Murr.objects.all()
+    queriset = Murr.objects.filter(featured=True).order_by('-timestamp')
+    latest = Murr.objects.order_by('-timestamp')[0:2]
     context = {
-        'murrs': murrs
+        'murrs': queriset,
+        'latest': latest
     }
     return render(requset, 'Murr_card/murr_list.html', context)
-
-
-def murr_detail(request, slag):
-
-    murr = Murr.objects.get(slag__iexact=slag)
-
-    context = {
-        'murr': murr
-    }
-
-    return render(request, 'Murr_card/murr_detail.html', context)

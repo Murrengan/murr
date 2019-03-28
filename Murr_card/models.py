@@ -1,7 +1,15 @@
-from django.contrib.auth.models import User
 from django.db import models
-from django.shortcuts import reverse
-from django.utils import timezone
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
+class Author(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(default='default_murren_img.jpg', upload_to='murren_pics')
+
+    def __str__(self):
+        return self.user.username
 
 
 class Category(models.Model):
@@ -14,20 +22,12 @@ class Category(models.Model):
 class Murr(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     comment_count = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category)
     featured = models.BooleanField()
-    slag = models.SlugField(max_length=128, unique=True)
-    image = models.ImageField(default='default_murren_img.jpg', upload_to='murren_pics')
-
-    # позволяет в HTML шаблоне обрашаться к murr_detail по штуке {{ murr.get_absolute_url }}
-    def get_absolute_url(self):
-        context = {
-            'slag': self.slag
-        }
-        return reverse('murr_detail', kwargs=context)
+    image = models.ImageField(blank=True, upload_to='murren_pics')
 
     def __str__(self):
         return self.title

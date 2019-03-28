@@ -1,17 +1,70 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
 
-    {% for murr in murrs %}
+    <div class="row">
 
-        <a href="{{ murr.get_absolute_url }}"><h1>{{ murr.title }}</h1></a>
-        <p>{{ murr.content }}</p>
-        <p>{{ murr.timestamp|date:'F d, Y' }}</p>
-        <p>{{ murr.author }}</p>
+    {% for murr in murrs %}
+        <div class="col-md-6">
+          <div class="card mb-4 shadow-sm">
+
+
+        {% for cat in murr.categories.all %}
+            {{ cat }}
+        {% endfor %}
+        <br>
+
+        {{ murr.title }}
+        <br>
+
+        {{ murr.timestamp|timesince }} назад
+        <br>
+
+        {{ murr.content }}
+        <br>
+
+        {{ murr.comment_count }} комментариев
+        <br>
+
+        <img src="{{ murr.author.profile_picture.url }}" alt="" width="40" height="40">
+        {{ murr.author }}
+        <br>
+
+        {% if murr.image %}
+
+        <img src="{{ murr.image.url }}" alt="" width="200" height="250" class="bd-placeholder-img">
+        {% endif %}
+
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+
+    <h2 class="text-center">Крайние 2 Мурра</h2>
+     <div class="row">
+    {% for murr in latest %}
+
+        <div class="col-md-6">
+          <div class="card mb-4 shadow-sm">
+              {% if murr.image %}
+            <img class="bd-placeholder-img card-img-top"  height="225" src="{{ murr.image.url }}" aria-label="Placeholder: Thumbnail">
+              {% endif %}
+            <div class="card-body">
+              <p class="card-text">{{ murr.author.user.email }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
 
     {% endfor %}
 
-
+        </div>
 {% endblock %}
