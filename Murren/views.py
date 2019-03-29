@@ -5,6 +5,10 @@ from django.shortcuts import render, redirect
 from .forms import MurrenRegisterForm
 
 
+def landing(request):
+    return render(request, 'Murr_card/landing.html')
+
+
 def count_murren(request):
     count = User.objects.count()
     return render(request, 'Murren/count_murren.html', {

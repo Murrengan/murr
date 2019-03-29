@@ -2,7 +2,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from Murren.views import count_murren, signup
+from Murren.views import count_murren, signup, landing
 from murr import settings
 
 urlpatterns = [
@@ -12,7 +12,9 @@ urlpatterns = [
 
     path('', count_murren, name='count_murren'),
     path('signup/', signup, name='signup'),
-    path('murrs/', include('Murr_card.urls'))
+    path('murrs/', include('Murr_card.urls')),
+
+    path('landing/', landing, name='signup'),
 ]
 
 if settings.DEBUG:
