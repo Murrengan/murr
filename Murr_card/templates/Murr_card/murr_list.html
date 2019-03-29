@@ -2,6 +2,12 @@
 
 {% block content %}
 
+    <style>
+    .test img{
+        width: 100%;
+    }
+    </style>
+
     <div class="row">
 
     {% for murr in murrs %}
@@ -19,8 +25,9 @@
 
         {{ murr.timestamp|timesince }} назад
         <br>
-
-        {{ murr.content }}
+        <div class="test">
+        {{ murr.content| safe }}
+        </div>
         <br>
 
         {{ murr.comment_count }} комментариев

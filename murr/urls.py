@@ -8,11 +8,10 @@ from murr import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-
-    path('signup/', signup, name='signup'),
+    path('tinymce/', include('tinymce.urls')),
 
     path('', count_murren, name='count_murren'),
-
+    path('signup/', signup, name='signup'),
     path('murrs/', include('Murr_card.urls'))
 ]
 

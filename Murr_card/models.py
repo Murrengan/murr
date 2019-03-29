@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
+from tinymce import HTMLField
 
 User = get_user_model()
 
@@ -22,6 +23,7 @@ class Category(models.Model):
 class Murr(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
+    content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     comment_count = models.IntegerField(default=0)

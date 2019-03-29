@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Murr detail{% endblock %}
+
+{# лоад статик#}
+
 
 {% block content %}
 
     <h2>Murr detail</h2>
 
-    <h3>{{ murr.title }}</h3>
-    <p>{{ murr.content }}</p>
-    <p>{{ murr.timestamp }}</p>
+    <h3>{{ murr_detail.title }}</h3>
+    {% for murr in murr_detail.categories.all %}
+        {{ murr }}
+    {% endfor %}
+    <img src="{{ murr_detail.author.profile_picture.url }}" alt="">
+    <p>{{ murr_detail.author.user.username }}</p>
 
+    {% if murr_detail.image %}
+    <img src="{{ murr_detail.image.url }}" alt="">
+    {% endif %}
+
+    {{ murr_detail.content | safe }}
 
 {% endblock %}
