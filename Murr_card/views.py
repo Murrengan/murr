@@ -33,10 +33,10 @@ def murrs_list(requset):
 def murr_detail(request, pk):
     murr_detail = get_object_or_404(Murr, pk=pk)
     form = CommentForm(request.POST or None)
+
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
-            # TODO что это?
             form.instance.post = murr_detail
             form.save()
     context = {

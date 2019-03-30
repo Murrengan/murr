@@ -1,73 +1,82 @@
 {% extends 'base.html' %}
 
 
-{# лоад статик#}
-
 
 {% block content %}
-
-    <h2 class="text-center">Внутренности Мурра</h2>
-
-
-    <p class="text-muted">место для отображения комментариев</p>
-
-    {% for comment in murr_detail.get_comments %}
-
-
-
-        {% if comment.user.author %}
-        <img src="{{ comment.user.author.profile_picture.url }}" alt="">
-{##}
-        {% else %}
-{#            {{ comment.user.username }}#}
-            <h1>МОЛОКО</h1>
-        {% endif %}
+  <style>
+  .tesetsetset{
+        border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px;
+  }
+  </style>
 
 
 
-        <p>{{ comment.user.username }}</p>
-        <p>{{ comment.timestamp| timesince }} назад</p>
-        <p>{{ comment.content }}</p>
-        <hr>
-
-    {% endfor %}
+  <h2 class="text-center">Внутренности Мурра</h2>
 
 
-    <p class="text-muted">завершение места для отображения комментариев</p>
+
+<div class="tesetsetset">
+  <p class="text-muted">место для отображения комментариев</p>
+
+  {% for comment in murr_detail.get_comments %}
 
 
-    <p class="text-muted">место для добавления комментариев если авторизован</p>
-    {% if user.is_authenticated %}
+
+    {% if comment.user.author %}
+      <img src="{{ comment.user.author.profile_picture.url }}" alt="" class="width="45px" height="45px"">
+
+    {% else %}
+                  {{ comment.user.username }}
+      <h1>МОЛОКО</h1>
+    {% endif %}
+
+
+    <p>{{ comment.user.username }}</p>
+    <p>{{ comment.timestamp| timesince }} назад</p>
+    <p>{{ comment.content }}</p>
+    <hr>
+
+  {% endfor %}
+
+</div>
+
+
+  <h1 class="h1">место для добавления комментариев если авторизован</h1>
+
+  {% if user.is_authenticated %}
 
     <div class="container">
-        <form method="POST" action=".">
-            {% csrf_token %}
-            {{ form }}
-            <h1>asdfsadf</h1>
-            <div class="form-group">
-                <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form }}
 
-            </div>
+        <div class="form-group">
 
-        </form>
+          <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+
+        </div>
+
+      </form>
     </div>
-    {% endif %}
-    <p class="text-muted"> край места для добавления комментариев если авторизован</p>
+  {% endif %}
+  <p class="text-muted"> край места для добавления комментариев если авторизован</p>
 
 
 
 
-    <h3>{{ murr_detail.title }}</h3>
-    {% for murr in murr_detail.categories.all %}
-        {{ murr }}
-    {% endfor %}
-    <img src="{{ murr_detail.author.profile_picture.url }}" alt="">
-    <p>{{ murr_detail.author.user.username }}</p>
+  <h3>{{ murr_detail.title }}</h3>
+  {% for murr in murr_detail.categories.all %}
+    {{ murr }}
+  {% endfor %}
+  <img src="{{ murr_detail.author.profile_picture.url }}" alt="">
+  <p>{{ murr_detail.author.user.username }}</p>
 
-    {% if murr_detail.image %}
-        <img src="{{ murr_detail.image.url }}" alt="">
-    {% endif %}
+  {% if murr_detail.image %}
+    <img src="{{ murr_detail.image.url }}" alt="">
+  {% endif %}
 
-    {{ murr_detail.content | safe }}
+  {{ murr_detail.content | safe }}
 
 {% endblock %}
