@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'tinymce',
+    'crispy_forms',
 
     'Murren.apps.MurrenConfig',
     'Murr_card.apps.MurrCardConfig',
@@ -120,8 +121,8 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = 'murrs'
-LOGOUT_REDIRECT_URL = 'murrs'
+LOGIN_REDIRECT_URL = 'murrs_list'
+LOGOUT_REDIRECT_URL = 'murrs_list'
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
@@ -151,3 +152,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
     }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

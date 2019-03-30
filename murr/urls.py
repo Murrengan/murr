@@ -14,7 +14,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('murrs/', include('Murr_card.urls')),
 
-    path('landing/', landing, name='signup'),
+    path('landing/', landing, name='landing'),
 ]
 
 if settings.DEBUG:

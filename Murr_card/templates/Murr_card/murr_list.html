@@ -3,75 +3,159 @@
 {% block content %}
 
     <style>
-    .test img{
-        width: 100%;
-    }
+        .test img {
+            width: 100%;
+            height: 50%;
+        }
     </style>
 
-    <div class="row">
+    <body>
 
-    {% for murr in murrs %}
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
+    <div class="container">
+        <div class="row">
+            <!-- Latest Posts -->
+            <main class="posts-listing col-lg-8">
+                <div class="container">
+                    <div class="row">
+                        <!-- post -->
+                        {% for murr in murrs %}
+                            <div class="post col-xl-6">
+                            {% if murr.cover  %}
+                                <div class="post-thumbnail"><a href="post.html"><img src="{{ murr.cover.url }}"
+                                                                                     alt="..." class="img-fluid"></a>
+                                </div>
+
+                            {% endif %}
+
+                                <div class="post-details">
+                                    <div class="post-meta d-flex justify-content-between">
+                                        <div class="date meta-last"></div>
+                                        <div class="category">
+                                            {% for cat in murr.categories.all %}
+                                                <a href="#">
+
+                                                    {{ cat }}
+
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'murr_detail' murr.pk %}">
+                                        <h3 class="h4">{{ murr.title }}</h3></a>
+                                    <p class="text-muted">{{ murr.description }}</p>
+
+                                    <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                             class="author d-flex align-items-center flex-wrap">
+                                        {% if murr.author.profile_picture %}
+                                            <div class="avatar"><img src="{{ murr.author.profile_picture.url }}"
+                                                                     width="45px" height="45px" alt="..."
+                                                                     class="img-fluid">
+                                            </div>
+                                        {% endif %}
+                                        <div class="title"><span>John Doe</span></div>
+                                    </a>
+                                        <div class="date"> {{ murr.timestamp|timesince }} назад</div>
+                                        <div class="comments meta-last"><i
+                                                class="icon-comment"></i>{{ murr.comment_count }} комментариев
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example">
+
+                        <ul class="pagination pagination-template d-flex justify-content-center">
+                          {% if murrs.has_previous %}
+                            <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.previous_page_number }}" class="page-link">Previous</a>
+                            </li>
+                        {% endif %}
+                            <li class="page-item"><a href="#" class="page-link active">{{ murrs.number }}</a></li>
+                            {% if murrs.has_next %}
+                            <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.next_page_number }}" class="page-link">Next</a>
+                            </li>
+                        </ul>
+                            {% endif %}
+                    </nav>
+
+                </div>
+            </main>
 
 
-        {% for cat in murr.categories.all %}
-            {{ cat }}
-        {% endfor %}
-        <br>
+            <aside class="col-lg-4">
+                <!-- Widget [Search Bar Widget]-->
+                <div class="widget search">
+                    <header>
+                        <h3 class="h6">Search the blog</h3>
+                    </header>
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <input type="search" placeholder="What are you looking for?">
+                            <button type="submit" class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
 
-        {{ murr.title }}
-        <br>
+                <!-- Widget [Latest Posts Widget]        -->
+                <div class="widget latest-posts">
+                    <header>
+                        <h3 class="h6">Крайние 2 Мурра</h3>
+                    </header>
 
-        {{ murr.timestamp|timesince }} назад
-        <br>
-        <div class="test">
-        {{ murr.content| safe }}
+                    <div class="blog-posts">
+                        {% for murr in latest %}
+
+
+                        <a href="#">
+                        <div class="item d-flex align-items-center">
+                            {% if murr.cover %}
+                            <div class="image"><img src="{{ murr.cover.url }}" width="100px" height="100px"   alt="..." class="img-fluid"></div>
+                            {% endif %}
+                            <div class="title"><strong>{{ murr.title }}</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="views">{{ murr.comment_count }} коммента</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <!-- Widget [Categories Widget]-->
+                <div class="widget categories mt-2">
+                    <header>
+                        <h3 class="h6">Categories</h3>
+                    </header>
+                    <div class="item d-flex justify-content-between"><a href="#">Growth</a><span>12</span></div>
+                    <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
+                    <div class="item d-flex justify-content-between"><a href="#">Sales</a><span>8</span></div>
+                    <div class="item d-flex justify-content-between"><a href="#">Tips</a><span>17</span></div>
+                    <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
+                </div>
+                <!-- Widget [Tags Cloud Widget]-->
+                <div class="widget tags">
+                    <header>
+                        <h3 class="h6">Tags</h3>
+                    </header>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#" class="tag">#Business</a></li>
+                        <li class="list-inline-item"><a href="#" class="tag">#Technology</a></li>
+                        <li class="list-inline-item"><a href="#" class="tag">#Fashion</a></li>
+                        <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
+                        <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
+                    </ul>
+                </div>
+
+            </aside>
+
+
         </div>
-        <br>
-
-        {{ murr.comment_count }} комментариев
-        <br>
-
-        <img src="{{ murr.author.profile_picture.url }}" alt="" width="40" height="40">
-        {{ murr.author }}
-        <br>
-
-        {% if murr.image %}
-
-        <img src="{{ murr.image.url }}" alt="" width="200" height="250" class="bd-placeholder-img">
-        {% endif %}
-
-        </div>
-        </div>
-    {% endfor %}
     </div>
 
+    </body>
 
-
-    <h2 class="text-center">Крайние 2 Мурра</h2>
-     <div class="row">
-    {% for murr in latest %}
-
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-              {% if murr.image %}
-            <img class="bd-placeholder-img card-img-top"  height="225" src="{{ murr.image.url }}" aria-label="Placeholder: Thumbnail">
-              {% endif %}
-            <div class="card-body">
-              <p class="card-text">{{ murr.author.user.email }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    {% endfor %}
-
-        </div>
 {% endblock %}
+

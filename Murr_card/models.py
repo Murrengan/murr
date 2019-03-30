@@ -22,14 +22,31 @@ class Category(models.Model):
 
 class Murr(models.Model):
     title = models.CharField(max_length=100)
-    content = models.TextField()
+    description = models.CharField(max_length=78, blank=True)
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     comment_count = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category)
     featured = models.BooleanField()
-    image = models.ImageField(blank=True, upload_to='murren_pics')
+    cover = models.ImageField(blank=True, upload_to='murren_pics')
 
     def __str__(self):
         return self.title
+
+    # возвращает все комментарии к конкретному мурру,
+    # так как в можеле Comment стоит related_name='comments'
+    # и прописано return self.comments.all()
+    @property
+    def get_comments(self):
+        return self.comments.all().order_by('-timestamp')
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    post = models.ForeignKey(Murr, related_name='comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
