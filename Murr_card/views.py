@@ -77,6 +77,7 @@ def search(request):
 
 
 def murr_create(request):
+    title = 'Create'
     form = MurrForm(request.POST or None, request.FILES or None)
     author = get_author(request.user)
     if request.method == 'POST':
@@ -87,15 +88,35 @@ def murr_create(request):
                 'pk': form.instance.pk
             }))
     context = {
+        'title': title,
         'form': form
     }
     return render(request, 'Murr_card/murr_create.html', context)
 
 
 def murr_update(request, pk):
-    pass
+    title = 'Update'
+    murr = get_object_or_404(Murr, id=pk)
+    form = MurrForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=murr)
+    author = get_author(request.user)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect(reverse('murr_detail', kwargs={
+                'pk': form.instance.pk
+            }))
+    context = {
+        'title': title,
+        'form': form
+    }
+    return render(request, 'Murr_card/murr_create.html', context)
 
 
 def murr_delete(request, pk):
-    pass
-
+    murr = get_object_or_404(Murr, id=pk)
+    murr.delete()
+    return redirect(reverse('murrs_list'))
