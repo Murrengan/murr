@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 from tinymce import HTMLField
 
 User = get_user_model()
@@ -28,11 +29,21 @@ class Murr(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     comment_count = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category)
-    featured = models.BooleanField()
+    featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
 
     def __str__(self):
         return self.title
+
+    def get_update_url(self):
+        return reverse('murr_update', kwargs={
+            'pk': self.id
+        })
+
+    def get_delete_url(self):
+        return reverse('murr_delete', kwargs={
+            'pk': self.id
+        })
 
     # возвращает все комментарии к конкретному мурру,
     # так как в можеле Comment стоит related_name='comments'

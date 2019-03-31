@@ -1,9 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 
-from .forms import CommentForm
-from .models import Murr
+from .forms import CommentForm, MurrForm
+from .models import Murr, Author
 
 
 def murrs_list(requset):
@@ -39,6 +40,7 @@ def murr_detail(request, pk):
             form.instance.user = request.user
             form.instance.post = murr_detail
             form.save()
+            form = CommentForm
     context = {
         'murr_detail': murr_detail,
         'form': form
@@ -50,6 +52,13 @@ def get_all_categories_count():
     # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
     all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
     return all_categories_count
+
+
+def get_author(user):
+    data = Author.objects.filter(user=user)
+    if data.exists():
+        return data[0]
+    return None
 
 
 def search(request):
@@ -65,3 +74,28 @@ def search(request):
         'search_result': queryset
     }
     return render(request, 'Murr_card/search_result.html', context)
+
+
+def murr_create(request):
+    form = MurrForm(request.POST or None, request.FILES or None)
+    author = get_author(request.user)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect(reverse('murr_detail', kwargs={
+                'pk': form.instance.pk
+            }))
+    context = {
+        'form': form
+    }
+    return render(request, 'Murr_card/murr_create.html', context)
+
+
+def murr_update(request, pk):
+    pass
+
+
+def murr_delete(request, pk):
+    pass
+
