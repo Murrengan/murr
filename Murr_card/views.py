@@ -64,11 +64,11 @@ def get_author(user):
 def search(request):
     template = 'Murr_card/search_result.html'
     all_murrs = Murr.objects.all()
-    query = request.GET.get('q').lower()
+    query = request.GET.get('q')
     if query:
         queryset = all_murrs.filter(
-            Q(title__icontains=query) |
-            Q(description__icontains=query)
+            Q(title__icontains=query.lower()) |
+            Q(description__icontains=query.lower())
         ).distinct()
 
     context = {
