@@ -67,8 +67,9 @@ def search(request):
     query = request.GET.get('q')
     if query:
         queryset = all_murrs.filter(
-            Q(title__icontains=query.lower()) |
-            Q(description__icontains=query.lower())
+            # в постгре будет работать через query.lower()?
+            Q(title__icontains=query) |
+            Q(description__icontains=query)
         ).distinct()
 
     context = {
