@@ -55,28 +55,30 @@ def get_all_categories_count():
 
 
 def get_author(user):
-    data = Author.objects.filter(user=user)
-    if data.exists():
-        return data[0]
+    data, created = Author.objects.filter(user=user).get_or_create(user=user)
+    if data:
+        return data #[0]
     return None
 
 
 def search(request):
+    template = 'Murr_card/search_result.html'
     all_murrs = Murr.objects.all()
     query = request.GET.get('q')
     if query:
         queryset = all_murrs.filter(
-            Q(title__contains=query) |
-            Q(description__contains=query)
+            Q(title__icontains=query.lower()) |
+            Q(description__icontains=query.lower())
         ).distinct()
 
     context = {
         'search_result': queryset
     }
-    return render(request, 'Murr_card/search_result.html', context)
+    return render(request, template, context)
 
 
 def murr_create(request):
+    template = 'Murr_card/murr_create.html'
     title = 'Create'
     form = MurrForm(request.POST or None, request.FILES or None)
     author = get_author(request.user)
@@ -91,10 +93,11 @@ def murr_create(request):
         'title': title,
         'form': form
     }
-    return render(request, 'Murr_card/murr_create.html', context)
+    return render(request, template, context)
 
 
 def murr_update(request, pk):
+    template = 'Murr_card/murr_create.html'
     title = 'Update'
     murr = get_object_or_404(Murr, id=pk)
     form = MurrForm(
@@ -113,7 +116,7 @@ def murr_update(request, pk):
         'title': title,
         'form': form
     }
-    return render(request, 'Murr_card/murr_create.html', context)
+    return render(request, template, context)
 
 
 def murr_delete(request, pk):

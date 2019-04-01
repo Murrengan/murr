@@ -43,9 +43,10 @@
 
 {#      <a href="{% url 'murr_update' %}" class="btn btn-primary" role="button" aria-pressed="true">Create Murr</a>#}
 {#      <a href="{% url 'murr_delete' %}" class="btn btn-primary" role="button" aria-pressed="true">Dekete Murr</a>#}
-
-      <a href="{% url 'murr_update' pk=murr_detail.id %}">Udpate</a>
-      <a href="{% url 'murr_delete' pk=murr_detail.id %}">Delete</a>
+    {% if murr_detail.author_id == user.pk %}
+        <a href="{% url 'murr_update' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2" role="button" aria-pressed="true">Udpate&nbsp;&nbsp;<i class="fa fa-pen"></i></a>
+        <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-danger btn-sm mr-2" role="button" aria-pressed="true">Delete&nbsp;&nbsp;<i class="fa fa-times-circle"></i></a>
+    {% endif %}
 
     </div>
   </div>

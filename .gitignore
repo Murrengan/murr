@@ -1,7 +1,6 @@
 .idea/
 __pycache__/
 db.sqlite3
-*/migrations/
 media
 
 
@@ -77,6 +76,7 @@ coverage.xml
 *.mo
 
 # Django stuff:
+
 
 # Flask stuff:
 instance/
