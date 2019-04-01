@@ -2,177 +2,178 @@
 
 {% block content %}
 
-  <body>
+    <body>
 
-  <style>
-    .post {
-      border: 4px double black; /* Параметры границы */
-      background: #fc3; /* Цвет фона */
-      padding: 10px; /* Поля вокруг текста */
+    <style>
+        .post {
+            border: 4px double black; /* Параметры границы */
+            background: #fc3; /* Цвет фона */
+            padding: 10px; /* Поля вокруг текста */
 
-    }
-  </style>
+        }
+    </style>
 
 
-      <!-- Latest Posts -->
-        <div class="container ">
+    <!-- Latest Posts -->
+    <div class="container ">
 
-          <div class="card-columns">
+        <div class="card-columns">
             <!-- post -->
             {% for murr in murrs %}
-              <div class="card">
-                {% if murr.cover %}
-                  <img class="card-img-top" src="{{ murr.cover.url }}" alt="Card image cap">
-                {% endif %}
-                <div class="card-body">
-                  <a href="{% url 'murr_detail' murr.pk %}"><h5 class="card-title">{{ murr.title }}</h5></a>
+                <div class="card p-1 shadow shadow-sm mb-3">
+                    {% if murr.cover %}
+                        <a href="{% url 'murr_detail' murr.pk %}">
+                            <img class="card-img-top img-thumbnail" src="{{ murr.cover.url }}" alt="Card image cap">
+                        </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'murr_detail' murr.pk %}"><h5 class="card-title">{{ murr.title }}</h5></a>
 
-      {% if murr.description %}
-                  <p class="card-text">{{ murr.description }}</p>
-                  {% else %}
-                  <p class="text-muted">Тут должно быть description</p>
-                  {% endif %}
+                        {% if murr.description %}
+                            <p class="card-text">{{ murr.description }}</p>
+                        {% else %}
+                            <p class="text-muted">Тут должно быть description</p>
+                        {% endif %}
 
+                    </div>
                 </div>
-              </div>
             {% endfor %}
-          </div>
-
-
-{#Тут пример отображения карточки с данными#}
-{#          {% for murr in murrs %}#}
-{##}
-{#            <div class="post">#}
-{##}
-{#              {% if murr.cover %}#}
-{#                <div class="post-thumbnail"><a href="{% url 'murr_detail' murr.pk %}"><img#}
-{#                        src="{{ murr.cover.url }}"#}
-{#                        alt="..." class="img-fluid"></a>#}
-{#                </div>#}
-{#              {% endif %}#}
-{##}
-{#              <div class="post-details">#}
-{##}
-{#                <div class="post-meta d-flex justify-content-between">#}
-{#                  <div class="date meta-last"></div>#}
-{##}
-{#                  <div class="category">#}
-{#                    {% for cat in murr.categories.all %}#}
-{#                      <a href="#">#}
-{##}
-{#                        {{ cat }}#}
-{##}
-{#                      </a>#}
-{#                    {% endfor %}#}
-{#                  </div>#}
-{##}
-{#                </div>#}
-{##}
-{##}
-{#                <a href="{% url 'murr_detail' murr.pk %}"><h3 class="h4">{{ murr.title }}</h3></a>#}
-{#                <p class="text-muted">{{ murr.description }}</p>#}
-{##}
-{#                <footer class="post-footer d-flex align-items-center"><a href="#"#}
-{#                                                                         class="author d-flex align-items-center flex-wrap">#}
-{#                  {% if murr.author.profile_picture %}#}
-{#                    <div class="avatar"><img src="{{ murr.author.profile_picture.url }}"#}
-{#                                             width="45px" height="45px" alt="..."#}
-{#                                             class="img-fluid">#}
-{#                    </div>#}
-{#                  {% endif %}#}
-{#                  <div class="title"><span>{{ murr.author.user.username }}</span></div>#}
-{#                </a>#}
-{##}
-{#                  <div class="date"> {{ murr.timestamp|timesince }} назад</div>#}
-{##}
-{#                  <div class="comments meta-last"><i#}
-{#                          class="icon-comment"></i>{{ murr.comment_count }} комментариев#}
-{#                  </div>#}
-{##}
-{#                </footer>#}
-{#              </div>#}
-{##}
-{#            </div>#}
-{#          {% endfor %}#}
-
-
         </div>
-        <!-- Pagination -->
-        <nav aria-label="Page navigation example">
 
-          <ul class="pagination pagination-template d-flex justify-content-center mt-2">
+
+        {#Тут пример отображения карточки с данными#}
+        {#          {% for murr in murrs %}#}
+        {##}
+        {#            <div class="post">#}
+        {##}
+        {#              {% if murr.cover %}#}
+        {#                <div class="post-thumbnail"><a href="{% url 'murr_detail' murr.pk %}"><img#}
+        {#                        src="{{ murr.cover.url }}"#}
+        {#                        alt="..." class="img-fluid"></a>#}
+        {#                </div>#}
+        {#              {% endif %}#}
+        {##}
+        {#              <div class="post-details">#}
+        {##}
+        {#                <div class="post-meta d-flex justify-content-between">#}
+        {#                  <div class="date meta-last"></div>#}
+        {##}
+        {#                  <div class="category">#}
+        {#                    {% for cat in murr.categories.all %}#}
+        {#                      <a href="#">#}
+        {##}
+        {#                        {{ cat }}#}
+        {##}
+        {#                      </a>#}
+        {#                    {% endfor %}#}
+        {#                  </div>#}
+        {##}
+        {#                </div>#}
+        {##}
+        {##}
+        {#                <a href="{% url 'murr_detail' murr.pk %}"><h3 class="h4">{{ murr.title }}</h3></a>#}
+        {#                <p class="text-muted">{{ murr.description }}</p>#}
+        {##}
+        {#                <footer class="post-footer d-flex align-items-center"><a href="#"#}
+        {#                                                                         class="author d-flex align-items-center flex-wrap">#}
+        {#                  {% if murr.author.profile_picture %}#}
+        {#                    <div class="avatar"><img src="{{ murr.author.profile_picture.url }}"#}
+        {#                                             width="45px" height="45px" alt="..."#}
+        {#                                             class="img-fluid">#}
+        {#                    </div>#}
+        {#                  {% endif %}#}
+        {#                  <div class="title"><span>{{ murr.author.user.username }}</span></div>#}
+        {#                </a>#}
+        {##}
+        {#                  <div class="date"> {{ murr.timestamp|timesince }} назад</div>#}
+        {##}
+        {#                  <div class="comments meta-last"><i#}
+        {#                          class="icon-comment"></i>{{ murr.comment_count }} комментариев#}
+        {#                  </div>#}
+        {##}
+        {#                </footer>#}
+        {#              </div>#}
+        {##}
+        {#            </div>#}
+        {#          {% endfor %}#}
+
+
+    </div>
+    <!-- Pagination -->
+    <nav aria-label="Page navigation example">
+
+        <ul class="pagination pagination-template d-flex justify-content-center mt-2">
             {% if murrs.has_previous %}
-              <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.previous_page_number }}"
-                                       class="page-link">Previous</a>
-              </li>
+                <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.previous_page_number }}"
+                                         class="page-link">Previous</a>
+                </li>
             {% endif %}
             <li class="page-item"><a href="#" class="page-link active">{{ murrs.number }}</a></li>
             {% if murrs.has_next %}
-              <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.next_page_number }}"
-                                       class="page-link">Next</a>
-              </li>
-              </ul>
+                <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.next_page_number }}"
+                                         class="page-link">Next</a>
+                </li>
+                </ul>
             {% endif %}
-        </nav>
+    </nav>
 
-        <aside class="row">
+    <aside class="row">
         <!-- Widget [Search Bar Widget]-->
-        <div class="widget search">
-          <header>
-            <h3 class="h6">Найти Мурр</h3>
-          </header>
-          <form action="{% url 'search' %}" class="search-form">
-            <div class="form-group">
-              <input type="text" name="q" placeholder="Что ты хочешь найти?">
-              <button type="submit" class="submit">найти</button>
-            </div>
-          </form>
+        <div class="mx-2 search widget">
+            <header>
+                <h3 class="h6">Найти Мурр</h3>
+            </header>
+            <form action="{% url 'search' %}" class="search-form">
+                <div class="form-group">
+                    <input type="text" name="q" placeholder="Что ты хочешь найти?">
+                    <button type="submit" class="submit">найти</button>
+                </div>
+            </form>
         </div>
 
         <!-- Widget [Latest Posts Widget]        -->
-        <div class="widget latest-posts">
-          <header>
-            <h3 class="h6">Крайние 2 Мурра</h3>
-          </header>
-          <div class="blog-posts">
-            {% for murr in latest %}
-              <a href="#">
-                <div class="item d-flex align-items-center">
-                  {% if murr.cover %}
-                    <div class="image"><img src="{{ murr.cover.url }}" width="100px" height="100px"
-                                            alt="..." class="img-fluid"></div>
-                  {% endif %}
-                  <div class="title"><strong>{{ murr.title }}</strong>
-                    <div class="d-flex align-items-center">
-                      <div class="views">{{ murr.comment_count }} коммента</div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            {% endfor %}
-          </div>
+        <div class="latest-posts widget border border-bottom-0 border-top-0  ml-md-2 mr-md-2  pl-md-2 pr-md-2">
+            <header>
+                <h3 class="h6">Крайние 2 Мурра</h3>
+            </header>
+            <div class="blog-posts">
+                {% for murr in latest %}
+                    <a href="{% url 'murr_detail' murr.pk %}">
+                        <div class="item d-flex align-items-center my-2">
+                            {% if murr.cover %}
+                                <div class="image img-thumbnail mx-md-2">
+                                    <img src="{{ murr.cover.url }}" width="100px" height="100px"
+                                         alt="..." class="img-fluid">
+                                </div>
+                            {% endif %}
+                            <div class="title"><strong>{{ murr.title }}</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="views">{{ murr.comment_count }} коммента</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
 
         <!-- Widget [Categories Widget]-->
-        <div class="widget categories mt-2">
-          <header>
-            <h3 class="h6">Категории</h3>
-          </header>
-          {% for cat in all_categories_count %}
-            <div class="item d-flex justify-content-between"><a
-                    href="#">{{ cat.categories__title }}</a><span>{{ cat.categories__title__count }}</span>
-            </div>
-          {% endfor %}
+        <div class="categories widget ml-md-2 mt-2 ">
+            <header>
+                <h3 class="h6">Категории</h3>
+            </header>
+            {% for cat in all_categories_count %}
+                <div class="item d-flex justify-content-between"><a
+                        href="#">{{ cat.categories__title }}</a><span>{{ cat.categories__title__count }}</span>
+                </div>
+            {% endfor %}
         </div>
 
 
-      </aside>
+    </aside>
 
 
-
-
-
-  </body>
+    </body>
 
 {% endblock %}
 
