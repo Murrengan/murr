@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -30,3 +31,8 @@ def signup(request):
     return render(request, 'registration/singup.html', {
         'form': form
     })
+
+
+@login_required
+def profile(request):
+    return render(request, 'Murren/profile.html')
