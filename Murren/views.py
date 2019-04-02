@@ -32,7 +32,7 @@ def signup(request):
 #             return redirect('login')
 #     else:
 #         form = MurrenRegisterForm()
-#     return render(request, 'registration/singup.html', {
+#     return render(request, 'registration/signup.html', {
 #         'form': form
 #     })
 
