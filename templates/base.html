@@ -57,6 +57,11 @@
     </div>
 
 
+    {% else %}
+      <a href="{% url 'account_signup' %}">Sign Up</a>/
+      <a href="{% url 'account_login' %}">Login</a>/
+    {% endif %}
+
     <div class="container">
 
 

@@ -1,9 +1,12 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from .forms import MurrenRegisterForm
+User = get_user_model()
+
+# from .forms import MurrenRegisterForm
 
 
 def landing(request):
@@ -18,19 +21,20 @@ def count_murren(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = MurrenRegisterForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            form.save()
-            messages.success(request, f'Account created for {username}!')
-            return redirect('login')
-    else:
-        form = MurrenRegisterForm()
-    return render(request, 'registration/singup.html', {
-        'form': form
-    })
+    pass
+#     if request.method == 'POST':
+#         form = MurrenRegisterForm(request.POST)
+#
+#         if form.is_valid():
+#             username = form.cleaned_data.get('username')
+#             form.save()
+#             messages.success(request, f'Account created for {username}!')
+#             return redirect('login')
+#     else:
+#         form = MurrenRegisterForm()
+#     return render(request, 'registration/singup.html', {
+#         'form': form
+#     })
 
 
 @login_required
