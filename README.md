@@ -8,18 +8,23 @@
 
 Креды суперюзера:
 
-admin/admin
+`admin/admin`
 
 После того как скачал к себе в гит проект и хочешь его синхронизировать с основной веткой, когда она изменилась:
-1)добавляем удалённый репозиторий
-git remote add  youre_branch https://github.com/Murrengan/murr
-2)Смотрим появился ли он 
-git remote -v
-3)Синхронизируем с основной веткой на своей машине
-git pull youre_branch master
-4)Сихнронизируем ветку у себя в гите
-git add .
-git push
+
+##### 1. добавляем удалённый репозиторий
+`git remote add  youre_branch https://github.com/Murrengan/murr`
+
+##### 2. Смотрим появился ли он 
+`git remote -v`
+
+##### 3. Синхронизируем с основной веткой на своей машине
+`git pull youre_branch master`
+
+##### 4. Сихнронизируем ветку у себя в гите
+`git add .`
+
+`git push`
 
 
 [Youtube](https://www.youtube.com/murrengan) канал со стримами и разбором кода.
