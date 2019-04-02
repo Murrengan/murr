@@ -21,6 +21,10 @@ urlpatterns = [
 
     path('murrs/', include('Murr_card.urls')),
     path('landing/', landing, name='landing'),
+
+
+
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
