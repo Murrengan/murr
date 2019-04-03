@@ -57,11 +57,12 @@ def get_all_categories_count():
 def get_author(user):
     data, created = Author.objects.filter(user=user).get_or_create(user=user)
     if data:
-        return data #[0]
+        return data
     return None
 
 
 def search(request):
+    queryset = ''
     template = 'Murr_card/search_result.html'
     all_murrs = Murr.objects.all()
     query = request.GET.get('q')

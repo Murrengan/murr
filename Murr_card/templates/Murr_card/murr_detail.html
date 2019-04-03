@@ -44,17 +44,43 @@
 {#      <a href="{% url 'murr_update' %}" class="btn btn-primary" role="button" aria-pressed="true">Create Murr</a>#}
 {#      <a href="{% url 'murr_delete' %}" class="btn btn-primary" role="button" aria-pressed="true">Dekete Murr</a>#}
     {% if murr_detail.author.user_id == request.user.id %}
-        <a href="{% url 'murr_update' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2" role="button" aria-pressed="true">Udpate&nbsp;&nbsp;<i class="fa fa-pen"></i></a>
-        <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-danger btn-sm mr-2" role="button" aria-pressed="true">Delete&nbsp;&nbsp;<i class="fa fa-times-circle"></i></a>
+        <a href="{% url 'murr_update' pk=murr_detail.id %}"
+           class="btn btn-primary btn-sm mr-2"
+           role="button" aria-pressed="true">
+            Изменить&nbsp;&nbsp;
+           <i class="fa fa-pen"></i>
+        </a>
+        <button type="button" class="btn btn-danger btn-sm mr-2"
+           role="button" aria-pressed="true"
+           data-toggle="modal" data-target="#DeleteAlert">
+            Удалить&nbsp;&nbsp;
+           <i class="fa fa-times-circle"></i>
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+              <div class="alert-danger modal-header">
+                <h5 class="modal-title"><i class="fa fa-exclamation"></i> ПЕРДУПЕРДЕНИЙО</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Удаленийо ниабротимо!<br>Ты уверенный!?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">Отменить</button>
+                  <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2" role="button" aria-pressed="true">Подтвердить</a>
+              </div>
+            </div>
+          </div>
+        </div>
     {% endif %}
 
     </div>
   </div>
   {# end detail Murr card #}
-
-
-
-
 
 
   <div class="tesetsetset">
