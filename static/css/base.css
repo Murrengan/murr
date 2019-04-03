@@ -50,7 +50,7 @@
 }
 
 .murr-profile {
-    background: #6CCFF6 url(/static/img/clouds.png) no-repeat right top;
+    background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
     background-size: cover;
     background-position: center 150%;
     min-height: 300px;
