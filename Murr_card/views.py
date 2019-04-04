@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from .forms import CommentForm, MurrForm
-from .models import Murr, Author
+from .models import Murr, Author, MurrView
 
 
 def murrs_list(requset):
@@ -33,12 +33,15 @@ def murrs_list(requset):
 
 def murr_detail(request, pk):
     murr_detail = get_object_or_404(Murr, pk=pk)
+
     form = CommentForm(request.POST or None)
+
+    MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
 
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
-            form.instance.post = murr_detail
+            form.instance.murr = murr_detail
             form.save()
             form = CommentForm
     context = {

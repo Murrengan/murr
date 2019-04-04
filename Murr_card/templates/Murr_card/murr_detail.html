@@ -41,6 +41,12 @@
 
       {{ murr_detail.content | safe }}
 
+       <div class="views">{{ murr_detail.comment_count }} коммента</div>
+       <div class="views">{{ murr_detail.view_count }} просмотров</div>
+
+
+
+
 {#      <a href="{% url 'murr_update' %}" class="btn btn-primary" role="button" aria-pressed="true">Create Murr</a>#}
 {#      <a href="{% url 'murr_delete' %}" class="btn btn-primary" role="button" aria-pressed="true">Dekete Murr</a>#}
     {% if murr_detail.author.user_id == request.user.id %}

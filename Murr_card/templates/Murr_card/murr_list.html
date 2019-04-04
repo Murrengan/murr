@@ -21,7 +21,6 @@
     </style>
 
 
-    <!-- Latest Posts -->
     <div class="container ">
 
         <div class="card-columns">
@@ -42,67 +41,13 @@
                             <p class="text-muted">Тут должно быть description</p>
                         {% endif %}
 
+
                     </div>
                 </div>
             {% endfor %}
         </div>
 
 
-        {#Тут пример отображения карточки с данными#}
-        {#          {% for murr in murrs %}#}
-        {##}
-        {#            <div class="post">#}
-        {##}
-        {#              {% if murr.cover %}#}
-        {#                <div class="post-thumbnail"><a href="{% url 'murr_detail' murr.pk %}"><img#}
-        {#                        src="{{ murr.cover.url }}"#}
-        {#                        alt="..." class="img-fluid"></a>#}
-        {#                </div>#}
-        {#              {% endif %}#}
-        {##}
-        {#              <div class="post-details">#}
-        {##}
-        {#                <div class="post-meta d-flex justify-content-between">#}
-        {#                  <div class="date meta-last"></div>#}
-        {##}
-        {#                  <div class="category">#}
-        {#                    {% for cat in murr.categories.all %}#}
-        {#                      <a href="#">#}
-        {##}
-        {#                        {{ cat }}#}
-        {##}
-        {#                      </a>#}
-        {#                    {% endfor %}#}
-        {#                  </div>#}
-        {##}
-        {#                </div>#}
-        {##}
-        {##}
-        {#                <a href="{% url 'murr_detail' murr.pk %}"><h3 class="h4">{{ murr.title }}</h3></a>#}
-        {#                <p class="text-muted">{{ murr.description }}</p>#}
-        {##}
-        {#                <footer class="post-footer d-flex align-items-center"><a href="#"#}
-        {#                                                                         class="author d-flex align-items-center flex-wrap">#}
-        {#                  {% if murr.author.profile_picture %}#}
-        {#                    <div class="avatar"><img src="{{ murr.author.profile_picture.url }}"#}
-        {#                                             width="45px" height="45px" alt="..."#}
-        {#                                             class="img-fluid">#}
-        {#                    </div>#}
-        {#                  {% endif %}#}
-        {#                  <div class="title"><span>{{ murr.author.user.username }}</span></div>#}
-        {#                </a>#}
-        {##}
-        {#                  <div class="date"> {{ murr.timestamp|timesince }} назад</div>#}
-        {##}
-        {#                  <div class="comments meta-last"><i#}
-        {#                          class="icon-comment"></i>{{ murr.comment_count }} комментариев#}
-        {#                  </div>#}
-        {##}
-        {#                </footer>#}
-        {#              </div>#}
-        {##}
-        {#            </div>#}
-        {#          {% endfor %}#}
 
 
     </div>
@@ -155,7 +100,6 @@
                             {% endif %}
                             <div class="title"><strong>{{ murr.title }}</strong>
                                 <div class="d-flex align-items-center">
-                                    <div class="views">{{ murr.comment_count }} коммента</div>
                                 </div>
                             </div>
                         </div>

@@ -27,7 +27,6 @@ class Murr(models.Model):
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    comment_count = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
@@ -52,12 +51,28 @@ class Murr(models.Model):
     def get_comments(self):
         return self.comments.all().order_by('-timestamp')
 
+    @property
+    def view_count(self):
+        return MurrView.objects.filter(murr=self).count()
+
+    @property
+    def comment_count(self):
+        return Comment.objects.filter(murr=self).count()
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    post = models.ForeignKey(Murr, related_name='comments', on_delete=models.CASCADE)
+    murr = models.ForeignKey(Murr, related_name='comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+
+class MurrView(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    murr = models.ForeignKey(Murr, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
