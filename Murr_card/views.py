@@ -34,11 +34,9 @@ def murrs_list(requset):
 
 def murr_detail(request, pk):
     murr_detail = get_object_or_404(Murr, pk=pk)
-
     form = CommentForm(request.POST or None)
-
-    MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
-
+    if request.user.is_authenticated:
+        MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
