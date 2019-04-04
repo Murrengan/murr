@@ -40,7 +40,8 @@ def murr_detail(request, pk):
             form.instance.user = request.user
             form.instance.post = murr_detail
             form.save()
-            form = CommentForm
+            return redirect('murr_detail', pk=pk)
+            # form = CommentForm
     context = {
         'murr_detail': murr_detail,
         'form': form

@@ -12,7 +12,7 @@
   <link href="{% static "css/breadcrumb.css" %}" rel="stylesheet">
   <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body style="background-color: lightskyblue">
 
 <style>
   .all {
@@ -23,7 +23,10 @@
 <div class="all">
   <div class="murr-profile">
     <div class="container">
-      <h1 class="murren-gun">Murrengan</h1>
+      <h1 class="murren-gun">
+          <img src="/media/default_murren_img.jpg" alt="" width="40px" style="">
+          Murrengan
+      </h1>
 
       <div class="alert murr-path">
         <a href="{% url 'murrs_list' %}">Murrs</a> /
