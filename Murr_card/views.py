@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -43,7 +44,7 @@ def murr_detail(request, pk):
             form.instance.user = request.user
             form.instance.murr = murr_detail
             form.save()
-            form = CommentForm
+            return HttpResponseRedirect(request.path)
     context = {
         'murr_detail': murr_detail,
         'form': form
