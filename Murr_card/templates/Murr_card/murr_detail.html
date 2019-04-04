@@ -8,6 +8,7 @@
       border: 4px double black; /* Параметры границы */
       background: #fc3; /* Цвет фона */
       padding: 10px;
+      margin: 35px 10px;
     }
 
     .detail {
@@ -23,7 +24,7 @@
 
     {# detail Murr card #}
 
-    <div class="detail mt-5">
+    <div class="detail my-3 p-3">
       <h3 class="text-center">{{ murr_detail.title }}</h3>
 
       {% for murr in murr_detail.categories.all %}
@@ -61,13 +62,13 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content ">
               <div class="alert-danger modal-header">
-                <h5 class="modal-title"><i class="fa fa-exclamation"></i> ПЕРДУПЕРДЕНИЙО</h5>
+                <h5 class="modal-title"><i class="fa fa-exclamation"></i> Предупреждение!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                Удаленийо ниабротимо!<br>Ты уверенный!?
+                Удаление ниабротимо!<br>Вы уверены что хотите удалить данный пост!?
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">Отменить</button>
@@ -79,48 +80,50 @@
     {% endif %}
 
     </div>
+
+      <div class="tesetsetset">
+          {% for comment in murr_detail.get_comments %}
+              <div class="media">
+                  <img src="{{ comment.user.author.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
+                       title="ava">
+                  <div class="media-body">
+                      <h5 class="mt-0">{{ comment.user.username }} <span class="text-muted" aria-hidden="true">•</span>
+                          <span class="text-muted font-weight-light"
+                                style="font-size: small;">{{ comment.timestamp| timesince }} назад</span>
+                      </h5>
+                      <p>{{ comment.content | safe }}</p>
+                      <hr>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+
+
+
+
+
+      {% if user.is_authenticated %}
+          <div class="container">
+              <form method="POST">
+                  {% csrf_token %}
+
+                  {{ form }}
+
+                  <div class="form-group my-2">
+                      <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+                  </div>
+              </form>
+          </div>
+
+      {% endif %}
+
   </div>
+
+
   {# end detail Murr card #}
 
 
-  <div class="tesetsetset">
-
-    {% for comment in murr_detail.get_comments %}
 
 
-      <h2>
-        <img src="{{ comment.user.author.profile_picture.url }}" alt="" width="45px" height="45px">
-        {{ comment.user.username }}
-      </h2>
-
-
-
-      <p>{{ comment.timestamp| timesince }} назад</p>
-      <p>{{ comment.content }}</p>
-      <hr>
-
-    {% endfor %}
-
-  </div>
-
-
-
-  {% if user.is_authenticated %}
-
-    <div class="container">
-      <form method="POST">
-        {% csrf_token %}
-
-        {{ form }}
-
-        <div class="form-group">
-
-          <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
-
-        </div>
-
-      </form>
-    </div>
-  {% endif %}
 
 {% endblock %}
