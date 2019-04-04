@@ -168,7 +168,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = 'Murren.CustomMurren'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
@@ -185,3 +184,17 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
+
+# Работа с почтой
+# Для тестировани восстановления пароля на локальной машине без sendgrid
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# # Работаем через sendgrid
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# # тут менять
+# EMAIL_HOST_USER = 'sendgrid_user_name'
+# # и тут менять
+# EMAIL_HOST_PASSWORD = 'sendgrid_password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
