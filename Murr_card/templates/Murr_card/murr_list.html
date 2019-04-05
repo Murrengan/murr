@@ -5,18 +5,6 @@
     <body>
 
     <style>
-        .post {
-            border: 4px double black; /* Параметры границы */
-            background: #fc3; /* Цвет фона */
-            padding: 10px; /* Поля вокруг текста */
-
-        }
-        @media only screen and (max-width: 992px) and (min-width: 576px) {
-            .card-columns {
-                -webkit-column-count: 2;
-                -moz-column-count: 2;
-                column-count: 2;
-            }
         }
     </style>
 
@@ -40,8 +28,7 @@
                         {% else %}
                             <p class="text-muted">Тут должно быть description</p>
                         {% endif %}
-                    <p class="text-muted">{{ murr.timestamp​ }}</p>
-
+                    <p class="text-muted">{{ murr.timestamp }}</p>
 
                     </div>
                 </div>
@@ -72,7 +59,7 @@
 
     <aside class="row">
         <!-- Widget [Search Bar Widget]-->
-        <div class="mx-2 search widget">
+        <div class="col-md mx-2 search widget">
             <header>
                 <h3 class="h6">Найти Мурр</h3>
             </header>
@@ -85,7 +72,7 @@
         </div>
 
         <!-- Widget [Latest Posts Widget]        -->
-        <div class="latest-posts widget border border-bottom-0 border-top-0  ml-md-2 mr-md-2  pl-md-2 pr-md-2">
+        <div class="border border-bottom-0 border-top-0 px-2 col-md-5">
             <header>
                 <h3 class="h6">Крайние 2 Мурра</h3>
             </header>
@@ -110,7 +97,7 @@
         </div>
 
         <!-- Widget [Categories Widget]-->
-        <div class="categories widget ml-md-2 mt-2 ">
+        <div class="categories widget col-md px-2">
             <header>
                 <h3 class="h6">Категории</h3>
             </header>
