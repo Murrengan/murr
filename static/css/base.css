@@ -1,3 +1,18 @@
+@media only screen and (max-width: 992px) and (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+.post {
+    border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+
+}
+
 #showcase {
     background: url("../img/husky.png") top center/cover no-repeat;
     min-height: 450px;
@@ -68,6 +83,21 @@
     color: #4259a4e0;
 }
 
-.btn-add-murr{
-        box-shadow: 0 0 5px 2px #bbaccb;
+.btn-add-murr {
+    box-shadow: 0 0 5px 2px #bbaccb;
 }
+
+.tesetsetset {
+    border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px;
+    margin: 35px 10px;
+}
+
+.detail {
+    border: 4px double black;
+    background: chartreuse;
+    padding: 10px;
+    margin: 10px;
+}
+
