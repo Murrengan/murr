@@ -189,7 +189,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 # Для тестировани восстановления пароля на локальной машине без sendgrid
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# # Работаем через sendgrid
+# Работаем через sendgrid
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.sendgrid.net'
 # # тут менять
