@@ -93,6 +93,8 @@
     background: palegreen; /* Цвет фона */
     padding: 10px;
     margin: 35px 10px;
+    word-break: break-word;
+
 }
 
 .detail {
@@ -101,5 +103,6 @@
     background: khaki;
     padding: 10px;
     margin: 10px;
+    word-break: break-word;
 }
 
