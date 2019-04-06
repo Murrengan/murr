@@ -74,7 +74,7 @@
     {% endif %}
 
     </div>
-
+     {% if murr_detail.get_comments %}
       <div class="tesetsetset">
           {% for comment in murr_detail.get_comments %}
               <div class="media">
@@ -91,6 +91,8 @@
               </div>
           {% endfor %}
       </div>
+     {% endif %}
+
 
 
 
