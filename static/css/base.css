@@ -1,3 +1,18 @@
+@media only screen and (max-width: 992px) and (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+.post {
+    border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+
+}
+
 #showcase {
     background: url("../img/husky.png") top center/cover no-repeat;
     min-height: 450px;
@@ -50,9 +65,9 @@
 }
 
 .murr-profile {
-    background: #6CCFF6 url(/static/img/clouds.png) no-repeat right top;
+    background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
     background-size: cover;
-    background-position: center 150%;
+    background-position: center -500px;
     min-height: 300px;
     background-attachment: fixed;
     box-shadow: 0 1px 11px 0px #5a89cd;
@@ -68,6 +83,21 @@
     color: #4259a4e0;
 }
 
-.btn-add-murr{
-        box-shadow: 0 0 5px 2px #bbaccb;
+.btn-add-murr {
+    box-shadow: 0 0 5px 2px #bbaccb;
 }
+
+.tesetsetset {
+    border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px;
+    margin: 35px 10px;
+}
+
+.detail {
+    border: 4px double black;
+    background: chartreuse;
+    padding: 10px;
+    margin: 10px;
+}
+

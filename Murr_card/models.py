@@ -30,6 +30,14 @@ class Murr(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
+    is_draft = models.BooleanField("Черновик",
+                                   default=False,
+                                   blank=True,
+                                   help_text="Черновики не публикуются")
+    is_public = models.BooleanField("Общедоступен",
+                                    default=True,
+                                    blank=True,
+                                    help_text="Общедоступен или только для авторизованных пользователей")
 
     def __str__(self):
         return self.title

@@ -8,34 +8,41 @@ from .forms import CommentForm, MurrForm
 from .models import Murr, Author, MurrView
 
 
-def murrs_list(requset):
+def murrs_list(request):
     all_categories_count = get_all_categories_count()[0:5]
-    all_murrs = Murr.objects.filter().order_by('-timestamp')
+    all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
+    if request.user.is_authenticated:
+        # my_drafts = False if # моказать усі пости усіх + МОЇ чорновики
+        all_murrs = Murr.objects.filter(is_draft=False).order_by('-timestamp')
     paginator = Paginator(all_murrs, 4)
     page_request_ver = 'page'
-    page = requset.GET.get(page_request_ver)
+    page = request.GET.get(page_request_ver)
     try:
-        paginator_queriset = paginator.page(page)
+        paginator_queryset = paginator.page(page)
     except PageNotAnInteger:
-        paginator_queriset = paginator.page(1)
+        paginator_queryset = paginator.page(1)
     except EmptyPage:
-        paginator_queriset = paginator.page(paginator.num_pages)
+        paginator_queryset = paginator.page(paginator.num_pages)
 
-    latest = Murr.objects.order_by('-timestamp')[0:2]
+    # latest = Murr.objects.order_by('-timestamp')[0:2]
+    latest = all_murrs[0:2]
     context = {
-        'murrs': paginator_queriset,
+        'murrs': paginator_queryset,
         'page_request_ver': page_request_ver,
 
         'all_categories_count': all_categories_count,
         'latest': latest
     }
-    return render(requset, 'Murr_card/murr_list.html', context)
+    return render(request, 'Murr_card/murr_list.html', context)
 
 
 def murr_detail(request, pk):
     murr_detail = get_object_or_404(Murr, pk=pk)
     form = CommentForm(request.POST or None)
-    if request.user.is_authenticated:
+
+    # себя не добавляем в просмотры
+    murr_is_hit(request)
+    if request.user.is_authenticated and request.user.id != murr_detail.author_id:
         MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
     if request.method == 'POST':
         if form.is_valid():
@@ -49,6 +56,10 @@ def murr_detail(request, pk):
     }
     return render(request, 'Murr_card/murr_detail.html', context)
 
+
+def murr_is_hit(request):
+    print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
+    return
 
 def get_all_categories_count():
     # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)

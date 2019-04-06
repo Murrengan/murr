@@ -21,7 +21,7 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title', 'description', 'content', 'categories', 'cover')
+        fields = ('title', 'description', 'content', 'categories', 'cover', 'is_draft', 'is_public')
 
 
 class CommentForm(forms.ModelForm):
