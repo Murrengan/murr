@@ -88,15 +88,17 @@
 }
 
 .tesetsetset {
-    border: 4px double black; /* Параметры границы */
-    background: #fc3; /* Цвет фона */
+    border: 1px solid dimgray; /* Параметры границы */
+    border-radius: .25rem!important;
+    background: palegreen; /* Цвет фона */
     padding: 10px;
     margin: 35px 10px;
 }
 
 .detail {
-    border: 4px double black;
-    background: chartreuse;
+    border: 1px solid dimgray;
+    border-radius: .25rem!important;
+    background: khaki;
     padding: 10px;
     margin: 10px;
 }
