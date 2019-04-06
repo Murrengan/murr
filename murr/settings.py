@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -198,3 +198,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+ACCOUNT_FORMS = {'reset_password': 'Murr_card.forms.MyCustomSetPasswordForm'}
