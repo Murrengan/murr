@@ -11,7 +11,7 @@
 
     <div class="detail my-3 p-3">
       <h3 class="text-center">{{ murr_detail.title }}</h3>
-      Категории:
+
       {% for murr in murr_detail.categories.all %}
         {{ murr }}
       {% endfor %}
@@ -27,11 +27,8 @@
 
       {{ murr_detail.content | safe }}
 
-      <div class="font-weight-light text-muted m-2">
-        <i class="fa fa-comments"> {{ murr_detail.comment_count }} </i>
-        |
-        <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
-      </div>
+       <div class="views">{{ murr_detail.comment_count }} коммента</div>
+       <div class="views">{{ murr_detail.view_count }} просмотров</div>
 
 
 
