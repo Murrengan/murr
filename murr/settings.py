@@ -198,3 +198,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+ACCOUNT_FORMS = {'reset_password': 'Murr_card.forms.MyCustomSetPasswordForm'}

@@ -1,5 +1,7 @@
 from django import forms
 from tinymce import TinyMCE
+from allauth.account.forms import ResetPasswordForm
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Murr, Comment
 
@@ -34,3 +36,16 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content', )
+
+
+class MyCustomSetPasswordForm(ResetPasswordForm):
+
+    email = forms.EmailField(
+        label=_("ДЬКДЬВКПДЛВТПК"),
+        required=True,
+        widget=forms.TextInput(attrs={
+            "type": "email",
+            "size": "30",
+            "placeholder": _("ОТАПУОТПУЫП"),
+        })
+    )
