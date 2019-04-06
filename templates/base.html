@@ -9,9 +9,10 @@
   <meta charset="utf-8">
   <link href="{% static "github.css" %}" rel="stylesheet">
   <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <link href="{% static "css/breadcrumb.css" %}" rel="stylesheet">
   <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+<body style="background-color: lightskyblue">
 
 <style>
   .all {
@@ -22,7 +23,10 @@
 <div class="all">
   <div class="murr-profile">
     <div class="container">
-      <h1 class="murren-gun">Murrengan</h1>
+      <h1 class="murren-gun">
+          <img src="/media/default_murren_img.jpg" alt="" width="40px" style="">
+          Murrengan
+      </h1>
 
       <div class="alert murr-path">
         <a href="{% url 'murrs_list' %}">Murrs</a> /
@@ -43,6 +47,22 @@
           <a href="{% url 'account_login' %}">Login</a>/
         {% endif %}
       </div>
+
+        {#    -- breadcrumb --      #}
+        <div id="cssmenu-container">
+            <div id="cssmenu">
+                <ul>
+                    <li class="active">
+                        <a href="#">Breadcrumbs</a>
+                    </li>
+                    <li><a href="#">Daily UI</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        {#    == breadcrumb ==      #}
 
 
       <form action="{% url 'search' %}" class="search-form">
