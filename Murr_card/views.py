@@ -10,10 +10,12 @@ from .models import Murr, Author, MurrView
 
 def murrs_list(request):
     all_categories_count = get_all_categories_count()[0:5]
+    # для неавторизованных показыать ПУБЛИЧНЫЕ (общедоступные) посты (мурры)
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
     if request.user.is_authenticated:
-        # my_drafts = False if # моказать усі пости усіх + МОЇ чорновики
-        all_murrs = Murr.objects.filter(is_draft=False).order_by('-timestamp')
+        # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
+        all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
+                                        Q(is_draft=False)).order_by('-timestamp')
     paginator = Paginator(all_murrs, 4)
     page_request_ver = 'page'
     page = request.GET.get(page_request_ver)

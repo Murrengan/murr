@@ -37,7 +37,7 @@ class Murr(models.Model):
     is_public = models.BooleanField("Общедоступен",
                                     default=True,
                                     blank=True,
-                                    help_text="Общедоступен или только для авторизованных пользователей")
+                                    help_text="Murr общедоступен или только для авторизованным пользователям")
 
     def __str__(self):
         return self.title
