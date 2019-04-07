@@ -79,7 +79,7 @@
     <div class="container tesetsetset">
       {% for comment in murr_detail.get_comments %}
         <div class="media">
-          <img src="{{ comment.user.murrenprofile.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
+          <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
                title="ava">
           <div class="container media-body">
             <h5 class="mt-0">{{ comment.user.username }} <span class="text-muted" aria-hidden="true">•</span>
@@ -97,7 +97,7 @@
     <!-- Add comment -->
     {% if user.is_authenticated %}
       <div class="container">
-        <form method="POST">
+        <form action="{{ murr_detail.get_absolute_url }}" method="POST" name="comment_form">
           {% csrf_token %}
           {{ form }}
           <div class="form-group my-2">

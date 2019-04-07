@@ -1,8 +1,5 @@
-from allauth.socialaccount.forms import SignupForm
 from django import forms
 from tinymce import TinyMCE
-from allauth.account.forms import ResetPasswordForm, BaseSignupForm
-from django.utils.translation import ugettext_lazy as _
 
 from .models import Murr, Comment
 

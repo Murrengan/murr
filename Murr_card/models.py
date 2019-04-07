@@ -3,8 +3,6 @@ from django.db import models
 from django.urls import reverse
 from tinymce import HTMLField
 
-from Murren.models import MurrenProfile
-
 User = get_user_model()
 
 
@@ -20,7 +18,7 @@ class Murr(models.Model):
     description = models.CharField(max_length=78, blank=True)
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(MurrenProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
@@ -35,6 +33,11 @@ class Murr(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('murr_detail', kwargs={
+            'pk': self.id
+        })
 
     def get_update_url(self):
         return reverse('murr_update', kwargs={
