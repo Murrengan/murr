@@ -67,8 +67,10 @@
 .murr-profile {
     background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
     background-size: cover;
+
     background-position: center -450px;
     min-height: 220px;
+
     background-attachment: fixed;
     box-shadow: 0 1px 11px 0px #5a89cd;
 }
@@ -104,5 +106,6 @@
     padding: 10px;
     margin: 10px;
     word-break: break-word;
+
 }
 

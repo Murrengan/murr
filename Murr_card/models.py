@@ -3,15 +3,9 @@ from django.db import models
 from django.urls import reverse
 from tinymce import HTMLField
 
+from Murren.models import MurrenProfile
+
 User = get_user_model()
-
-
-class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(default='default_murren_img.jpg', upload_to='murren_pics')
-
-    def __str__(self):
-        return self.user.username
 
 
 class Category(models.Model):
@@ -26,7 +20,7 @@ class Murr(models.Model):
     description = models.CharField(max_length=78, blank=True)
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(MurrenProfile, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category, blank=True)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')

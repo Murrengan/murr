@@ -4,14 +4,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
+from Murren.models import MurrenProfile
 from .forms import CommentForm, MurrForm
-from .models import Murr, Author, MurrView
+from .models import Murr, MurrView
 
 
 def murrs_list(request):
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
     if request.user.is_authenticated:
+
         # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
         all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
                                         Q(is_draft=False)).order_by('-timestamp')
@@ -30,7 +32,6 @@ def murrs_list(request):
     context = {
         'murrs': paginator_queryset,
         'page_request_ver': page_request_ver,
-
         'all_categories_count': all_categories_count,
         'latest': latest
     }
@@ -62,6 +63,7 @@ def murr_is_hit(request):
     print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
     return
 
+          
 def get_all_categories_count():
     # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
     all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
@@ -69,7 +71,7 @@ def get_all_categories_count():
 
 
 def get_author(user):
-    data, created = Author.objects.filter(user=user).get_or_create(user=user)
+    data, created = MurrenProfile.objects.filter(user=user).get_or_create(user=user)
     if data:
         return data
     return None

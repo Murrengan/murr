@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -133,7 +133,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'murrs_list'
 
 # LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
 # логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
-LOGIN_URL = 'login'
+LOGIN_URL = 'account_login'
 LOGOUT_REDIRECT_URL = 'murrs_list'
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -198,5 +198,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
-
-ACCOUNT_FORMS = {'reset_password': 'Murr_card.forms.MyCustomSetPasswordForm'}
