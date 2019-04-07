@@ -13,8 +13,10 @@ def murrs_list(request):
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
     if request.user.is_authenticated:
-        # my_drafts = False if # моказать усі пости усіх + МОЇ чорновики
-        all_murrs = Murr.objects.filter(is_draft=False).order_by('-timestamp')
+
+        # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
+        all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
+                                        Q(is_draft=False)).order_by('-timestamp')
     paginator = Paginator(all_murrs, 4)
     page_request_ver = 'page'
     page = request.GET.get(page_request_ver)
@@ -61,7 +63,7 @@ def murr_is_hit(request):
     print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
     return
 
-
+          
 def get_all_categories_count():
     # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
     all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
