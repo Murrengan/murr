@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from Murren.models import MurrenProfile
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 def landing(request):
@@ -9,7 +12,7 @@ def landing(request):
 
 
 def count_murren(request):
-    count = MurrenProfile.objects.count()
+    count = User.objects.count()
     return render(request, 'Murren/count_murren.html', {
         'count': count
     })
@@ -34,5 +37,5 @@ def signup(request):
 
 @login_required
 def profile(request):
-    data = MurrenProfile.objects.get_or_create(user=request.user)[0]
+    data = User.objects.filter(id=request.user.id)
     return render(request, 'Murren/profile.html', {'data': data})
