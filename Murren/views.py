@@ -1,12 +1,7 @@
-from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
-User = get_user_model()
-
-# from .forms import MurrenRegisterForm
+from Murren.models import MurrenProfile
 
 
 def landing(request):
@@ -14,7 +9,7 @@ def landing(request):
 
 
 def count_murren(request):
-    count = User.objects.count()
+    count = MurrenProfile.objects.count()
     return render(request, 'Murren/count_murren.html', {
         'count': count
     })
@@ -39,4 +34,5 @@ def signup(request):
 
 @login_required
 def profile(request):
-    return render(request, 'Murren/profile.html')
+    data = MurrenProfile.objects.get_or_create(user=request.user)[0]
+    return render(request, 'Murren/profile.html', {'data': data})

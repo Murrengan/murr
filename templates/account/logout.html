@@ -5,9 +5,9 @@
 
 
 {% block content %}
-<h1>Sign Out</h1>
+<h1>Выйти из аккаунта</h1>
 
-<p>Are you sure you want to sign out?</p>
+<p>Вы уверены, что хотите выйти?</p>
 
 <form method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}
