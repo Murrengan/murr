@@ -91,8 +91,8 @@
     border: 1px solid dimgray; /* Параметры границы */
     border-radius: .25rem!important;
     background: palegreen; /* Цвет фона */
-    padding: 10px;
-    margin: 35px 10px;
+    padding: 25px;
+    margin: 30px 10px;
     word-break: break-word;
 
 }
@@ -106,3 +106,53 @@
     word-break: break-word;
 }
 
+.bage_draft {
+    position: absolute;
+    top: 25px;
+    border-radius: 0;
+    font-style: italic;
+    color: darkblue;
+}
+
+.gradient-buttons .btn {
+    background-image: linear-gradient(to bottom,
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0.2) 49%,
+    rgba(0,0,0,0.15) 51%,
+    rgba(0,0,0,0.05));
+    background-repeat: repeat-x;
+}
+
+.animate-opacity {
+    animation: opac 0.8s
+}
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.trans {
+    transition: all .8s ease-in-out;
+}
+
+.trans:hover {
+   transform: scale(1.05, 1.05)
+}
+
+
+.media .comment-control {
+  display: none;
+}
+
+.media:hover .comment-control {
+  display: block;
+}
+
+.comments-footer {
+  /*padding: 10px 10px 0 0;*/
+  height: 15px;
+}
