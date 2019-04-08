@@ -1,11 +1,3 @@
-// Установка csrf_token
-(function () {
-    let csrftoken = Cookies.get('csrftoken');
-    $.ajaxSetup({
-        headers: {"X-CSRFToken": csrftoken}
-    });
-})();
-
 // Добавляем плавную прокрутку к элементу
 $('.nav-link, .navbar-brand').click(function() {
   $('.navbar-collapse').collapse('toggle'); // При нажатии на ссылку, меню сворачивается
@@ -16,56 +8,53 @@ $('.nav-link, .navbar-brand').click(function() {
 });
 
 
-// Показать форму комментария
-let openForm = function (id) {
-    $(`#${id}`).show()
-};
-// Скрыить форму комментария
-let closeForm = function (id) {
-    $(`#${id}`).hide()
-};
-// Поставить лайк
-let like = function (id) {
-    $.ajax({
-        url: "http://127.0.0.1:8000/like/",
-        type: "POST",
-        data: {
-            pk: id,
-        },
-        success: (response) => {
-            window.location = response
-        },
-        error: (response) => {
-            console.log("False")
-        }
-    })
-};
-// Подписаться
-let follow = function (id) {
-    $.ajax({
-        url: "http://127.0.0.1:8000/profile/follow/",
-        type: "POST",
-        data: {
-            pk: id,
-        },
-        success: (response) => {
-            window.location = response
-        },
-        error: (response) => {
-            console.log("False")
-        }
-    })
-};
-// обработать форму авторизации с помощью ajax request.
-$(".need_auth").submit(function (e) {
-    e.preventDefault();
-    var url = $(this).attr('action');
-    var data = $(this).serialize();
-    $.post(
-        url,
-        data,
-        function (response) {
-            window.location = response.location;
-        },
-    );
-});
+// Для работы с ajax
+//
+// <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+// Установка csrf_token
+// (function () {
+//     let csrftoken = Cookies.get('csrftoken');
+//     $.ajaxSetup({
+//         headers: {"X-CSRFToken": csrftoken}
+//     });
+// })();
+//
+//
+// // Поставить лайк
+// let comment_for_murr = function (id) {
+//     $.ajax({
+//         url: "murrs/murr_detail/" + id + "/",
+//         type: "POST",
+//         // type: "GET",
+//         data: $("form[name='comment_form']").serialize(),
+//
+//
+//         success: (response) => {
+//             window.location = response
+//         },
+//         error: (response) => {
+//             console.log("False")
+//         }
+//     })
+// };
+//
+//   $("form[name='comment_form']").submit(function (e) {
+//
+//         e.preventDefault();
+//
+//         let data = $(this).serialize();
+//
+//         $.ajax({
+//             url: $(this).attr('action'),
+//             type: "POST",
+//
+//             data,
+//
+//             success: (response) => {
+//                 alert('Комментарий отправлен! +)')
+//             },
+//             error: (response) => {
+//                 console.log("False")
+//             }
+//         })
+//     });

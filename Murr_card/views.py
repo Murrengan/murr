@@ -4,9 +4,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from Murren.models import MurrenProfile
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrView
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 def murrs_list(request):
@@ -43,7 +46,6 @@ def murr_detail(request, pk):
     form = CommentForm(request.POST or None)
 
     # себя не добавляем в просмотры
-    murr_is_hit(request)
     if request.user.is_authenticated and request.user.id != murr_detail.author_id:
         MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
     if request.method == 'POST':
@@ -70,13 +72,6 @@ def get_all_categories_count():
     return all_categories_count
 
 
-def get_author(user):
-    data, created = MurrenProfile.objects.filter(user=user).get_or_create(user=user)
-    if data:
-        return data
-    return None
-
-
 def search(request):
     queryset = ''
     template = 'Murr_card/search_result.html'
@@ -99,7 +94,7 @@ def murr_create(request):
     template = 'Murr_card/murr_create.html'
     title = 'Create'
     form = MurrForm(request.POST or None, request.FILES or None)
-    author = get_author(request.user)
+    author = request.user
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = author
@@ -122,7 +117,7 @@ def murr_update(request, pk):
         request.POST or None,
         request.FILES or None,
         instance=murr)
-    author = get_author(request.user)
+    author = request.user
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = author
