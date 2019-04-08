@@ -4,12 +4,16 @@
 
 
 {% block content %}
-<h2>Это то, что нашлось</h2>
+  {% if search_result %}
+
+    <h2>Это то, что нашлось</h2>
     {% for result in search_result %}
 
-        <a href="{% url 'murr_detail' result.pk %}">{{ result.title }}</a>
-        <br>
+      <a href="{% url 'murr_detail' result.pk %}">{{ result.title }}</a>
+      <br>
     {% endfor %}
-
+    {% else %}
+      <h2>Извините, но по вашему запросу ничего не найдено</h2>
+  {% endif %}
 {% endblock %}
 

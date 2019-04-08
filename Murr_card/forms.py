@@ -10,7 +10,7 @@ class TinyMCEWidget(TinyMCE):
         return False
 
 
-class PostForm(forms.ModelForm):
+class MurrForm(forms.ModelForm):
     content = forms.CharField(
         widget=TinyMCEWidget(
             attrs={'required': False, 'cols': 30, 'rows': 10}
@@ -19,7 +19,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = '__all__'
+        fields = ('title', 'description', 'content', 'categories', 'cover', 'is_draft', 'is_public')
 
 
 class CommentForm(forms.ModelForm):

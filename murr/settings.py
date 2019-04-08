@@ -25,12 +25,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
+    # 3rd party
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'tinymce',
     'crispy_forms',
 
+    # Local
     'Murren.apps.MurrenConfig',
     'Murr_card.apps.MurrCardConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -98,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -122,11 +129,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'murrs_list'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'murrs_list'
+
+# LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
+# логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
+LOGIN_URL = 'account_login'
 LOGOUT_REDIRECT_URL = 'murrs_list'
 
 TINYMCE_DEFAULT_CONFIG = {
-    'height': 360,
-    'width': 1120,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
@@ -154,3 +164,37 @@ TINYMCE_DEFAULT_CONFIG = {
     }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'Murren.CustomMurren'
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+
+# Работа с почтой
+# Для тестировани восстановления пароля на локальной машине без sendgrid
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Работаем через sendgrid
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# # тут менять
+# EMAIL_HOST_USER = 'sendgrid_user_name'
+# # и тут менять
+# EMAIL_HOST_PASSWORD = 'sendgrid_password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True

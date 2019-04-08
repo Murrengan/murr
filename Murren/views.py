@@ -1,8 +1,10 @@
-from django.contrib import messages
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import MurrenRegisterForm
+from .forms import ProfileMurrenForm
+
+User = get_user_model()
 
 
 def landing(request):
@@ -17,16 +19,36 @@ def count_murren(request):
 
 
 def signup(request):
-    if request.method == 'POST':
-        form = MurrenRegisterForm(request.POST)
+    pass
+#     if request.method == 'POST':
+#         form = MurrenRegisterForm(request.POST)
+#
+#         if form.is_valid():
+#             username = form.cleaned_data.get('username')
+#             form.save()
+#             messages.success(request, f'Account created for {username}!')
+#             return redirect('login')
+#     else:
+#         form = MurrenRegisterForm()
+#     return render(request, 'registration/signup.html', {
+#         'form': form
+#     })
 
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            form.save()
-            messages.success(request, f'Account created for {username}!')
-            return redirect('login')
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        # instance = request.user показывает, что работа происходит именно для текущего клиента
+        murren_form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
+        if murren_form.is_valid():
+            murren_form.save()
+            # TODO Добавить отображение messages from django
+            return redirect('profile')
     else:
-        form = MurrenRegisterForm()
-    return render(request, 'registration/singup.html', {
-        'form': form
-    })
+        murren_form = ProfileMurrenForm(instance=request.user)
+
+    context = {
+        'murren_form': murren_form,
+    }
+
+    return render(request, 'Murren/profile.html', context)

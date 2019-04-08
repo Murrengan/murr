@@ -2,19 +2,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from Murren.views import count_murren, signup, landing
+from Murren.views import count_murren, landing, profile
 from murr import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('profile/', profile, name='profile'),
     path('tinymce/', include('tinymce.urls')),
-
     path('', count_murren, name='count_murren'),
-    path('signup/', signup, name='signup'),
     path('murrs/', include('Murr_card.urls')),
-
     path('landing/', landing, name='landing'),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
