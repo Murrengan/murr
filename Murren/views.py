@@ -1,8 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
+from .forms import ProfileMurrenForm
 
 User = get_user_model()
 
@@ -37,5 +37,18 @@ def signup(request):
 
 @login_required
 def profile(request):
-    data = User.objects.filter(id=request.user.id)
-    return render(request, 'Murren/profile.html', {'data': data})
+    if request.method == 'POST':
+        # instance = request.user показывает, что работа происходит именно для текущего клиента
+        murren_form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
+        if murren_form.is_valid():
+            murren_form.save()
+            # TODO Добавить отображение messages from django
+            return redirect('profile')
+    else:
+        murren_form = ProfileMurrenForm(instance=request.user)
+
+    context = {
+        'murren_form': murren_form,
+    }
+
+    return render(request, 'Murren/profile.html', context)
