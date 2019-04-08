@@ -32,7 +32,7 @@
         <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
       </div>
 
-      {% if murr_detail.author.user_id == request.user.id %}
+      {% if murr_detail.author_id == request.user.id %}
         <a href="{% url 'murr_update' pk=murr_detail.id %}"
            class="btn btn-primary btn-sm mr-2"
            role="button" aria-pressed="true">
