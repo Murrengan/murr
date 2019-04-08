@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
 from django.http import HttpResponseRedirect
@@ -6,8 +7,6 @@ from django.urls import reverse
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrView
-from django.contrib.auth import get_user_model
-
 
 User = get_user_model()
 
@@ -74,7 +73,6 @@ def get_all_categories_count():
 
 def search(request):
     queryset = ''
-    template = 'Murr_card/search_result.html'
     all_murrs = Murr.objects.all()
     query = request.GET.get('q')
     if query:
@@ -87,11 +85,10 @@ def search(request):
     context = {
         'search_result': queryset
     }
-    return render(request, template, context)
+    return render(request, 'Murr_card/search_result.html', context)
 
 
 def murr_create(request):
-    template = 'Murr_card/murr_create.html'
     title = 'Create'
     form = MurrForm(request.POST or None, request.FILES or None)
     author = request.user
@@ -106,7 +103,7 @@ def murr_create(request):
         'title': title,
         'form': form
     }
-    return render(request, template, context)
+    return render(request, 'Murr_card/murr_create.html', context)
 
 
 def murr_update(request, pk):
