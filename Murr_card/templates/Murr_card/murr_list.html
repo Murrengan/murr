@@ -2,42 +2,36 @@
 
 {% block content %}
 
-    <body>
-
-    <style>
-        }
-    </style>
-
-
     <div class="container ">
 
         <div class="card-columns">
             <!-- post -->
             {% for murr in murrs %}
-              <div class="card p-1 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
-                {% if murr.is_draft %}
-                  <a href="{% url 'murr_detail' murr.pk %}" class="badge badge-warning bage_draft"> ЧЕРНОВИК </a>
-                {% endif %}
-                    {% if murr.cover %}
-                        <a href="{% url 'murr_detail' murr.pk %}">
-                            <img class="card-img-top img-thumbnail trans" src="{{ murr.cover.url }}" alt="Card image cap">
-                        </a>
+              <div class="card p-2 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
+                <div class="border" style="padding: 5px;box-shadow: 0 0px 5px -2px black;">
+                  <div class="overflow-hidden">
+                    {% if murr.is_draft %}
+                      <a href="{% url 'murr_detail' murr.pk %}" class="badge badge-warning bage_draft"> ЧЕРНОВИК </a>
                     {% endif %}
-                    <div class="card-body">
-                        <a href="{% url 'murr_detail' murr.pk %}"><h5 class="card-title">{{ murr.title }}</h5></a>
-
-                        {% if murr.description %}
-                            <p class="card-text">{{ murr.description }}</p>
-                        {% else %}
-                            <p class="text-muted">Тут должно быть description</p>
-                        {% endif %}
-
-
-                    <p class="text-muted">{{ murr.timestamp| timesince }}</p>
-
-
-                    </div>
+                    {% if murr.cover %}
+                      <a href="{% url 'murr_detail' murr.pk %}">
+                        <img class="card-img-top trans" src="{{ murr.cover.url }}" alt="murr cover" title="{{ murr.title }}">
+                      </a>
+                    {% endif %}
+                  </div>
                 </div>
+
+                <div class="card-body">
+                  <a href="{% url 'murr_detail' murr.pk %}"><h5 class="card-title">{{ murr.title }}</h5></a>
+                  {% if murr.description %}
+                    <p class="card-text">{{ murr.description }}</p>
+                  {% else %}
+                    <p class="text-muted">Тут должно быть description</p>
+                  {% endif %}
+                  <p class="text-muted">{{ murr.timestamp| timesince }}</p>
+                </div>
+
+              </div>
             {% endfor %}
         </div>
 
@@ -116,9 +110,6 @@
 
 
     </aside>
-
-
-    </body>
 
 {% endblock %}
 

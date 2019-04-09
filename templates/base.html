@@ -10,7 +10,11 @@
 {#  <link href="{% static "github.css" %}" rel="stylesheet">#}
   <link href="{% static "css/base.css" %}" rel="stylesheet">
   <link href="{% static "css/breadcrumb.css" %}" rel="stylesheet">
-  <title>{% block title %}{% endblock %}</title>
+
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.ico' %}">
+
+  <title>{% block title %}Murrengan{% endblock %}</title>
+
 </head>
 <body style="background-color: lightskyblue">
 
@@ -34,9 +38,8 @@
 
 
         {% if user.is_authenticated %}
-          {#      <a href="{% url 'password_change' %}">Change password</a>/#}
           <a href="{% url 'profile' %}">Profile</a> /
-          <a href="{% url 'logout' %}">Logout</a> /
+          <a href="{% url 'account_logout' %}">Logout</a> /
           <strong class="offset-3">You are logged as {{ user.username }}</strong>
           <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mx-1" role="button"
              aria-pressed="true">
@@ -78,12 +81,6 @@
     </div>
   </div>
 
-
-  {#    {% else %}#}
-  {#      <a href="{% url 'account_signup' %}">Sign Up</a>/#}
-  {#      <a href="{% url 'account_login' %}">Login</a>/#}
-  {#    {% endif %}#}
-
   <div class="container">
 
 
@@ -119,7 +116,6 @@
 {#  <script type="text/javascript" src="{% static 'MDB/js/bootstrap.min.js' %}"></script>#}
 {#  <!-- MDB core JavaScript -->#}
 {#  <script type="text/javascript" src="{% static 'MDB/js/mdb.min.js' %}"></script>#}
-{##}
 {#  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>#}
 {#{% endblock script %}#}
 
