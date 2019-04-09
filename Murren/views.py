@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -43,6 +44,7 @@ def profile(request):
         if murren_form.is_valid():
             murren_form.save()
             # TODO Добавить отображение messages from django
+            messages.success(request, f'Твой профайл успешно изменен')
             return redirect('profile')
     else:
         murren_form = ProfileMurrenForm(instance=request.user)

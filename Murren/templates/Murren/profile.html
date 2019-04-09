@@ -3,20 +3,25 @@
 
 {% block content %}
 
-  <h1>{{ user.murren_name }}</h1>
-  <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px">
+    {% if user.murren_name is not None %}
+    <h1>{{ user.murren_name }}</h1>
+    {% else %}
+    <h1>{{ user.username }}</h1>
+    {% endif %}
 
-<div class="container">
+    <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px">
 
-  <h2 class="text-center">Профайл</h2>
+    <div class="container">
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+        <h2 class="text-center">Профайл</h2>
 
-    {{ murren_form|crispy }}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-    <button class="btn btn-success" type="submit">Изменить</button>
-  </form>
+            {{ murren_form|crispy }}
 
-</div>
+            <button class="btn btn-success" type="submit">Изменить</button>
+        </form>
+
+    </div>
 {% endblock %}
