@@ -4,26 +4,28 @@
 <head>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta charset="utf-8">
-  <link href="{% static "github.css" %}" rel="stylesheet">
+{#  <link href="{% static "github.css" %}" rel="stylesheet">#}
   <link href="{% static "css/base.css" %}" rel="stylesheet">
   <link href="{% static "css/breadcrumb.css" %}" rel="stylesheet">
-
-  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
-
-  <title>{% block title %}Murrengan{% endblock %}</title>
-
+  <title>{% block title %}{% endblock %}</title>
 </head>
 <body style="background-color: lightskyblue">
 
+<style>
+  .all {
+    background-color: #6CCFF6;
+  }
+</style>
 
+<div class="all gradient-buttons">
   <div class="murr-profile">
     <div class="container">
-      <h1 class="murren-gun">
-          <img src="/media/default_murren_img.jpg" alt="" width="40px" style="">
-          Murrengan
+      <h1 class="murren-gun animate-opacity">
+        <img src="/media/default_murren_img.jpg" alt="" width="40px">
+        Murrengan
       </h1>
 
       <div class="alert murr-path">
@@ -45,27 +47,29 @@
         {% endif %}
       </div>
 
-        {#    -- breadcrumb --      #}
-        <div id="cssmenu-container">
-            <div id="cssmenu">
-                <ul>
-                    <li class="active">
-                        <a href="#">Breadcrumbs</a>
-                    </li>
-                    <li><a href="#">Daily UI</a></li>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#"><i class="fa fa-home"></i></a></li>
-                </ul>
-            </div>
+      {#    -- breadcrumb --      #}
+      <div id="cssmenu-container" class="mb-1">
+        <div id="cssmenu">
+          <ul>
+            <li class="active">
+              <a href="#">Breadcrumbs</a>
+            </li>
+            <li><a href="#">Daily UI</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#"><i class="fa fa-home"></i></a></li>
+          </ul>
         </div>
-        {#    == breadcrumb ==      #}
+      </div>
+      {#    == breadcrumb ==      #}
 
 
       <form action="{% url 'search' %}" class="search-form">
-        <div class="form-group">
-          <input type="text" name="q" size="40" placeholder=" Что ты хочешь найти?">
-          <button type="submit" class="btn-dark btn-sm submit"><i class="fa fa-search"></i> найти</button>
+        <div class="form-group input-group">
+          <div class="input-group-append">
+            <input type="text" name="q" size="40" placeholder=" Что ты хочешь найти?">
+            <button type="submit" class="btn btn-dark btn-sm submit"><i class="fa fa-search" title="найти"></i></button>
+          </div>
         </div>
       </form>
 
@@ -82,6 +86,8 @@
   </div>
 
 
+</div>
+
 <script src="{% static "highlight.pack.js" %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -95,4 +101,18 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
+
+{% csrf_token %}
+{#{% block script %}#}
+{#  <script type="text/javascript" src="{% static '/js/jquery-3.3.1.min.js' %}"></script>#}
+{#  <script type="text/javascript" src="{% static 'js/js.cookie.min.js' %}"></script>#}
+{#  <!-- Bootstrap tooltips -->#}
+{#  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>#}
+{#  <!-- Bootstrap core JavaScript -->#}
+{#  <script type="text/javascript" src="{% static 'MDB/js/bootstrap.min.js' %}"></script>#}
+{#  <!-- MDB core JavaScript -->#}
+{#  <script type="text/javascript" src="{% static 'MDB/js/mdb.min.js' %}"></script>#}
+{#  <script type="text/javascript" src="{% static 'js/script.js' %}"></script>#}
+{#{% endblock script %}#}
+
 </html>

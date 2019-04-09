@@ -4,20 +4,18 @@
 
     <body>
 
-    <style>
-        }
-    </style>
-
-
     <div class="container ">
 
         <div class="card-columns">
             <!-- post -->
             {% for murr in murrs %}
-                <div class="card p-1 shadow shadow-sm mb-3">
+              <div class="card p-1 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
+                {% if murr.is_draft %}
+                  <a href="{% url 'murr_detail' murr.pk %}" class="badge badge-warning bage_draft"> ЧЕРНОВИК </a>
+                {% endif %}
                     {% if murr.cover %}
                         <a href="{% url 'murr_detail' murr.pk %}">
-                            <img class="card-img-top img-thumbnail" src="{{ murr.cover.url }}" alt="Card image cap">
+                            <img class="card-img-top img-thumbnail trans" src="{{ murr.cover.url }}" alt="Card image cap">
                         </a>
                     {% endif %}
                     <div class="card-body">
