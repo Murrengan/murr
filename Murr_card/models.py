@@ -65,6 +65,7 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(self.cover.path)

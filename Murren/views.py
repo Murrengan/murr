@@ -44,6 +44,7 @@ def profile(request):
         if murren_form.is_valid():
             murren_form.save()
             # TODO Добавить отображение messages from django
+
             messages.success(request, f'Твой профайл успешно изменен')
             return redirect('profile')
     else:

@@ -6,7 +6,11 @@
 
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 
-Разработка через develop бранч - будь внимателен!
+
+Проект разрабатывается на фреймворке Django. Официальная <a href="https://docs.djangoproject.com">документация</a> .
+
+Разработка проекта осуществляется через ветку develop - будь внимателен!
+
 
 Установка:
 
@@ -14,16 +18,17 @@
 
 `git clone https://github.com/Murrengan/murr.git`
 
-##### 2. Применяешь миграции:
+
+##### 2. Устанавливаешь зависимости:
+
+`pip install -r requirements.txt`
+
+
+##### 3. Применяешь миграции:
 
 `python manage.py makemigrations Murren Murr_card`
 
 `python manage.py migrate`
-
-
-##### 3. Устанавливаешь зависимости:
-
-`pip install -r requirements.txt`
 
 
 ##### 4. Запускаешь сервер:

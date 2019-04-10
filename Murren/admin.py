@@ -9,7 +9,9 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomMurrenCreationForm
     form = CustomMurrenChangeForm
     model = CustomMurren
+
     list_display = ['email', 'username']
+
 
 
 admin.site.register(CustomMurren, CustomUserAdmin)
