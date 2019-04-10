@@ -61,7 +61,7 @@ def murr_detail(request, pk):
 
 
 def murr_is_hit(request):
-    print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
+    # print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
     return
 
           
