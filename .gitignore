@@ -276,3 +276,4 @@ fabric.properties
 # Pyre type checker
 
 # End of https://www.gitignore.io/api/python,django,pycharm
+/Murr_card/templates/Murr_card/tmp-test.html

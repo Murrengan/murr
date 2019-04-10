@@ -3,7 +3,6 @@
 
 {% block content %}
 
-
     <div class="container">
         <h2 class="text-center">Детали Мурра</h2>
 
@@ -23,7 +22,9 @@
                 <img src="{{ murr_detail.image.url }}" alt="">
             {% endif %}
 
-            {{ murr_detail.content | safe }}
+            <div class="container-fluid overflow-hidden">
+                {{ murr_detail.content | safe }}
+            </div>
 
             <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
                 <i class="fa fa-comments"> {{ murr_detail.comment_count }} </i>
@@ -44,7 +45,6 @@
                     Удалить&nbsp;&nbsp;
                     <i class="fa fa-times-circle"></i>
                 </button>
-                <!-- Modal Popup -->
                 <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle"
                      aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -69,59 +69,65 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal Popup -->
-
             {% endif %}
 
         </div>
+        {% if murr_detail.get_comments %}
+            <div class="tesetsetset">
+                {% for comment in murr_detail.get_comments %}
+                    <div class="media mb-2 pb-2" style="border-bottom: solid 1px darkkhaki;border-width: thin;">
+                        <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-3"
+                             title="ava">
+                        <div class="media-body">
+                            <h6 class="mt-0">{{ comment.user.username }} <span class="text-muted"
+                                                                               aria-hidden="true">•</span>
+                                <span class="text-muted font-weight-light"
+                                      style="font-size: small;">{{ comment.timestamp| timesince }} назад</span>
+                            </h6>
+                            <p>{{ comment.content | safe }}</p>
+                            <div class="clearfix comments-footer d-flex">
+                                <div class="comment-control small">
+                                    <a rel="" href="#"><span class="fa fa-reply"></span> ответить</a>
+                                    <div class="btn-group dropdown dropdown-events">
+                                        <button type="button" class="btn-xs" data-object-id="18050334"
+                                                data-media-id="18"><span class="fa fa-exclamation-triangle"></span><span
+                                                class="text"> пожаловаться</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-        <!-- Comments -->
-        <div class="container tesetsetset">
-            {% for comment in murr_detail.get_comments %}
-                <div class="media">
-                    <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
-                         title="ava">
-                    <div class="container media-body">
 
-                        <h5 class="mt-0">
-
-
-
-                            {% if  comment.user.murren_name is not None %}
+                                {% if  comment.user.murren_name is not None %}
                                 <h1>{{ comment.user.murren_name }}</h1>
                             {% else %}
                                 <h1>{{ comment.user.username }}</h1>
                             {% endif %}
 
 
-                            <span class="text-muted" aria-hidden="true">•</span>
-
-
-                            <span class="text-muted font-weight-light"
-                                  style="font-size: small;">{{ comment.timestamp| timesince }} назад</span>
-                        </h5>
-                        <p>{{ comment.content | safe }}</p>
-                        <hr>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <!-- Comments -->
-
-        <!-- Add comment -->
         {% if user.is_authenticated %}
             <div class="container">
-                <form action="{{ murr_detail.get_absolute_url }}" method="POST" name="comment_form">
+                <form method="POST">
                     {% csrf_token %}
+
                     {{ form }}
+
                     <div class="form-group my-2">
                         <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
                     </div>
                 </form>
             </div>
+
         {% endif %}
-        <!-- Add comment -->
 
     </div>
+
+
+    {# end detail Murr card #}
 
 {% endblock %}
