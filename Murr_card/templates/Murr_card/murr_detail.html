@@ -3,107 +3,125 @@
 
 {% block content %}
 
-  <div class="container">
-    <h2 class="text-center">Детали Мурра</h2>
 
-    <div class="detail my-3 p-3">
-      <h3 class="text-center">{{ murr_detail.title }}</h3>
-      Категории:
-      {% for murr in murr_detail.categories.all %}
-        {{ murr }}
-      {% endfor %}
-      <br>
+    <div class="container">
+        <h2 class="text-center">Детали Мурра</h2>
 
-      <h2>
-        <img src="{{ murr_detail.author.profile_picture.url }}" alt="" width="45px" height="45px">
-        {{ murr_detail.author.user.username }}
-      </h2>
-      {% if murr_detail.image %}
-        <img src="{{ murr_detail.image.url }}" alt="">
-      {% endif %}
+        <div class="detail my-3 p-3">
+            <h3 class="text-center">{{ murr_detail.title }}</h3>
+            Категории:
+            {% for murr in murr_detail.categories.all %}
+                {{ murr }}
+            {% endfor %}
+            <br>
 
-      {{ murr_detail.content | safe }}
+            <h2>
+                <img src="{{ murr_detail.author.profile_picture.url }}" alt="" width="45px" height="45px">
+                {{ murr_detail.author.user.username }}
+            </h2>
+            {% if murr_detail.image %}
+                <img src="{{ murr_detail.image.url }}" alt="">
+            {% endif %}
 
-      <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
-        <i class="fa fa-comments"> {{ murr_detail.comment_count }} </i>
-        |
-        <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
-      </div>
+            {{ murr_detail.content | safe }}
 
-      {% if murr_detail.author_id == request.user.id %}
-        <a href="{% url 'murr_update' pk=murr_detail.id %}"
-           class="btn btn-primary btn-sm mr-2"
-           role="button" aria-pressed="true">
-          Изменить&nbsp;&nbsp;
-          <i class="fa fa-pen"></i>
-        </a>
-        <button type="button" class="btn btn-danger btn-sm mr-2"
-                role="button" aria-pressed="true"
-                data-toggle="modal" data-target="#DeleteAlert">
-          Удалить&nbsp;&nbsp;
-          <i class="fa fa-times-circle"></i>
-        </button>
-        <!-- Modal Popup -->
-        <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle"
-             aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content ">
-              <div class="alert-danger modal-header">
-                <h5 class="modal-title"><i class="fa fa-exclamation"></i> Предупреждение!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Удаление ниабротимо!<br>Вы уверены что хотите удалить данный Мурр!?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">Отменить</button>
-                <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2" role="button"
-                   aria-pressed="true">Подтвердить</a>
-              </div>
+            <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
+                <i class="fa fa-comments"> {{ murr_detail.comment_count }} </i>
+                |
+                <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
             </div>
-          </div>
-        </div>
-        <!-- Modal Popup -->
 
-      {% endif %}
+            {% if murr_detail.author_id == request.user.id %}
+                <a href="{% url 'murr_update' pk=murr_detail.id %}"
+                   class="btn btn-primary btn-sm mr-2"
+                   role="button" aria-pressed="true">
+                    Изменить&nbsp;&nbsp;
+                    <i class="fa fa-pen"></i>
+                </a>
+                <button type="button" class="btn btn-danger btn-sm mr-2"
+                        role="button" aria-pressed="true"
+                        data-toggle="modal" data-target="#DeleteAlert">
+                    Удалить&nbsp;&nbsp;
+                    <i class="fa fa-times-circle"></i>
+                </button>
+                <!-- Modal Popup -->
+                <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content ">
+                            <div class="alert-danger modal-header">
+                                <h5 class="modal-title"><i class="fa fa-exclamation"></i> Предупреждение!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Удаление ниабротимо!<br>Вы уверены что хотите удалить данный Мурр!?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
+                                    Отменить
+                                </button>
+                                <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2"
+                                   role="button"
+                                   aria-pressed="true">Подтвердить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Popup -->
+
+            {% endif %}
+
+        </div>
+
+        <!-- Comments -->
+        <div class="container tesetsetset">
+            {% for comment in murr_detail.get_comments %}
+                <div class="media">
+                    <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
+                         title="ava">
+                    <div class="container media-body">
+
+                        <h5 class="mt-0">
+
+
+
+                            {% if  comment.user.murren_name is not None %}
+                                <h1>{{ comment.user.murren_name }}</h1>
+                            {% else %}
+                                <h1>{{ comment.user.username }}</h1>
+                            {% endif %}
+
+
+                            <span class="text-muted" aria-hidden="true">•</span>
+
+
+                            <span class="text-muted font-weight-light"
+                                  style="font-size: small;">{{ comment.timestamp| timesince }} назад</span>
+                        </h5>
+                        <p>{{ comment.content | safe }}</p>
+                        <hr>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Comments -->
+
+        <!-- Add comment -->
+        {% if user.is_authenticated %}
+            <div class="container">
+                <form action="{{ murr_detail.get_absolute_url }}" method="POST" name="comment_form">
+                    {% csrf_token %}
+                    {{ form }}
+                    <div class="form-group my-2">
+                        <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+        <!-- Add comment -->
 
     </div>
-
-    <!-- Comments -->
-    <div class="container tesetsetset">
-      {% for comment in murr_detail.get_comments %}
-        <div class="media">
-          <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-2"
-               title="ava">
-          <div class="container media-body">
-            <h5 class="mt-0">{{ comment.user.username }} <span class="text-muted" aria-hidden="true">•</span>
-              <span class="text-muted font-weight-light"
-                    style="font-size: small;">{{ comment.timestamp| timesince }} назад</span>
-            </h5>
-            <p>{{ comment.content | safe }}</p>
-            <hr>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-    <!-- Comments -->
-
-    <!-- Add comment -->
-    {% if user.is_authenticated %}
-      <div class="container">
-        <form action="{{ murr_detail.get_absolute_url }}" method="POST" name="comment_form">
-          {% csrf_token %}
-          {{ form }}
-          <div class="form-group my-2">
-            <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
-          </div>
-        </form>
-      </div>
-    {% endif %}
-    <!-- Add comment -->
-
-  </div>
 
 {% endblock %}

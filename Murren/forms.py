@@ -23,7 +23,9 @@ class ProfileMurrenForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('profile_picture', 'murren_name')
+
+        fields = ('profile_picture', 'murren_name', 'email')
+
 
 
 # from django import forms
