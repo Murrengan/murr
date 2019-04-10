@@ -2,16 +2,17 @@
 
 {% block content %}
 
-    <h2>Homepage</h2>
-    <p>Welcome to Murrengan,
+    <h2>Стартовая страничка</h2>
+
+    <p>Добро пожаловать в Мурренган,
         {% if user.is_authenticated %}
-            {{ user.username }}{% else %}visitor{% endif %}!</p>
-<p><strong>Total user registered: </strong>{{ count }}</p>
+            {% if user.murren_name is not None %}
+                <strong class="">{{ user.murren_name }}</strong>!
+            {% else %}
+                <strong class="">{{ user.username }}!</strong>
+            {% endif %}
+        {% else %}братан!{% endif %}
+    </p>
 
-<div class="parent card-img img-thumbnail">
-    <div class="child">
-        <a href="/murrs/murr_detail/4"></a>
-    </div>
-</div>
-
+    <p><strong>Всего зарегистрировано Мурренов: </strong>{{ count }}</p>
 {% endblock %}

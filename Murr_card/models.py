@@ -1,3 +1,4 @@
+from PIL import Image
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -63,6 +64,16 @@ class Murr(models.Model):
     @property
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
+
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.cover.path)
+
+        if img.height > 1000 or img.width > 1000:
+            output_size = (1000, 1000)
+            img.thumbnail(output_size)
+            img.save(self.cover.path)
 
 
 class Comment(models.Model):
