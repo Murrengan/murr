@@ -77,7 +77,7 @@
             <div class="tesetsetset">
                 {% for comment in murr_detail.get_comments %}
                     <div class="media mb-2 pb-2" style="border-bottom: solid 1px darkkhaki;border-width: thin;">
-                        <img src="{{ comment.user.author.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-3"
+                        <img src="{{ comment.user.profile_picture.url }}" alt="" width="32px" class="mt-1 mr-3"
                              title="ava">
                         <div class="media-body">
                             <h6 class="mt-0">{{ comment.user.username }} <span class="text-muted"
