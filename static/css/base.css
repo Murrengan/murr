@@ -175,7 +175,6 @@
 .child {
     height: 100%;
     width: 100%;
-    background-image: url("/media/murren_pics/zzz.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     -webkit-transition: all .5s;

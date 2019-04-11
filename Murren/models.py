@@ -9,10 +9,8 @@ class CustomMurren(AbstractUser):
 
     murren_name = models.CharField(max_length=30, blank=True, null=True, verbose_name='Ник Муррена')
 
-
     def __str__(self):
         return self.email
-
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
