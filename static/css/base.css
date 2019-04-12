@@ -189,6 +189,6 @@
 }
 
 /* crispy form - нет обязательной звездочки */
-.asteriskField {
+.col-form-label {
     display: none;
 }

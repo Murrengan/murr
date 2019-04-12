@@ -19,22 +19,11 @@ def count_murren(request):
     })
 
 
-def signup(request):
-    pass
-#     if request.method == 'POST':
-#         form = MurrenRegisterForm(request.POST)
-#
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             form.save()
-#             messages.success(request, f'Account created for {username}!')
-#             return redirect('login')
-#     else:
-#         form = MurrenRegisterForm()
-#     return render(request, 'registration/signup.html', {
-#         'form': form
-#     })
-
+def murren_profile(request, username):
+    murren_data = User.objects.get(username=username)
+    return render(request, 'Murren/murren_profile.html', {
+        'murren_data': murren_data
+    })
 
 @login_required
 def profile(request):
