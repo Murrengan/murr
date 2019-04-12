@@ -185,6 +185,10 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
+ACCOUNT_FORMS = {
+'signup': 'Murren.forms.CustomSignupForm',
+}
+
 # Работа с почтой
 # Для тестировани восстановления пароля на локальной машине без sendgrid
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
