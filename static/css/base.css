@@ -163,7 +163,7 @@
 
 
 /* crispy form - нет обязательной звездочки */
-.asteriskField {
+.col-form-label {
     display: none;
 }
 
@@ -173,3 +173,4 @@
     background-color: #ced4da;
     box-shadow: 0 0 3px 0px black;
 }
+
