@@ -65,15 +65,15 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        img = Image.open(self.cover.path)
+        if self.cover:
+            img = Image.open(self.cover.path)
 
-        if img.height > 1000 or img.width > 1000:
-            output_size = (1000, 1000)
-            img.thumbnail(output_size)
-            img.save(self.cover.path)
+            if img.height > 1000 or img.width > 1000:
+                output_size = (1000, 1000)
+                img.thumbnail(output_size)
+                img.save(self.cover.path)
 
 
 class Comment(models.Model):

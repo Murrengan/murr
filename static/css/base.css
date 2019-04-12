@@ -67,8 +67,10 @@
 .murr-profile {
     background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
     background-size: cover;
+
     background-position: center -500px;
-    min-height: 250px;
+    min-height: 170px;
+
     background-attachment: fixed;
     box-shadow: 0 1px 11px 0px #5a89cd;
 }
@@ -91,8 +93,8 @@
     border: 1px solid dimgray; /* Параметры границы */
     border-radius: .25rem!important;
     background: palegreen; /* Цвет фона */
-    padding: 25px;
-    margin: 30px 10px;
+    padding: 10px;
+    margin: 35px 10px;
     word-break: break-word;
 
 }
@@ -109,7 +111,7 @@
 
 .bage_draft {
     position: absolute;
-    top: 25px;
+    /*top: 25px;*/
     border-radius: 0 5px 5px 0;
     font-style: italic;
     color: darkblue;
@@ -159,35 +161,6 @@
   height: 15px;
 }
 
-/* Image zoom on hover + Overlay colour */
-.parent {
-    width: 45%;
-    margin: 20px;
-    height: 300px;
-    border: 1px solid blue;
-    overflow: hidden;
-    position: relative;
-    float: left;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.child {
-    height: 100%;
-    width: 100%;
-    background-image: url("/media/murren_pics/zzz.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -o-transition: all .5s;
-    transition: all .5s;
-}
-
-.parent:hover .child,
-.parent:focus .child {
-  transform: scale(1.2);
-}
 
 /* crispy form - нет обязательной звездочки */
 .asteriskField {
