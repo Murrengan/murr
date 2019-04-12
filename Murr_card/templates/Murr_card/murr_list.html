@@ -2,24 +2,28 @@
 
 {% block content %}
 
-    <div class="container ">
+    <div class="container py-1">
 
         <div class="card-columns">
             <!-- post -->
             {% for murr in murrs %}
               <div class="card p-2 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
-                <div class="border" style="padding: 5px;box-shadow: 0 0px 5px -2px black;">
-                  <div class="overflow-hidden">
-                    {% if murr.is_draft %}
-                      <a href="{% url 'murr_detail' murr.pk %}" class="badge badge-warning bage_draft"> ЧЕРНОВИК </a>
-                    {% endif %}
-                    {% if murr.cover %}
+              <div class="p-3 mb-1">
+                Featured
+              </div>
+                {% if murr.is_draft %}
+                  <a href="{% url 'murr_detail' murr.pk %}" class="badge badge-warning bage_draft mt-4"> ЧЕРНОВИК </a>
+                {% endif %}
+                {% if murr.cover %}
+                  <div class="img-thumbnail" style="box-shadow: 0 0px 5px -2px black;">
+                    <div style="overflow: hidden !important;">
                       <a href="{% url 'murr_detail' murr.pk %}">
-                        <img class="card-img-top trans" src="{{ murr.cover.url }}" alt="murr cover" title="{{ murr.title }}">
+                        <img class="card-img-top trans" src="{{ murr.cover.url }}" alt="murr cover"
+                             title="{{ murr.title }}">
                       </a>
-                    {% endif %}
+                    </div>
                   </div>
-                </div>
+                {% endif %}
 
                 <div class="card-body">
                   <a href="{% url 'murr_detail' murr.pk %}"><h5 class="card-title">{{ murr.title }}</h5></a>

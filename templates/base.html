@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="utf-8">
-    <link href="{% static "github.css" %}" rel="stylesheet">
+{#    <link href="{% static "github.css" %}" rel="stylesheet">#}
     <link href="{% static "css/base.css" %}" rel="stylesheet">
     <link href="{% static "css/breadcrumb.css" %}" rel="stylesheet">
 
@@ -19,51 +19,52 @@
 <body style="background-color: lightskyblue">
 
 
-<div class="murr-profile">
+<div class="all gradient-buttons">
+  <div class="murr-profile">
     <div class="container">
-        <h1 class="murren-gun">
-            <img src="/media/default_murren_img.jpg" alt="" width="40px" style="">
-            Murrengan
-        </h1>
+      <h1 class="murren-gun animate-opacity">
+        <img src="/media/default_murren_img.jpg" alt="" width="40px">
+        Murrengan
+      </h1>
+      <div class="alert murr-path">
+        <a href="{% url 'murrs_list' %}">Murrs</a> /
+        <a href="{% url 'count_murren' %}">Murrens count</a> /
 
-        <div class="alert murr-path">
-            <a href="{% url 'murrs_list' %}">Murrs</a> /
-            <a href="{% url 'count_murren' %}">Murrens count</a> /
+        {% if user.is_authenticated %}
+          <a href="{% url 'profile' %}">Профиль</a> /
+          <a href="{% url 'account_logout' %}">Выйти</a> /
+        {% else %}
+          <a href="{% url 'account_signup' %}">Зарегистироваться</a>/
+          <a href="{% url 'account_login' %}">Войти</a>/
+        {% endif %}
 
+      {% if user.is_authenticted %}
+        {% if user.murren_name is not None %}
+          <strong class="offset-3">Ты залогинен как {{ user.murren_name }}</strong>
+        {% else %}
+          <strong class="offset-3">Ты залогинен как {{ user.username }}</strong>
+        {% endif %}
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'profile' %}">Profile</a> /
-                <a href="{% url 'account_logout' %}">Logout</a> /
+        <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mx-1" role="button"
+           aria-pressed="true">
+          Create Murr
+        </a>
+      {% endif %}
+      </div>
 
-
-                {% if user.murren_name is not None %}
-                    <strong class="offset-3">Ты залогинен как {{ user.murren_name }}</strong>
-                {% else %}
-                    <strong class="offset-3">Ты залогинен как {{ user.username }}</strong>
-                {% endif %}
-
-                <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mx-1" role="button"
-                   aria-pressed="true">
-                    Create Murr
-                </a>
-            {% else %}
-                <a href="{% url 'account_signup' %}">Sign Up</a>/
-                <a href="{% url 'account_login' %}">Login</a>/
-            {% endif %}
-        </div>
-
-        <form action="{% url 'search' %}" class="search-form">
-            <div class="form-group">
-                <input type="text" name="q" size="40" placeholder=" Что ты хочешь найти?">
-                <button type="submit" class="btn-dark btn-sm submit"><i class="fa fa-search"></i> найти</button>
-            </div>
-        </form>
-
-
+      <form action="{% url 'search' %}" class="search-form">
+        <div class="form-group input-group">
+          <div class="input-group-append">
+            <input type="text" name="q" size="40" placeholder=" Что ты хочешь найти?">
+            <button type="submit" class="btn btn-dark btn-sm submit"><i class="fa fa-search" title="найти"></i></button>
+          </div>
+      </form>
     </div>
+  </div>
 </div>
 
 <div class="container">
+<!--  form messages -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">
@@ -71,7 +72,6 @@
             </div>
         {% endfor %}
     {% endif %}
-
 </div>
 
 <div class="container">
@@ -95,6 +95,4 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
-
-
 </html>
