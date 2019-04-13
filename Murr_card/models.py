@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from tinymce import HTMLField
+from uuslug import slugify
 
 User = get_user_model()
 
@@ -16,8 +17,8 @@ class Category(models.Model):
 
 
 class Murr(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Заголовок')
-    description = models.CharField(max_length=78, blank=True, verbose_name='Описание')
+    title = models.CharField(max_length=78, verbose_name='Заголовок')
+    description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,6 +34,7 @@ class Murr(models.Model):
                                     blank=True,
                                     help_text="Общедоступен или только для авторизованных пользователей")
     tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
+    slug = models.CharField(verbose_name='Слаг для мурра', max_length=100, blank=True)
 
     def __str__(self):
         return self.title
@@ -76,6 +78,9 @@ class Murr(models.Model):
                 output_size = (1000, 1000)
                 img.thumbnail(output_size)
                 img.save(self.cover.path)
+
+        self.slug = f'{slugify(self.title)}-{self.pk}'
+        super(Murr, self).save()
 
 
 class Comment(models.Model):

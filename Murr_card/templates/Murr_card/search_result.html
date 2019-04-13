@@ -17,7 +17,7 @@
             </div>
           {% endif %}
           <div class="title">
-            <a href="{% url 'murr_detail' result.pk %}" class="text-decoration-none">
+            <a href="{% url 'murr_detail' result.slug %}" class="text-decoration-none">
               <strong>{{ result.title }}</strong>
             </a>
             <div class="d-flex align-items-center">
@@ -28,7 +28,7 @@
         <hr>
       {% endfor %}
     </div>
-    {#      <a href="{% url 'murr_detail' result.pk %}">{{ result.title }}</a>#}
+    {#      <a href="{% url 'murr_detail' result.slug %}">{{ result.title }}</a>#}
     {#      <br>#}
   {% else %}
     <h2>Извините, но по вашему запросу ничего не найдено</h2>

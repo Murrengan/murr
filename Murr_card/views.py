@@ -45,8 +45,8 @@ def murrs_list(request, tag_name=None):
     return render(request, 'Murr_card/murr_list.html', context)
 
 
-def murr_detail(request, pk):
-    murr_detail = get_object_or_404(Murr, pk=pk)
+def murr_detail(request, slug):
+    murr_detail = get_object_or_404(Murr, slug=slug)
     form = CommentForm(request.POST or None)
 
     # себя не добавляем в просмотры
@@ -103,7 +103,7 @@ def murr_create(request):
             form.instance.author = author
             form.save()
             return redirect(reverse('murr_detail', kwargs={
-                'pk': form.instance.pk
+                'slug': form.instance.slug
             }))
     context = {
         'title': title,
@@ -112,10 +112,10 @@ def murr_create(request):
     return render(request, 'Murr_card/murr_create.html', context)
 
 
-def murr_update(request, pk):
+def murr_update(request, slug):
     template = 'Murr_card/murr_create.html'
     title = 'Update'
-    murr = get_object_or_404(Murr, id=pk)
+    murr = get_object_or_404(Murr, slug=slug)
     form = MurrForm(
         request.POST or None,
         request.FILES or None,
@@ -126,7 +126,7 @@ def murr_update(request, pk):
             form.instance.author = author
             form.save()
             return redirect(reverse('murr_detail', kwargs={
-                'pk': form.instance.pk
+                'slug': form.instance.slug
             }))
     context = {
         'title': title,
@@ -135,7 +135,7 @@ def murr_update(request, pk):
     return render(request, template, context)
 
 
-def murr_delete(request, pk):
-    murr = get_object_or_404(Murr, id=pk)
+def murr_delete(request, slug):
+    murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murrs_list'))

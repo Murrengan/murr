@@ -44,7 +44,7 @@
       </div>
 
       {% if murr_detail.author_id == request.user.id %}
-        <a href="{% url 'murr_update' pk=murr_detail.id %}"
+        <a href="{% url 'murr_update' murr_detail.slug %}"
            class="btn btn-primary btn-sm mr-2"
            role="button" aria-pressed="true">
           Изменить&nbsp;&nbsp;
@@ -73,7 +73,7 @@
                 <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
                   Отменить
                 </button>
-                <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2"
+                <a href="{% url 'murr_delete' murr_detail.slug %}" class="btn btn-primary btn-sm mr-2"
                    role="button"
                    aria-pressed="true">Подтвердить</a>
               </div>
