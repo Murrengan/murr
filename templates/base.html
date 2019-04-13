@@ -15,6 +15,10 @@
 
     <title>{% block title %}Murrengan{% endblock %}</title>
 
+<style>
+  {% block style %}
+  {% endblock %}
+</style>
 </head>
 <body style="background-color: lightskyblue">
 
@@ -38,17 +42,25 @@
           <a href="{% url 'account_login' %}">Войти</a>/
         {% endif %}
 
-      {% if user.is_authenticted %}
-        {% if user.murren_name is not None %}
-          <strong class="offset-3">Ты залогинен как {{ user.murren_name }}</strong>
-        {% else %}
-          <strong class="offset-3">Ты залогинен как {{ user.username }}</strong>
-        {% endif %}
 
         <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mx-1" role="button"
            aria-pressed="true">
           Create Murr
         </a>
+
+
+      {% if user.is_authenticted %}
+
+
+        {% if user.murren_name is not None %}
+          <strong class="offset-3">Ты залогинен как {{ user.murren_name }}</strong>
+
+        {% else %}
+          <strong class="offset-3">Ты залогинен как {{ user.username }}</strong>
+
+        {% endif %}
+
+
       {% endif %}
       </div>
 

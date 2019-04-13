@@ -15,8 +15,8 @@ class Category(models.Model):
 
 
 class Murr(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=78, blank=True)
+    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    description = models.CharField(max_length=78, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
 from django.http import HttpResponseRedirect
@@ -88,6 +89,7 @@ def search(request):
     return render(request, 'Murr_card/search_result.html', context)
 
 
+@login_required
 def murr_create(request):
     title = 'Create'
     form = MurrForm(request.POST or None, request.FILES or None)

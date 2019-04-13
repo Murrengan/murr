@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block style %}
+  .col-form-label {
+    display: inline;
+}
+
+  .asteriskField {
+  display: none;
+  }
+
+
+  label[for="id_content"] { font-size: 0; }
+  label[for="id_content"]:before { content: "Мурр"; font-size: 35px; }
+
+
+{% endblock style %}
+
+
 {% block content %}
 
   <div class="container text-center col-6 offset-3">
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
-{# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
+    {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
     {{ form.media }}
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
