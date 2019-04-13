@@ -7,6 +7,17 @@
     <h2 class="text-center">Детали Мурра</h2>
 
     <div class="detail my-3 p-3">
+
+
+      {#tags list#}
+      <p>
+        {% for tag in murr_detail.tags.all %}
+          <a href="{% url 'murrs_list_by_tag_name' tag %}">{{ tag }}</a>
+        {% endfor %}
+      </p>
+      {#tags list#}
+
+
       <h3 class="text-center">{{ murr_detail.title }}</h3>
       Категории:
       {% for murr in murr_detail.categories.all %}

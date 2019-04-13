@@ -5,6 +5,7 @@ from django.db.models import Count, Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrView
@@ -12,15 +13,18 @@ from .models import Murr, MurrView
 User = get_user_model()
 
 
-def murrs_list(request):
+def murrs_list(request, tag_name=None):
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
     if request.user.is_authenticated:
-
         # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
         all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
                                         Q(is_draft=False)).order_by('-timestamp')
-    paginator = Paginator(all_murrs, 4)
+    if tag_name:
+        tag = get_object_or_404(Tag, name=tag_name)
+        all_murrs = all_murrs.filter(tags__in=[tag])
+
+    paginator = Paginator(all_murrs, 5)
     page_request_ver = 'page'
     page = request.GET.get(page_request_ver)
     try:

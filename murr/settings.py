@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'tinymce',
     'crispy_forms',
+    'taggit',
 
     # Local
     'Murren.apps.MurrenConfig',
@@ -197,3 +198,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+TAGGIT_CASE_INSENSITIVE = True

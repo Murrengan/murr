@@ -2,6 +2,7 @@ from PIL import Image
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from taggit.managers import TaggableManager
 from tinymce import HTMLField
 
 User = get_user_model()
@@ -31,6 +32,7 @@ class Murr(models.Model):
                                     default=True,
                                     blank=True,
                                     help_text="Общедоступен или только для авторизованных пользователей")
+    tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
 
     def __str__(self):
         return self.title
