@@ -6,12 +6,12 @@
     }
 }
 
-.post {
-    border: 4px double black; /* Параметры границы */
-    background: #fc3; /* Цвет фона */
-    padding: 10px; /* Поля вокруг текста */
-
+body {
+    background-color: #485563;
+    color: whitesmoke;
+    font-family: 'PT Sans', sans-serif;
 }
+
 
 #showcase {
     background: url("../img/husky.png") top center/cover no-repeat;
@@ -64,48 +64,29 @@
     }
 }
 
-.murr-profile {
-    background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
-    background-size: cover;
-
-    background-position: center -500px;
-    min-height: 170px;
-
-    background-attachment: fixed;
-    box-shadow: 0 1px 11px 0px #5a89cd;
-}
-
-.murr-path {
-    background-image: linear-gradient(to right, rgb(217, 159, 173), rgba(105, 158, 216, 0.11));
-    border: 0;
-}
-
-.murren-gun {
-    text-shadow: -1px -1px 0px #fce8dd, 1px 1px 5px #3461c9;
-    color: #4259a4e0;
-}
-
 .btn-add-murr {
     box-shadow: 0 0 5px 2px #bbaccb;
 }
 
 .tesetsetset {
     border: 1px solid dimgray; /* Параметры границы */
-    border-radius: .25rem!important;
+    border-radius: .25rem !important;
     background: palegreen; /* Цвет фона */
     padding: 10px;
     margin: 35px 10px;
     word-break: break-word;
+    color: black;
 
 }
 
 .detail {
     border: 1px solid dimgray;
-    border-radius: .25rem!important;
+    border-radius: .25rem !important;
     background: khaki;
     padding: 10px;
     margin: 10px;
     word-break: break-word;
+    color: black;
 
 }
 
@@ -118,25 +99,13 @@
     z-index: 1;
 }
 
-.gradient-buttons .btn {
+.btn {
     background-image: linear-gradient(to bottom,
-    rgba(255,255,255,0.5),
-    rgba(255,255,255,0.2) 49%,
-    rgba(0,0,0,0.15) 51%,
-    rgba(0,0,0,0.05));
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.15) 51%,
+    rgba(0, 0, 0, 0.05));
     background-repeat: repeat-x;
-}
-
-.animate-opacity {
-    animation: opac 0.8s
-}
-@keyframes opac {
-    from {
-        opacity: 0
-    }
-    to {
-        opacity: 1
-    }
 }
 
 .trans {
@@ -144,21 +113,21 @@
 }
 
 .trans:hover {
-   transform: scale(1.05, 1.05)
+    transform: scale(1.05, 1.05)
 }
 
 
 .media .comment-control {
-  display: none;
+    display: none;
 }
 
 .media:hover .comment-control {
-  display: block;
+    display: block;
 }
 
 .comments-footer {
-  /*padding: 10px 10px 0 0;*/
-  height: 15px;
+    /*padding: 10px 10px 0 0;*/
+    height: 15px;
 }
 
 
@@ -168,9 +137,9 @@
 }
 
 .ava {
-    border: 1px solid rgba(0,123,255,.25);
+    border: 1px solid rgba(0, 123, 255, .25);
     padding: 1px;
     background-color: #ced4da;
-    box-shadow: 0 0 3px 0px black;
+    box-shadow: 0 0 3px black;
 }
 
