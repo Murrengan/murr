@@ -1,4 +1,5 @@
 from allauth.account.forms import SignupForm
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -29,6 +30,12 @@ class ProfileMurrenForm(forms.ModelForm):
 
 
 class CustomSignupForm(SignupForm):
+    ''' переопроеделение allauth формы авторизации'''
+    def __init__(self, *args, **kwargs):
+        super(CustomSignupForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
     field_order = ['murren_name', 'password', 'email']
 
     murren_name = forms.CharField(max_length=30, label='Имя Murrenа',

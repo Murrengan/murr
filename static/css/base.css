@@ -168,6 +168,8 @@
 }
 
 .ava {
+    width: 48px;
+    height: 48px;
     border: 1px solid rgba(0,123,255,.25);
     padding: 1px;
     background-color: #ced4da;

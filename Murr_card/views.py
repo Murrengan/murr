@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from .forms import CommentForm, MurrForm
+from .forms import CommentForm, CommentEditForm, MurrForm
 from .models import Murr, MurrView
 
 User = get_user_model()

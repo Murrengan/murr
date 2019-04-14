@@ -7,7 +7,8 @@
 <h2>Регистрация</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form|crispy }}
+{#  {{ form|crispy }}#}
+  {% crispy form %}
   <button class="btn btn-sm btn-success" type="submit">Регистрация</button>
   <a href="{% url 'account_login' %}">Уже есть аккаунт?</a>
 
