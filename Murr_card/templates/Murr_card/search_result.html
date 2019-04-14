@@ -7,30 +7,30 @@
   {% if search_result %}
 
     <h2>Это то, что нашлось</h2>
-        <div class="blog-posts">
-            {% for result in search_result %}
-                    <div class="item d-flex align-items-center my-2">
-                        {% if result.cover %}
-                            <div class="image img-thumbnail mx-md-2">
-                                <img src="{{ result.cover.url }}" width="100px" height="100px"
-                                     alt="..." class="img-fluid">
-                            </div>
-                        {% endif %}
-                        <div class="title">
-                            <a href="{% url 'murr_detail' result.pk %}" class="text-decoration-none">
-                                <strong>{{ result.title }}</strong>
-                            </a>
-                            <div class="d-flex align-items-center">
-                                {{ result.description }}
-                            </div>
-                        </div>
-                    </div>
-                <hr>
-            {% endfor %}
+    <div class="blog-posts">
+      {% for result in search_result %}
+        <div class="item d-flex align-items-center my-2">
+          {% if result.cover %}
+            <div class="image img-thumbnail mx-md-2">
+              <img src="{{ result.cover.url }}" width="100px" height="100px"
+                   alt="..." class="img-fluid">
+            </div>
+          {% endif %}
+          <div class="title">
+            <a href="{% url 'murr_detail' result.slug %}" class="text-decoration-none">
+              <strong>{{ result.title }}</strong>
+            </a>
+            <div class="d-flex align-items-center">
+              {{ result.description }}
+            </div>
+          </div>
         </div>
-{#      <a href="{% url 'murr_detail' result.pk %}">{{ result.title }}</a>#}
-{#      <br>#}
-    {% else %}
-      <h2>Извините, но по вашему запросу ничего не найдено</h2>
+        <hr>
+      {% endfor %}
+    </div>
+    {#      <a href="{% url 'murr_detail' result.slug %}">{{ result.title }}</a>#}
+    {#      <br>#}
+  {% else %}
+    <h2>Извините, но по вашему запросу ничего не найдено</h2>
   {% endif %}
 {% endblock %}

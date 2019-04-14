@@ -2,10 +2,11 @@
 
 {% block content %}
 
-  <div class="container">
-    <h2 class="text-center">Детали Мурра</h2>
+  <div class="alert-secondary container py-2 rounded">
+    <h2 class="text-center text-uppercase">Детали Мурра</h2>
 
     <div class="detail my-3 p-3">
+
       <h3 class="text-center">{{ murr_detail.title }}</h3>
       Категории:
       {% for murr in murr_detail.categories.all %}
@@ -31,8 +32,16 @@
         <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
       </div>
 
+      {#tags list#}
+      <p>
+        {% for tag in murr_detail.tags.all %}
+          <a href="{% url 'murrs_list_by_tag_name' tag %}">{{ tag }}</a>
+        {% endfor %}
+      </p>
+      {#tags list#}
+
       {% if murr_detail.author_id == request.user.id %}
-        <a href="{% url 'murr_update' pk=murr_detail.id %}"
+        <a href="{% url 'murr_update' murr_detail.slug %}"
            class="btn btn-primary btn-sm mr-2"
            role="button" aria-pressed="true">
           Изменить&nbsp;&nbsp;
@@ -61,7 +70,7 @@
                 <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
                   Отменить
                 </button>
-                <a href="{% url 'murr_delete' pk=murr_detail.id %}" class="btn btn-primary btn-sm mr-2"
+                <a href="{% url 'murr_delete' murr_detail.slug %}" class="btn btn-primary btn-sm mr-2"
                    role="button"
                    aria-pressed="true">Подтвердить</a>
               </div>
@@ -75,32 +84,39 @@
       <div class="tesetsetset">
       {% for comment in murr_detail.get_comments %}
         {% if forloop.last %}
-          <div class="media mb-2 pb-2" id="comment-{{ comment.id }}">
+          <div class="media mt-2 pb-2" id="comment-{{ comment.id }}">
         {% else %}
-          <div class="media mb-2 pb-2" id="comment-{{ comment.id }}"
+          <div class="media my-2 pb-2" id="comment-{{ comment.id }}"
                style="border-bottom: solid 1px darkkhaki;border-width: thin;">
         {% endif %}
         <img src="{{ comment.user.profile_picture.url }}" alt="" class="mt-1 mr-3 rounded-circle ava" title="ava">
-        <div class="media-body" >
-              <h6 class="mt-0">{{ comment.user.username }}&nbsp;&nbsp;
-                <div class="d-inline text-muted font-weight-light" aria-hidden="true" style="font-size: small;">
+        <div class="media-body mb-2" >
+              <h5 class="mt-0">{{ comment.user.username }}&nbsp;&nbsp;
+                <div class="d-inline text-muted font-weight-light" aria-hidden="true" style="font-size: 14px;">
                   <span>•</span>
                   <span>
                   {{ comment.timestamp| timesince }} назад &nbsp;•&nbsp;
                   <a href="#comment-{{ comment.id }}">#</a>
-                </span>•
+                  </span>•
                 </div>
-              </h6>
+              </h5>
               <p>{{ comment.content | safe }}</p>
               <div class="clearfix comments-footer d-flex">
                 <div class="comment-control small">
-                  <a rel="" href="#"><span class="fa fa-reply"></span> ответить</a>
-                  <div class="btn-group dropdown dropdown-events">
-                    <button type="button" class="btn-xs" data-object-id="18050334"
-                            data-media-id="18"><span class="fa fa-exclamation-triangle"></span><span
-                            class="text"> пожаловаться</span>
-                    </button>
-                  </div>
+                  
+                  {% if comment.user != user %}
+                    <a rel="" href="#"><span class="fa fa-reply"></span> ответить</a>
+                    <div class="btn-group">
+                      <button type="button" class="btn-xs btn-complain">
+                        <span class="fa fa-exclamation-triangle"></span>
+                        <span class="text"> пожаловаться</span>
+                      </button>
+                    </div>
+                  {% else %}
+                    <a rel="" href="#"><span class="fa fa-pencil-alt"></span> Изменить</a>
+                    <a rel="" href="#" class="del-comment"><span class="fa fa-trash-alt"></span> Удалить</a>
+                  {% endif %}
+
                 </div>
               </div>
             </div>
@@ -137,4 +153,16 @@
 
   {# end detail Murr card #}
 
+{% endblock %}
+{% block script %}
+   {{ block.super }}
+<!-- scripts -->
+  <script>
+
+    $('.del-comment').on('click', function() {
+      BootstrapDialog.alert('I want banana!');
+      return false;
+  });
+
+</script>
 {% endblock %}

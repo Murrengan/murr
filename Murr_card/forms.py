@@ -1,6 +1,4 @@
 from django import forms
-# from django.forms import CheckboxInput
-
 from tinymce import TinyMCE
 
 from .models import Murr, Comment
@@ -21,7 +19,7 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title', 'description', 'content', 'categories', 'cover', 'is_draft', 'is_public')
+        fields = ('title', 'description', 'content', 'tags', 'categories', 'cover', 'is_draft', 'is_public')
         # TODO - Надо-бы офрмить виджеты стильно (но с тем что ниже, пока не получилось)
         # (возможно Crispy Form перекрывает что то в классах)
         # widgets={'is_draft': forms.CheckboxInput(attrs={'class':'custom-control-input'}),
