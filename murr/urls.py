@@ -11,6 +11,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('', count_murren, name='count_murren'),
     path('murrs/', include('Murr_card.urls')),
+    path('murren/', include('Murren.urls')),
     path('landing/', landing, name='landing'),
     path('accounts/', include('allauth.urls')),
 ]
