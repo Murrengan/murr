@@ -143,5 +143,6 @@ def murr_delete(request, slug):
 
 def comment_cut(request, id):
     comment = get_object_or_404(Comment, pk=id)
-    comment.delete()
-    pass
+    # comment.delete()
+    print(f'\n\n{comment} --------------- were here\n\n')
+    return redirect(reverse('murrs_list'))

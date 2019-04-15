@@ -84,9 +84,9 @@
         <div class="tesetsetset">
         {% for comment in murr_detail.get_comments %}
             {% if forloop.last %}
-                <div class="media mt-2 pb-2" id="comment-{{ comment.id }}">
+                <div class="media mt-2 pb-2">
             {% else %}
-                <div class="media my-2 pb-2" id="comment-{{ comment.id }}"
+                <div class="media my-2 pb-2"
                      style="border-bottom: solid 1px darkkhaki;border-width: thin;">
             {% endif %}
             <img src="{{ comment.user.profile_picture.url }}" alt="" class="mt-1 mr-3 rounded-circle ava" title="ava">
@@ -101,7 +101,7 @@
                     </div>
                 </h5>
 
-                <div id="comm-content" class="mb-1"><p>{{ comment.content | striptags  }}</p></div>
+                <div class="mb-1 comm-content" data-id="{{ comment.id }}"><p>{{ comment.content | striptags  }}</p></div>
 
                 <div class="clearfix comments-footer d-flex">
                     <div class="comment-control small">

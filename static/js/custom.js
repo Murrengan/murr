@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response) =;> {
+        error: (response) => {
             console.log("False")
         }
     })
@@ -51,7 +51,7 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response) =;> {
+        error: (response) => {
             console.log("False")
         }
     })
@@ -73,7 +73,7 @@ $(".need_auth").submit(function (e) {
 
 $(".edt-comment").on('click', function () {
     // console.log('reply');
-    msg = ($(this).parents("div.media-body").find('p').html());
+    msg = $(this).parents("div.media-body").find('p').html();
     if ( $('#id_content').val() ) {
       $('#id_content').val("");
     }
@@ -84,7 +84,52 @@ $(".edt-comment").on('click', function () {
     return false;});
 
 $('.del-comment').on('click', function () {
-    BootstrapDialog.alert('I want banana!');
+    a=$(this).parents('.media-body').find('.comm-content').data('id');
+    console.log(a)
+    BootstrapDialog.show({
+          title: 'Подтвердите действие',
+          type: 'type-danger',
+          message: 'Вы уверены, что хотите удалить этот комментарий?',
+          buttons: [{
+              label: 'Удалить',
+              cssClass: 'btn-primary btn-sm',
+              action: function(dialog) {
+                $.ajax({
+                  type: 'POST',
+                  dataType: 'json',
+                  url: '/murrs/murr_detail/comment_cut/'+a+'/',
+                  data: {id_comment: a},
+                  success: function(response) {
+                    if (response.success) {
+                      //актуализируем кол-во комментариев
+                      var commentCount = parseInt($('#commentsCounter').html());
+                      $('#commentsCounter').html(commentCount - 1);
+
+                      commentRow.animate({
+                        opacity: 1,
+                        height: 0,
+                        padding: 0
+                      }, 'fast', function(){
+                        commentRow.remove();
+                      });
+                    }
+                    else {
+                      alert('Внимание '+response.message);
+                    }
+                  },
+                  error: function() {
+                    alerrt('Сервер не отвечает. Попробуйте повторить позднее.');
+                  }
+                });
+                dialog.close();
+              }
+          }, {
+              label: 'Отмена',
+              cssClass: 'btn-sm',
+              action: function(dialog) {
+                dialog.close();
+              }
+          }]
+        });
     return false;
 });
-
