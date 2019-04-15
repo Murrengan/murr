@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'tinymce',
     'crispy_forms',
+    'taggit',
 
     # Local
     'Murren.apps.MurrenConfig',
@@ -55,8 +56,7 @@ ROOT_URLCONF = 'murr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -179,15 +179,11 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
-
-ACCOUNT_FORMS = {
-'signup': 'Murren.forms.CustomSignupForm',
-}
 
 # Работа с почтой
 # Для тестировани восстановления пароля на локальной машине без sendgrid
@@ -202,3 +198,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+TAGGIT_CASE_INSENSITIVE = True

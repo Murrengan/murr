@@ -68,7 +68,8 @@
     background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
     background-size: cover;
     background-position: center -500px;
-    min-height: 250px;
+    min-height: 170px;
+
     background-attachment: fixed;
     box-shadow: 0 1px 11px 0px #5a89cd;
 }
@@ -91,8 +92,8 @@
     border: 1px solid dimgray; /* Параметры границы */
     border-radius: .25rem!important;
     background: palegreen; /* Цвет фона */
-    padding: 25px;
-    margin: 30px 10px;
+    padding: 10px;
+    margin: 35px 10px;
     word-break: break-word;
 
 }
@@ -159,37 +160,60 @@
   height: 15px;
 }
 
-/* Image zoom on hover + Overlay colour */
-.parent {
-    width: 45%;
-    margin: 20px;
-    height: 300px;
-    border: 1px solid blue;
-    overflow: hidden;
-    position: relative;
-    float: left;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.child {
-    height: 100%;
-    width: 100%;
-    background-image: url("/media/murren_pics/zzz.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    -webkit-transition: all .5s;
-    -moz-transition: all .5s;
-    -o-transition: all .5s;
-    transition: all .5s;
-}
-
-.parent:hover .child,
-.parent:focus .child {
-  transform: scale(1.2);
-}
 
 /* crispy form - нет обязательной звездочки */
-.asteriskField {
+.col-form-label {
     display: none;
+}
+
+.ava {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(0,123,255,.25);
+    padding: 1px;
+    background-color: #ced4da;
+    box-shadow: 0 0 3px 0px black;
+}
+
+.alert-secondary.container.py-2.rounded {
+    box-shadow: inset 0 0 13px 7px #ffffff82;
+    border-radius: 0.75rem!important;
+    background-color: #c0e2ffad
+}
+
+.card-columns {
+    background-color: #d1ecf1ad;
+    box-shadow: 0 0 8px 7px #9fbad7;
+}
+
+/* в комментах - пожаловаться */
+.btn-complain {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: #888;
+    border-radius: 0;
+    line-height: 1;
+}
+
+.btn-complain:hover {
+    color: #444;
+}
+
+.btn-complain:focus {
+    box-shadow: none
+}
+/* в комментах - пожаловаться */
+
+.comment-control > a {
+  padding: 0 0 1px 0;
+  margin: 0 15px 0 0;
+  color: #888;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.comment-control > a:hover {
+  color: #444;
+  /*text-decoration: none;*/
 }

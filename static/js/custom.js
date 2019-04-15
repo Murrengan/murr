@@ -69,3 +69,22 @@ $(".need_auth").submit(function (e) {
         },
     );
 });
+
+
+$(".edt-comment").on('click', function () {
+    // console.log('reply');
+    msg = ($(this).parents("div.media-body").find('p').html());
+    if ( $('#id_content').val() ) {
+      $('#id_content').val("");
+    }
+    $('#id_content').val(msg);
+    $('#id_content').focus();
+
+    console.log(msg);
+    return false;});
+
+$('.del-comment').on('click', function () {
+    BootstrapDialog.alert('I want banana!');
+    return false;
+});
+
