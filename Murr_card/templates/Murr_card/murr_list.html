@@ -10,8 +10,9 @@
       <!-- post -->
       {% for murr in murrs %}
         <div class="card p-2 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
-              <div class="p-3 mb-1">
-                Featured
+              <div class="pb-3 p-2 mb-1">
+                <img class="rounded bg-light mr-2" src="{{ murr.author.profile_picture.url }}" alt="" width="40px" height="auto">
+                  <a href="{% url 'murren_profile' murr.author.username %}"><b>{{ murr.author.username }}</b></a>
               </div>
                 {% if murr.is_draft %}
                   <a href="{% url 'murr_detail' murr.slug %}" class="badge badge-warning bage_draft mt-4"> ЧЕРНОВИК </a>
@@ -20,9 +21,9 @@
                   <div class="img-thumbnail" style="box-shadow: 0 0px 5px -2px black;">
                     <div style="overflow: hidden !important;">
                       <a href="{% url 'murr_detail' murr.slug %}">
-                        <img class="card-img-top trans" src="{{ murr.cover.url }}" alt="murr cover"
-                             title="{{ murr.title }}">
-                </a>
+                        <img class="card-img-top trans" src="{{ murr.cover.url }}"
+                             alt="murr cover" title="{{ murr.title }}">
+                      </a>
                     </div>
                   </div>
                 {% endif %}
@@ -35,7 +36,13 @@
 
             <p class="text-muted">{{ murr.timestamp| timesince }}</p>
           </div>
-
+            <div>
+                <p class="mb-2 pb-0 px-2">
+                    {% for tag in murr.tags.all %}
+                        <a href="{% url 'murrs_list_by_tag_name' tag %}">#{{ tag }}</a>&nbsp;
+                    {% endfor %}
+                </p>
+            </div>
         </div>
       {% endfor %}
     </div>

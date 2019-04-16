@@ -27,7 +27,7 @@
         </div>
 
         <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
-            <i class="fa fa-comments"> {{ murr_detail.comment_count }} </i>
+            <i class="fa fa-comments"><span class="commentsCounter">{{ murr_detail.comment_count }}</span></i>
             |
             <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
         </div>
@@ -101,10 +101,10 @@
                     </div>
                 </h5>
 
-                <div class="mb-1 comm-content" data-id="{{ comment.id }}"><p>{{ comment.content | striptags  }}</p></div>
+                <div class="mb-1 comm-content"><p>{{ comment.content | striptags  }}</p></div>
 
                 <div class="clearfix comments-footer d-flex">
-                    <div class="comment-control small">
+                    <div class="comment-control small" data-id="{{ comment.id }}">
 
                         {% if comment.user == user %}
                             <a rel="" href="#" class="edt-comment"><span class="fa fa-pencil-alt"></span> Изменить</a>

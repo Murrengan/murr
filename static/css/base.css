@@ -1,3 +1,7 @@
+.all {
+    color: white;
+}
+
 @media only screen and (max-width: 992px) and (min-width: 576px) {
     .card-columns {
         -webkit-column-count: 2;
@@ -216,4 +220,17 @@
 .comment-control > a:hover {
   color: #444;
   /*text-decoration: none;*/
+}
+
+.post_tags_inner {
+  margin: 0 -15px;
+  cursor: col-resize;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition-property: transform;
+  transition-duration: .5s;
+  transition-timing-function: ease-in-out
 }
