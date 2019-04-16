@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, reverse, redirect
 
 from .forms import ProfileMurrenForm
 
@@ -10,6 +10,13 @@ User = get_user_model()
 
 def landing(request):
     return render(request, 'Murr_card/landing.html')
+
+
+def redirect_view(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('murrs_list'))
+    else:
+        return redirect(reverse('account_login'))
 
 
 def count_murren(request):
