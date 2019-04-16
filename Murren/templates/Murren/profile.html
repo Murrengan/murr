@@ -3,12 +3,7 @@
 
 {% block content %}
 
-
-    {% if user.murren_name is not None %}
-    <h1>{{ user.murren_name }}</h1>
-    {% else %}
-    <h1>{{ user.username }}</h1>
-    {% endif %}
+    <h1>Ник Муррена - {{ user.username }}</h1>
 
     <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px" class="rounded-circle">
 
@@ -24,12 +19,6 @@
             <button class="btn btn-success" type="submit">Изменить</button>
         </form>
 
-    </div>
-
-
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="customCheck1">
-        <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
     </div>
 
 

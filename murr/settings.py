@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     # Local
     'Murren.apps.MurrenConfig',
     'Murr_card.apps.MurrCardConfig',
-    'mg_engine.apps.MgEngineConfig',
 
 ]
 

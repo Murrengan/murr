@@ -14,7 +14,6 @@ urlpatterns = [
     path('murren/', include('Murren.urls')),
     path('landing/', landing, name='landing'),
     path('accounts/', include('allauth.urls')),
-    path('mg_engine/', include('mg_engine.urls')),
 ]
 
 if settings.DEBUG:

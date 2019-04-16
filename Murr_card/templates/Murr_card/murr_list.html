@@ -25,7 +25,7 @@
           <div class="card-body">
             <a href="{% url 'murr_detail' murr.slug %}"><h5 class="card-title">{{ murr.title }}</h5></a>
 
-              <p class="card-text">{{ murr.description }}</p>
+            <p class="card-text">{{ murr.description }}</p>
 
 
             <p class="text-muted">{{ murr.timestamp| timesince }}</p>
@@ -38,22 +38,28 @@
 
 
   <!-- Pagination -->
-  <nav aria-label="Page navigation example">
+  {% if murrs.number > 1 %}
 
-    <ul class="pagination pagination-template d-flex justify-content-center mt-2">
-      {% if murrs.has_previous %}
-        <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.previous_page_number }}"
-                                 class="page-link">Previous</a>
-        </li>
-      {% endif %}
-      <li class="page-item"><a href="#" class="page-link active">{{ murrs.number }}</a></li>
-      {% if murrs.has_next %}
-        <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.next_page_number }}"
-                                 class="page-link">Next</a>
-        </li>
-        </ul>
-      {% endif %}
-  </nav>
+    <nav aria-label="Page navigation example">
+
+      <ul class="pagination pagination-template d-flex justify-content-center mt-2">
+        {% if murrs.has_previous %}
+          <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.previous_page_number }}"
+                                   class="page-link">Previous</a>
+          </li>
+        {% endif %}
+        <li class="page-item"><a href="#" class="page-link active">{{ murrs.number }}</a></li>
+        {% if murrs.has_next %}
+          <li class="page-item"><a href="?{{ page_request_ver }}={{ murrs.next_page_number }}"
+                                   class="page-link">Next</a>
+          </li>
+          </ul>
+        {% endif %}
+    </nav>
+
+  {% endif %}
+  <!-- Pagination -->
+
 
   <aside class="row">
     <!-- Widget [Latest Posts Widget]        -->
