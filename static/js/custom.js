@@ -33,9 +33,9 @@ let like = function (id) {
             pk: id,
         },
         success: (response) => {
-        window.location = response
-},
-    (response) =;> {
+            window.location = response
+        },
+    error: (response)=> {
         console.log("False")
     }
 })
@@ -49,9 +49,9 @@ let follow = function (id) {
             pk: id,
         },
         success: (response) => {
-        window.location = response
-},
-    (response) =;> {
+            window.location = response
+        },
+    errorr: (response)=>{
         console.log("False")
     }
 })
@@ -86,7 +86,7 @@ $(".edt-comment").on('click', function () {
 $('.del-comment').on('click', function () {
     id = $(this).parent('.comment-control.small').data('id');
     var commentRow = $(this).parent('.media.m-2');
-    console.log('will be delete comment id -'+id);
+    console.log('will be delete comment id -' + id);
     BootstrapDialog.show({
         title: 'Подтвердите действие',
         type: 'type-danger',
@@ -113,8 +113,7 @@ $('.del-comment').on('click', function () {
                             }, 'fast', function () {
                                 commentRow.remove();
                             });
-                        }
-                        else {
+                        } else {
                             alert('Внимание ' + response.message);
                         }
                     },

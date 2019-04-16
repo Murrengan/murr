@@ -69,6 +69,10 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
+    def murrs_count(self, *args, **kwargs):
+        ''' Количество мурров конкретного автора/юзера '''
+        return self.objects.filter(author=kwargs['author']).count()
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.cover:

@@ -10,7 +10,7 @@
       <!-- post -->
       {% for murr in murrs %}
         <div class="card p-2 shadow shadow-sm mb-3 animate-opacity" style="overflow: hidden;">
-              <div class="pb-3 p-2 mb-1">
+              <div class="pb-3 p-2 mb-1 murr-roof-gradient">
                 <img class="rounded bg-light mr-2" src="{{ murr.author.profile_picture.url }}" alt="" width="40px" height="auto">
                   <a href="{% url 'murren_profile' murr.author.username %}"><b>{{ murr.author.username }}</b></a>
               </div>
@@ -30,10 +30,7 @@
 
           <div class="card-body">
             <a href="{% url 'murr_detail' murr.slug %}"><h5 class="card-title">{{ murr.title }}</h5></a>
-
               <p class="card-text">{{ murr.description }}</p>
-
-
             <p class="text-muted">{{ murr.timestamp| timesince }}</p>
           </div>
             <div>
