@@ -90,6 +90,7 @@ $('.del-comment').on('click', function () {
     BootstrapDialog.show({
         title: 'Подтвердите действие',
         type: 'type-danger',
+        cssClass: 'text-danger lead',
         message: 'Вы уверены, что хотите удалить этот комментарий?',
         buttons: [{
             label: 'Удалить',
@@ -98,7 +99,7 @@ $('.del-comment').on('click', function () {
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: '/murrs/murr_detail/comment_cut/' + a + '/',
+                    url: '/murrs/murr_detail/comment_cut/' + id + '/',
                     data: {id_comment: id},
                     success: function (response) {
                         if (response.success) {
@@ -118,7 +119,7 @@ $('.del-comment').on('click', function () {
                         }
                     },
                     error: function () {
-                        alerrt('Сервер не отвечает. Попробуйте повторить позднее.');
+                        alert('Сервер не отвечает. Попробуйте повторить позднее.');
                     }
                 });
                 dialog.close();

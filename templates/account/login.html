@@ -1,15 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
 {% load crispy_forms_tags %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}Войти{% endblock %}
 
 {% block content %}
-<h2>Log in</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button class="btn btn-success btn-sm" type="submit">Войти</button>
-  <a href="{% url 'account_reset_password' %}">Забыл пароль?</a>
+  <div class="container col-4 text-center mt-5">
+    <form class="form-signin p-3 rounded glassy" method="post">
 
-</form>
+      <img class="mb-4" src="{% static 'img/favicon.ico' %}" alt="" width="72" height="72">
+
+      <h1 class="h3 mb-3 font-weight-normal">Присоединяйся в стаю!</h1>
+
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+
+      <a href="{% url 'account_reset_password' %}">Забыл пароль?</a>
+
+      <a href="{% provider_login_url "vk" %}">ВК</a>
+
+
+      <p class="lead my-3 text-white-50">Да пребудет с тобой сила!</p>
+    </form>
+
+
+  </div>
+
 {% endblock content %}

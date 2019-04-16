@@ -3,12 +3,7 @@
 
 {% block content %}
 
-
-    {% if user.murren_name is not None %}
-    <h1>{{ user.murren_name }}</h1>
-    {% else %}
-    <h1>{{ user.username }}</h1>
-    {% endif %}
+    <h1>Ник Муррена - {{ user.username }}</h1>
 
     <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px" class="rounded-circle">
 
@@ -25,5 +20,4 @@
         </form>
 
     </div>
-
 {% endblock %}

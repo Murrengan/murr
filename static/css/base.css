@@ -10,12 +10,14 @@
     }
 }
 
-.post {
-    border: 4px double black; /* Параметры границы */
-    background: #fc3; /* Цвет фона */
-    padding: 10px; /* Поля вокруг текста */
+body {
+    background: radial-gradient( circle farthest-corner at 85.4% 50.8%,  rgba(14,72,222,1) 0%, rgba(3,22,65,1) 74.2% ) no-repeat fixed;
+    color: whitesmoke;
+    font-family: 'PT Sans', sans-serif;
+    background: url('/static/img/anime-clouds-stars-couple.jpg') no-repeat fixed;
+    background-size: cover;
+    background-attachment: fixed;}
 
-}
 
 #showcase {
     background: url("../img/husky.png") top center/cover no-repeat;
@@ -68,26 +70,6 @@
     }
 }
 
-.murr-profile {
-    background: #6CCFF6 url(/static/img/clouds.png) no-repeat;
-    background-size: cover;
-    background-position: center -500px;
-    min-height: 170px;
-
-    background-attachment: fixed;
-    box-shadow: 0 1px 11px 0px #5a89cd;
-}
-
-.murr-path {
-    background-image: linear-gradient(to right, rgb(217, 159, 173), rgba(105, 158, 216, 0.11));
-    border: 0;
-}
-
-.murren-gun {
-    text-shadow: -1px -1px 0px #fce8dd, 1px 1px 5px #3461c9;
-    color: #4259a4e0;
-}
-
 .btn-add-murr {
     box-shadow: 0 0 5px 2px #bbaccb;
 }
@@ -99,6 +81,7 @@
     padding: 10px;
     margin: 35px 10px;
     word-break: break-word;
+    color: black;
 
 }
 
@@ -109,19 +92,20 @@
     padding: 10px;
     margin: 10px;
     word-break: break-word;
+    color: black;
 
 }
 
 .bage_draft {
     position: absolute;
-    top: 25px;
+    /*top: 25px;*/
     border-radius: 0 5px 5px 0;
     font-style: italic;
     color: darkblue;
     z-index: 1;
 }
 
-.gradient-buttons .btn {
+.btn {
     background-image: linear-gradient(to bottom,
     rgba(255,255,255,0.5),
     rgba(255,255,255,0.2) 49%,
@@ -161,8 +145,8 @@
 }
 
 .comments-footer {
-  /*padding: 10px 10px 0 0;*/
-  height: 15px;
+    /*padding: 10px 10px 0 0;*/
+    height: 15px;
 }
 
 
@@ -242,4 +226,9 @@
     rgba(2, 0, 36, 0.19) 0%,
     rgba(2, 40, 78, 0.03) 4%,
     rgba(255, 255, 255, 0) 50%);
+}
+
+.glassy {
+    background-color: #9e9e9e52;
+    box-shadow: inset 0 0 7px 1px #B2EBF2;
 }
