@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+import re
+from django.utils.safestring import SafeText
 User = get_user_model()
 
 
@@ -24,3 +25,8 @@ class ProfileMurrenForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('profile_picture', 'murren_name', 'email')
+
+    def __str__(self):
+        string = super().__str__()
+        ind = re.search(r"Изменить", string)
+        return SafeText(string[ind.start():])
