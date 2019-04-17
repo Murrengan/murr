@@ -8,12 +8,16 @@ from django.urls import reverse
 from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
-from .models import Murr, MurrView
+from .models import Murr, MurrVisiting, Comment
 
 User = get_user_model()
 
 
-def murrs_list(request, tag_name=None):
+def murrs_list(request, **kwargs):
+    ''' в kwargs передавать tag_name - для отбора по тегам;
+    search_result - отбора по результатам поиска'''
+
+    tag_name = kwargs.get('tag_name') or None
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
     if request.user.is_authenticated:
@@ -23,6 +27,9 @@ def murrs_list(request, tag_name=None):
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
         all_murrs = all_murrs.filter(tags__in=[tag])
+
+    if kwargs.get('search_result'):
+        all_murrs = kwargs.get('search_result')
 
     paginator = Paginator(all_murrs, 5)
     page_request_ver = 'page'
@@ -51,7 +58,7 @@ def murr_detail(request, slug):
 
     # себя не добавляем в просмотры
     if request.user.is_authenticated and request.user.id != murr_detail.author_id:
-        MurrView.objects.get_or_create(user=request.user, murr=murr_detail)
+        MurrVisiting.objects.get_or_create(user=request.user, murr=murr_detail)
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
@@ -89,12 +96,14 @@ def search(request):
     context = {
         'search_result': queryset
     }
-    return render(request, 'Murr_card/search_result.html', context)
+    # return render(request, 'Murr_card/search_result.html', context)
+    ''' теперь от темплейта результатов поиска можно отказаться '''
+    return murrs_list(request, **context)
 
 
 @login_required
 def murr_create(request):
-    title = 'Create'
+    title = 'Создай'
     form = MurrForm(request.POST or None, request.FILES or None)
     author = request.user
     if request.method == 'POST':
@@ -113,7 +122,7 @@ def murr_create(request):
 
 def murr_update(request, slug):
     template = 'Murr_card/murr_create.html'
-    title = 'Update'
+    title = 'Измени'
     murr = get_object_or_404(Murr, slug=slug)
     form = MurrForm(
         request.POST or None,
@@ -137,4 +146,11 @@ def murr_update(request, slug):
 def murr_delete(request, slug):
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
+    return redirect(reverse('murrs_list'))
+
+
+def comment_cut(request, id):
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    print(f'\n\n{comment} --------------- were here\n\n')
     return redirect(reverse('murrs_list'))
