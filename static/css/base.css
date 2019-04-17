@@ -232,3 +232,22 @@ body {
     background-color: #9e9e9e52;
     box-shadow: inset 0 0 7px 1px #B2EBF2;
 }
+
+p.card-text {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+
+a.card-tag {
+  color: #787878;
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: none !important;
+}
+
+a.card-tag:hover {
+  color: #515151;
+}

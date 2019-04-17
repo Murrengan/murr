@@ -36,7 +36,7 @@
             <div>
                 <p class="mb-2 pb-0 px-2">
                     {% for tag in murr.tags.all %}
-                        <a href="{% url 'murrs_list_by_tag_name' tag %}">#{{ tag }}</a>&nbsp;
+                        <a class="card-tag" href="{% url 'murrs_list_by_tag_name' tag %}">#{{ tag }}</a>&nbsp;
                     {% endfor %}
                 </p>
             </div>

@@ -30,15 +30,15 @@
             <i class="fa fa-comments"><span class="commentsCounter">{{ murr_detail.comment_count }}</span></i>
             |
             <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
-        </div>
-
+            &nbsp;&nbsp;•&nbsp;&nbsp;
         {#tags list#}
-        <p>
+        <p class="d-inline">
             {% for tag in murr_detail.tags.all %}
-                <a href="{% url 'murrs_list_by_tag_name' tag %}">{{ tag }}</a>
+               <a href="{% url 'murrs_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
             {% endfor %}
         </p>
         {#tags list#}
+        </div>
 
         {% if murr_detail.author_id == request.user.id %}
             <a href="{% url 'murr_update' murr_detail.slug %}"
