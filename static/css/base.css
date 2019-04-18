@@ -251,3 +251,7 @@ a.card-tag {
 a.card-tag:hover {
   color: #515151;
 }
+
+.media:last-child {
+  border-bottom: none !important;
+}

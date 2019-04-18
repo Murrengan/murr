@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-    error: (response)=> {
+    (response)=;> {
         console.log("False")
     }
 })
@@ -51,7 +51,7 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-    errorr: (response)=>{
+    (response)=;>{
         console.log("False")
     }
 })
@@ -85,10 +85,14 @@ $(".edt-comment").on('click', function () {
 
 $('.del-comment').on('click', function () {
     id = $(this).parent('.comment-control.small').data('id');
-    var commentRow = $(this).parent('.media.m-2');
+    if ($('.tesetsetset .media').length > 1) {
+        var commentRow = $(this).parents('.media');
+    } else {
+        var commentRow = $('.tesetsetset');
+    }
     console.log('will be delete comment id -' + id);
     BootstrapDialog.show({
-        title: 'Подтвердите действие',
+        title: '<i class="fas fa-exclamation-circle"></i>&nbsp; Подтвердите действие',
         type: 'type-danger',
         cssClass: 'text-danger lead',
         message: 'Вы уверены, что хотите удалить этот комментарий?',
@@ -102,27 +106,32 @@ $('.del-comment').on('click', function () {
                     url: '/murrs/murr_detail/comment_cut/' + id + '/',
                     data: {id_comment: id},
                     success: function (response) {
+                        console.log('success:');
+                        console.log(response);
                         if (response.success) {
                             //актуализируем кол-во комментариев
-                            var commentCount = parseInt($('#commentsCounter').html());
-                            $('#commentsCounter').html(commentCount - 1);
+                            var commentCount = parseInt($('.commentsCounter').html());
+                            $('.commentsCounter').html(commentCount - 1);
 
                             commentRow.animate({
                                 opacity: 1,
                                 height: 0,
                                 padding: 0
-                            }, 'fast', function () {
+                            }, 'slow', function () {
                                 commentRow.remove();
                             });
                         } else {
                             alert('Внимание ' + response.message);
                         }
                     },
-                    error: function () {
+                    error: function (errorData) {
+                        console.log('error:');
+                        console.log(errorData);
                         alert('Сервер не отвечает. Попробуйте повторить позднее.');
                     }
                 });
                 dialog.close();
+                commentRow.remove();
             }
         }, {
             label: 'Отмена',

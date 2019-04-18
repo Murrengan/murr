@@ -2,10 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from taggit.models import Tag
+
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrVisiting, Comment
@@ -153,4 +154,5 @@ def comment_cut(request, id):
     comment = get_object_or_404(Comment, pk=id)
     # comment.delete()
     print(f'\n\n{comment} --------------- were here\n\n')
-    return redirect(reverse('murrs_list'))
+    # return redirect(reverse('murrs_list'))
+    return JsonResponse({'responce': 'success'})

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <div class="container py-1">
 
     <div class="card-columns animate-opacity alert-info p-1"
@@ -113,3 +112,13 @@
 
 {% endblock %}
 
+{% block script %}
+    {{ block.super }}
+
+    <script>
+        $("#id_searcher").change(function () {
+            console.log($(this).val());
+        });
+    </script>
+
+{% endblock script %}
