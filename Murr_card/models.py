@@ -63,11 +63,15 @@ class Murr(models.Model):
 
     @property
     def view_count(self):
-        return MurrView.objects.filter(murr=self).count()
+        return MurrVisiting.objects.filter(murr=self).count()
 
     @property
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
+
+    def murrs_count(self, *args, **kwargs):
+        ''' Количество мурров конкретного автора/юзера/Муррена/Мастера '''
+        return self.objects.filter(author=kwargs.get('author')).count()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -87,13 +91,25 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    murr = models.ForeignKey(Murr, related_name='comments', on_delete=models.CASCADE)
+    murr = models.ForeignKey(
+        Murr,
+        related_name='comments',
+        on_delete=models.CASCADE
+    )
+    reply = models.ForeignKey(
+        "self",
+        verbose_name="Коммент",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='children',
+    )
 
     def __str__(self):
         return self.user.username
 
 
-class MurrView(models.Model):
+class MurrVisiting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     murr = models.ForeignKey(Murr, on_delete=models.CASCADE)
 
