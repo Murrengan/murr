@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-    (response)=;> {
+        (response)=;> {
         console.log("False")
     }
 })
@@ -51,7 +51,7 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-    (response)=;>{
+        (response)=;> {
         console.log("False")
     }
 })
@@ -131,7 +131,6 @@ $('.del-comment').on('click', function () {
                     }
                 });
                 dialog.close();
-                commentRow.remove();
             }
         }, {
             label: 'Отмена',
