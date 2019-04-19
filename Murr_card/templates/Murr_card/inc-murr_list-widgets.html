@@ -1,0 +1,38 @@
+<aside class="row mt-5">
+    <!-- Widget [Latest Posts Widget]        -->
+    <div class="border border-bottom-0 border-top-0 px-2 col-md-5">
+        <header>
+            <h3 class="h6">Крайние 2 Мурра</h3>
+        </header>
+        <div class="blog-posts">
+            {% for murr in last_two %}
+                <a href="{% url 'murr_detail' murr.slug %}">
+                    <div class="item d-flex align-items-center my-2">
+                        {% if murr.cover %}
+                            <div class="image img-thumbnail mx-md-2">
+                                <img src="{{ murr.cover.url }}" width="100px" height="100px"
+                                     alt="..." class="img-fluid">
+                            </div>
+                        {% endif %}
+                        <div class="title"><strong>{{ murr.title }}</strong>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Widget [Categories Widget]-->
+    <div class="categories widget col-md px-2">
+        <header>
+            <h3 class="h6">Категории</h3>
+        </header>
+        {% for cat in categories %}
+            <div class="item">
+                <a href="#">{{ cat.title }} ({{ cat.murrs.count }})</a>
+            </div>
+        {% endfor %}
+    </div>
+</aside>

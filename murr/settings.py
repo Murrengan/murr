@@ -129,13 +129,13 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = 'murrs_list'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'murrs_list'
+LOGIN_REDIRECT_URL = 'murr_list'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'murr_list'
 
 # LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
 # логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
 LOGIN_URL = 'account_login'
-LOGOUT_REDIRECT_URL = 'murrs_list'
+LOGOUT_REDIRECT_URL = 'murr_list'
 
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,

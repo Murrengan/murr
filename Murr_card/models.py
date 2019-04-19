@@ -1,10 +1,12 @@
 from PIL import Image
+from uuslug import slugify
+from tinymce import HTMLField
+from taggit.managers import TaggableManager
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from taggit.managers import TaggableManager
-from tinymce import HTMLField
-from uuslug import slugify
+
 
 User = get_user_model()
 
@@ -22,17 +24,11 @@ class Murr(models.Model):
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category, blank=True)
+    categories = models.ManyToManyField(Category, blank=True, related_name='murrs')
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
-    is_draft = models.BooleanField("Черновик",
-                                   default=False,
-                                   blank=True,
-                                   help_text="Черновики не публикуются")
-    is_public = models.BooleanField("Общедоступен",
-                                    default=True,
-                                    blank=True,
-                                    help_text="Общедоступен или только для авторизованных пользователей")
+    is_draft = models.BooleanField("Черновик", default=False, blank=True)
+    is_public = models.BooleanField("Общедоступен", default=True, blank=True)
     tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
     slug = models.CharField(verbose_name='Слаг для мурра', max_length=100, blank=True)
 
@@ -40,19 +36,13 @@ class Murr(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('murr_detail', kwargs={
-            'pk': self.id
-        })
+        return reverse('murr_detail', kwargs={'pk': self.id})
 
     def get_update_url(self):
-        return reverse('murr_update', kwargs={
-            'pk': self.id
-        })
+        return reverse('murr_update', kwargs={'pk': self.id})
 
     def get_delete_url(self):
-        return reverse('murr_delete', kwargs={
-            'pk': self.id
-        })
+        return reverse('murr_delete', kwargs={'pk': self.id})
 
     # возвращает все комментарии к конкретному мурру,
     # так как в можеле Comment стоит related_name='comments'
@@ -70,7 +60,8 @@ class Murr(models.Model):
         return Comment.objects.filter(murr=self).count()
 
     def murrs_count(self, *args, **kwargs):
-        ''' Количество мурров конкретного автора/юзера/Муррена/Мастера '''
+        """ Количество мурров конкретного автора/юзера/Муррена/Мастера """
+
         return self.objects.filter(author=kwargs.get('author')).count()
 
     def save(self, *args, **kwargs):

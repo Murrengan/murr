@@ -14,7 +14,7 @@ def landing(request):
 
 def redirect_view(request):
     if request.user.is_authenticated:
-        return redirect(reverse('murrs_list'))
+        return redirect(reverse('murr_list'))
     else:
         return redirect(reverse('account_login'))
 
