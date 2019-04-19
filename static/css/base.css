@@ -1,3 +1,25 @@
+.no-underline:hover { text-decoration: none; }
+.all { color: white; }
+
+/* murr card */
+
+.card-profile-img { width: 40px; }
+.card-author { font-weight: 700; }
+.trans { transition: all .8s ease-in-out; }
+.trans:hover { transform: scale(1.05, 1.05) }
+.img-thumbnail { box-shadow: 0 0 5px -2px black; }
+.card-thumbnail-inner { overflow: hidden; }
+.card-tags { padding: 0 20px; }
+.card-created-at { font-size: 0.8rem; }
+.card-stats, .card-tag { font-size: 0.8rem; }
+
+.card-text {
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: 300;
+    color: #007bff;
+}
+
 @media only screen and (max-width: 992px) and (min-width: 576px) {
     .card-columns {
         -webkit-column-count: 2;
@@ -110,14 +132,18 @@ body {
     background-repeat: repeat-x;
 }
 
-.trans {
-    transition: all .8s ease-in-out;
+.animate-opacity {
+    animation: opac 0.8s
 }
 
-.trans:hover {
-    transform: scale(1.05, 1.05)
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
-
 
 .media .comment-control {
     display: none;
@@ -215,23 +241,3 @@ body {
 /*background-color: #9e9e9e52;*/
 /*box-shadow: inset 0 0 7px 1px #B2EBF2;*/
 /*}*/
-
-p.card-text {
-    font-size: 14px;
-    font-style: italic;
-    font-weight: 300;
-    text-decoration: none;
-    color: #007bff;
-}
-
-
-a.card-tag {
-    color: #787878;
-    font-size: 14px;
-    font-weight: 300;
-    text-decoration: none !important;
-}
-
-a.card-tag:hover {
-    color: #515151;
-}

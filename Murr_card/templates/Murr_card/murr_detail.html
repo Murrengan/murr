@@ -34,7 +34,7 @@
         {#tags list#}
         <p class="d-inline">
             {% for tag in murr_detail.tags.all %}
-               <a href="{% url 'murrs_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
+               <a href="{% url 'murr_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
             {% endfor %}
         </p>
         {#tags list#}

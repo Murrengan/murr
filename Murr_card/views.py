@@ -1,55 +1,43 @@
+from taggit.models import Tag
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count, Q
+from django.db.models import Q, Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
-from .models import Murr, MurrVisiting, Comment
+from .models import Murr, MurrVisiting, Comment, Category
 
 User = get_user_model()
 
 
-def murrs_list(request, **kwargs):
-    ''' в kwargs передавать tag_name - для отбора по тегам;
-    search_result - отбора по результатам поиска'''
+def murr_list(request, **kwargs):
+    """ в kwargs передавать tag_name - для отбора по тегам;
+    search_result - отбора по результатам поиска"""
 
-    all_categories_count = get_all_categories_count()[0:5]
-    all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
-
+    all_murrs = Murr.objects.filter(is_public=True, is_draft=False)
     if request.user.is_authenticated:
-        # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
-        all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
-                                        Q(is_draft=False)).order_by('-timestamp')
+        # all murrs + my drafts
+        all_murrs = Murr.objects.filter(Q(is_draft=True, author_id=request.user.id) | Q(is_draft=False))
 
-    if kwargs.get('tag_name') or None:
-        tag = get_object_or_404(Tag, name=kwargs.get('tag_name'))
-        all_murrs = all_murrs.filter(tags__in=[tag])
+    tag_name = kwargs.get('tag_name')
+    if tag_name:
+        tag = get_object_or_404(Tag, name=tag_name)
+        all_murrs = all_murrs.filter(tags__name=tag)
 
-    if kwargs.get('search_result'):
-        all_murrs = kwargs.get('search_result')
-
+    all_murrs = all_murrs.annotate(comments_total=Count('comments__pk')).order_by('-timestamp')
     paginator = Paginator(all_murrs, 5)
-    page_request_ver = 'page'
-    page = request.GET.get(page_request_ver)
     try:
-        paginator_queryset = paginator.page(page)
+        page = paginator.page(request.GET.get('page'))
     except PageNotAnInteger:
-        paginator_queryset = paginator.page(1)
+        page = paginator.page(1)
     except EmptyPage:
-        paginator_queryset = paginator.page(paginator.num_pages)
+        page = paginator.page(paginator.num_pages)
 
-    # latest = Murr.objects.order_by('-timestamp')[0:2]
-    latest = all_murrs[0:2]
-    context = {
-        'murrs': paginator_queryset,
-        'page_request_ver': page_request_ver,
-        'all_categories_count': all_categories_count,
-        'latest': latest
-    }
+    context = {'murrs': page, 'last_two': all_murrs[:2], 'categories': Category.objects.all()}
     return render(request, 'Murr_card/murr_list.html', context)
 
 
@@ -77,12 +65,6 @@ def murr_is_hit(request):
     # print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
     return
 
-          
-def get_all_categories_count():
-    # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
-    all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
-    return all_categories_count
-
 
 def search(request):
     queryset = ''
@@ -99,7 +81,7 @@ def search(request):
     }
     # return render(request, 'Murr_card/search_result.html', context)
     ''' теперь от темплейта результатов поиска можно отказаться '''
-    return murrs_list(request, **context)
+    return murr_list(request, **context)
 
 
 @login_required
@@ -147,11 +129,11 @@ def murr_update(request, slug):
 def murr_delete(request, slug):
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
-    return redirect(reverse('murrs_list'))
+    return redirect(reverse('murr_list'))
 
 
 def comment_cut(request, id):
     comment = get_object_or_404(Comment, pk=id)
     # comment.delete()
     print(f'\n\n{comment} --------------- were here\n\n')
-    return redirect(reverse('murrs_list'))
+    return redirect(reverse('murr_list'))
