@@ -1,16 +1,13 @@
 {% load static %}
 
-<nav class="navbar navbar-expand navbar-light animate-opacity">
+<nav class="navbar navbar-expand navbar-light ">
 
 
   <div class="container">
 
     <div class="row">
 
-
-      <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white;">
-        <img src="{% static 'img/favicon.ico' %}" height="45" alt="">
-
+      <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
         Murr
       </a>
 
@@ -23,17 +20,7 @@
         </div>
       </form>
 
-
-      {#      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_content"#}
-      {#              aria-controls="navbar_content" aria-expanded="false" aria-label="Toggle navigation">#}
-      {#        <span class="navbar-toggler-icon"></span>#}
-      {#      </button>#}
-
     </div>
-
-
-    <div class="collapse navbar-collapse" id="navbar_content">
-
 
       <ul class="navbar-nav ml-auto">
 
@@ -75,6 +62,6 @@
       </ul>
 
     </div>
-  </div>
+
 </nav>
 

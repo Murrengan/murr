@@ -129,12 +129,6 @@
     {% endif %}
 
 
-{% if  comment.user.murren_name is not None %}
-    <h1>{{ comment.user.murren_name }}</h1>
-{% else %}
-    <h1>{{ comment.user.username }}</h1>
-{% endif %}
-
 
 {% if user.is_authenticated %}
     <div class="container">

@@ -28,6 +28,9 @@ def murr_list(request, **kwargs):
         tag = get_object_or_404(Tag, name=tag_name)
         all_murrs = all_murrs.filter(tags__name=tag)
 
+    if kwargs.get('search_result'):
+        all_murrs = kwargs.get('search_result')
+
     all_murrs = all_murrs.annotate(comments_total=Count('comments__pk')).order_by('-timestamp')
     paginator = Paginator(all_murrs, 5)
     try:
@@ -79,8 +82,7 @@ def search(request):
     context = {
         'search_result': queryset
     }
-    # return render(request, 'Murr_card/search_result.html', context)
-    ''' теперь от темплейта результатов поиска можно отказаться '''
+
     return murr_list(request, **context)
 
 
