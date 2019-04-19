@@ -1,3 +1,7 @@
+.all {
+    color: white;
+}
+
 @media only screen and (max-width: 992px) and (min-width: 576px) {
     .card-columns {
         -webkit-column-count: 2;
@@ -10,6 +14,7 @@ body {
     background: radial-gradient(circle farthest-corner at 85.4% 50.8%, rgba(14, 72, 222, 1) 0%, rgba(3, 22, 65, 1) 74.2%) no-repeat fixed;
     color: whitesmoke;
     font-family: 'PT Sans', sans-serif;
+
     /*background: url('/static/img/anime-clouds-stars-couple.jpg') no-repeat fixed;*/
     background-size: cover;
 }
@@ -103,11 +108,24 @@ body {
 
 .btn {
     background-image: linear-gradient(to bottom,
-    rgba(255, 255, 255, 0.5),
-    rgba(255, 255, 255, 0.2) 49%,
-    rgba(0, 0, 0, 0.15) 51%,
-    rgba(0, 0, 0, 0.05));
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0.2) 49%,
+    rgba(0,0,0,0.15) 51%,
+    rgba(0,0,0,0.05));
     background-repeat: repeat-x;
+}
+
+.animate-opacity {
+    animation: opac 0.8s
+}
+
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 .trans {
@@ -115,16 +133,16 @@ body {
 }
 
 .trans:hover {
-    transform: scale(1.05, 1.05)
+   transform: scale(1.05, 1.05)
 }
 
 
 .media .comment-control {
-    display: none;
+  display: none;
 }
 
 .media:hover .comment-control {
-    display: block;
+  display: block;
 }
 
 .comments-footer {
@@ -141,6 +159,7 @@ body {
 .ava {
     width: 48px;
     height: 48px;
+
     border: 1px solid rgba(0, 123, 255, .25);
     padding: 1px;
     background-color: #ced4da;

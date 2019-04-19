@@ -2,7 +2,8 @@
 
 {% block content %}
 
-  <div class="container py-1">
+    <div class="container py-1">
+
 
     <div class="card-columns animate-opacity p-1">
       <!-- Murr -->
@@ -24,11 +25,23 @@
                        alt="murr cover" title="{{ murr.title }}">
                 </a>
               </div>
-            </div>
-          {% endif %}
+                {% if murr.is_draft %}
+                  <a href="{% url 'murr_detail' murr.slug %}" class="badge badge-warning bage_draft mt-4"> ЧЕРНОВИК </a>
+                {% endif %}
+                {% if murr.cover %}
+                  <div class="img-thumbnail" style="box-shadow: 0 0px 5px -2px black;">
+                    <div style="overflow: hidden !important;">
+                      <a href="{% url 'murr_detail' murr.slug %}">
+                        <img class="card-img-top trans" src="{{ murr.cover.url }}"
+                             alt="murr cover" title="{{ murr.title }}">
+                      </a>
+                    </div>
+                  </div>
+                {% endif %}
 
           <div class="card-body">
             <a href="{% url 'murr_detail' murr.slug %}"><h5 class="card-title">{{ murr.title }}</h5></a>
+
             <p class="card-text">{{ murr.description }}</p>
             <p class="text-muted">{{ murr.timestamp| timesince }}</p>
           </div>
