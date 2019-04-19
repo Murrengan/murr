@@ -17,15 +17,16 @@ def murrs_list(request, **kwargs):
     ''' в kwargs передавать tag_name - для отбора по тегам;
     search_result - отбора по результатам поиска'''
 
-    tag_name = kwargs.get('tag_name') or None
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
+
     if request.user.is_authenticated:
         # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
         all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
                                         Q(is_draft=False)).order_by('-timestamp')
-    if tag_name:
-        tag = get_object_or_404(Tag, name=tag_name)
+
+    if kwargs.get('tag_name') or None:
+        tag = get_object_or_404(Tag, name=kwargs.get('tag_name'))
         all_murrs = all_murrs.filter(tags__in=[tag])
 
     if kwargs.get('search_result'):

@@ -1,7 +1,6 @@
 from django.urls import path
 from Murr_card.views import murrs_list, murr_detail, search, murr_update, murr_delete, murr_create, comment_cut
 
-
 urlpatterns = [
     path('', murrs_list, name='murrs_list'),
     path('murrs_by_tag/<str:tag_name>', murrs_list, name='murrs_list_by_tag_name'),
