@@ -3,21 +3,35 @@
 
 {% block content %}
 
-    <h1>Ник Муррена - {{ user.username }}</h1>
+  <h1>Ник Муррена - {{ user.username }}</h1>
 
-    <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px" class="rounded-circle">
+  <img src="{{ user.profile_picture.url }}" alt="" height="100px" width="100px" class="rounded-circle">
 
-    <div class="container">
+  <div class="container">
 
-        <h2 class="text-center">Профайл</h2>
+    <h2 class="text-center">Профайл</h2>
 
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in murren_form %}
+        <p>
+          {{ field.errors }}
+          {% if field.value %}
+            <br/><img alt="" src="{{ field.value.url }}" width="240"><br>
+          {% endif %}
+          {{ field }}
+        </p>
+      {% endfor %}
+      <input type="submit" class="btn btn-primary" value="Изменить аватар">
+    </form>
 
-            {{ murren_form|crispy }}
+    {#        <form method="POST" enctype="multipart/form-data">#}
+    {#            {% csrf_token %}#}
+    {##}
+    {#            {{ murren_form|crispy }}#}
+    {##}
+    {#            <button class="btn btn-success btn-sm" type="submit">Изменить</button>#}
+    {#        </form>#}
 
-            <button class="btn btn-success btn-sm" type="submit">Изменить</button>
-        </form>
-
-    </div>
+  </div>
 {% endblock %}

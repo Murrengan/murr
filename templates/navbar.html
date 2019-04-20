@@ -13,55 +13,68 @@
 
       <form action="{% url 'search' %}" style="margin-top:12px;">
         <div class="input-group input-group-sm formSearch" id="searchForm">
-          <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q" autocomplete="off" id="searchInput">
+          <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q" autocomplete="off"
+                 id="searchInput">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i class="fa fa-search"></i></button>
+            <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i
+                    class="fa fa-search"></i></button>
           </div>
         </div>
       </form>
 
     </div>
 
-      <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto">
 
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false" style="color:white;">
-             {% if user.is_authenticated %}
-              <i class="fab fa-wolf-pack-battalion"></i>{{ user.username }}
-              {% else %}
-              <i class="far fa-question-circle"></i>
-            {% endif %}
+      {% if user.is_authenticated %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+            <i class="far fa-compass"></i>
           </a>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false" style="color:white;">
+            <i class="fas fa-user"></i>
+
+          </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
-              <a class="dropdown-item" href="{% url 'profile' %}">В профайл</a>
-              <a class="dropdown-item" href="{% url 'account_logout' %}">Выйти</a>
-            
+
+            <a class="dropdown-item" href="{% url 'profile' %}">Настройки</a>
+
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'count_murren' %}">Всего Мурренов</a>
+
+            <a class="dropdown-item text-muted" href="{% url 'account_logout' %}">Выйти</a>
+
 
           </div>
 
         </li>
 
         <li class="nav-item">
-          <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mt-1" role="button"
+          <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mt-1 ml-3" role="button"
              aria-pressed="true" title="Создать Мурр">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </li>
-        {% else %}
+      {% else %}
         <li class="nav-item">
-          <button class="btn-login"> <a href="{% url 'account_login' %}">Войти</a> </button>
+          <button class="btn-login"><a href="{% url 'account_login' %}">Войти</a></button>
           <button class="btn-signUp"><a href="{% url 'account_signup' %}"> Зарегистироваться </a></button>
         </li>
-        {% endif %}
-      </ul>
+      {% endif %}
+    </ul>
 
-    </div>
+  </div>
 
 </nav>
 
