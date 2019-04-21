@@ -1,25 +1,13 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 
-{% block style %}
-  .col-form-label {
-    display: inline;
-}
+{% load static crispy_forms_tags %}
 
-  .asteriskField {
-    display: none;
-  }
-
-
-  label[for="id_content"] { font-size: 0; }
-  label[for="id_content"]:before { content: "Мурр"; font-size: 35px; }
-
-
-{% endblock style %}
-
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/murr_create.css" %}" />
+{% endblock css %}
 
 {% block content %}
-
   <div class="container text-center ">
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
     {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
@@ -30,4 +18,4 @@
       <button class="btn btn-success mb-5" type="submit">Submit</button>
     </form>
   </div>
-{% endblock %}
+{% endblock content %}

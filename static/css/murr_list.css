@@ -1,0 +1,60 @@
+.bage_draft {
+    position: absolute;
+    /*top: 25px;*/
+    border-radius: 0 5px 5px 0;
+    font-style: italic;
+    color: darkblue;
+    z-index: 1;
+}
+
+.card-profile-img {
+    width: 40px;
+}
+
+.card-author {
+    font-weight: 700;
+}
+
+.trans {
+    transition: all .8s ease-in-out;
+}
+
+.trans:hover {
+    transform: scale(1.05, 1.05)
+}
+
+.img-thumbnail {
+    box-shadow: 0 0 5px -2px black;
+}
+
+.card-thumbnail-inner {
+    overflow: hidden;
+}
+
+.card-tags {
+    padding: 0 20px;
+}
+
+.card-created-at {
+    font-size: 0.8rem;
+}
+
+.card-stats, .card-tag {
+    font-size: 0.8rem;
+}
+
+.card-text {
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: 300;
+    color: #007bff;
+
+}
+
+@media only screen and (max-width: 992px) and (min-width: 576px) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
