@@ -52,11 +52,11 @@ def murr_detail(request, slug):
         form.instance.murr = murr
         form.save()
         return HttpResponseRedirect(request.path)
-
     if request.user.is_authenticated and request.user.pk != murr.author_id:
         MurrVisiting.objects.get_or_create(user=request.user, murr=murr)
 
     return render(request, 'Murr_card/murr_detail.html', {'murr': murr, 'form': form})
+
 
 
 def murr_is_hit(request):
