@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-        error: (response) => {
+        errorr: (response) => {
         console.log("False")
     }
 })
@@ -51,7 +51,7 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-        error: (response) => {
+        errorr: (response) => {
         console.log("False")
     }
 })
@@ -104,7 +104,7 @@ $('.del-comment').on('click', function () {
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: '/murrs/murr_detail/comment_cut/' + id + '/',
+                    url: '/murrs/murr_detail/comment_cut.ajax/' + id + '/',
                     data: {id_comment: id},
                     success: function (response) {
                         console.log('success:');
@@ -115,7 +115,7 @@ $('.del-comment').on('click', function () {
                             $('.commentsCounter').html(commentCount - 1);
 
                             commentRow.animate({
-                                opacity: 1,
+                                opacity: 0,
                                 height: 0,
                                 padding: 0
                             }, 'slow', function () {

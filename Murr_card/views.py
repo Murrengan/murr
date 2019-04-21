@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -6,7 +7,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from taggit.models import Tag
-
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrVisiting, Comment
@@ -18,9 +18,11 @@ def murrs_list(request, **kwargs):
     ''' в kwargs передавать tag_name - для отбора по тегам;
     search_result - отбора по результатам поиска'''
 
+    search_result = kwargs.get('search_result') or None
     tag_name = kwargs.get('tag_name') or None
     all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
+
     if request.user.is_authenticated:
         # ----- показать все посты (мурры) всех ПЛЮС МОИ черновики ----
         all_murrs = Murr.objects.filter(Q(is_draft=True) & Q(author_id=request.user.id) |
@@ -29,27 +31,31 @@ def murrs_list(request, **kwargs):
         tag = get_object_or_404(Tag, name=tag_name)
         all_murrs = all_murrs.filter(tags__in=[tag])
 
-    if kwargs.get('search_result'):
-        all_murrs = kwargs.get('search_result')
+    if search_result or 'search_result' in kwargs:
+        ''' есть ли результаты поиска или вообще мы поиск осуществляли '''
+        all_murrs = search_result
 
-    paginator = Paginator(all_murrs, 5)
-    page_request_ver = 'page'
-    page = request.GET.get(page_request_ver)
-    try:
-        paginator_queryset = paginator.page(page)
-    except PageNotAnInteger:
-        paginator_queryset = paginator.page(1)
-    except EmptyPage:
-        paginator_queryset = paginator.page(paginator.num_pages)
+    if all_murrs:
+        paginator = Paginator(all_murrs, 5)
+        page_request_ver = 'page'
+        page = request.GET.get(page_request_ver)
+        try:
+            paginator_queryset = paginator.page(page)
+        except PageNotAnInteger:
+            paginator_queryset = paginator.page(1)
+        except EmptyPage:
+            paginator_queryset = paginator.page(paginator.num_pages)
 
-    # latest = Murr.objects.order_by('-timestamp')[0:2]
-    latest = all_murrs[0:2]
-    context = {
-        'murrs': paginator_queryset,
-        'page_request_ver': page_request_ver,
-        'all_categories_count': all_categories_count,
-        'latest': latest
-    }
+        # latest = Murr.objects.order_by('-timestamp')[0:2]
+        latest = all_murrs[0:2]
+        context = {
+            'murrs': paginator_queryset,
+            'page_request_ver': page_request_ver,
+            'all_categories_count': all_categories_count,
+            'latest': latest
+        }
+    else:
+        context = {}
     return render(request, 'Murr_card/murr_list.html', context)
 
 
@@ -73,11 +79,6 @@ def murr_detail(request, slug):
     return render(request, 'Murr_card/murr_detail.html', context)
 
 
-def murr_is_hit(request):
-    # print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
-    return
-
-          
 def get_all_categories_count():
     # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
     all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
@@ -93,12 +94,14 @@ def search(request):
             Q(title__icontains=query) |
             Q(description__icontains=query)
         ).distinct()
-
     context = {
         'search_result': queryset
     }
-    # return render(request, 'Murr_card/search_result.html', context)
+
     ''' теперь от темплейта результатов поиска можно отказаться '''
+    # вызываем вьюху murrs_list (как функцию передавая резльтаты поиска)
+    if not queryset:
+        messages.warning(request, f'nothing found')
     return murrs_list(request, **context)
 
 
@@ -145,12 +148,30 @@ def murr_update(request, slug):
 
 
 def murr_delete(request, slug):
+    ''' удалить мурр '''
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murrs_list'))
 
 
 def comment_cut(request, id):
+    ''' удалить комментарий '''
+    comment = get_object_or_404(Comment, pk=id)
+    comment.delete()
+    return JsonResponse({'success': True})
+
+
+def comment_edit(request, id):
+    ''' изменить комментарий'''
+    data = dict()
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    # render_to_string
+    return JsonResponse({'success': True})
+
+
+def comment_reply(request, id):
+    ''' ответ на комментарий'''
     comment = get_object_or_404(Comment, pk=id)
     # comment.delete()
     return JsonResponse({'success': True})

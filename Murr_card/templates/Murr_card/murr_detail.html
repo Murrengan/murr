@@ -34,7 +34,8 @@
         {#tags list#}
         <p class="d-inline">
             {% for tag in murr_detail.tags.all %}
-               <a href="{% url 'murrs_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
+              <a href="{% url 'murrs_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
+{#               #{{ tag }}&nbsp;&nbsp #}
             {% endfor %}
         </p>
         {#tags list#}
@@ -64,7 +65,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Удаление ниабротимо!<br>Вы уверены что хотите удалить данный Мурр!?
+                            Удаление необротимо!<br>Вы уверены что хотите удалить данный Мурр!?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
@@ -101,7 +102,8 @@
                     </div>
                 </h5>
 
-                <div class="mb-1 comm-content"><p>{{ comment.content | striptags  }}</p></div>
+{#                <div class="mb-1 comm-content"><p>{{ comment.content | striptags  }}</p></div>#}
+                <div class="mb-1 comm-content">{{ comment.content | safe | linebreaksbr  }}</div>
 
                 <div class="clearfix comments-footer d-flex">
                     <div class="comment-control small" data-id="{{ comment.id }}">

@@ -27,11 +27,11 @@ class MurrForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={
-        'class': 'form-control',
-        'placeholder': 'введите ваш комментарий',
-        'rows': '4',
-    }))
+    content = forms.CharField(
+        widget=forms.Textarea(
+            attrs={'class': 'form-control', 'placeholder': 'введите ваш комментарий','rows': '4',}
+        )
+    )
 
     class Meta:
         model = Comment
@@ -43,11 +43,14 @@ class CommentEditForm(forms.Form):
 
     # родительский комментарий
     parent_comment = forms.IntegerField(
-        widget=forms.HiddenInput,
+        # widget=forms.HiddenInput,
+        widget=forms.IntegerField,
         required=False
     )
 
     comment_area = forms.CharField(
         label="",
-        widget=forms.Textarea
+        widget=TinyMCEWidget(
+            attrs={'required': False, 'rows': 4}
+        )
     )
