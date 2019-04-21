@@ -1,0 +1,57 @@
+<img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px" />
+<span>{{ murr.author.username }}</span>
+
+{% if murr.image %}
+    <img src="{{ murr.image.url }}" alt="" />
+{% endif %}
+
+<h3>{{ murr.title }}</h3>
+<div class="container-fluid overflow-hidden murr_body">
+    {{ murr.content|safe }}
+</div>
+
+<div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
+    <i class="fa fa-comments"><span class="commentsCounter">{{ murr.comment_count }}</span></i>
+    |
+    <i class="fa fa-eye"> {{ murr.view_count }} </i>
+    &nbsp;&nbsp;•&nbsp;&nbsp;
+    <p class="d-inline">
+        {% for tag in murr.tags.all %}
+            <a href="{% url 'murr_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
+        {% endfor %}
+    </p>
+</div>
+
+{% if murr.author_id == request.user.pk %}
+    <a href="{% url 'murr_update' murr.slug %}" class="btn btn-primary btn-sm mr-2" role="button" aria-pressed="true">
+        Изменить&nbsp;&nbsp;<i class="fa fa-pen"></i>
+    </a>
+
+    <button type="button" class="btn btn-danger btn-sm mr-2" role="button" aria-pressed="true" data-toggle="modal" data-target="#DeleteAlert">
+        Удалить&nbsp;&nbsp;<i class="fa fa-times-circle"></i>
+    </button>
+
+    <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content ">
+                <div class="alert-danger modal-header">
+                    <h5 class="modal-title"><i class="fa fa-exclamation"></i> Предупреждение!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Удаление неабротимо!<br>Вы уверены что хотите удалить данный Мурр!?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
+                        Отменить
+                    </button>
+                    <a href="{% url 'murr_delete' murr.slug %}" class="btn btn-primary btn-sm mr-2" role="button" aria-pressed="true">
+                        Подтвердить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

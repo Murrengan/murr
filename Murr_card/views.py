@@ -45,20 +45,20 @@ def murr_list(request, **kwargs):
 
 
 def murr_detail(request, slug):
-    murr_detail = get_object_or_404(Murr, slug=slug)
+    murr = get_object_or_404(Murr, slug=slug)
     form = CommentForm(request.POST or None)
 
     # себя не добавляем в просмотры
-    if request.user.is_authenticated and request.user.id != murr_detail.author_id:
-        MurrVisiting.objects.get_or_create(user=request.user, murr=murr_detail)
+    if request.user.is_authenticated and request.user.id != murr.author_id:
+        MurrVisiting.objects.get_or_create(user=request.user, murr=murr)
     if request.method == 'POST':
         if form.is_valid():
             form.instance.user = request.user
-            form.instance.murr = murr_detail
+            form.instance.murr = murr
             form.save()
             return HttpResponseRedirect(request.path)
     context = {
-        'murr_detail': murr_detail,
+        'murr': murr,
         'form': form
     }
     return render(request, 'Murr_card/murr_detail.html', context)
