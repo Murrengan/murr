@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response) =;> {
+        error: (response) => {
         console.log("False")
     }
 })
@@ -51,7 +51,7 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response) =;> {
+        error: (response) => {
         console.log("False")
     }
 })
