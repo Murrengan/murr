@@ -152,5 +152,5 @@ def murr_delete(request, slug):
 
 def comment_cut(request, id):
     comment = get_object_or_404(Comment, pk=id)
-    comment.delete()
+    # comment.delete()
     return JsonResponse({'success': True})

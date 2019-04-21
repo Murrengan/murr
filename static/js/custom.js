@@ -35,7 +35,7 @@ let like = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response)=;> {
+        (response) =;> {
         console.log("False")
     }
 })
@@ -51,11 +51,12 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-        (response)=;> {
+        (response) =;> {
         console.log("False")
     }
 })
 };
+
 // обработать форму авторизации с помощью ajax request.
 $(".need_auth").submit(function (e) {
     e.preventDefault();
@@ -118,7 +119,7 @@ $('.del-comment').on('click', function () {
                                 height: 0,
                                 padding: 0
                             }, 'slow', function () {
-                                commentRow.remove();
+                                commentRow.fadeOut();
                             });
                         } else {
                             alert('Внимание ' + response.message);
