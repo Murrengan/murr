@@ -49,7 +49,7 @@ def murr_list(request, **kwargs):
         'search_query': search_query,
         'categories': Category.objects.all(),
     }
-
+    return render(request, 'Murr_card/murr_list.html', context)
 
 
 def murr_detail(request, slug):
