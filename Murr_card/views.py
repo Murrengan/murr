@@ -1,10 +1,11 @@
+from django.contrib import messages
 from taggit.models import Tag
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -14,11 +15,15 @@ from .models import Murr, MurrVisiting, Comment, Category
 User = get_user_model()
 
 
-def murr_list(request, **kwargs):
-    """ в kwargs передавать tag_name - для отбора по тегам;
-    search_result - отбора по результатам поиска"""
+def murrs_list(request, **kwargs):
+    ''' в kwargs передавать tag_name - для отбора по тегам;
+    search_result - отбора по результатам поиска'''
 
-    all_murrs = Murr.objects.filter(is_public=True, is_draft=False)
+    search_result = kwargs.get('search_result') or None
+    tag_name = kwargs.get('tag_name') or None
+    all_categories_count = get_all_categories_count()[0:5]
+    all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
+
     if request.user.is_authenticated:
         # all murrs + my drafts
         all_murrs = Murr.objects.filter(Q(is_draft=True, author_id=request.user.id) | Q(is_draft=False))
@@ -28,19 +33,25 @@ def murr_list(request, **kwargs):
         tag = get_object_or_404(Tag, name=tag_name)
         all_murrs = all_murrs.filter(tags__name=tag)
 
-    if kwargs.get('search_result'):
-        all_murrs = kwargs.get('search_result')
+    if search_result or 'search_result' in kwargs:
+        ''' есть ли результаты поиска или вообще мы поиск осуществляли '''
+        all_murrs = search_result
 
-    all_murrs = all_murrs.annotate(comments_total=Count('comments__pk')).order_by('-timestamp')
-    paginator = Paginator(all_murrs, 5)
-    try:
-        page = paginator.page(request.GET.get('page'))
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    if all_murrs:
+        paginator = Paginator(all_murrs, 5)
+        page_request_ver = 'page'
+        page = request.GET.get(page_request_ver)
+        try:
+            paginator_queryset = paginator.page(page)
+        except PageNotAnInteger:
+            paginator_queryset = paginator.page(1)
+        except EmptyPage:
+            paginator_queryset = paginator.page(paginator.num_pages)
 
-    context = {'murrs': page, 'last_two': all_murrs[:2], 'categories': Category.objects.all()}
+    context = {'murrs': page, 'last_two': all_murrs[:2]
+    , 'categories': Category.objects.all()
+    }else:
+        context = {}
     return render(request, 'Murr_card/murr_list.html', context)
 
 
@@ -67,12 +78,15 @@ def search(request):
             Q(title__icontains=query) |
             Q(description__icontains=query)
         ).distinct()
-
     context = {
         'search_result': queryset
     }
 
-    return murr_list(request, **context)
+    ''' теперь от темплейта результатов поиска можно отказаться '''
+    # вызываем вьюху murrs_list (как функцию передавая резльтаты поиска)
+    if not queryset:
+        messages.warning(request, f'nothing found')
+    return murrs_list(request, **context)
 
 
 @login_required
@@ -118,6 +132,7 @@ def murr_update(request, slug):
 
 
 def murr_delete(request, slug):
+    ''' удалить мурр '''
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murr_list'))
@@ -128,3 +143,26 @@ def comment_cut(request, id):
     # comment.delete()
     print(f'\n\n{comment} --------------- were here\n\n')
     return redirect(reverse('murr_list'))
+
+
+def comment_cut(request, id):
+    ''' удалить комментарий '''
+    comment = get_object_or_404(Comment, pk=id)
+    comment.delete()
+    return JsonResponse({'success': True})
+
+
+def comment_edit(request, id):
+    ''' изменить комментарий'''
+    data = dict()
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    # render_to_string
+    return JsonResponse({'success': True})
+
+
+def comment_reply(request, id):
+    ''' ответ на комментарий'''
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    return JsonResponse({'success': True})
