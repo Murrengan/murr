@@ -14,16 +14,9 @@ def landing(request):
 
 def redirect_view(request):
     if request.user.is_authenticated:
-        return redirect(reverse('murrs_list'))
+        return redirect(reverse('murr_list'))
     else:
         return redirect(reverse('account_login'))
-
-
-def count_murren(request):
-    count = User.objects.count()
-    return render(request, 'Murren/count_murren.html', {
-        'count': count
-    })
 
 
 def murren_profile(request, username):
@@ -32,15 +25,14 @@ def murren_profile(request, username):
         'murren_data': murren_data
     })
 
+
 @login_required
 def profile(request):
     if request.method == 'POST':
-        # instance = request.user показывает, что работа происходит именно для текущего клиента
+        # instance = request.user shows that the work is done for the exactly current client
         murren_form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
         if murren_form.is_valid():
             murren_form.save()
-            # TODO Добавить отображение messages from django
-
             messages.success(request, f'Твой профайл успешно изменен')
             return redirect('profile')
     else:

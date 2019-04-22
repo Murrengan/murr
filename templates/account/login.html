@@ -19,8 +19,10 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 
       <a href="{% url 'account_reset_password' %}">Забыл пароль?</a>
+      <hr color="white">
+      <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
+      <hr color="white">
 
-      <a href="{% provider_login_url "vk" %}">ВК</a>
 
 
       <p class="lead my-3 text-white-50">Да пребудет с тобой сила!</p>

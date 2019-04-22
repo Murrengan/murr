@@ -1,169 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'Murr_card/base_murrs.html' %}
+
 {% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
+{% endblock css %}
+
 {% block content %}
-
-    <div class="alert-secondary container py-2 rounded">
     <h2 class="text-center text-uppercase">Детали Мурра</h2>
+    <div class="detail my-3 p-3">{% include "Murr_card/includes/_murr_detail_view.html" %}</div>
 
-    <div class="detail my-3 p-3">
-
-        <h3 class="text-center">{{ murr_detail.title }}</h3>
-        Категории:
-        {% for murr in murr_detail.categories.all %}
-            {{ murr }}
-        {% endfor %}
-        <br>
-
-        <h2>
-            <img src="{{ murr_detail.author.profile_picture.url }}" alt="" width="45px" height="45px">
-            {{ murr_detail.author.user.username }}
-        </h2>
-        {% if murr_detail.image %}
-            <img src="{{ murr_detail.image.url }}" alt="">
-        {% endif %}
-
-        <div class="container-fluid overflow-hidden">
-            {{ murr_detail.content | safe }}
-        </div>
-
-        <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
-            <i class="fa fa-comments"><span class="commentsCounter">{{ murr_detail.comment_count }}</span></i>
-            |
-            <i class="fa fa-eye"> {{ murr_detail.view_count }} </i>
-            &nbsp;&nbsp;•&nbsp;&nbsp;
-        {#tags list#}
-        <p class="d-inline">
-            {% for tag in murr_detail.tags.all %}
-              <a href="{% url 'murrs_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
-{#               #{{ tag }}&nbsp;&nbsp #}
-            {% endfor %}
-        </p>
-        {#tags list#}
-        </div>
-
-        {% if murr_detail.author_id == request.user.id %}
-            <a href="{% url 'murr_update' murr_detail.slug %}"
-               class="btn btn-primary btn-sm mr-2"
-               role="button" aria-pressed="true">
-                Изменить&nbsp;&nbsp;
-                <i class="fa fa-pen"></i>
-            </a>
-            <button type="button" class="btn btn-danger btn-sm mr-2"
-                    role="button" aria-pressed="true"
-                    data-toggle="modal" data-target="#DeleteAlert">
-                Удалить&nbsp;&nbsp;
-                <i class="fa fa-times-circle"></i>
-            </button>
-            <div class="modal fade" id="DeleteAlert" tabindex="-1" role="dialog" aria-labelledby="DeleteAlertTitle"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content ">
-                        <div class="alert-danger modal-header">
-                            <h5 class="modal-title"><i class="fa fa-exclamation"></i> Предупреждение!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Удаление необротимо!<br>Вы уверены что хотите удалить данный Мурр!?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm mr-2" data-dismiss="modal">
-                                Отменить
-                            </button>
-                            <a href="{% url 'murr_delete' murr_detail.slug %}" class="btn btn-primary btn-sm mr-2"
-                               role="button"
-                               aria-pressed="true">Подтвердить</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-
-    </div>
-    {% if murr_detail.get_comments.exists %}
-        <div class="tesetsetset">
-        {% for comment in murr_detail.get_comments %}
-            {% if forloop.last %}
-                <div class="media mt-2 pb-2">
-            {% else %}
-                <div class="media my-2 pb-2"
-                     style="border-bottom: solid 1px darkkhaki;border-width: thin;">
-            {% endif %}
-            <img src="{{ comment.user.profile_picture.url }}" alt="" class="mt-1 mr-3 rounded-circle ava" title="ava">
-            <div class="media-body mb-2">
-                <h5 class="mt-0">{{ comment.user.username }}&nbsp;&nbsp;
-                    <div class="d-inline text-muted font-weight-light" aria-hidden="true" style="font-size: 14px;">
-                        <span>•</span>
-                        <span>
-                          {{ comment.timestamp| timesince }} назад &nbsp;•&nbsp;
-                          <a href="#comment-{{ comment.id }}">#</a>
-                        </span>•
-                    </div>
-                </h5>
-
-{#                <div class="mb-1 comm-content"><p>{{ comment.content | striptags  }}</p></div>#}
-                <div class="mb-1 comm-content">{{ comment.content | safe | linebreaksbr  }}</div>
-
-                <div class="clearfix comments-footer d-flex">
-                    <div class="comment-control small" data-id="{{ comment.id }}">
-
-                        {% if comment.user == user %}
-                            <a rel="" href="#" class="edt-comment"><span class="fa fa-pencil-alt"></span> Изменить</a>
-                            <a rel="" href="#" class="del-comment"><span class="fa fa-trash-alt"></span> Удалить</a>
-                        {% else %}
-                            <a rel="" href="#" class="rpl-comment"><span class="fa fa-reply"></span> ответить</a>
-                            <div class="btn-group">
-                                <button type="button" class="btn-xs btn-complain">
-                                    <span class="fa fa-exclamation-triangle"></span>
-                                    <span class="text"> пожаловаться</span>
-                                </button>
-                            </div>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    {% if murr.get_comments.exists %}
+        {% include "Murr_card/includes/_murr_details_comments.html" %}
     {% endif %}
 
+    {% if user.is_authenticated %}
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <div class="form-group my-2">
+                    <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock content %}
 
-{% if  comment.user.murren_name is not None %}
-    <h1>{{ comment.user.murren_name }}</h1>
-{% else %}
-    <h1>{{ comment.user.username }}</h1>
-{% endif %}
-
-
-{% if user.is_authenticated %}
-    <div class="container">
-        <form method="POST">
-            {% csrf_token %}
-
-            {{ form }}
-
-            <div class="form-group my-2">
-                <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
-            </div>
-        </form>
-    </div>
-
-{% endif %}
-
-</div>
-
-
-    {# end detail Murr card #}
-
-{% endblock %}
-{% block script %}
+{% block js %}
     {{ block.super }}
-    <!-- scripts -->
     <script src="{% static "js/jsdelivr.js" %}"></script>
     <script src="{% static "js/custom.js" %}"></script>
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
-
-
-{% endblock %}
+{% endblock js %}

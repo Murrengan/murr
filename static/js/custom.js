@@ -51,10 +51,10 @@ let follow = function (id) {
         success: (response) => {
             window.location = response
         },
-        errorr: (response) => {
-        console.log("False")
-    }
-})
+       errorr: (response) => {
+            console.log("False")
+        }
+    })
 };
 
 // обработать форму авторизации с помощью ajax request.

@@ -1,117 +1,16 @@
+.no-underline:hover {
+    text-decoration: none;
+}
+
 .all {
     color: white;
 }
 
-@media only screen and (max-width: 992px) and (min-width: 576px) {
-    .card-columns {
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        column-count: 2;
-    }
-}
-
 body {
-    background: radial-gradient( circle farthest-corner at 85.4% 50.8%,  rgba(14,72,222,1) 0%, rgba(3,22,65,1) 74.2% ) no-repeat fixed;
+    background: radial-gradient(circle farthest-corner at 85.4% 50.8%, rgba(14, 72, 222, 1) 0%, rgba(3, 22, 65, 1) 74.2%) no-repeat fixed;
     color: whitesmoke;
     font-family: 'PT Sans', sans-serif;
-    background: url('/static/img/anime-clouds-stars-couple.jpg') no-repeat fixed;
     background-size: cover;
-    background-attachment: fixed;}
-
-
-#showcase {
-    background: url("../img/husky.png") top center/cover no-repeat;
-    min-height: 450px;
-    max-height: 450px;
-    position: relative;
-}
-
-#showcase #header {
-    z-index: 2;
-}
-
-#showcase #overlay {
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-#About {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-#Master {
-    background: url("../img/pink_girl.png") right top/cover no-repeat;
-    min-height: 450px;
-    max-height: 450px;
-}
-
-#Murren {
-    background: url("../img/elf_girl.jpg") left top/cover no-repeat;
-    min-height: 450px;
-    max-height: 450px;
-}
-
-#Start {
-    padding-top: 50px;
-}
-
-@media (max-width: 768px) {
-    .sticky-top {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
-}
-
-.btn-add-murr {
-    box-shadow: 0 0 5px 2px #bbaccb;
-}
-
-.tesetsetset {
-    border: 1px solid dimgray; /* Параметры границы */
-    border-radius: .25rem !important;
-    background: palegreen; /* Цвет фона */
-    padding: 10px;
-    margin: 35px 10px;
-    word-break: break-word;
-    color: black;
-
-}
-
-.detail {
-    border: 1px solid dimgray;
-    border-radius: .25rem !important;
-    background: khaki;
-    padding: 10px;
-    margin: 10px;
-    word-break: break-word;
-    color: black;
-
-}
-
-.bage_draft {
-    position: absolute;
-    /*top: 25px;*/
-    border-radius: 0 5px 5px 0;
-    font-style: italic;
-    color: darkblue;
-    z-index: 1;
-}
-
-.btn {
-    background-image: linear-gradient(to bottom,
-    rgba(255,255,255,0.5),
-    rgba(255,255,255,0.2) 49%,
-    rgba(0,0,0,0.15) 51%,
-    rgba(0,0,0,0.05));
-    background-repeat: repeat-x;
 }
 
 .animate-opacity {
@@ -119,165 +18,15 @@ body {
 }
 
 @keyframes opac {
-    from {
-        opacity: 0
-    }
-    to {
-        opacity: 1
-    }
+    from { opacity: 0 }
+    to { opacity: 1 }
 }
 
-.trans {
-    transition: all .8s ease-in-out;
-}
-
-.trans:hover {
-   transform: scale(1.05, 1.05)
-}
-
-
-.media .comment-control {
-  display: none;
-}
-
-.media:hover .comment-control {
-  display: block;
-}
-
-.comments-footer {
-    /*padding: 10px 10px 0 0;*/
-    height: 15px;
-}
-
-
-/* crispy form - нет обязательной звездочки */
-.col-form-label {
-    display: none;
-}
-
-.ava {
-    width: 48px;
-    height: 48px;
-    border: 1px solid rgba(0,123,255,.25);
-    padding: 1px;
-    background-color: #ced4da;
-    box-shadow: 0 0 3px 0px black;
-}
-
-.alert-secondary.container.py-2.rounded {
-    box-shadow: inset 0 0 13px 7px #ffffff82;
-    border-radius: 0.75rem !important;
-    background-color: #c0e2ffad
-}
-
-.card-columns {
-    background-color: #d1ecf1ad;
-    box-shadow: 0 0 8px 7px #9fbad7;
-}
-
-/* в комментах - пожаловаться */
-.btn-complain {
-    background: none;
-    border: none;
-    box-shadow: none;
-    color: #888;
-    border-radius: 0;
-    line-height: 1;
-}
-
-.btn-complain:hover {
-    color: #444;
-}
-
-.btn-complain:focus {
-    box-shadow: none
-}
-
-/* в комментах - пожаловаться */
-
-.comment-control > a {
-  padding: 0 0 1px 0;
-  margin: 0 15px 0 0;
-  color: #888;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.comment-control > a:hover {
-  color: #444;
-  /*text-decoration: none;*/
-}
-
-.post_tags_inner {
-  margin: 0 -15px;
-  cursor: col-resize;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  transition-property: transform;
-  transition-duration: .5s;
-  transition-timing-function: ease-in-out
-}
-
-.murr-roof-gradient {
-    background: linear-gradient(0deg,
-    rgba(2, 0, 36, 0.19) 0%,
-    rgba(2, 40, 78, 0.03) 4%,
-    rgba(255, 255, 255, 0) 50%);
-}
-
-.glassy {
-    background-color: #9e9e9e52;
-    box-shadow: inset 0 0 7px 1px #B2EBF2;
-}
-
-p.card-text {
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 300;
-  text-decoration: none;
-}
-
-
-a.card-tag {
-  color: #787878;
-  font-size: 14px;
-  font-weight: 300;
-  text-decoration: none !important;
-}
-
-a.card-tag:hover {
-  color: #515151;
-}
-
-.media:last-child {
-  border-bottom: none !important;
-}
-
-
-blockquote {
-	font-style: italic;
-    font-size: 1em !important;
-	color: rgba(0, 0, 0, 1);
-	margin: 20px 0 20px 45px;
-	border-left: 5px solid rgba(0, 0, 0, 0.15);
-	padding-left: 15px;
-	line-height: 1.4em;
-	position: relative;
-}
-blockquote p {
-	padding: 0;
-}
-
-blockquote:before {
-	content: "\f10d";
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	position: absolute;
-	left: -45px;
-	top: 10px;
-	color: rgba(0, 0, 0, 0.15);
-	font-size: 25px;
+.btn {
+    background-image: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.15) 51%,
+    rgba(0, 0, 0, 0.05));
+    background-repeat: repeat-x;
 }

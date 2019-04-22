@@ -23,4 +23,5 @@ class ProfileMurrenForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('profile_picture', 'murren_name', 'email')
+        fields = ('profile_picture', 'username', 'email')
+        widgets = {'profile_picture': forms.FileInput()}

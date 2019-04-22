@@ -1,0 +1,44 @@
+<div class="card border-0">
+    <div class="card-header">
+        <a href="{% url 'murren_profile' murr.author.username %}" class="no-underline">
+            <img src="{{ murr.author.profile_picture.url }}" class="card-profile-img rounded" alt="">
+            <span class="card-author">{{ murr.author.username }}</span>
+        </a>
+    </div>
+
+    {% if murr.is_draft %}
+        <a href="{% url 'murr_detail' murr.slug %}" class="badge badge-warning bage_draft mt-4"> ЧЕРНОВИК </a>
+    {% endif %}
+
+    {% if murr.cover %}
+        <div class="img-thumbnail">
+            <div class="card-thumbnail-inner">
+                <a href="{% url 'murr_detail' murr.slug %}">
+                    <img class="card-img trans" src="{{ murr.cover.url }}" title="{{ murr.title }}" alt="cover" />
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card-body">
+        <h4 class="card-title"><a href="{% url 'murr_detail' murr.slug %}">{{ murr.title }}</a></h4>
+        <div class="card-text">{{ murr.description }}</div>
+    </div>
+
+    <div class="card-tags">
+        {% for tag in murr.tags.all %}
+            <a class="card-tag text-muted no-underline" href="{% url 'murr_list_by_tag_name' tag %}">#{{ tag }}</a>
+        {% endfor %}
+    </div>
+
+    <div class="card-footer d-flex justify-content-between text-muted border-0">
+        <div class="card-created-at">
+            {{ murr.timestamp| timesince }}
+        </div>
+        <div class="card-stats">
+            <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" >
+                {{ murr.comments_total|default:'' }}
+            </a>
+        </div>
+    </div>
+</div>
