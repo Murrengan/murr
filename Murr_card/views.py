@@ -58,12 +58,6 @@ def murr_detail(request, slug):
     return render(request, 'Murr_card/murr_detail.html', {'murr': murr, 'form': form})
 
 
-
-def murr_is_hit(request):
-    # print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
-    return
-
-
 def search(request):
     queryset = ''
     all_murrs = Murr.objects.all()
