@@ -15,13 +15,10 @@ from .models import Murr, MurrVisiting, Comment, Category
 User = get_user_model()
 
 
-def murrs_list(request, **kwargs):
+def murr_list(request, **kwargs):
     ''' в kwargs передавать tag_name - для отбора по тегам;
     search_result - отбора по результатам поиска'''
 
-    search_result = kwargs.get('search_result') or None
-    tag_name = kwargs.get('tag_name') or None
-    all_categories_count = get_all_categories_count()[0:5]
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
 
     if request.user.is_authenticated:
@@ -31,8 +28,9 @@ def murrs_list(request, **kwargs):
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
-        all_murrs = all_murrs.filter(tags__name=tag)
+        all_murrs = all_murrs.filter(tags__in=[tag])
 
+    search_result = kwargs.get('search_result')
     if search_result or 'search_result' in kwargs:
         ''' есть ли результаты поиска или вообще мы поиск осуществляли '''
         all_murrs = search_result
@@ -48,10 +46,9 @@ def murrs_list(request, **kwargs):
         except EmptyPage:
             paginator_queryset = paginator.page(paginator.num_pages)
 
-    context = {'murrs': page, 'last_two': all_murrs[:2]
-    , 'categories': Category.objects.all()
-    }else:
-        context = {}
+        context = {'murrs': paginator_queryset, 'last_two': all_murrs[:2], 'categories': Category.objects.all()}
+    else:
+            context = {}
     return render(request, 'Murr_card/murr_list.html', context)
 
 
@@ -89,10 +86,10 @@ def search(request):
     }
 
     ''' теперь от темплейта результатов поиска можно отказаться '''
-    # вызываем вьюху murrs_list (как функцию передавая резльтаты поиска)
+    # вызываем вьюху murr_list (как функцию передавая резльтаты поиска)
     if not queryset:
         messages.warning(request, f'nothing found')
-    return murrs_list(request, **context)
+    return murr_list(request, **context)
 
 
 @login_required

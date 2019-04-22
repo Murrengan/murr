@@ -8,7 +8,7 @@
 {% endblock css %}
 
 {% block content %}
-    {# Murrs #}
+     Murrs
     <div class="container py-1">
         <div class="card-columns animate-opacity p-1">
             {% for murr in murrs %}
@@ -18,12 +18,9 @@
     </div>
     {% include 'Murr_card/includes/_murr_list_pagination.html' %}
 {% endblock content %}
-{% if murrs %}
-    {% include 'Murr_card/include_cards.html' %}
-{% endif %}
-{% endblock %}
 
-{% block script %}
+
+{% block js %}
     {{ block.super }}
 
     <script>
@@ -32,4 +29,4 @@
         });
     </script>
 
-{% endblock script %}
+{% endblock js %}
