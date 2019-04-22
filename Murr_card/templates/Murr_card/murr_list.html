@@ -18,3 +18,18 @@
     </div>
     {% include 'Murr_card/includes/_murr_list_pagination.html' %}
 {% endblock content %}
+{% if murrs %}
+    {% include 'Murr_card/include_cards.html' %}
+{% endif %}
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+
+    <script>
+        $("#id_searcher").change(function () {
+            console.log($(this).val());
+        });
+    </script>
+
+{% endblock script %}

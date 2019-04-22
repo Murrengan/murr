@@ -1,10 +1,11 @@
+from django.contrib import messages
 from taggit.models import Tag
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -19,6 +20,7 @@ def murr_list(request, **kwargs):
         or murrs queryset from kwargs"""
 
     murrs = Murr.objects.filter(is_public=True, is_draft=False)
+
     if request.user.is_authenticated:
         # all murrs + my drafts
         availabled = Q(is_draft=True, author_id=request.user.id) | Q(is_draft=False)
@@ -49,7 +51,7 @@ def murr_list(request, **kwargs):
         'search_query': search_query,
         'categories': Category.objects.all(),
     }
-    return render(request, 'Murr_card/murr_list.html', context)
+
 
 
 def murr_detail(request, slug):
@@ -78,6 +80,7 @@ def search(request):
         murrs = Murr.objects.filter(search_fields).distinct()
 
     return murr_list(request, search_result=murrs, search_query=query)
+
 
 
 @login_required
@@ -119,6 +122,7 @@ def murr_update(request, slug):
 
 
 def murr_delete(request, slug):
+    ''' удалить мурр '''
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murr_list'))
@@ -129,3 +133,26 @@ def comment_cut(request, id):
     # comment.delete()
     print(f'\n\n{comment} --------------- were here\n\n')
     return redirect(reverse('murr_list'))
+
+
+def comment_cut(request, id):
+    ''' удалить комментарий '''
+    comment = get_object_or_404(Comment, pk=id)
+    comment.delete()
+    return JsonResponse({'success': True})
+
+
+def comment_edit(request, id):
+    ''' изменить комментарий'''
+    data = dict()
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    # render_to_string
+    return JsonResponse({'success': True})
+
+
+def comment_reply(request, id):
+    ''' ответ на комментарий'''
+    comment = get_object_or_404(Comment, pk=id)
+    # comment.delete()
+    return JsonResponse({'success': True})
