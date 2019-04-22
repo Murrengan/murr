@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from taggit.models import Tag
@@ -80,7 +80,6 @@ def search(request):
     return murr_list(request, search_result=murrs, search_query=query)
 
 
-
 @login_required
 def murr_create(request):
     title = 'Создай'
@@ -120,7 +119,6 @@ def murr_update(request, slug):
 
 
 def murr_delete(request, slug):
-    ''' удалить мурр '''
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murr_list'))
@@ -131,26 +129,3 @@ def comment_cut(request, id):
     # comment.delete()
     print(f'\n\n{comment} --------------- were here\n\n')
     return redirect(reverse('murr_list'))
-
-
-def comment_cut(request, id):
-    ''' удалить комментарий '''
-    comment = get_object_or_404(Comment, pk=id)
-    comment.delete()
-    return JsonResponse({'success': True})
-
-
-def comment_edit(request, id):
-    ''' изменить комментарий'''
-    data = dict()
-    comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
-    # render_to_string
-    return JsonResponse({'success': True})
-
-
-def comment_reply(request, id):
-    ''' ответ на комментарий'''
-    comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
-    return JsonResponse({'success': True})

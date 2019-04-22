@@ -1,12 +1,10 @@
 from PIL import Image
-from uuslug import slugify
-from tinymce import HTMLField
-from taggit.managers import TaggableManager
-
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
+from tinymce import HTMLField
+from uuslug import slugify
 
 User = get_user_model()
 
@@ -59,9 +57,7 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
-    def murrs_count(self, *args, **kwargs):
-        """ Количество мурров конкретного автора/юзера/Муррена/Мастера """
-
+    def murrs_count(self, **kwargs):
         return self.objects.filter(author=kwargs.get('author')).count()
 
     def save(self, *args, **kwargs):
