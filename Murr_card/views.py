@@ -1,11 +1,12 @@
+from taggit.models import Tag
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrVisiting, Comment, Category
@@ -14,39 +15,45 @@ User = get_user_model()
 
 
 def murr_list(request, **kwargs):
-    """ Output all murrs or murrs that filtered by tag
-        or murrs queryset from kwargs"""
-
-    murrs = Murr.objects.filter(is_public=True, is_draft=False)
-
-    if request.user.is_authenticated:
-        # all murrs + my drafts
-        availabled = Q(is_draft=True, author_id=request.user.id) | Q(is_draft=False)
-        murrs = Murr.objects.filter(availabled)
-
+    """
+    Output all murrs or murrs that filtered by tag
+    or murrs queryset from kwargs
+    """
+    murrs = Murr.objects.get_visible(request.user.pk)
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
         murrs = murrs.filter(tags__name=tag)
 
-    found_murrs = kwargs.get('search_result')
-    search_query = kwargs.get('search_query', '')
-    if found_murrs is not None:
-        murrs = found_murrs
-        search_query = f'q={search_query}&'
-
-    murrs = murrs.annotate(comments_total=Count('comments__pk')).order_by('-timestamp')
-    paginator = Paginator(murrs, 5)
-    try:
-        page = paginator.page(request.GET.get('page'))
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
 
     context = {
         'page': page,
-        'search_query': search_query,
+        'categories': Category.objects.all(),
+    }
+    return render(request, 'Murr_card/murr_list.html', context)
+
+
+def search(request):
+    """ Filter murrs by search query and pass queryser to murr_list view """
+    murrs = Murr.objects.get_visible(request.user.pk)
+    query = request.GET.get('q')
+    if query:
+        query_in_title = Q(title__icontains=query)
+        query_in_desc = Q(description__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_desc)
+
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
+
+    context = {
+        'page': page,
+        'search_query': f'q={query}&',
         'categories': Category.objects.all(),
     }
     return render(request, 'Murr_card/murr_list.html', context)
@@ -66,18 +73,6 @@ def murr_detail(request, slug):
 
     context = {'murr': murr, 'form': form}
     return render(request, 'Murr_card/murr_detail.html', context)
-
-
-def search(request):
-    """Filter murrs by search query and pass queryser to murr_list view"""
-
-    murrs = Murr.objects.none()
-    query = request.GET.get('q')
-    if query:
-        search_fields = Q(title__icontains=query) | Q(description__icontains=query)
-        murrs = Murr.objects.filter(search_fields).distinct()
-
-    return murr_list(request, search_result=murrs, search_query=query)
 
 
 @login_required
