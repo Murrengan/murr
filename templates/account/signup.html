@@ -5,11 +5,13 @@
 
 {% block content %}
 <h2>Регистрация</h2>
-<form method="post">
+<form method="post" class="formReg">
   {% csrf_token %}
   {{ form|crispy }}
-  <button class="btn btn-success btn-sm" type="submit">Регистрация</button>
-  <a href="{% url 'account_login' %}">Уже есть аккаунт?</a>
+  <div>
+    <button class="mbtn btn-success btn-sm" type="submit">Регистрация</button>
+    <a href="{% url 'account_login' %}">Уже есть аккаунт?</a>
+  </div>
 
 </form>
 {% endblock content %}
