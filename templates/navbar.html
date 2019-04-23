@@ -6,13 +6,12 @@
   <div class="container">
 
     <div class="row">
-
-      <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
         Murr
       </a>
 
       <form action="{% url 'search' %}" style="margin-top:12px;">
         <div class="input-group input-group-sm formSearch" id="searchForm">
+
           <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q" autocomplete="off"
                  id="searchInput">
           <div class="input-group-append">
@@ -40,7 +39,7 @@
           </a>
         </li>
 
-
+        {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false" style="color:white;">
@@ -50,7 +49,6 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
             <a class="dropdown-item" href="{% url 'profile' %}">Настройки</a>
-
             <div class="dropdown-divider"></div>
 
             <a class="dropdown-item text-muted" href="{% url 'account_logout' %}">Выйти</a>

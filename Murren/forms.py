@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+import re
+from django.utils.safestring import SafeText
 User = get_user_model()
 
 

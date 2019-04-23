@@ -1,5 +1,4 @@
 from django.urls import path
-
 from Murr_card.views import murr_list, murr_detail, search, murr_update, murr_delete, murr_create, comment_cut
 
 urlpatterns = [
