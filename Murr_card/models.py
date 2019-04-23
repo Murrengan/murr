@@ -3,9 +3,10 @@ from uuslug import slugify
 from tinymce import HTMLField
 from taggit.managers import TaggableManager
 
-from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 
 User = get_user_model()
@@ -18,12 +19,23 @@ class Category(models.Model):
         return self.title
 
 
+class MurrManager(models.Manager):
+
+    def get_visible(self, user_id=None):
+        """ Return all non-private murrs and user's drafts (if user_id passed) """
+        if user_id is None:
+            return self.filter(is_public=True, is_draft=False)
+
+        is_visible = Q(is_draft=True, author_id=user_id) | Q(is_draft=False)
+        return self.filter(is_visible)
+
+
 class Murr(models.Model):
     title = models.CharField(max_length=78, verbose_name='Заголовок')
     description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
     categories = models.ManyToManyField(Category, blank=True, related_name='murrs')
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
@@ -31,6 +43,8 @@ class Murr(models.Model):
     is_public = models.BooleanField("Общедоступен", default=True, blank=True)
     tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
     slug = models.CharField(verbose_name='Слаг для мурра', max_length=100, blank=True)
+
+    objects = MurrManager()
 
     def __str__(self):
         return self.title
@@ -44,12 +58,9 @@ class Murr(models.Model):
     def get_delete_url(self):
         return reverse('murr_delete', kwargs={'pk': self.id})
 
-    # возвращает все комментарии к конкретному мурру,
-    # так как в можеле Comment стоит related_name='comments'
-    # и прописано return self.comments.all()
     @property
     def get_comments(self):
-        return self.comments.all().order_by('-timestamp')
+        return self.comments.order_by('-timestamp')
 
     @property
     def view_count(self):
@@ -59,8 +70,7 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
-    def murrs_count(self, *args, **kwargs):
-        """ Number of Murrs of a specific author/user/Murren/ Master """
+    def murrs_count(self, **kwargs):
         return self.objects.filter(author=kwargs.get('author')).count()
 
     def save(self, *args, **kwargs):

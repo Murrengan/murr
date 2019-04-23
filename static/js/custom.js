@@ -73,23 +73,25 @@ $(".need_auth").submit(function (e) {
 
 $(".edt-comment").on('click', function () {
     // console.log('reply');
+    let commentContent = $('#id_content')
     msg = $(this).parents("div.media-body").find('p').html();
-    if ($('#id_content').val()) {
-        $('#id_content').val("");
+    if (commentContent.val()) {
+        commentContent.val("");
     }
-    $('#id_content').val(msg);
-    $('#id_content').focus();
+    commentContent.val(msg);
+    commentContent.focus();
 
     console.log(msg, $(this).parent('.comment-control.small').data('id'));
     return false;
 });
 
 $('.del-comment').on('click', function () {
+    var commentRow = '';
     id = $(this).parent('.comment-control.small').data('id');
     if ($('.comment-list .media').length > 1) {
-        var commentRow = $(this).parents('.media');
+        commentRow = $(this).parents('.media');
     } else {
-        var commentRow = $('.comment-list');
+        commentRow = $('.comment-list');
     }
     console.log('will be delete comment id -' + id);
     BootstrapDialog.show({

@@ -33,7 +33,7 @@
 
     <div class="card-footer d-flex justify-content-between text-muted border-0">
         <div class="card-created-at">
-            {{ murr.timestamp| timesince }}
+            {{ murr.timestamp|timesince }}
         </div>
         <div class="card-stats">
             <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" >
