@@ -1,13 +1,12 @@
 from django.contrib import messages
-from taggit.models import Tag
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrVisiting, Comment, Category
@@ -16,8 +15,8 @@ User = get_user_model()
 
 
 def murr_list(request, **kwargs):
-    ''' в kwargs передавать tag_name - для отбора по тегам;
-    search_result - отбора по результатам поиска'''
+    """ in kwargs send tag_name - for select by tags;
+    search_result - select by search results """
 
     all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
 
@@ -32,7 +31,7 @@ def murr_list(request, **kwargs):
 
     search_result = kwargs.get('search_result')
     if search_result or 'search_result' in kwargs:
-        ''' есть ли результаты поиска или вообще мы поиск осуществляли '''
+        #  is there a search_result or we came from searching at all
         all_murrs = search_result
 
     if all_murrs:
@@ -66,12 +65,6 @@ def murr_detail(request, slug):
     return render(request, 'Murr_card/murr_detail.html', {'murr': murr, 'form': form})
 
 
-
-def murr_is_hit(request):
-    # print(f"\t\tIP = {request.META.get('REMOTE_ADDR')}\n\n")
-    return
-
-
 def search(request):
     queryset = ''
     all_murrs = Murr.objects.all()
@@ -85,7 +78,7 @@ def search(request):
         'search_result': queryset
     }
 
-    ''' теперь от темплейта результатов поиска можно отказаться '''
+    # теперь от темплейта результатов поиска можно отказаться
     # вызываем вьюху murr_list (как функцию передавая резльтаты поиска)
     if not queryset:
         messages.warning(request, f'nothing found')
@@ -135,37 +128,28 @@ def murr_update(request, slug):
 
 
 def murr_delete(request, slug):
-    ''' удалить мурр '''
     murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
     return redirect(reverse('murr_list'))
 
 
 def comment_cut(request, id):
-    comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
-    print(f'\n\n{comment} --------------- were here\n\n')
-    return redirect(reverse('murr_list'))
-
-
-def comment_cut(request, id):
-    ''' удалить комментарий '''
+    """ remove comment by id """
     comment = get_object_or_404(Comment, pk=id)
     comment.delete()
     return JsonResponse({'success': True})
 
 
 def comment_edit(request, id):
-    ''' изменить комментарий'''
-    data = dict()
-    comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
+    # data = dict()
+    # comment = get_object_or_404(Comment, pk=id)
     # render_to_string
-    return JsonResponse({'success': True})
+    # return JsonResponse({'success': True})
+    pass
 
 
 def comment_reply(request, id):
-    ''' ответ на комментарий'''
-    comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
-    return JsonResponse({'success': True})
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
+    pass
