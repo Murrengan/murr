@@ -65,3 +65,7 @@
 .btn-signUp > a {
   color: black;
 }
+
+.btn-add-murr {
+  box-shadow: 0 0 5px 2px #bbaccb;
+}
