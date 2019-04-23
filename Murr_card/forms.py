@@ -41,9 +41,7 @@ class CommentForm(forms.ModelForm):
 
 
 class CommentEditForm(forms.Form):
-    ''' форма редактирования комментария '''
 
-    # родительский комментарий
     parent_comment = forms.IntegerField(
         # widget=forms.HiddenInput,
         widget=forms.IntegerField,
