@@ -1,12 +1,9 @@
 {% load static %}
 
 <nav class="navbar navbar-expand navbar-light ">
-
-
   <div class="container">
 
     <div class="row">
-
       <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
         Murr
       </a>
@@ -26,36 +23,30 @@
 
     <ul class="navbar-nav ml-auto">
 
-      {% if user.is_authenticated %}
-
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
-            <i class="far fa-compass"></i>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'murr_list' %}" title="На главную" style="color:white;">
-            <i class="fas fa-home"></i>
-          </a>
-        </li>
-
-
+            <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+              <i class="far fa-compass"></i>
+            </a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'murr_list' %}" title="На главную" style="color:white;">
+              <i class="fas fa-home"></i>
+            </a>
+          </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false" style="color:white;">
             <i class="fas fa-user"></i>
-
           </a>
+
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
             <a class="dropdown-item" href="{% url 'profile' %}">Настройки</a>
-
             <div class="dropdown-divider"></div>
 
             <a class="dropdown-item text-muted" href="{% url 'account_logout' %}">Выйти</a>
-
-
           </div>
 
         </li>
@@ -73,7 +64,6 @@
         </li>
       {% endif %}
     </ul>
-
   </div>
 
 </nav>
