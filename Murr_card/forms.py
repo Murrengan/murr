@@ -1,11 +1,11 @@
 from django import forms
+from django.utils.html import strip_tags
 from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
 
 class TinyMCEWidget(TinyMCE):
-
     def use_required_attribute(self, *args):
         return False
 
@@ -24,6 +24,13 @@ class MurrForm(forms.ModelForm):
         # (возможно Crispy Form перекрывает что то в классах)
         # widgets={'is_draft': forms.CheckboxInput(attrs={'class':'custom-control-input'}),
         #          'is_public': forms.CheckboxInput(attrs={'class':'custom-control-input'}),}
+
+    def clean_tags(self):
+        """Cleaning tags from backslashes and strip html-tags"""
+
+        tags = self.cleaned_data.get('tags')
+        tags = [strip_tags(tag).replace('/', '') for tag in tags]
+        return filter(bool, tags)
 
 
 class CommentForm(forms.ModelForm):

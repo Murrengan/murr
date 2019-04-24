@@ -1,8 +1,7 @@
-from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+from django.core.paginator import Paginator
+from django.db.models import Q, Count
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -15,39 +14,47 @@ User = get_user_model()
 
 
 def murr_list(request, **kwargs):
-    """ in kwargs send tag_name - for select by tags;
-    search_result - select by search results """
-
-    all_murrs = Murr.objects.filter(is_draft=False).filter(is_public=True).order_by('-timestamp')
-
-    if request.user.is_authenticated:
-        # all murrs + my drafts
-        all_murrs = Murr.objects.filter(Q(is_draft=True, author_id=request.user.id) | Q(is_draft=False))
-
+    """
+    Output all murrs or murrs that filtered by tag
+    or murrs queryset from kwargs
+    """
+    murrs = Murr.objects.get_visible(request.user.pk)
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
-        all_murrs = all_murrs.filter(tags__in=[tag])
+        murrs = murrs.filter(tags__name=tag)
 
-    search_result = kwargs.get('search_result')
-    if search_result or 'search_result' in kwargs:
-        #  is there a search_result or we came from searching at all
-        all_murrs = search_result
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
 
-    if all_murrs:
-        paginator = Paginator(all_murrs, 5)
-        page_request_ver = 'page'
-        page = request.GET.get(page_request_ver)
-        try:
-            paginator_queryset = paginator.page(page)
-        except PageNotAnInteger:
-            paginator_queryset = paginator.page(1)
-        except EmptyPage:
-            paginator_queryset = paginator.page(paginator.num_pages)
+    context = {
+        'page': page,
+        'categories': Category.objects.all(),
+    }
+    return render(request, 'Murr_card/murr_list.html', context)
 
-        context = {'murrs': paginator_queryset, 'last_two': all_murrs[:2], 'categories': Category.objects.all()}
-    else:
-            context = {}
+
+def search(request):
+    """ Filter murrs by search query and pass queryser to murr_list view """
+    murrs = Murr.objects.get_visible(request.user.pk)
+    query = request.GET.get('q')
+    if query:
+        query_in_title = Q(title__icontains=query)
+        query_in_desc = Q(description__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_desc)
+
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
+
+    context = {
+        'page': page,
+        'search_query': f'q={query}&',
+        'categories': Category.objects.all(),
+    }
     return render(request, 'Murr_card/murr_list.html', context)
 
 
@@ -59,30 +66,12 @@ def murr_detail(request, slug):
         form.instance.murr = murr
         form.save()
         return HttpResponseRedirect(request.path)
+
     if request.user.is_authenticated and request.user.pk != murr.author_id:
         MurrVisiting.objects.get_or_create(user=request.user, murr=murr)
 
-    return render(request, 'Murr_card/murr_detail.html', {'murr': murr, 'form': form})
-
-
-def search(request):
-    queryset = ''
-    all_murrs = Murr.objects.all()
-    query = request.GET.get('q')
-    if query:
-        queryset = all_murrs.filter(
-            Q(title__icontains=query) |
-            Q(description__icontains=query)
-        ).distinct()
-    context = {
-        'search_result': queryset
-    }
-
-    # теперь от темплейта результатов поиска можно отказаться
-    # вызываем вьюху murr_list (как функцию передавая резльтаты поиска)
-    if not queryset:
-        messages.warning(request, f'nothing found')
-    return murr_list(request, **context)
+    context = {'murr': murr, 'form': form}
+    return render(request, 'Murr_card/murr_detail.html', context)
 
 
 @login_required
@@ -97,10 +86,8 @@ def murr_create(request):
             return redirect(reverse('murr_detail', kwargs={
                 'slug': form.instance.slug
             }))
-    context = {
-        'title': title,
-        'form': form
-    }
+
+    context = {'title': title, 'form': form}
     return render(request, 'Murr_card/murr_create.html', context)
 
 
@@ -120,10 +107,8 @@ def murr_update(request, slug):
             return redirect(reverse('murr_detail', kwargs={
                 'slug': form.instance.slug
             }))
-    context = {
-        'title': title,
-        'form': form
-    }
+
+    context = {'title': title, 'form': form}
     return render(request, template, context)
 
 
@@ -134,7 +119,6 @@ def murr_delete(request, slug):
 
 
 def comment_cut(request, id):
-    """ remove comment by id """
     comment = get_object_or_404(Comment, pk=id)
     comment.delete()
     return JsonResponse({'success': True})

@@ -1,0 +1,62 @@
+.form-control:focus {
+  box-shadow: none;
+}
+
+.formReg {
+  width: 30%;
+  margin: auto;
+}
+
+.formReg > h2 {
+  margin-left: 25%;
+}
+
+#div_id_email {
+  margin: 0;
+}
+
+
+
+#id_email {
+  outline: none;
+  border: none;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+#id_username {
+  border: none;
+  outline: none;
+  border-radius: 0;
+  width: 100.2%;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+#id_password1 {
+  outline: none;
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+#div_id_username{
+  margin: 0;
+}
+
+.info > a {
+  color: white;
+}
+
+.mbtn {
+  width: 100%;
+  padding: 5px 0;
+  border: none;
+  background: #00cf35;
+  border-radius: 3px;
+  color: white;
+}

@@ -4,3 +4,4 @@ db.sqlite3
 */migrations/*
 media/*
 !default_murren_img.jpg
+.DS_Store
