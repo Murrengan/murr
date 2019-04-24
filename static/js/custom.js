@@ -119,7 +119,7 @@ $('.del-comment').on('click', function () {
                                 height: 0,
                                 padding: 0
                             }, 'slow', function () {
-                                commentRow.fadeOut();
+                                commentRow.remove();
                             });
                         } else {
                             alert('Внимание ' + response.message);
