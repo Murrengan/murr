@@ -58,6 +58,10 @@
     display: block;
 }
 
+.media:last-child {
+  border-bottom: none !important;
+}
+
 .comments-footer {
     padding: 10px 10px 0 0;
     height: 15px;
@@ -90,3 +94,31 @@
     background-color: #ced4da;
     box-shadow: 0 0 3px 0px black;
 }
+
+
+/* цитированный комментарий */
+blockquote {
+	font-style: italic;
+    font-size: 1em !important;
+	color: rgba(0, 0, 0, 1);
+	margin: 20px 0 20px 45px;
+	border-left: 5px solid rgba(0, 0, 0, 0.15);
+	padding-left: 15px;
+	line-height: 1.4em;
+	position: relative;
+}
+blockquote p {
+	padding: 0;
+}
+
+blockquote:before {
+	content: "\f10d";
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	position: absolute;
+	left: -45px;
+	top: 10px;
+	color: rgba(0, 0, 0, 0.15);
+	font-size: 25px;
+}
+/* -цитированный комментарий- */

@@ -1,12 +1,11 @@
-from taggit.models import Tag
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .models import Murr, MurrVisiting, Comment, Category
@@ -121,6 +120,20 @@ def murr_delete(request, slug):
 
 def comment_cut(request, id):
     comment = get_object_or_404(Comment, pk=id)
-    # comment.delete()
-    print(f'\n\n{comment} --------------- were here\n\n')
-    return redirect(reverse('murr_list'))
+    comment.delete()
+    return JsonResponse({'success': True})
+
+
+def comment_edit(request, id):
+    # data = dict()
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
+    pass
+
+
+def comment_reply(request, id):
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
+    pass

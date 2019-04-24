@@ -86,10 +86,10 @@ $(".edt-comment").on('click', function () {
 
 $('.del-comment').on('click', function () {
     id = $(this).parent('.comment-control.small').data('id');
-    if ($('.tesetsetset .media').length > 1) {
+    if ($('.comment-list .media').length > 1) {
         var commentRow = $(this).parents('.media');
     } else {
-        var commentRow = $('.tesetsetset');
+        var commentRow = $('.comment-list');
     }
     console.log('will be delete comment id -' + id);
     BootstrapDialog.show({
