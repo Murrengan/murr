@@ -3,16 +3,29 @@
 <nav class="navbar navbar-expand navbar-light">
   <div class="container">
     <div class="row">
+<<<<<<< HEAD
       <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 5px;">
+=======
+>>>>>>> 8f06510e648428f8a195f948ca04d5cab088ff0b
         Murr
       </a>
 
       <form action="{% url 'search' %}" style="margin-top:12px;">
+<<<<<<< HEAD
         <div class="input-group input-group-sm col-xs-1 formSearch" id="searchForm">
           <span><i class="fa fa-search col-sm-1 col-xs-1" style="padding: 4px 0 0 4px;"></i></span>
           <input type="text" class="search-input col-sm-10 col-xs-1" size="25" placeholder="Найти Мурр" name="q" autocomplete="off"
                  id="searchInput">
           <div class="input-group-append">
+=======
+        <div class="input-group input-group-sm formSearch" id="searchForm">
+
+          <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q" autocomplete="off"
+                 id="searchInput">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i
+                    class="fa fa-search"></i></button>
+>>>>>>> 8f06510e648428f8a195f948ca04d5cab088ff0b
           </div>
         </div>
       </form>
@@ -37,7 +50,6 @@
           <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false" style="color:white;">
             <i class="fas fa-user"></i>
-          </a>
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 

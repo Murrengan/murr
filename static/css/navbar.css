@@ -75,10 +75,3 @@
 .btn-add-murr {
   box-shadow: 0 0 5px 2px #bbaccb;
 }
-
-@media (max-width: 580px) {
-  .formSearch {
-    width: 150px;
-    display: inline-block
-  }
-}
