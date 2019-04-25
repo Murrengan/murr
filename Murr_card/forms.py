@@ -51,7 +51,6 @@ class CommentEditForm(forms.Form):
 
     parent_comment = forms.IntegerField(
         # widget=forms.HiddenInput,
-        widget=forms.IntegerField,
         required=False
     )
 
