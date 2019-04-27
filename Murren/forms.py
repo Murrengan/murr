@@ -6,14 +6,14 @@ from django.utils.safestring import SafeText
 User = get_user_model()
 
 
-class CustomMurrenCreationForm(UserCreationForm):
+class MurrenCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = User
         fields = ('username', 'email')
 
 
-class CustomMurrenChangeForm(UserChangeForm):
+class MurrenChangeForm(UserChangeForm):
 
     class Meta:
         model = User

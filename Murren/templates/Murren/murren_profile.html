@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load static crispy_forms_tags %}
 
 {% block content %}
+    <div class="profile card-columns animate-opacity alert-info p-2 pl-3">
+        <img src=" {{ murren_data.profile_picture.url }}"width="100px" height="auto"alt="" class="rounded shadow shadow-sm" />
+        <span class="font-italic h2 text-dark"> {{ murren_data.email }} </span>
+    </div>
+{% endblock content %}
 
-
-  <div class="card-columns animate-opacity alert-info p-2 pl-3">
-    <img src=" {{ murren_data.profile_picture.url }}"width="100px" height="auto"
-         alt="" class="rounded shadow shadow-sm">
-    &nbsp;&nbsp;<span class="font-italic h2 text-dark"> {{ murren_data.email }} </span></
-  <div>
-
-{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script src="{% static "js/profile.js" %}"></script>
+    <script> $('.profile').murrenProfile(); </script>
+{% endblock js %}
