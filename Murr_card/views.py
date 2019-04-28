@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from taggit.models import Tag
 
-from .forms import CommentForm, MurrForm
+from .forms import CommentForm, MurrForm, CommentEditForm
 from .models import Murr, MurrVisiting, Comment, Category
 
 User = get_user_model()
@@ -128,11 +128,14 @@ def comment_cut(request, id):
 
 
 def comment_edit(request, id):
-    # data = dict()
-    # comment = get_object_or_404(Comment, pk=id)
+    data = dict()
+    template = 'Murr_card/comment_edit.ajax.html'
+    form = CommentEditForm(request.POST)
+    comment = get_object_or_404(Comment, pk=id)
+    context = {'title': '-EDIT-', 'form': form, 'comment':comment.content,}
     # render_to_string
     # return JsonResponse({'success': True})
-    pass
+    return render(request, template, context)
 
 
 def comment_reply(request, id):

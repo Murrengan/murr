@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {{ form.media }}
+    <script !src="">
+        tinymce.init({
+            selector: 'textarea',  // change this value according to your HTML
+            toolbar: 'undo redo | styleselect | bold italic | link image',
+            menubar: false,
+            width: 600,
+            height: 300,
+            branding: false,
+            theme : "modern",
+            {#statusbar: false,#}
+            plugins: 'wordcount'
+        });
+    </script>
+</head>
+<body>
+ {{ comment }}
+ {% if form  %}
+     {{ form.as_p }}
+ {% endif %}
+••••••••
+</body>
+</html>
