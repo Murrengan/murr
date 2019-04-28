@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -44,6 +45,8 @@ def search(request):
         query_in_title = Q(title__icontains=query)
         query_in_desc = Q(description__icontains=query)
         murrs = murrs.filter(query_in_title | query_in_desc)
+        if murrs.exists() is False:
+            messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')

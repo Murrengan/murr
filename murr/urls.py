@@ -1,19 +1,20 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
-from Murren.views import landing, profile, redirect_view
-from murr import settings
+from Murren import views as murren
 
 urlpatterns = [
+    path('', murren.redirect_view, name='redirect_view'),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('allauth.urls')),
-    path('profile/', profile, name='profile'),
+    path('edit/', murren.murren_edit, name='edit'),
     path('murrs/', include('Murr_card.urls')),
+    path('landing/', murren.landing, name='landing'),
     path('murren/', include('Murren.urls')),
-    path('landing/', landing, name='landing'),
-    path('', redirect_view, name='redirect_view'),
+    path('<str:username>', murren.profile, name='murren_profile'),
 ]
 
 if settings.DEBUG:
