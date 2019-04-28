@@ -1,99 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'Murr_card/base_murrs.html' %}
 
+{% load static %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
+{% endblock css %}
 
 {% block content %}
-  <style>
-    .tesetsetset {
-      border: 4px double black; /* Параметры границы */
-      background: #fc3; /* Цвет фона */
-      padding: 10px;
-    }
+    <h2 class="text-center text-uppercase">Детали Мурра</h2>
+    <div class="detail my-3 p-3">{% include "Murr_card/includes/_murr_detail_view.html" %}</div>
 
-    .detail {
-      border: 4px double black;
-      background: chartreuse;
-      padding: 10px;
-      margin: 10px;
-    }
-  </style>
+    {% if murr.get_comments.exists %}
+        {% include "Murr_card/includes/_murr_details_comments.html" %}
+    {% endif %}
 
-  <div class="container">
-    <h2 class="text-center">Детали Мурра</h2>
-
-    {# detail Murr card #}
-
-    <div class="detail mt-5">
-      <h3 class="text-center">{{ murr_detail.title }}</h3>
-
-      {% for murr in murr_detail.categories.all %}
-        {{ murr }}
-      {% endfor %}
-      <br>
-
-      <h2>
-        <img src="{{ murr_detail.author.profile_picture.url }}" alt="" width="45px" height="45px">
-        {{ murr_detail.author.user.username }}
-      </h2>
-      {% if murr_detail.image %}
-        <img src="{{ murr_detail.image.url }}" alt="">
-      {% endif %}
-
-      {{ murr_detail.content | safe }}
-
-{#      <a href="{% url 'murr_update' %}" class="btn btn-primary" role="button" aria-pressed="true">Create Murr</a>#}
-{#      <a href="{% url 'murr_delete' %}" class="btn btn-primary" role="button" aria-pressed="true">Dekete Murr</a>#}
-
-      <a href="{% url 'murr_update' pk=murr_detail.id %}">Udpate</a>
-      <a href="{% url 'murr_delete' pk=murr_detail.id %}">Delete</a>
-
-    </div>
-  </div>
-  {# end detail Murr card #}
-
-
-
-
-
-
-  <div class="tesetsetset">
-
-    {% for comment in murr_detail.get_comments %}
-
-
-      <h2>
-        <img src="{{ comment.user.author.profile_picture.url }}" alt="" width="45px" height="45px">
-        {{ comment.user.username }}
-      </h2>
-
-
-
-      <p>{{ comment.timestamp| timesince }} назад</p>
-      <p>{{ comment.content }}</p>
-      <hr>
-
-    {% endfor %}
-
-  </div>
-
-
-
-  {% if user.is_authenticated %}
-
-    <div class="container">
-      <form method="POST">
-        {% csrf_token %}
-
-        {{ form }}
-
-        <div class="form-group">
-
-          <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
-
+    {% if user.is_authenticated %}
+        <div class="container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <div class="form-group my-2">
+                    <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+                </div>
+            </form>
         </div>
+    {% endif %}
+{% endblock content %}
 
-      </form>
-    </div>
-  {% endif %}
-
-{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script src="{% static "js/jsdelivr.js" %}"></script>
+    <script src="{% static "js/custom.js" %}"></script>
+    <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
+{% endblock js %}

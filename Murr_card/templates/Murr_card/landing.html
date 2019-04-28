@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/landing.css">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
 
@@ -19,7 +19,7 @@
 
 <nav class="navbar navbar-expand-sm navbar-light sticky-top bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'murrs_list' %}">
+        <a class="navbar-brand" href="{% url 'murr_list' %}">
             <img src="{% static 'img/favicon.ico' %}" width="30" height="30" class="d-inline-block align-top">
             Murrengan
         </a>
@@ -39,10 +39,10 @@
                     <a href="#About" class="nav-link text-center">Как работает?</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'murrs_list' %}" class="nav-link text-center">Все Мурры</a>
+                    <a href="{% url 'murr_list' %}" class="nav-link text-center">Все Мурры</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'signup' %}" class="nav-link text-center">Регистрация</a>
+                    <a href="{% url 'account_signup' %}" class="nav-link text-center">Регистрация</a>
                 </li>
             </ul>
         </div>

@@ -1,125 +1,145 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count, Q
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Q, Count
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from taggit.models import Tag
 
-from .forms import CommentForm, MurrForm
-from .models import Murr, Author
+from .forms import CommentForm, MurrForm, CommentEditForm
+from .models import Murr, MurrVisiting, Comment, Category
+
+User = get_user_model()
 
 
-def murrs_list(requset):
-    all_categories_count = get_all_categories_count()[0:5]
-    all_murrs = Murr.objects.filter().order_by('-timestamp')
-    paginator = Paginator(all_murrs, 4)
-    page_request_ver = 'page'
-    page = requset.GET.get(page_request_ver)
-    try:
-        paginator_queriset = paginator.page(page)
-    except PageNotAnInteger:
-        paginator_queriset = paginator.page(1)
-    except EmptyPage:
-        paginator_queriset = paginator.page(paginator.num_pages)
+def murr_list(request, **kwargs):
+    """
+    Output all murrs or murrs that filtered by tag
+    or murrs queryset from kwargs
+    """
+    murrs = Murr.objects.get_visible(request.user.pk)
+    tag_name = kwargs.get('tag_name')
+    if tag_name:
+        tag = get_object_or_404(Tag, name=tag_name)
+        murrs = murrs.filter(tags__name=tag)
 
-    latest = Murr.objects.order_by('-timestamp')[0:2]
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
+
     context = {
-        'murrs': paginator_queriset,
-        'page_request_ver': page_request_ver,
-
-        'all_categories_count': all_categories_count,
-        'latest': latest
+        'page': page,
+        'categories': Category.objects.all(),
     }
-    return render(requset, 'Murr_card/murr_list.html', context)
-
-
-def murr_detail(request, pk):
-    murr_detail = get_object_or_404(Murr, pk=pk)
-    form = CommentForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            form.instance.user = request.user
-            form.instance.post = murr_detail
-            form.save()
-            form = CommentForm
-    context = {
-        'murr_detail': murr_detail,
-        'form': form
-    }
-    return render(request, 'Murr_card/murr_detail.html', context)
-
-
-def get_all_categories_count():
-    # Получаем Имя значения values('categories__title') и их колличество (categories__title отправляем к модели)
-    all_categories_count = Murr.objects.values('categories__title').annotate(Count('categories__title'))
-    return all_categories_count
-
-
-def get_author(user):
-    data, created = Author.objects.filter(user=user).get_or_create(user=user)
-    if data:
-        return data #[0]
-    return None
+    return render(request, 'Murr_card/murr_list.html', context)
 
 
 def search(request):
-    template = 'Murr_card/search_result.html'
-    all_murrs = Murr.objects.all()
-    query = request.GET.get('q').lower()
+    """ Filter murrs by search query and pass queryser to murr_list view """
+    murrs = Murr.objects.get_visible(request.user.pk)
+    query = request.GET.get('q')
     if query:
-        queryset = all_murrs.filter(
-            Q(title__icontains=query) |
-            Q(description__icontains=query)
-        ).distinct()
+        query_in_title = Q(title__icontains=query)
+        query_in_desc = Q(description__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_desc)
+        if murrs.exists() is False:
+            messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
+
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    paginator = Paginator(murrs.distinct(), 5)
+    page = paginator.get_page(request.GET.get('page'))
 
     context = {
-        'search_result': queryset
+        'page': page,
+        'search_query': f'q={query}&',
+        'categories': Category.objects.all(),
     }
-    return render(request, template, context)
+    return render(request, 'Murr_card/murr_list.html', context)
 
 
+def murr_detail(request, slug):
+    murr = get_object_or_404(Murr, slug=slug)
+    form = CommentForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.instance.user = request.user
+        form.instance.murr = murr
+        form.save()
+        return HttpResponseRedirect(request.path)
+
+    if request.user.is_authenticated and request.user.pk != murr.author_id:
+        MurrVisiting.objects.get_or_create(user=request.user, murr=murr)
+
+    context = {'murr': murr, 'form': form}
+    return render(request, 'Murr_card/murr_detail.html', context)
+
+
+@login_required
 def murr_create(request):
-    template = 'Murr_card/murr_create.html'
-    title = 'Create'
+    title = 'Создай'
     form = MurrForm(request.POST or None, request.FILES or None)
-    author = get_author(request.user)
+    author = request.user
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = author
             form.save()
             return redirect(reverse('murr_detail', kwargs={
-                'pk': form.instance.pk
+                'slug': form.instance.slug
             }))
-    context = {
-        'title': title,
-        'form': form
-    }
-    return render(request, template, context)
+
+    context = {'title': title, 'form': form}
+    return render(request, 'Murr_card/murr_create.html', context)
 
 
-def murr_update(request, pk):
+def murr_update(request, slug):
     template = 'Murr_card/murr_create.html'
-    title = 'Update'
-    murr = get_object_or_404(Murr, id=pk)
+    title = 'Измени'
+    murr = get_object_or_404(Murr, slug=slug)
     form = MurrForm(
         request.POST or None,
         request.FILES or None,
         instance=murr)
-    author = get_author(request.user)
+    author = request.user
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = author
             form.save()
             return redirect(reverse('murr_detail', kwargs={
-                'pk': form.instance.pk
+                'slug': form.instance.slug
             }))
-    context = {
-        'title': title,
-        'form': form
-    }
+
+    context = {'title': title, 'form': form}
     return render(request, template, context)
 
 
-def murr_delete(request, pk):
-    murr = get_object_or_404(Murr, id=pk)
+def murr_delete(request, slug):
+    murr = get_object_or_404(Murr, slug=slug)
     murr.delete()
-    return redirect(reverse('murrs_list'))
+    return redirect(reverse('murr_list'))
+
+
+def comment_cut(request, id):
+    comment = get_object_or_404(Comment, pk=id)
+    comment.delete()
+    return JsonResponse({'success': True})
+
+
+def comment_edit(request, id):
+    data = dict()
+    template = 'Murr_card/comment_edit.ajax.html'
+    form = CommentEditForm(request.POST)
+    comment = get_object_or_404(Comment, pk=id)
+    context = {'title': '-EDIT-', 'form': form, 'comment':comment.content,}
+    # render_to_string
+    # return JsonResponse({'success': True})
+    return render(request, template, context)
+
+
+def comment_reply(request, id):
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
+    pass

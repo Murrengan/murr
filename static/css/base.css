@@ -1,45 +1,44 @@
-#showcase {
-  background: url("../img/husky.png") top center/cover no-repeat;
-  min-height: 450px;
-  max-height: 450px;
-  position: relative;
-}
-  #showcase #header {
-    z-index: 2; }
-  #showcase #overlay {
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; }
-
-#About{
-    padding-top: 50px;
-    padding-bottom: 50px;
+.hide {
+    display: none;
 }
 
-#Master{
-    background: url("../img/pink_girl.png") right top/cover no-repeat;
-  min-height: 450px;
-  max-height: 450px;
+.col-form-label {
+    display: none;
 }
 
-#Murren{
-    background: url("../img/elf_girl.jpg") left top/cover no-repeat;
-  min-height: 450px;
-  max-height: 450px;
+.no-underline:hover {
+    text-decoration: none;
 }
 
-#Start {
-  padding-top: 50px;
+.all {
+    color: white;
 }
-@media (max-width: 768px){
-  .sticky-top{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }  
+
+body {
+    background: radial-gradient(circle farthest-corner at 85.4% 50.8%, rgba(14, 72, 222, 1) 0%, rgba(3, 22, 65, 1) 74.2%) no-repeat fixed;
+    color: whitesmoke;
+    font-family: 'PT Sans', sans-serif;
+    background-size: cover;
+}
+
+.animate-opacity {
+    animation: opac 0.8s
+}
+
+@keyframes opac {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+.btn {
+    background-image: linear-gradient(to bottom,
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0.2) 49%,
+    rgba(0,0,0,0.15) 51%,
+    rgba(0,0,0,0.05));
+    background-repeat: repeat-x;
+}
+
+.border-3 {
+    border-width:3px !important;
 }

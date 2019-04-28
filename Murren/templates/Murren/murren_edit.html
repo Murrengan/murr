@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="row"><h1 class="border-3 border-bottom border-secondary mb-5 text-uppercase">Профайл</h1></div>
+    <div class="row">
+        <div>
+            <input type="image" src="{{ user.profile_picture.url }}"
+                   data-toggle="tooltip" data-placement="bottom" title="Click image for change"
+                   width="100px" height="100px" class="rounded-circle bg-light" style="outline: none;" id="profile-avatap"/>
+            <input type="file" id="my_file" style="display: none;" />
+        </div>
+        <div class="align-items-center border-left d-flex ml-4 pl-3"
+             style="border-width: 3px !important;border-left-color: #ffffff47 !important;">
+            <h2>Ник Муррена - {{ user.username }}</h2>
+        </div>
+    </div>
+
+  <div class="row py-4">
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in murren_form %}
+        <p>
+          {{ field.errors }}
+{#            {% if field.value %}#}
+{#              <br/><img alt="" src="{{ field.value.url }}" width="100"><br>#}
+{#            {% endif %}#}
+          {{ field }}
+        </p>
+      {% endfor %}
+      <input type="submit" class="btn btn-primary" value="Изменить аватар">
+    </form>
+
+    {#        <form method="POST" enctype="multipart/form-data">#}
+    {#            {% csrf_token %}#}
+    {##}
+    {#            {{ murren_form|crispy }}#}
+    {##}
+    {#            <button class="btn btn-success btn-sm" type="submit">Изменить</button>#}
+    {#        </form>#}
+
+  </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#profile-avatap').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#id_profile_picture").change(function(){
+            readURL(this);
+        });
+
+        $("input[type='image']").click(function () {
+            $("input[id='id_profile_picture']").click();
+            console.log($("input[id='id_profile_picture']").val())
+        });
+    </script>
+{% endblock js %}

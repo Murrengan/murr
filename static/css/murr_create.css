@@ -1,0 +1,16 @@
+.col-form-label {
+    display: inline;
+}
+
+.asteriskField {
+    display: none;
+}
+
+label[for="id_content"] {
+    font-size: 0;
+}
+
+label[for="id_content"]:before {
+    content: "Мурр"; font-size: 35px;
+}
+

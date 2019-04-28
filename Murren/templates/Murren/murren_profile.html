@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block css %}
+    {{ block.super }}
+{% endblock css %}
+
+{% block content %}
+    <div class="profile card-columns animate-opacity alert-info p-2 pl-3" data-murren="{{ murren.pk }}" data-csrf="{{ csrf }}">
+        <img src=" {{ murren.profile_picture.url }}"width="100px" height="auto"alt="" class="rounded shadow shadow-sm" />
+        <span class="font-italic h2 text-dark"> {{ murren.email }} </span>
+        {% if user.is_authenticated %}
+            <a href="javascript: void(0)" class="profile-follow {% if already_follow %}hide{% endif %}">Подписаться</a>
+            <a href="javascript: void(0)" class="profile-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</a>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static "js/profile.js" %}"></script>
+    <script> $('.profile').murrenProfile(); </script>
+{% endblock js %}
