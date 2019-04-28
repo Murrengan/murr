@@ -74,7 +74,7 @@ $(".need_auth").submit(function (e) {
 $(".edt-comment").on('click', function () {
     // console.log('reply');
     let commentContent = $('#id_content')
-    msg = $(this).parents("div.media-body").find('p').html();
+    msg = $(this).parents("div.media-body").find('div.mb-1.comm-content').html();
     if (commentContent.val()) {
         commentContent.val("");
     }
