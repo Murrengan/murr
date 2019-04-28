@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.http import JsonResponse, Http404
 from django.middleware.csrf import get_token
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 
 from .forms import ProfileMurrenForm, MurrenFollower
 from .models import Follower
@@ -59,13 +59,18 @@ def unfollow(request):
 
 @login_required
 def murren_edit(request):
-    form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        messages.success(request, 'Твой профайл успешно изменен')
-        return redirect('edit')
+    if request.method == 'POST':
+        form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Твой профайл успешно изменен')
+            return redirect('edit')
+
+    else:
+        form = ProfileMurrenForm(instance=request.user)
 
     context = {'murren_form': form}
+
     return render(request, 'Murren/murren_edit.html', context)
 
 

@@ -34,7 +34,11 @@
             {# Django messages #}
         </div>
 
-        <div class="container">{% block content %}{% endblock %}</div>
+        <div class="container">
+          {% block content %}
+
+          {% endblock %}
+        </div>
 
         {% block js %}
             <script src="https://code.jquery.com/jquery-3.4.0.min.js"
