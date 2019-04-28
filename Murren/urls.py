@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import murren_profile
+from . import views
 
 urlpatterns = [
-    path('<str:username>/', murren_profile, name='murren_profile')
-
+    path('follow/', views.follow, name='murren_follow'),
+    path('unfollow/', views.unfollow, name='murren_unfollow'),
 ]
