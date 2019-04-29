@@ -14,6 +14,7 @@ urlpatterns = [
     path('murrs/', include('Murr_card.urls')),
     path('landing/', murren.landing, name='landing'),
     path('murren/', include('Murren.urls')),
+    path('dashboard/', include('Dashboard.urls')),
     path('<str:username>/', murren.profile, name='murren_profile'),
 ]
 

@@ -9,7 +9,7 @@ from django.urls import reverse
 from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm, CommentEditForm
-from .models import Murr, MurrVisiting, Comment, Category
+from .models import Murr, Comment, Category
 
 User = get_user_model()
 
@@ -69,9 +69,6 @@ def murr_detail(request, slug):
         form.instance.murr = murr
         form.save()
         return HttpResponseRedirect(request.path)
-
-    if request.user.is_authenticated and request.user.pk != murr.author_id:
-        MurrVisiting.objects.get_or_create(user=request.user, murr=murr)
 
     context = {'murr': murr, 'form': form}
     return render(request, 'Murr_card/murr_detail.html', context)

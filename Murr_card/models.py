@@ -1,13 +1,11 @@
 from PIL import Image
-from uuslug import slugify
-from tinymce import HTMLField
-from taggit.managers import TaggableManager
-
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
-from django.contrib.auth import get_user_model
-
+from taggit.managers import TaggableManager
+from tinymce import HTMLField
+from uuslug import slugify
 
 User = get_user_model()
 
@@ -104,14 +102,6 @@ class Comment(models.Model):
         null=True,
         related_name='children',
     )
-
-    def __str__(self):
-        return self.user.username
-
-
-class MurrVisiting(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    murr = models.ForeignKey(Murr, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
