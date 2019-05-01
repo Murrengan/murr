@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.middleware.csrf import get_token
-from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.shortcuts import render, reverse, redirect
 
-from .forms import ProfileMurrenForm, MurrenFollowing
-from .models import Following
+from .forms import ProfileMurrenForm
+from .following import FollowingProcessor
 
 User = get_user_model()
 
@@ -34,33 +34,30 @@ def follow(request):
     if request.method == 'GET':
         raise Http404
 
-    form_data = request.POST.dict()
-    form_data['follower'] = request.user.pk
-    form = MurrenFollowing(form_data)
-    if form.is_valid():
-        form.save()
-        return JsonResponse({'ok': True})
-    return JsonResponse({'error': 'follow not allowed'})
+    raw_data = request.POST.dict()
+    raw_data['follower'] = request.user.pk
+    processor = FollowingProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': 'follow not allowed'})
+
+    processor.save()
+    return JsonResponse({'ok': True})
 
 
 def unfollow(request):
     if request.method == 'GET':
         raise Http404
 
-    master = request.POST.get('master')
-    following = Following.objects.filter(follower_id=request.user.pk)
-    try:
-        following = following.get(master_id=master)
-    except Following.DoesNotExist:
-        following = None
+    raw_data = request.POST.dict()
+    raw_data['follower'] = request.user.pk
+    processor = FollowingProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': 'follow not allowed'})
 
-    form_data = request.POST.dict()
-    form_data['follower'] = request.user.pk
-    form = MurrenFollowing(form_data, instance=following)
-    if form.is_valid():
-        following.delete()
-        return JsonResponse({'ok': True})
-    return JsonResponse({'error': 'unfollow not allowed'})
+    processor.delete()
+    return JsonResponse({'ok': True})
 
 
 @login_required
