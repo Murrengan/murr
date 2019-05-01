@@ -61,10 +61,6 @@ class Murr(models.Model):
         return self.comments.order_by('-timestamp')
 
     @property
-    def view_count(self):
-        return MurrVisiting.objects.filter(murr=self).count()
-
-    @property
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 

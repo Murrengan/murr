@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import MurrenCreationForm, MurrenChangeForm
-from .models import Murren, Follower
+from .models import Murren, Following
 
 
 class CustomUserAdmin(UserAdmin):
@@ -14,4 +14,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(Murren, CustomUserAdmin)
-admin.site.register(Follower)
+admin.site.register(Following)
