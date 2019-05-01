@@ -71,6 +71,11 @@ class Murr(models.Model):
     def murrs_count(self, **kwargs):
         return self.objects.filter(author=kwargs.get('author')).count()
 
+    @property
+    def cover_url(self):
+        if self.cover and hasattr(self.cover, 'url'):
+            return self.cover.url
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.cover:

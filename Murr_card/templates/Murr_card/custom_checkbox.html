@@ -1,0 +1,10 @@
+{% load crispy_forms_field %}
+
+{# specisal bootstrap checkbox template for generate via crispy                #}
+{# https://getbootstrap.com/docs/4.2/components/forms/#checkboxes-and-radios-1 #}
+<div class="form-group">
+  <div class="custom-control custom-checkbox">
+    {% crispy_field field 'class' 'custom-control-input' %}
+    <label class="custom-control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+  </div>
+</div>
