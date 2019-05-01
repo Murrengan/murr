@@ -19,6 +19,7 @@
 
         <style>{% block style %}{% endblock %}</style>
         <title>{% block title %}Murrengan{% endblock %}</title>
+        {% block extra_header %}{% endblock extra_header %}
     </head>
     <body>
         <header class="mb-5">{% include 'navbar.html' %}</header>

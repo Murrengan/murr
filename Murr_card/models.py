@@ -109,4 +109,5 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.user.username
+        # return self.user.username + " :: " + self.content[:20]
+        return self.murr.title + " :: " + self.content[:50]

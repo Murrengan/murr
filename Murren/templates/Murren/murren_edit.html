@@ -23,22 +23,11 @@
       {% for field in murren_form %}
         <p>
           {{ field.errors }}
-{#            {% if field.value %}#}
-{#              <br/><img alt="" src="{{ field.value.url }}" width="100"><br>#}
-{#            {% endif %}#}
           {{ field }}
         </p>
       {% endfor %}
-      <input type="submit" class="btn btn-primary" value="Изменить аватар">
+      <input type="submit" class="btn btn-sm btn-primary" value="Изменить аватар">
     </form>
-
-    {#        <form method="POST" enctype="multipart/form-data">#}
-    {#            {% csrf_token %}#}
-    {##}
-    {#            {{ murren_form|crispy }}#}
-    {##}
-    {#            <button class="btn btn-success btn-sm" type="submit">Изменить</button>#}
-    {#        </form>#}
 
   </div>
 {% endblock %}

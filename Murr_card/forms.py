@@ -73,7 +73,7 @@ class MurrForm(forms.ModelForm):
                 css_class='form-row text-left align-items-md-center'
             ),
             HTML('<hr class="border-3 shadow-sm">'),
-        Submit('submit', 'Сохранить', css_class='mt-3')
+            Submit('submit', 'Сохранить', css_class='mt-3')
         )
 
     def clean_tags(self):
@@ -89,7 +89,6 @@ class CommentForm(forms.ModelForm):
         attrs={'class': 'form-control',
                'placeholder': 'введите ваш комментарий',
                'rows': '4', }
-
     ))
 
     class Meta:
@@ -97,15 +96,23 @@ class CommentForm(forms.ModelForm):
         fields = ('content',)
 
 
-class CommentEditForm(forms.Form):
-    parent_comment = forms.IntegerField(
-        # widget=forms.HiddenInput,
-        required=False
-    )
-
-    comment_area = forms.CharField(
-        label="",
+class CommentEditForm(forms.ModelForm):
+    # reply = forms.IntegerField(
+    #     # widget=forms.HiddenInput,
+    #     required=False
+    # )
+    #
+    # content = forms.CharField(
+    #     label="Comment content",
+    #     widget=forms.Textarea(
+    #          attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+    #     ))
+    content = forms.CharField(
+        label="Comment content",
         widget=TinyMCEWidget(
-            attrs={'required': False, 'rows': 4}
-        )
-    )
+             attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+        ))
+
+    class Meta:
+        model = Comment
+        fields = ('content', )
