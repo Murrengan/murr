@@ -55,13 +55,14 @@ class MurrForm(forms.ModelForm):
             ),
             Row(
                 HTML('''
-                <div class='border-right border-secondary col-5 form-group formColumn mb-0 offset-1'>
-                    <input type="image" src="{{ form.instance.cover_url | default_if_none:'#' }}" 
+                <div class='border-right border-secondary col-6 form-group formColumn mb-0 offset-1'>
+                    <input type="image" 
+                        src="{{ form.instance.cover_url | default_if_none:"/static/img/NoImageAvailable.png" }}" 
                         data-toggle="tooltip" data-placement="top" title="Щелкните чтобы изменить" width="100px" 
                         height="100px" class="rounded bg-light" style="outline: none;" id="cover-img"/>
                         <label for="cover-img" class="col-form-label " style="vertical-align: top;">
-                            <a href="{{ form.instance.cover_url | default:"#" | default_if_none:'#' }}">
-                                {{ form.instance.cover_url }}
+                            <a href="{{ form.instance.cover_url | default:'#' }}">
+                                {{ form.instance.cover_url | default_if_none:'' }}
                             </a>
                         </label>
                 </div> 
