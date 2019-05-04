@@ -20,12 +20,12 @@ class Murren(AbstractUser):
             img.save(self.profile_picture.path)
 
 
-class Follower(models.Model):
-    follower = models.ForeignKey(Murren, related_name='following', on_delete=models.CASCADE)
-    following = models.ForeignKey(Murren, related_name='followers', on_delete=models.CASCADE)
+class Following(models.Model):
+    follower = models.ForeignKey(Murren, related_name='masters', db_index=True, on_delete=models.CASCADE)
+    master = models.ForeignKey(Murren, related_name='followers', db_index=True, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('follower', 'following')
+        unique_together = ('follower', 'master')
 
     def __str__(self):
-        return f'{self.follower} follows {self.following}'
+        return f'{self.follower} follows {self.master}'
