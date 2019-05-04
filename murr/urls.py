@@ -15,7 +15,6 @@ urlpatterns = [
     path('landing/', murren.landing, name='landing'),
     path('murren/', include('Murren.urls')),
     path('dashboard/', include('Dashboard.urls')),
-    path('<str:username>/', murren.profile, name='murren_profile'),
 ]
 
 if settings.DEBUG:

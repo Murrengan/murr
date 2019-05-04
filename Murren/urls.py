@@ -1,8 +1,9 @@
 from django.urls import path
 
-from . import views
+from . import views as murren
 
 urlpatterns = [
-    path('follow/', views.follow, name='murren_follow'),
-    path('unfollow/', views.unfollow, name='murren_unfollow'),
+    path('follow/', murren.follow, name='murren_follow'),
+    path('unfollow/', murren.unfollow, name='murren_unfollow'),
+    path('<str:username>/', murren.profile, name='murren_profile'),
 ]

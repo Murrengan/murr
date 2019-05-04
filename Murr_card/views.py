@@ -123,16 +123,22 @@ def comment_cut(request, id):
     comment.delete()
     return JsonResponse({'success': True})
 
-
+@login_required
+# @require_http_methods(["POST"])
 def comment_edit(request, id):
     data = dict()
-    template = 'Murr_card/comment_edit.ajax.html'
-    form = CommentEditForm(request.POST)
+    # template = 'Murr_card/comment_edit.ajax.html'
     comment = get_object_or_404(Comment, pk=id)
+    form = CommentEditForm(request.POST or None, instance=comment)
+    if request.method == 'POST' and form.is_valid():
+        # print(f"{form.cleaned_data['content'],form.cleaned_data['reply']}\n\t ==== were saved ====\n")
+        print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
+        return redirect(reverse('murr_list'))
+
     context = {'title': '-EDIT-', 'form': form, 'comment':comment.content,}
     # render_to_string
     # return JsonResponse({'success': True})
-    return render(request, template, context)
+    return render(request, 'Murr_card/comment_edit.ajax.html', context)
 
 
 def comment_reply(request, id):

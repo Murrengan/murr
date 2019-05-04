@@ -1,16 +1,17 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column, HTML
+from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
 from django import forms
 from django.utils.html import strip_tags
 from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
-
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
+class CustomCheckbox(Field):
+    template = 'Murr_card/custom_checkbox.html'
 
 class MurrForm(forms.ModelForm):
     content = forms.CharField(
@@ -53,13 +54,27 @@ class MurrForm(forms.ModelForm):
                 css_class='form-row text-left '
             ),
             Row(
-                Column('cover', css_class='border-right border-secondary col-md-8 form-group formColumn mb-0'),
-                Column('is_draft', css_class='form-group mx-3 mb-0'),
-                Column('is_public', css_class='form-group mx-3 mb-0'),
+                HTML('''
+                <div class='border-right border-secondary col-6 form-group formColumn mb-0 offset-1'>
+                    <input type="image" 
+                        src="{{ form.instance.cover_url | default_if_none:"/static/img/NoImageAvailable.png" }}" 
+                        data-toggle="tooltip" data-placement="top" title="Щелкните чтобы изменить" width="100px" 
+                        height="100px" class="rounded bg-light" style="outline: none;" id="cover-img"/>
+                        <label for="cover-img" class="col-form-label " style="vertical-align: top;">
+                            <a href="{{ form.instance.cover_url | default:'#' }}">
+                                {{ form.instance.cover_url | default_if_none:'' }}
+                            </a>
+                        </label>
+                </div> 
+                '''),
+                # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
+                Column('cover', css_class='inputfile inputfile-3 d-none'),
+                Column(CustomCheckbox('is_draft'),css_class='form-group mx-3 mb-0'),
+                Column(CustomCheckbox('is_public'),css_class='form-group mx-3 mb-0'),
                 css_class='form-row text-left align-items-md-center'
             ),
             HTML('<hr class="border-3 shadow-sm">'),
-        Submit('submit', 'Сохранить', css_class='mt-3')
+            Submit('submit', 'Сохранить', css_class='mt-3')
         )
 
     def clean_tags(self):
@@ -75,7 +90,6 @@ class CommentForm(forms.ModelForm):
         attrs={'class': 'form-control',
                'placeholder': 'введите ваш комментарий',
                'rows': '4', }
-
     ))
 
     class Meta:
@@ -83,15 +97,23 @@ class CommentForm(forms.ModelForm):
         fields = ('content',)
 
 
-class CommentEditForm(forms.Form):
-    parent_comment = forms.IntegerField(
-        # widget=forms.HiddenInput,
-        required=False
-    )
-
-    comment_area = forms.CharField(
-        label="",
+class CommentEditForm(forms.ModelForm):
+    # reply = forms.IntegerField(
+    #     # widget=forms.HiddenInput,
+    #     required=False
+    # )
+    #
+    # content = forms.CharField(
+    #     label="Comment content",
+    #     widget=forms.Textarea(
+    #          attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+    #     ))
+    content = forms.CharField(
+        label="Comment content",
         widget=TinyMCEWidget(
-            attrs={'required': False, 'rows': 4}
-        )
-    )
+             attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+        ))
+
+    class Meta:
+        model = Comment
+        fields = ('content', )

@@ -12,8 +12,60 @@
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
     {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
     {{ form.media }}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" id="target">
       {% crispy form %}
+
+
+{#        <div>#}
+{#            <input type="image" src="{{ form.cover.initial.url }}"#}
+{#                   data-toggle="tooltip" data-placement="bottom" title="Click image for change"#}
+{#                   width="100px" height="100px" class="rounded bg-light" style="outline: none;" id="profile-avatap"/>#}
+{#        </div>#}
     </form>
   </div>
+
+
 {% endblock content %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        $( "#target" ).submit(function( event ) {
+            {#alert( "Handler for .submit() called." );#}
+            event.preventDefault();
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#cover-img').attr('src', e.target.result);
+                    $(this).off('submit').submit();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#id_cover").change(function(){
+            readURL(this);
+        });
+
+        $("input[type='image']").click(function () {
+            $("input[id='id_cover']").click();
+            console.log($("input[id='id_cover']").val())
+        });
+
+        $( "#submit-id-submit" ).on('click', function() {
+            {#$( "#target" ).submit();#}
+            console.log(this);
+            $('#target').off('submit').submit();
+        });
+    </script>
+{% endblock js %}

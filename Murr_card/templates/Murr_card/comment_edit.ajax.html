@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-     {{ form.media }}
-    <script !src="">
-        tinymce.init({
-            selector: 'textarea',  // change this value according to your HTML
-            toolbar: 'undo redo | styleselect | bold italic | link image',
-            menubar: false,
-            width: 600,
-            height: 300,
-            branding: false,
-            theme : "modern",
-            {#statusbar: false,#}
-            plugins: 'wordcount'
-        });
-    </script>
-</head>
-<body>
- {{ comment }}
+{% extends 'Murr_card/base_murrs.html' %}
+
+{% load static %}
+
+{% block extra_header %}
+  {{ form.media }}
+
+      <script>
+            tinymce.init({
+                selector: '#comment-area',  // change this value according to your HTML
+                toolbar: 'undo redo | styleselect | bold italic | link image',
+                menubar: false,
+                width: 800,
+                height: 200,
+                branding: false,
+                theme : "modern",
+                statusbar: false,
+                plugins: 'wordcount'
+            });
+        </script>
+    {% endblock extra_header %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  {{ comment }}
+
  {% if form  %}
+   <form action="" method="post">
+     {% csrf_token %}
      {{ form.as_p }}
+     <div class="form-group my-2">
+       <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+     </div>
+   </form>
  {% endif %}
 ••••••••
-</body>
-</html>
+{% endblock content %}
