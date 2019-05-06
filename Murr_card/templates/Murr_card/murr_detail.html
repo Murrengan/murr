@@ -17,6 +17,7 @@
 
     {% if user.is_authenticated %}
         <div class="container">
+            {{ form.media }}
             <form method="POST">
                 {% csrf_token %}
                 {{ form }}
