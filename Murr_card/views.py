@@ -19,7 +19,7 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
-    murrs = Murr.objects.get_visible(request.user.pk)
+    murrs = Murr.objects.all()
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
@@ -39,7 +39,7 @@ def murr_list(request, **kwargs):
 
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
-    murrs = Murr.objects.get_visible(request.user.pk)
+    murrs = Murr.objects.all()
     query = request.GET.get('q')
     if query:
         query_in_title = Q(title__icontains=query)
@@ -123,8 +123,8 @@ def comment_cut(request, id):
     comment.delete()
     return JsonResponse({'success': True})
 
+
 @login_required
-# @require_http_methods(["POST"])
 def comment_edit(request, id):
     data = dict()
     # template = 'Murr_card/comment_edit.ajax.html'

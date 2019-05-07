@@ -39,7 +39,9 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title', 'description', 'content', 'tags', 'categories', 'cover', 'is_draft', 'is_public')
+        fields = ('title', 'description', 'content', 'tags', 'categories', 'cover',
+                  # 'is_draft', 'is_public'
+                  )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,7 +60,7 @@ class MurrForm(forms.ModelForm):
             ),
             Row(
                 HTML('''
-                <div class='border-right border-secondary col-6 form-group formColumn mb-0 offset-1'>
+                <div class='container-fluid form-group formColumn'>
                     <input type="image" 
                         src="{{ form.instance.cover_url | default_if_none:"/static/img/NoImageAvailable.png" }}" 
                         data-toggle="tooltip" data-placement="top" title="Щелкните чтобы изменить" width="100px" 
@@ -67,11 +69,7 @@ class MurrForm(forms.ModelForm):
                 '''),
                 # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
                 Column('cover', css_class='inputfile inputfile-3 d-none'),
-                Column(CustomCheckbox('is_draft'),css_class='form-group mx-3 mb-0'),
-                Column(CustomCheckbox('is_public'),css_class='form-group mx-3 mb-0'),
-                css_class='form-row text-left align-items-md-center'
             ),
-            HTML('<hr class="border-3 shadow-sm">'),
             Submit('submit', 'Сохранить', css_class='mt-3')
         )
 
