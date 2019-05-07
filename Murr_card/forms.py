@@ -6,12 +6,15 @@ from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
+
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
+
 class CustomCheckbox(Field):
     template = 'Murr_card/custom_checkbox.html'
+
 
 class MurrForm(forms.ModelForm):
     content = forms.CharField(
@@ -60,11 +63,6 @@ class MurrForm(forms.ModelForm):
                         src="{{ form.instance.cover_url | default_if_none:"/static/img/NoImageAvailable.png" }}" 
                         data-toggle="tooltip" data-placement="top" title="Щелкните чтобы изменить" width="100px" 
                         height="100px" class="rounded bg-light" style="outline: none;" id="cover-img"/>
-                        <label for="cover-img" class="col-form-label " style="vertical-align: top;">
-                            <a href="{{ form.instance.cover_url | default:'#' }}">
-                                {{ form.instance.cover_url | default_if_none:'' }}
-                            </a>
-                        </label>
                 </div> 
                 '''),
                 # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
@@ -111,7 +109,7 @@ class CommentEditForm(forms.ModelForm):
     content = forms.CharField(
         label="Comment content",
         widget=TinyMCEWidget(
-             attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+             attrs={'required': False, 'rows': 4, 'id': 'comment-area', }
         ))
 
     class Meta:
