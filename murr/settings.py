@@ -152,17 +152,16 @@ TINYMCE_DEFAULT_CONFIG = {
             ''',
     'toolbar1': '''
             fullscreen preview bold italic underline | fontselect,
-            fontsizeselect  | forecolor backcolor | alignleft alignright |
-            aligncenter alignjustify | indent outdent | bullist numlist table |
+            fontsizeselect  | forecolor backcolor | bullist numlist |
             | link image media | codesample |
             ''',
     'toolbar2': '''
             visualblocks visualchars |
             charmap hr pagebreak nonbreaking anchor |  code |
             ''',
-    'contextmenu': 'formats | link image',
+    'contextmenu': 'link image',
     'menubar': True,
-    'statusbar': True,
+    'statusbar': False,
     }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

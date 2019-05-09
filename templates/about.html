@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <section>
+    <div class="container text-center mb-4">
+      <h2 class="">Murrengan - это группа людей,<br> объединенная для достижения цели.</h2>
+    </div>
+  </section>
+
+  <section>
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img class="card-img-top"
+               alt="" style="height: 225px; width: 100%; display: block;"
+               src="{% static "/img/about/game_about.jpg" %}"
+               data-holder-rendered="true">
+          <div class="card-body">
+            <p class="card-text m-0 text-dark">Хочешь найти статик для онлайн игр? Присоеденись или создай свой!</p>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img class="card-img-top"
+               alt="" style="height: 225px; width: 100%; display: block;"
+               src="{% static "/img/about/sport_about.jpg" %}"
+               data-holder-rendered="true">
+          <div class="card-body">
+            <p class="card-text m-0 text-dark">Хотел заняться спортом, но в одиночку лень? Группа поддержит! </p>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img class="card-img-top"
+               alt="" style="height: 225px; width: 100%; display: block;"
+               src="{% static "/img/about/business_about.jpg" %}"
+               data-holder-rendered="true">
+          <div class="card-body">
+            <p class="card-text m-0 text-dark">Есть идея, но сложно реализовать в одиночку? Найти партнеров!</p>
+            <div class="d-flex justify-content-between align-items-center">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container text-center">
+      <div class="p-3">
+        <h3 class="mb-3">В команде единомышленников <br> добьешься большего,<br> чем в одиночку!</h3>
+        <img alt="" src="{% static "/img/about/about_logo.png" %}" width="150" height="150" class="img-fluid">
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
