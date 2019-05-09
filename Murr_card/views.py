@@ -3,8 +3,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from taggit.models import Tag
 
@@ -68,7 +69,17 @@ def murr_detail(request, slug):
         form.instance.user = request.user
         form.instance.murr = murr
         form.save()
-        return HttpResponseRedirect(request.path)
+        if request.is_ajax():
+            data = dict()
+            data['comments_list'] = render_to_string(
+                'Murr_card/includes/_murr_details_comments.html',
+                {'murr': murr},
+                request=request
+            )
+            data['success'] = True
+            return JsonResponse(data)
+        else:
+            return HttpResponseRedirect(request.path)
 
     context = {'murr': murr, 'form': form}
     return render(request, 'Murr_card/murr_detail.html', context)
@@ -94,12 +105,12 @@ def murr_create(request):
 def murr_update(request, slug):
     template = 'Murr_card/murr_create.html'
     title = 'Измени'
-    murr = get_object_or_404(Murr, slug=slug)
+    author = request.user
+    murr = get_object_or_404(Murr, slug=slug, author=author)
     form = MurrForm(
         request.POST or None,
         request.FILES or None,
         instance=murr)
-    author = request.user
     if request.method == 'POST':
         if form.is_valid():
             form.instance.author = author
@@ -112,30 +123,39 @@ def murr_update(request, slug):
     return render(request, template, context)
 
 
+@login_required(login_url='/accounts/login')
 def murr_delete(request, slug):
-    murr = get_object_or_404(Murr, slug=slug)
-    murr.delete()
-    return redirect(reverse('murr_list'))
+    if request.user.is_authenticated:
+        user = request.user
+        murr = get_object_or_404(Murr, slug=slug, author=user)
+        murr.delete()
+        return redirect(reverse('murr_list'))
+    else:
+        return HttpResponseForbidden()
 
 
-def comment_cut(request, id):
-    comment = get_object_or_404(Comment, pk=id)
-    comment.delete()
-    return JsonResponse({'success': True})
+@login_required(login_url='/account_login')
+def comment_cut(request, slug, id):
+    if request.user.is_authenticated:
+        author = request.user
+        comment = get_object_or_404(Comment, pk=id, user=author)
+        comment.delete()
+        return JsonResponse({'success': True})
+    else:
+        HttpResponseForbidden()
+
 
 @login_required
-# @require_http_methods(["POST"])
-def comment_edit(request, id):
+# @require_POST
+def comment_edit(request, id, slug):
     data = dict()
-    # template = 'Murr_card/comment_edit.ajax.html'
     comment = get_object_or_404(Comment, pk=id)
     form = CommentEditForm(request.POST or None, instance=comment)
     if request.method == 'POST' and form.is_valid():
-        # print(f"{form.cleaned_data['content'],form.cleaned_data['reply']}\n\t ==== were saved ====\n")
         print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
         return redirect(reverse('murr_list'))
 
-    context = {'title': '-EDIT-', 'form': form, 'comment':comment.content,}
+    context = {'title': '-EDIT-', 'form': form, 'comment': comment.content, }
     # render_to_string
     # return JsonResponse({'success': True})
     return render(request, 'Murr_card/comment_edit.ajax.html', context)

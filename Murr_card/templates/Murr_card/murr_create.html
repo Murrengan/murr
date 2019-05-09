@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="{% static "css/murr_create.css" %}" />
 {% endblock css %}
 
+{% block extra_header %}
+{% endblock extra_header %}
+
+
 {% block content %}
   <div class="container text-center ">
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
     {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
-    {{ form.media }}
+{#    {{ form.media }}#}
     <form method="POST" enctype="multipart/form-data" id="target">
       {% crispy form %}
 

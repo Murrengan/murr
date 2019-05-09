@@ -1,11 +1,34 @@
 {% extends 'Murr_card/base_murrs.html' %}
-
 {% load static %}
+
+{% block extra_header %}
+    {{ block.super }}
+    {{ form.media }}
+
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#id_content',
+    theme: 'modern',
+    menubar: false,
+    /*width: 600,
+    height: 300,*/
+    plugins: [
+      'autoresize advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media',
+      'save contextmenu directionality emoticons template paste textcolor'
+    ],
+    toolbar: 'bold italic underline | blockquote link image | forecolor backcolor | emoticons'
+  });
+  </script>
+
+{% endblock extra_header %}
 
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
 {% endblock css %}
+
+
 
 {% block content %}
     <h2 class="text-center text-uppercase">Детали Мурра</h2>
@@ -17,10 +40,17 @@
 
     {% if user.is_authenticated %}
         <div class="container">
-            {{ form.media }}
-            <form method="POST">
+            <form method="POST" id="add-comment-form">
                 {% csrf_token %}
                 {{ form }}
+              <div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold
+               invalid-feedback show small">
+                Comment content is empty.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div id="alerts"></div>
                 <div class="form-group my-2">
                     <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
                 </div>

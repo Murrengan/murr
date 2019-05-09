@@ -6,21 +6,27 @@ from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
+
 class TinyMCEWidget(TinyMCE):
     def use_required_attribute(self, *args):
         return False
 
+
 class CustomCheckbox(Field):
     template = 'Murr_card/custom_checkbox.html'
+
 
 class MurrForm(forms.ModelForm):
     content = forms.CharField(
         widget=TinyMCEWidget(
-            attrs={'required': False, 'cols': 30, 'rows': 10},
+            attrs={'required': False, 'cols': 30, 'rows': 15},
             mce_attrs=({'menubar': False,
-                        'plugins': ['advlist autolink lists link image charmap print preview anchor textcolor',
-                                    'searchreplace visualblocks code fullscreen',
-                                    'insertdatetime media table contextmenu paste code help wordcount'],
+                        'plugins': ['advlist autolink lists link image imagetools charmap print preview anchor',
+                                    'textcolor searchreplace visualblocks code fullscreen insertdatetime media',
+                                    'table contextmenu paste code help wordcount autoresize',
+                                    ],
+                        'autoresize_min_height': 250,
+                        'autoresize_on_init': False,
                         'toolbar': '''
                                 insert | undo redo |  formatselect | bold italic backcolor  | 
                                 alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | 
@@ -30,6 +36,8 @@ class MurrForm(forms.ModelForm):
                         'content_css': ['//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                                         '//www.tinymce.com/css/codepen.min.css'],
                         'branding': False,
+                        'content_style': 'img {max-width: 100%; height:auto;}',
+                        'imagetools_toolbar': "rotateleft rotateright | flipv fliph | editimage imageoptions",
                         })
         )
     )
@@ -68,9 +76,10 @@ class MurrForm(forms.ModelForm):
                 </div> 
                 '''),
                 # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
+                # above input setttings from vendor CustomFileInputs
                 Column('cover', css_class='inputfile inputfile-3 d-none'),
-                Column(CustomCheckbox('is_draft'),css_class='form-group mx-3 mb-0'),
-                Column(CustomCheckbox('is_public'),css_class='form-group mx-3 mb-0'),
+                Column(CustomCheckbox('is_draft'), css_class='form-group mx-3 mb-0'),
+                Column(CustomCheckbox('is_public'), css_class='form-group mx-3 mb-0'),
                 css_class='form-row text-left align-items-md-center'
             ),
             HTML('<hr class="border-3 shadow-sm">'),
@@ -86,34 +95,35 @@ class MurrForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control',
-               'placeholder': 'введите ваш комментарий',
-               'rows': '4', }
-    ))
+    # content = forms.CharField(widget=forms.Textarea(
+    #     attrs={'class': 'form-control',
+    #            'placeholder': 'введите ваш комментарий',
+    #            'rows': '4', }
+    # ))
 
     class Meta:
         model = Comment
-        fields = ('content',)
+        fields = ['content']
+        widgets = {
+            'content': TinyMCEWidget(attrs={
+                'class': 'form-control',
+                'placeholder': 'введите ваш комментарий',
+                'rows': '4',
+                'id': 'id_content',
+            }),
+        }
+        labels = {
+            "content": "Написать комментарий"
+        }
 
 
 class CommentEditForm(forms.ModelForm):
-    # reply = forms.IntegerField(
-    #     # widget=forms.HiddenInput,
-    #     required=False
-    # )
-    #
-    # content = forms.CharField(
-    #     label="Comment content",
-    #     widget=forms.Textarea(
-    #          attrs={'required': False, 'rows': 4, 'id':'comment-area', }
-    #     ))
     content = forms.CharField(
         label="Comment content",
         widget=TinyMCEWidget(
-             attrs={'required': False, 'rows': 4, 'id':'comment-area', }
+            attrs={'required': False, 'rows': 4, 'id': 'comment-area', }
         ))
 
     class Meta:
         model = Comment
-        fields = ('content', )
+        fields = ('content',)

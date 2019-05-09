@@ -58,3 +58,13 @@
         column-count: 2;
     }
 }
+
+.detail.my-3.p-3 {
+    max-height: 400px;
+    overflow: hidden;
+    /* display: flex; */
+}
+
+.detail.my-3.p-3 img {
+    height: auto;
+}

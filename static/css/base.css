@@ -42,3 +42,7 @@ body {
 .border-3 {
     border-width:3px !important;
 }
+
+.mce-container {
+    border-radius: .25rem!important;
+}
