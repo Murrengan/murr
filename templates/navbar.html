@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar navbar-expand navbar-light ">
+<nav class="navbar navbar-expand navbar-light">
   <div class="container">
 
     <div class="row">
@@ -23,18 +23,17 @@
 
     <ul class="navbar-nav ml-auto">
 
-        {% if user.is_authenticated %}
+      {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
-              <i class="far fa-compass"></i>
-            </a>
-          </li>
-  
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
-              <i class="fas fa-home"></i>
-            </a>
-          </li>
+          <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+            <i class="far fa-compass"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false" style="color:white;">
@@ -43,7 +42,8 @@
 
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-            <a class="dropdown-item" href="{% url 'edit' %}">Настройки</a>
+            <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
+            <a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-question-circle mr-1"></i>О проекте</a>
             <div class="dropdown-divider"></div>
 
             <a class="dropdown-item text-muted" href="{% url 'account_logout' %}">Выйти</a>
@@ -52,15 +52,15 @@
         </li>
 
         <li class="nav-item">
-          <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary btn-add-murr mt-1 ml-3" role="button"
+          <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary mt-1 ml-3" role="button"
              aria-pressed="true" title="Создать Мурр">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </li>
       {% else %}
         <li class="nav-item">
-          <button class="btn-login"><a href="{% url 'account_login' %}">Войти</a></button>
-          <button class="btn-signUp"><a href="{% url 'account_signup' %}"> Зарегистироваться </a></button>
+          <a href="{% url 'account_login' %}" class="text-white mr-1">Войти</a>
+          <a class="btn btn-success" href="{% url 'account_signup' %}">Зарегистироваться</a>
         </li>
       {% endif %}
     </ul>

@@ -3,18 +3,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.middleware.csrf import get_token
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, redirect
 
-from .forms import ProfileMurrenForm
 from .following import FollowingProcessor
+from .forms import ProfileMurrenForm
 
 User = get_user_model()
-
-
-def redirect_view(request):
-    if request.user.is_authenticated:
-        return redirect(reverse('murr_list'))
-    return redirect(reverse('account_login'))
 
 
 def profile(request, username):

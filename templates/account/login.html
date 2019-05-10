@@ -7,20 +7,20 @@
 
 {% block content %}
   <div class="container col-4 text-center mt-5">
-    <form class="form-signin p-3 rounded glassy" method="post">
+    <form class="form-signin p-3 " method="post">
 
-      <img class="mb-4" src="{% static 'img/favicon.ico' %}" alt="" width="72" height="72">
+      <img alt="" src="{% static "/img/about/about_logo.png" %}" width="75" height="75" class="img-fluid">
 
-      <h1 class="h3 mb-3 font-weight-normal">Присоединяйся в стаю!</h1>
+      <h1 class="h3 my-2 font-weight-normal">Присоединяйся в стаю!</h1>
 
       {% csrf_token %}
       {{ form|crispy }}
       <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 
-      <a href="{% url 'account_reset_password' %}">Забыл пароль?</a>
-      <hr color="white">
-      <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
-      <hr color="white">
+      <a href="{% url 'account_reset_password' %}" class="text-light">Забыл пароль?</a>
+{#      <hr color="white">#}
+{#      <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>#}
+{#      <hr color="white">#}
 
 
 
