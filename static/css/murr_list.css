@@ -35,15 +35,20 @@
 }
 
 .card-created-at {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-style: italic;
 }
 
 .card-stats, .card-tag {
-    font-size: 0.8rem;
+    font-size: 1.0rem;
+}
+
+.card-likes {
+    margin: 0 20px 0 0;
 }
 
 .card-likes{
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .card-text {

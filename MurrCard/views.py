@@ -156,7 +156,9 @@ def like(request):
         return JsonResponse({'error': processor.errors})
 
     processor.save()
-    return JsonResponse({'ok': True})
+    murr = request.POST.get('murr')
+    likes = Murr.objects.get(slug=murr).liked.count() or ''
+    return JsonResponse({'ok': True, 'likes': likes})
 
 
 @login_required()
@@ -171,4 +173,6 @@ def unlike(request):
         return JsonResponse({'error': processor.errors})
 
     processor.delete()
-    return JsonResponse({'ok': True})
+    murr = request.POST.get('murr')
+    likes = Murr.objects.get(slug=murr).liked.count() or ''
+    return JsonResponse({'ok': True, 'likes': likes})
