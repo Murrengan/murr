@@ -41,6 +41,7 @@
 
                         $('.card-like', $murr).addClass('hide');
                         $('.card-unlike', $murr).removeClass('hide');
+                        $('.card-likes-count', $murr).html(response.likes);
                     }
                 })
             },
@@ -57,6 +58,7 @@
 
                         $('.card-like', $murr).removeClass('hide');
                         $('.card-unlike', $murr).addClass('hide');
+                        $('.card-likes-count', $murr).html(response.likes);
                     }
                 })
             },

@@ -35,16 +35,20 @@
             {{ murr.timestamp|timesince }}
         </div>
         <div class="card-stats">
-            {% if request.user.pk in murr.get_liked_murrens %}
-                <span class="card-like clickable far fa-heart hide"></span>
-                <span class="card-unlike clickable fas fa-heart"></span>
-            {% else %}
-                <span class="card-like clickable far fa-heart"></span>
-                <span class="card-unlike clickable fas fa-heart hide"></span>
-            {% endif %}
-            <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" >
+            <span class="card-likes">
+                {% if request.user.pk in murr.get_liked_murrens %}
+                    <span class="card-like clickable far fa-heart hide"></span>
+                    <span class="card-unlike clickable fas fa-heart"></span>
+                {% else %}
+                    <span class="card-like clickable far fa-heart"></span>
+                    <span class="card-unlike clickable fas fa-heart hide"></span>
+                {% endif %}
+                <span class="card-likes-count">{{ murr.get_liked_murrens.count|default:'' }}</span>
+            </span>
+            <span>
+                <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" ></a>
                 {{ murr.comments_total|default:'' }}
-            </a>
+            </span>
         </div>
     </div>
 </div>
