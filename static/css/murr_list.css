@@ -1,6 +1,5 @@
 .bage_draft {
     position: absolute;
-    /*top: 25px;*/
     border-radius: 0 5px 5px 0;
     font-style: italic;
     color: darkblue;
@@ -41,6 +40,10 @@
 
 .card-stats, .card-tag {
     font-size: 0.8rem;
+}
+
+.card-likes{
+    margin-right: 20px;
 }
 
 .card-text {

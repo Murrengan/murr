@@ -1,15 +1,19 @@
+from taggit.models import Tag
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse, Http404, HttpResponseRedirect
+from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from taggit.models import Tag
+
 
 from .forms import CommentForm, MurrForm, CommentEditForm
 from .models import Murr, Comment, Category
+from .likes import LikeProcessor
 
 User = get_user_model()
 
@@ -32,9 +36,10 @@ def murr_list(request, **kwargs):
 
     context = {
         'page': page,
+        'csrf': get_token(request),
         'categories': Category.objects.all(),
     }
-    return render(request, 'Murr_card/murr_list.html', context)
+    return render(request, 'MurrCard/murr_list.html', context)
 
 
 def search(request):
@@ -56,9 +61,10 @@ def search(request):
     context = {
         'page': page,
         'search_query': f'q={query}&',
+        'csrf': get_token(request),
         'categories': Category.objects.all(),
     }
-    return render(request, 'Murr_card/murr_list.html', context)
+    return render(request, 'MurrCard/murr_list.html', context)
 
 
 def murr_detail(request, slug):
@@ -71,7 +77,7 @@ def murr_detail(request, slug):
         return HttpResponseRedirect(request.path)
 
     context = {'murr': murr, 'form': form}
-    return render(request, 'Murr_card/murr_detail.html', context)
+    return render(request, 'MurrCard/murr_detail.html', context)
 
 
 @login_required
@@ -79,20 +85,19 @@ def murr_create(request):
     title = 'Создай'
     form = MurrForm(request.POST or None, request.FILES or None)
     author = request.user
-    if request.method == 'POST':
-        if form.is_valid():
-            form.instance.author = author
-            form.save()
-            return redirect(reverse('murr_detail', kwargs={
-                'slug': form.instance.slug
-            }))
+    if request.method == 'POST' and form.is_valid():
+        form.instance.author = author
+        form.save()
+        return redirect(reverse('murr_detail', kwargs={
+            'slug': form.instance.slug
+        }))
 
     context = {'title': title, 'form': form}
-    return render(request, 'Murr_card/murr_create.html', context)
+    return render(request, 'MurrCard/murr_create.html', context)
 
 
 def murr_update(request, slug):
-    template = 'Murr_card/murr_create.html'
+    template = 'MurrCard/murr_create.html'
     title = 'Измени'
     murr = get_object_or_404(Murr, slug=slug)
     form = MurrForm(
@@ -100,13 +105,12 @@ def murr_update(request, slug):
         request.FILES or None,
         instance=murr)
     author = request.user
-    if request.method == 'POST':
-        if form.is_valid():
-            form.instance.author = author
-            form.save()
-            return redirect(reverse('murr_detail', kwargs={
-                'slug': form.instance.slug
-            }))
+    if request.method == 'POST' and form.is_valid():
+        form.instance.author = author
+        form.save()
+        return redirect(reverse('murr_detail', kwargs={
+            'slug': form.instance.slug
+        }))
 
     context = {'title': title, 'form': form}
     return render(request, template, context)
@@ -126,23 +130,45 @@ def comment_cut(request, id):
 
 @login_required
 def comment_edit(request, id):
-    data = dict()
-    # template = 'Murr_card/comment_edit.ajax.html'
     comment = get_object_or_404(Comment, pk=id)
     form = CommentEditForm(request.POST or None, instance=comment)
     if request.method == 'POST' and form.is_valid():
-        # print(f"{form.cleaned_data['content'],form.cleaned_data['reply']}\n\t ==== were saved ====\n")
         print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
         return redirect(reverse('murr_list'))
 
     context = {'title': '-EDIT-', 'form': form, 'comment':comment.content,}
-    # render_to_string
-    # return JsonResponse({'success': True})
-    return render(request, 'Murr_card/comment_edit.ajax.html', context)
+    return render(request, 'MurrCard/comment_edit.ajax.html', context)
 
 
 def comment_reply(request, id):
-    # comment = get_object_or_404(Comment, pk=id)
-    # render_to_string
-    # return JsonResponse({'success': True})
     pass
+
+
+def like(request):
+    if request.method == 'GET':
+        raise Http404
+
+    raw_data = request.POST.dict()
+    raw_data['murren'] = request.user.pk
+    processor = LikeProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': processor.errors})
+
+    processor.save()
+    return JsonResponse({'ok': True})
+
+
+def unlike(request):
+    if request.method == 'GET':
+        raise Http404
+
+    raw_data = request.POST.dict()
+    raw_data['murren'] = request.user.pk
+    processor = LikeProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': processor.errors})
+
+    processor.delete()
+    return JsonResponse({'ok': True})

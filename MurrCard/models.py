@@ -48,9 +48,6 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
-    def murrs_count(self, **kwargs):
-        return self.objects.filter(author=kwargs.get('author')).count()
-
     @property
     def cover_url(self):
         if self.cover and hasattr(self.cover, 'url'):
@@ -74,11 +71,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    murr = models.ForeignKey(
-        Murr,
-        related_name='comments',
-        on_delete=models.CASCADE
-    )
+    murr = models.ForeignKey(Murr, related_name='comments', on_delete=models.CASCADE)
     reply = models.ForeignKey(
         "self",
         verbose_name="Коммент",
@@ -89,5 +82,15 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        # return self.user.username + " :: " + self.content[:20]
         return self.murr.title + " :: " + self.content[:50]
+
+
+class Like(models.Model):
+    murren = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+    murr = models.ForeignKey(Murr, related_name='liked', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('murren', 'murr')
+
+    def __str__(self):
+        return f'{self.murren} liked {self.murr}'

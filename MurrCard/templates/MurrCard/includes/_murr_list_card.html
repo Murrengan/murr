@@ -1,4 +1,4 @@
-<div class="card border-0 text-dark">
+<div class="card border-0 text-dark" data-murr="{{ murr.pk }}">
     <div class="card-header">
         <a href="{% url 'murren_profile' murr.author.username %}" class="no-underline">
             <img src="{{ murr.author.profile_picture.url }}" class="card-profile-img rounded" alt="">
@@ -21,7 +21,7 @@
         <h4 class="card-title"><a href="{% url 'murr_detail' murr.slug %}">{{ murr.title }}</a></h4>
         <div class="card-text">{{ murr.description }}</div>
     </div>
-    <div class="detail my-3 p-3">{% include "Murr_card/includes/_just_murr.html" %}</div>
+    <div class="detail my-3 p-3">{% include "MurrCard/includes/_just_murr.html" %}</div>
 
 
     <div class="card-tags">
@@ -35,6 +35,10 @@
             {{ murr.timestamp|timesince }}
         </div>
         <div class="card-stats">
+            <span class="card-like clickable far fa-heart {% if request.user not in murr.liked.all %}hide{% endif %}">
+            </span>
+            <span class="card-unlike clickable fas fa-heart {% if request.user in murr.liked.all %}hide{% endif %}">
+            </span>
             <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" >
                 {{ murr.comments_total|default:'' }}
             </a>

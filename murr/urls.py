@@ -13,7 +13,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('accounts/', include('allauth.urls')),
     path('edit/', murren.murren_edit, name='edit'),
-    path('murrs/', include('Murr_card.urls')),
+    path('murrs/', include('MurrCard.urls')),
     path('landing/', murren.landing, name='landing'),
     path('murren/', include('Murren.urls')),
     path('dashboard/', include('Dashboard.urls')),

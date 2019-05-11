@@ -72,4 +72,4 @@ def murren_edit(request):
 
 
 def landing(request):
-    return render(request, 'Murr_card/landing.html')
+    return render(request, 'MurrCard/landing.html')
