@@ -35,10 +35,13 @@
             {{ murr.timestamp|timesince }}
         </div>
         <div class="card-stats">
-            <span class="card-like clickable far fa-heart {% if request.user not in murr.liked.all %}hide{% endif %}">
-            </span>
-            <span class="card-unlike clickable fas fa-heart {% if request.user in murr.liked.all %}hide{% endif %}">
-            </span>
+            {% if request.user.pk in murr.get_liked_murrens %}
+                <span class="card-like clickable far fa-heart hide"></span>
+                <span class="card-unlike clickable fas fa-heart"></span>
+            {% else %}
+                <span class="card-like clickable far fa-heart"></span>
+                <span class="card-unlike clickable fas fa-heart hide"></span>
+            {% endif %}
             <a href="{% url 'murr_detail' murr.slug %}" class="far fa-comments text-muted no-underline" >
                 {{ murr.comments_total|default:'' }}
             </a>
