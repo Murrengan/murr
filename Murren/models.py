@@ -21,8 +21,8 @@ class Murren(AbstractUser):
 
 
 class Following(models.Model):
-    follower = models.ForeignKey(Murren, related_name='masters', db_index=True, on_delete=models.CASCADE)
-    master = models.ForeignKey(Murren, related_name='followers', db_index=True, on_delete=models.CASCADE)
+    follower = models.ForeignKey(Murren, related_name='masters', on_delete=models.CASCADE)
+    master = models.ForeignKey(Murren, related_name='followers', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('follower', 'master')

@@ -2,6 +2,10 @@
     display: none;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 .col-form-label {
     display: none;
 }

@@ -1,4 +1,4 @@
-{% extends 'Murr_card/base_murrs.html' %}
+{% extends 'MurrCard/base_murrs.html' %}
 
 {% load static %}
 
@@ -9,10 +9,10 @@
 
 {% block content %}
     <h2 class="text-center text-uppercase">Детали Мурра</h2>
-    <div class="detail my-3 p-3">{% include "Murr_card/includes/_murr_detail_view.html" %}</div>
+    <div class="detail my-3 p-3">{% include "MurrCard/includes/_murr_detail_view.html" %}</div>
 
     {% if murr.get_comments.exists %}
-        {% include "Murr_card/includes/_murr_details_comments.html" %}
+        {% include "MurrCard/includes/_murr_details_comments.html" %}
     {% endif %}
 
     {% if user.is_authenticated %}

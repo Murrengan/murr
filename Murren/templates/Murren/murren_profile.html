@@ -10,8 +10,8 @@
         <img src=" {{ murren.profile_picture.url }}" width="100px" height="auto" alt="" class="rounded shadow shadow-sm" />
         <span class="font-italic h2 text-dark"> {{ murren.email }} </span>
         {% if user.is_authenticated and murren.username != request.user.username %}
-            <a href="javascript: void(0)" class="profile-follow {% if already_follow %}hide{% endif %}">Подписаться</a>
-            <a href="javascript: void(0)" class="profile-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</a>
+            <span class="profile-follow {% if already_follow %}hide{% endif %}">Подписаться</span>
+            <span class="profile-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</span>
         {% endif %}
     </div>
 {% endblock content %}

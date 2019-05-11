@@ -13,7 +13,7 @@ class TinyMCEWidget(TinyMCE):
 
 
 class CustomCheckbox(Field):
-    template = 'Murr_card/custom_checkbox.html'
+    template = 'MurrCard/custom_checkbox.html'
 
 
 class MurrForm(forms.ModelForm):
