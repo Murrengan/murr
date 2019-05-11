@@ -53,6 +53,9 @@ class Murr(models.Model):
         if self.cover and hasattr(self.cover, 'url'):
             return self.cover.url
 
+    def get_liked_murrens(self):
+        return self.liked.values_list('murren_id', flat=True)
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.cover:
