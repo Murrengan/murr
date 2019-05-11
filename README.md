@@ -45,7 +45,7 @@
 
 ##### 3. Применяешь миграции:
 
-`python manage.py makemigrations Murren Murr_card`
+`python manage.py makemigrations Murren MurrCard`
 
 `python manage.py migrate`
 
