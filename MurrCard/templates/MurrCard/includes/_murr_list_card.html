@@ -1,4 +1,4 @@
-<div class="card border-0 text-dark" data-murr="{{ murr.pk }}">
+<div class="card border-0 text-dark" data-murr="{{ murr.slug }}">
     <div class="card-header">
         <a href="{% url 'murren_profile' murr.author.username %}" class="no-underline">
             <img src="{{ murr.author.profile_picture.url }}" class="card-profile-img rounded" alt="">

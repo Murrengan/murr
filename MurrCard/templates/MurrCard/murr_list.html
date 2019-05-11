@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="container py-1">
-        <div class="murr-list card-columns animate-opacity p-1" data-csrf="{{ csrf }}">
+        <div class="murr-list card-columns animate-opacity p-1" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
