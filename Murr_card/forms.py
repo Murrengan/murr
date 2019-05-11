@@ -34,6 +34,7 @@ class MurrForm(forms.ModelForm):
                         'content_css': ['//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                                         '//www.tinymce.com/css/codepen.min.css'],
                         'branding': False,
+                        'content_style': 'img {max-width: 100%; height: auto;}'
                         })
         )
     )
