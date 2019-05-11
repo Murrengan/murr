@@ -122,15 +122,15 @@ def murr_delete(request, slug):
     return redirect(reverse('murr_list'))
 
 
-def comment_cut(request, id):
-    comment = get_object_or_404(Comment, pk=id)
+def comment_cut(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return JsonResponse({'success': True})
 
 
 @login_required
-def comment_edit(request, id):
-    comment = get_object_or_404(Comment, pk=id)
+def comment_edit(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
     form = CommentEditForm(request.POST or None, instance=comment)
     if request.method == 'POST' and form.is_valid():
         print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
@@ -140,16 +140,16 @@ def comment_edit(request, id):
     return render(request, 'MurrCard/comment_edit.ajax.html', context)
 
 
-def comment_reply(request, id):
+def comment_reply(request, pk):
     pass
 
 
+@login_required()
 def like(request):
     if request.method == 'GET':
         raise Http404
 
     raw_data = request.POST.dict()
-    raw_data['murren'] = request.user.pk
     processor = LikeProcessor(raw_data)
     processor.process()
     if processor.errors:
@@ -159,12 +159,12 @@ def like(request):
     return JsonResponse({'ok': True})
 
 
+@login_required()
 def unlike(request):
     if request.method == 'GET':
         raise Http404
 
     raw_data = request.POST.dict()
-    raw_data['murren'] = request.user.pk
     processor = LikeProcessor(raw_data)
     processor.process()
     if processor.errors:

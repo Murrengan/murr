@@ -4,7 +4,8 @@
             init: function() {
                 return this.each(function() {
                     let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf')
+                        csrfmiddlewaretoken: $this.data('csrf'),
+                        murren: $this.data('murren')
                     };
                     $this.data($name, data);
 
@@ -12,15 +13,20 @@
                 })
             },
             bindEvent: function() {
-                let $this = $(this);
+                let $this = $(this), data = $this.data($name);
 
                 $('.card-like', $this).click(function() {
-                    $this[$name]('like', $(this))
+                    if (data.murren) { $this[$name]('like', $(this)) }
+                    else { $this[$name]('signUp') }
                 });
 
                 $('.card-unlike', $this).click(function() {
-                    $this[$name]('unlike', $(this))
+                    if (data.murren) { $this[$name]('unlike', $(this)) }
+                    else { $this[$name]('signUp') }
                 })
+            },
+            signUp: function() {
+                window.location.href = '/accounts/signup/';
             },
             like: function($target) {
                 let $this = $(this), data = $this.data($name),
