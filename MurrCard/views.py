@@ -1,20 +1,18 @@
-from taggit.models import Tag
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404
 from django.middleware.csrf import get_token
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
-
+from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm, CommentEditForm
-from .models import Murr, Comment, Category
 from .likes import LikeProcessor
+from .models import Murr, Comment, Category
 
 User = get_user_model()
 
@@ -69,6 +67,7 @@ def search(request):
 
 
 def murr_detail(request, slug):
+    """ Show single murr with its comments """
     murr = get_object_or_404(Murr, slug=slug)
     form = CommentForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
@@ -78,7 +77,7 @@ def murr_detail(request, slug):
         if request.is_ajax():
             data = dict()
             data['comments_list'] = render_to_string(
-                'Murr_card/includes/_murr_details_comments.html',
+                'MurrCard/includes/_murr_details_comments.html',
                 {'murr': murr},
                 request=request
             )
@@ -159,13 +158,17 @@ def comment_edit(request, id, slug):
         print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
         return redirect(reverse('murr_list'))
 
-    context = {'title': '-EDIT-', 'form': form, 'comment': comment.content, }
+    context = {'title': '-EDIT- '+{{ slug }}, 'form': form, 'comment': comment.content, }
     # render_to_string
     # return JsonResponse({'success': True})
-    return render(request, 'Murr_card/comment_edit.ajax.html', context)
+    return render(request, 'MurrCard/comment_edit.ajax.html', context)
 
 
 def comment_reply(request, pk):
+    # data = dict()
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
     pass
 
 

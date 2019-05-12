@@ -5,17 +5,18 @@
 {% block extra_header %}
   {{ form.media }}
 
-      <script>
+      <script type="text/javascript">
             tinymce.init({
                 selector: '#comment-area',  // change this value according to your HTML
-                toolbar: 'undo redo | styleselect | bold italic | link image',
+                toolbar: 'styleselect | bold italic | link image',
                 menubar: false,
                 width: 800,
-                height: 200,
+                height: 150,
                 branding: false,
                 theme : "modern",
                 statusbar: false,
-                plugins: 'wordcount'
+                plugins: 'wordcount',
+                language: "ru_RU",
             });
         </script>
     {% endblock extra_header %}
@@ -30,7 +31,7 @@
      {% csrf_token %}
      {{ form.as_p }}
      <div class="form-group my-2">
-       <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
+       <button type="submit" class="btn btn-sm btn-secondary">Сохранить</button>
      </div>
    </form>
  {% endif %}

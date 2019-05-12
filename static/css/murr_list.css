@@ -67,12 +67,17 @@
     }
 }
 
-.detail.my-3.p-3 {
+.detail {
     max-height: 400px;
-    overflow: hidden;
+    overflow: auto;
     /* display: flex; */
+ }
+
+.detail img {
+    height: auto;
+    transition: all .98s ease-in-out;
 }
 
-.detail.my-3.p-3 img {
-    height: auto;
+.detail img:first-child:hover {
+    transform: scale(1.08, 1.08)
 }
