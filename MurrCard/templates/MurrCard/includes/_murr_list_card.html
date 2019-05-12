@@ -17,11 +17,13 @@
 {#        </div>#}
 {#    {% endif %}#}
 
-    <div class="card-body">
+    <div class="card-body py-1">
         <h4 class="card-title"><a href="{% url 'murr_detail' murr.slug %}">{{ murr.title }}</a></h4>
         <div class="card-text">{{ murr.description }}</div>
+        <div class="murr_content">
+            <div class="detail my-1 px-0">{% include "MurrCard/includes/_just_murr.html" %}</div>
+        </div>
     </div>
-    <div class="detail my-3 p-3">{% include "MurrCard/includes/_just_murr.html" %}</div>
 
 
     <div class="card-tags">

@@ -66,3 +66,23 @@
         column-count: 2;
     }
 }
+
+.detail {
+    max-height: 400px;
+    /*overflow: hidden;*/
+     /*display: flex;*/
+ }
+
+.detail img {
+    height: auto;
+    transition: all .8s ease-in-out;
+}
+
+
+.detail img:first-child:hover {
+    transform: scale(1.08, 1.08)
+}
+
+.murr_content {
+    overflow: hidden;
+}
