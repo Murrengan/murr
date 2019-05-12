@@ -1,0 +1,39 @@
+{% extends 'Murr_card/base_murrs.html' %}
+
+{% load static %}
+
+{% block extra_header %}
+  {{ form.media }}
+
+      <script type="text/javascript">
+            tinymce.init({
+                selector: '#comment-area',  // change this value according to your HTML
+                toolbar: 'styleselect | bold italic | link image',
+                menubar: false,
+                width: 800,
+                height: 150,
+                branding: false,
+                theme : "modern",
+                statusbar: false,
+                plugins: 'wordcount',
+                language: "ru_RU",
+            });
+        </script>
+    {% endblock extra_header %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  {{ comment }}
+
+ {% if form  %}
+   <form action="" method="post">
+     {% csrf_token %}
+     {{ form.as_p }}
+     <div class="form-group my-2">
+       <button type="submit" class="btn btn-secondary">Сохранить</button>
+     </div>
+   </form>
+ {% endif %}
+••••••••
+{% endblock content %}
