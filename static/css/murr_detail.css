@@ -8,6 +8,10 @@
     color: black;
 }
 
+.murr_body {
+	overflow:hidden !important;
+}
+
 .murr_body iframe {
     display: block;
     max-width: 100%;

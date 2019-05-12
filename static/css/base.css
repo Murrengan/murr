@@ -58,3 +58,7 @@ body {
     max-width: 100%;
 
 }
+
+.mce-container {
+    border-radius: .25rem!important;
+}
