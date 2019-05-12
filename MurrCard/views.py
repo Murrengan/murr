@@ -138,10 +138,10 @@ def murr_delete(request, slug):
 
 
 @login_required(login_url='/account_login')
-def comment_cut(request, slug, id):
+def comment_cut(request, slug, pk):
     if request.user.is_authenticated:
         author = request.user
-        comment = get_object_or_404(Comment, pk=id, user=author)
+        comment = get_object_or_404(Comment, pk=pk, user=author)
         comment.delete()
         return JsonResponse({'success': True})
     else:
