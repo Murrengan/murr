@@ -37,8 +37,10 @@
 
     {% if murr.get_comments.exists %}
         {% include "MurrCard/includes/_murr_details_comments.html" %}
+    {% else %}
+      <div class="comment-list d-none"></div>
     {% endif %}
-    <div class="comment-list d-none"></div>
+
 
     {% if user.is_authenticated %}
         <div class="container">

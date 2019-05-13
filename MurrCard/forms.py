@@ -13,20 +13,18 @@ class TinyMCEWidget(TinyMCE):
 
 
 class CustomCheckbox(Field):
-    template = 'Murr_card/custom_checkbox.html'
+    template = 'MurrCard/custom_checkbox.html'
 
 
 class MurrForm(forms.ModelForm):
     content = forms.CharField(
         widget=TinyMCEWidget(
-            attrs={'required': False, 'cols': 30, 'rows': 15},
+            attrs={'required': False, 'cols': 30, 'rows': 10},
             mce_attrs=({'menubar': False,
-                        'plugins': ['advlist autolink lists link image imagetools charmap print preview anchor',
-                                    'textcolor searchreplace visualblocks code fullscreen insertdatetime media',
-                                    'table contextmenu paste code help wordcount autoresize',
-                                    ],
-                        'autoresize_min_height': 250,
-                        'autoresize_on_init': False,
+                        'plugins': ['advlist autolink lists link image charmap print preview anchor textcolor',
+                                    'searchreplace visualblocks code fullscreen',
+                                    'insertdatetime media table contextmenu paste code help wordcount',
+                                    'autoresize'],
                         'toolbar': '''
                                 insert | undo redo |  formatselect | bold italic backcolor  | 
                                 alignjustify | bullist numlist outdent indent | 
