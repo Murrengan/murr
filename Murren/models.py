@@ -10,6 +10,9 @@ class Murren(AbstractUser):
     def __str__(self):
         return self.email
 
+    def get_liked_murrs(self):
+        return self.likes.values_list('murr_id', flat=True)
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
