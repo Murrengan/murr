@@ -14,4 +14,5 @@ urlpatterns = [
     path('murr_detail/<str:slug>/comment_cut.ajax/<int:pk>/', murr_card.comment_cut, name='comment_cut.ajax'),
     path('murr_detail/<str:slug>/comment_edit.ajax/<int:pk>/', murr_card.comment_edit, name='comment_edit.ajax'),
     path('search/', murr_card.search, name='search'),
+    path('get_json_murr/', murr_card.get_murr_json, name='get_murr_json'),
 ]

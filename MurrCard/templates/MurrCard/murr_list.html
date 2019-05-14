@@ -23,4 +23,31 @@
     {{ block.super }}
     <script src="{% static "js/murr_list.js" %}"></script>
     <script>$('.murr-list').murrList();</script>
+<script language="JavaScript">
+get_ajax_data("http://127.0.0.1:8000{% url 'get_murr_json' %}");    // реализовать получение полного адреса до вьюхи
+function get_ajax_data(url){
+    $('a.popup_murr').click(function(){
+        $h5_title = $('h5.modal-title');
+        $modal_body = $('div.modal-body');
+        $modal_body.empty();
+        $slug = $(this).data('murrSlug');
+
+        $.post({
+            url: url,
+            data: {'murr_slug':$slug},
+            success: function(response){
+                $h5_title.text(response['title']); // для изменений
+                $modal_body.append("<p>"+response['content']+"</p>"); // для добавления внутрь
+            },
+            error: function(response){
+                console.log(response);
+            }
+        });
+        $('button.btn.btn-secondary').click(function(){
+            console.log(h5_title);
+            console.log(modal_body);
+        });
+    });
+}
+</script>
 {% endblock js %}

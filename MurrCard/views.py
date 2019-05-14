@@ -3,12 +3,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404, HttpResponseNotAllowed
 from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from taggit.models import Tag
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import CommentForm, MurrForm, CommentEditForm
 from .likes import LikeProcessor
@@ -204,3 +205,15 @@ def unlike(request):
     murr = request.POST.get('murr')
     likes = Murr.objects.get(slug=murr).liked.count() or ''
     return JsonResponse({'ok': True, 'likes': likes})
+
+@csrf_exempt
+def get_murr_json(request):
+    murr = request.POST.get('murr_slug')
+    murr_obj = Murr.objects.get(slug=murr)
+
+    # Здесь ты последовательно получаешь все необходимые элементы и ложишь в словарь
+    return JsonResponse(dict(title=str(murr_obj.title),
+                             slug=str(murr_obj.slug),
+                             author=str(murr_obj.author),
+                             content=str(murr_obj.content),
+                             ))
