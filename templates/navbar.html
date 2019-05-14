@@ -4,9 +4,26 @@
   <div class="container">
 
     <div class="row">
-      <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
+      <a class="navbar-brand" data-toggle="modal" data-target="#myModal" style="color:white; margin-top: 7px;">
         Murr
       </a>
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+			    <div class="modal-header">
+			      <button type="button" class="close" data-dismiss="modal">&times;</button>
+			    </div>
+			    <div class="modal-body" id="murreyContent">
+			      <p>Some text in the modal.</p>
+			    </div>
+		    </div>
+		  
+		  </div>
+	  </div>
 
       <form action="{% url 'search' %}" style="margin-top:12px;">
         <div class="input-group input-group-sm formSearch" id="searchForm">
