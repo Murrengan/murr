@@ -16,4 +16,19 @@ $(document).ready(function() {
       searchInput.removeClass('search-input').addClass('search-input__focus');
     }
   })
+  
+  $('#myModal').on('show.bs.modal', function (e) {
+	  $.ajax({
+		  url: 'https://api.ufs-online.ru/api/v1/aviator/airport/autocomplete?q=vj',
+		  dataType: 'json',
+		  success: function(data) {
+			var result = "";
+			data.forEach(function(item, i, arr) {
+				result += "<p style='color: black'>" + item.cityName + "</p>";
+			});
+			$('#murreyContent').html(result);
+		  }
+	  });
+
+	})
 });
