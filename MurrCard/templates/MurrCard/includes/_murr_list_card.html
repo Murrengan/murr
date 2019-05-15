@@ -20,11 +20,16 @@
     <div class="card-body py-1">
         <h4 class="card-title"><a href="{% url 'murr_detail' murr.slug %}">{{ murr.title }}</a></h4>
         <div class="card-text">{{ murr.description }}</div>
-        <div class="murr_content">
+        <div class="murr_content overflow-scroll-gradient">
             <div class="detail my-1 px-0">{% include "MurrCard/includes/_just_murr.html" %}</div>
         </div>
     </div>
 
+    <div id="wave">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
 
     <div class="card-tags">
         {% for tag in murr.tags.all %}

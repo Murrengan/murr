@@ -32,7 +32,8 @@ class MurrForm(forms.ModelForm):
                                 ''',
                         'toolbar2': '''''',
                         'content_css': ['//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                                        '//www.tinymce.com/css/codepen.min.css'],
+                                        'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'],
+                        'content_css_cors': 'true',
                         'branding': False,
                         'content_style': 'img {max-width: 100%; height:auto;}',
                         'imagetools_toolbar': "rotateleft rotateright | flipv fliph | editimage imageoptions",
@@ -85,26 +86,26 @@ class MurrForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    # content = forms.CharField(widget=forms.Textarea(
-    #     attrs={'class': 'form-control',
-    #            'placeholder': 'введите ваш комментарий',
-    #           'rows': '4', }
-# ))
+    content = forms.CharField(widget=forms.Textarea(
+        attrs={'class': 'form-control', 'placeholder': 'введите ваш комментарий','rows': '4',}
+    ),
+        label="Написать комментарий"
+    )
 
     class Meta:
         model = Comment
         fields = ['content']
-        widgets = {
-            'content': TinyMCEWidget(attrs={
-                'class': 'form-control',
-                'placeholder': 'введите ваш комментарий',
-                'rows': '4',
-                'id': 'id_content',
-            }),
-        }
-        labels = {
-            "content": "Написать комментарий"
-        }
+        # labels = {
+        #     "content": "Написать комментарий",
+        # }
+        # widgets = {
+        #     'content': TinyMCEWidget(attrs={
+        #         'class': 'form-control',
+        #         'placeholder': 'введите ваш комментарий',
+        #         'rows': '4',
+        #         'id': 'id_content',
+        #     }),
+        # }
 
 
 class CommentEditForm(forms.ModelForm):
