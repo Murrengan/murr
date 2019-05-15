@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
 
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -61,12 +62,17 @@ class MurrCardSearchTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
+        current_time = datetime.now()
         user1 = User.objects.create_user(username="user_1", password="1234")
         user2 = User.objects.create_user(username="user_2", password="1234")
-        m1 = Murr.objects.create(title="hello1", description="no description", author=user1)
-        m2 = Murr.objects.create(title="hello2", description="no description", author=user1)
-        m3 = Murr.objects.create(title="hello3", description="no description", author=user1)
+
+        m1 = Murr.objects.create(title="hello1", description="no description", author=user1,
+                                 timestamp=current_time - timedelta(minutes=5 * 3))
+        m2 = Murr.objects.create(title="hello2", description="no description", author=user1,
+                                 timestamp=current_time - timedelta(minutes=5 * 2))
+        m3 = Murr.objects.create(title="hello3", description="no description", author=user1,
+                                 timestamp=current_time - timedelta(minutes=5 * 1))
+
         Like.objects.create(murr=m3, murren=user1)
         Like.objects.create(murr=m2, murren=user1)
         Like.objects.create(murr=m2, murren=user2)
@@ -86,7 +92,7 @@ class MurrCardSearchTests(TestCase):
         card = doc.find_all(class_="card")[0]
         self.assertEqual("hello1", card.find(class_="card-title").get_text())
 
-    def test_query_with_sorting(self):
+    def test_query_with_sorting_by_population(self):
         res = self.client.get(reverse("search"), data={
             "sort_by": "-population"
         })
@@ -95,3 +101,14 @@ class MurrCardSearchTests(TestCase):
         doc = BeautifulSoup(res.content, features="lxml")
         self.assertEqual(["hello2", "hello3", "hello1"],
                          [card.find(class_="card-title").get_text() for card in doc.find_all(class_="card")])
+
+    def test_query_with_sorting_by_timestamp(self):
+        res = self.client.get(reverse("search"), data={
+            "sort_by": "-timestamp"
+        })
+
+        self.assertEqual(200, res.status_code)
+        doc = BeautifulSoup(res.content, features="lxml")
+        self.assertEqual(["hello3", "hello2", "hello1"],
+                         [card.find(class_="card-title").get_text() for card in doc.find_all(class_="card")],
+                         msg=[card.find(class_="card-created-at").get_text() for card in doc.find_all(class_="card")])
