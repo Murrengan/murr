@@ -17,7 +17,7 @@
       'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media',
       'save contextmenu directionality emoticons template paste textcolor'
     ],
-    toolbar: 'bold italic underline | blockquote link image | forecolor backcolor | emoticons'
+    toolbar: 'bold italic underline | blockquote link image | forecolor backcolor | emoticons',
     language: 'ru_RU', // TODO no hardcode! Need to get from settings.py...
   });
   </script>
@@ -38,13 +38,13 @@
     {% if murr.get_comments.exists %}
         {% include "MurrCard/includes/_murr_details_comments.html" %}
     {% else %}
-      <div class="comment-list d-none"></div>
+        <div class="comment-list d-none"></div>
     {% endif %}
 
 
     {% if user.is_authenticated %}
         <div class="container">
-            <form method="POST" id="add-comment-form">
+            <form method="POST" id="add-comment-form" novalidate>
                 {% csrf_token %}
                 {{ form }}
               <div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold
