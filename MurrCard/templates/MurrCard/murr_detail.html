@@ -44,7 +44,7 @@
 
     {% if user.is_authenticated %}
         <div class="container">
-            <form method="POST" id="add-comment-form">
+            <form method="POST" id="add-comment-form" novalidate>
                 {% csrf_token %}
                 {{ form }}
               <div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold

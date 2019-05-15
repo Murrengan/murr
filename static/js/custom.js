@@ -82,10 +82,15 @@ function create_post() {
 
         // handle a successful response
         success: function (response) {
-            // $('#post-text').val(''); // remove the value from the input
-            tinymce.get('id_content').setContent(''); // remove the value from the editor
-            tinymce.get('id_content').save(); // transfer empty val to the textarea input
+            $('#id_content').val(''); // remove the value from the input
+            // tinymce.get('id_content').setContent(''); // remove the value from the editor
+            // tinymce.get('id_content').save(); // transfer empty val to the textarea input
             console.log(response); // log the returned json to the console
+
+            if (!$('.comment-list').length){
+                $('<div class="comment-list d-none"></div>').insertAfter('.detail.my-3.p-3');
+            }
+
             if (response.success) {
                 $(".comment-list").replaceWith(response.comments_list);
                 console.log("success"); // another sanity check
@@ -106,7 +111,7 @@ function create_post() {
 $('#add-comment-form').on('submit', function (event) {
     event.preventDefault();
 
-    var editorContent = tinyMCE.get('id_content').getContent();
+    var editorContent = $('#id_content').val();
     if (editorContent == '' || editorContent == null) // alerts on comment is epmty
     {
         // Add error message if not already present
@@ -130,7 +135,7 @@ $('#add-comment-form').on('submit', function (event) {
             $('#editor-error-message').fadeOut();
 
         console.log("add-comment-form submitted!");  // sanity check
-        tinymce.get('id_content').save();
+        // tinymce.get('id_content').save();
         create_post();
     }
 });
