@@ -44,6 +44,11 @@ class MurrCardTests(TestCase):
         # update title
         res = self.client.post(reverse("murr_update", args=[murr_id, ]), follow=True, data={
             "title": "new_new",
+            "description": "new",
+            "content": "<p>1234</p>",
+            "tags": "",
+            "cover": "",
+            "submit": "Сохранить",
         })
 
         self.assertEqual(200, res.status_code)

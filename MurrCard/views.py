@@ -115,7 +115,7 @@ def murr_update(request, slug):
         request.POST or None,
         request.FILES or None,
         instance=murr)
-    if not request.method == 'POST':
+    if request.method == 'POST':
         if not form.is_valid():
             return HttpResponseBadRequest("Form not valid")
 
