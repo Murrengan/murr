@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PIL import Image
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -20,7 +22,7 @@ class Murr(models.Model):
     title = models.CharField(max_length=78, verbose_name='Заголовок')
     description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=datetime.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
     categories = models.ManyToManyField(Category, blank=True, related_name='murrs')
     featured = models.BooleanField(default=True)

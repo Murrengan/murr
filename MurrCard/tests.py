@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -22,7 +22,6 @@ class MurrCardTests(TestCase):
 
     def test_get_murrs(self):
         res = self.client.get('/murrs/', follow=True)
-        print(res.content)
 
     def test_crud_murr(self):
         # create
@@ -62,7 +61,7 @@ class MurrCardSearchTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        current_time = datetime.now()
+        current_time = datetime.now(tz=timezone(timedelta(hours=0)))
         user1 = User.objects.create_user(username="user_1", password="1234")
         user2 = User.objects.create_user(username="user_2", password="1234")
 
@@ -110,5 +109,4 @@ class MurrCardSearchTests(TestCase):
         self.assertEqual(200, res.status_code)
         doc = BeautifulSoup(res.content, features="lxml")
         self.assertEqual(["hello3", "hello2", "hello1"],
-                         [card.find(class_="card-title").get_text() for card in doc.find_all(class_="card")],
-                         msg=[card.find(class_="card-created-at").get_text() for card in doc.find_all(class_="card")])
+                         [card.find(class_="card-title").get_text() for card in doc.find_all(class_="card")])
