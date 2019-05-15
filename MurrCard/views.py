@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404, HttpResponseBadRequest
 from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -115,7 +115,10 @@ def murr_update(request, slug):
         request.POST or None,
         request.FILES or None,
         instance=murr)
-    if request.method == 'POST' and form.is_valid():
+    if not request.method == 'POST':
+        if not form.is_valid():
+            return HttpResponseBadRequest("Form not valid")
+
         form.instance.author = author
         form.save()
         return redirect(reverse('murr_detail', kwargs={
@@ -158,7 +161,7 @@ def comment_edit(request, id, slug):
         print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
         return redirect(reverse('murr_list'))
 
-    context = {'title': '-EDIT- '+{{ slug }}, 'form': form, 'comment': comment.content, }
+    context = {'title': '-EDIT- ' + {{slug}}, 'form': form, 'comment': comment.content, }
     # render_to_string
     # return JsonResponse({'success': True})
     return render(request, 'MurrCard/comment_edit.ajax.html', context)
