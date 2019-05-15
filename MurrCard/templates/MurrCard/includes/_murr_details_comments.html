@@ -8,26 +8,29 @@
                     <span>•</span>
                     <span>
                         {{ comment.timestamp|timesince }} назад &nbsp;•&nbsp;
-                        <a href="#comment-{{ comment.id }}">#</a>
-                    </span>•
+{#                        <a href="#comment-{{ comment.id }}">#</a> •#}
+                    </span>
                 </div>
 
-                <div class="mb-1 comm-content">{{ comment.content | safe | linebreaksbr }}</div>
+                <div class="comment-body">
+                    <div class="mb-1 comm-content">{{ comment.content | safe | linebreaksbr }}</div>
+{#                TODO  {{ comment.content | safe | linebreaksbr }} поробовать заинклюдить из _ajaxify_comment...#}
 
-                <div class="clearfix comments-footer d-flex">
-                    <div class="comment-control small" data-id="{{ comment.id }}">
-                        {% if comment.user == user %}
-                            <a rel="" href="#" class="edt-comment"><span class="fa fa-pencil-alt"></span> Изменить</a>
-                            <a rel="" href="#" class="del-comment"><span class="fa fa-trash-alt"></span> Удалить</a>
-                        {% else %}
-                            <a rel="" href="#" class="rpl-comment"><span class="fa fa-reply"></span> ответить</a>
-                            <div class="btn-group">
-                                <button type="button" class="btn-xs btn-complain">
-                                    <span class="fa fa-exclamation-triangle"></span>
-                                    <span class="text"> пожаловаться</span>
-                                </button>
-                            </div>
-                        {% endif %}
+                    <div class="clearfix comments-footer d-flex">
+                        <div class="comment-control small" data-id="{{ comment.id }}">
+                            {% if comment.user == user %}
+                                <a rel="" href="#" class="edt-comment" data-url="{% url 'comment_edit.ajax' murr.slug comment.id %}"><span class="fa fa-pencil-alt"></span> Изменить</a>
+                                <a rel="" href="#" class="del-comment" data-url="{% url 'comment_cut.ajax' murr.slug comment.id %}"><span class="fa fa-trash-alt"></span> Удалить</a>
+                            {% else %}
+                                <a rel="" href="#" class="rpl-comment"><span class="fa fa-reply"></span> ответить</a>
+                                <div class="btn-group">
+                                    <button type="button" class="btn-xs btn-complain">
+                                        <span class="fa fa-exclamation-triangle"></span>
+                                        <span class="text"> пожаловаться</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

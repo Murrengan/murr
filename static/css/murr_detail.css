@@ -12,16 +12,6 @@
 	overflow:hidden !important;
 }
 
-.murr_body iframe {
-    display: block;
-    max-width: 100%;
-}
-
-.murr_body img {
-    display: block;
-    max-width: 100%;
-}
-
 /* comments */
 
 .comment-list {

@@ -1,29 +1,6 @@
 {% extends 'MurrCard/base_murrs.html' %}
 {% load static %}
 
-{% block extra_header %}
-    {{ block.super }}
-    {{ form.media }}
-
-  <script type="text/javascript">
-  tinymce.init({
-    selector: '#id_content',
-    theme: 'modern',
-    menubar: false,
-    /*width: 600,
-    height: 300,*/
-    plugins: [
-      'autoresize advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media',
-      'save contextmenu directionality emoticons template paste textcolor'
-    ],
-    toolbar: 'bold italic underline | blockquote link image | forecolor backcolor | emoticons',
-    language: 'ru_RU', // TODO no hardcode! Need to get from settings.py...
-  });
-  </script>
-
-{% endblock extra_header %}
-
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
@@ -44,7 +21,7 @@
 
     {% if user.is_authenticated %}
         <div class="container">
-            <form method="POST" id="add-comment-form">
+            <form method="POST" id="add-comment-form" novalidate>
                 {% csrf_token %}
                 {{ form }}
               <div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold

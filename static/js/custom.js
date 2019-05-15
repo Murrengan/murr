@@ -74,7 +74,7 @@ $(".need_auth").submit(function (e) {
 //dipper
 function create_post() {
     console.log("create post is working!"); // sanity check
-    let slug = $("form#add-comment-form").prop('action').split('/').pop(); // get slug from URL of form.action property
+    var slug = $("form#add-comment-form").prop('action').split('/').pop(); // get slug from URL of form.action property
     $.ajax({
         url: slug, // the endpoint
         type: "POST", // http method
@@ -82,10 +82,15 @@ function create_post() {
 
         // handle a successful response
         success: function (response) {
-            // $('#post-text').val(''); // remove the value from the input
-            tinymce.get('id_content').setContent(''); // remove the value from the editor
-            tinymce.get('id_content').save(); // transfer empty val to the textarea input
+            $('#id_content').val(''); // remove the value from the input
+            // tinymce.get('id_content').setContent(''); // remove the value from the editor
+            // tinymce.get('id_content').save(); // transfer empty val to the textarea input
             console.log(response); // log the returned json to the console
+
+            if (!$('.comment-list').length){
+                $('<div class="comment-list d-none"></div>').insertAfter('.detail.my-3.p-3');
+            }
+
             if (response.success) {
                 $(".comment-list").replaceWith(response.comments_list);
                 console.log("success"); // another sanity check
@@ -106,7 +111,7 @@ function create_post() {
 $('#add-comment-form').on('submit', function (event) {
     event.preventDefault();
 
-    var editorContent = tinyMCE.get('id_content').getContent();
+    var editorContent = $('#id_content').val();
     if (editorContent == '' || editorContent == null) // alerts on comment is epmty
     {
         // Add error message if not already present
@@ -130,7 +135,7 @@ $('#add-comment-form').on('submit', function (event) {
             $('#editor-error-message').fadeOut();
 
         console.log("add-comment-form submitted!");  // sanity check
-        tinymce.get('id_content').save();
+        // tinymce.get('id_content').save();
         create_post();
     }
 });
@@ -145,29 +150,99 @@ $('#add-comment-form').on('submit', function (event) {
     });
 
 
-$(".container").on('click', ".edt-comment", function () {
+
+// reply comment
+$(".container").on('click', ".rpl-comment", function () {
     // console.log('reply');
     let commentContent = $('#id_content')
     msg = $(this).parents("div.media-body").find('div.mb-1.comm-content').html();
     if (commentContent.val()) {
         commentContent.val("");
-        tinymce.get('id_content').load();
+        // tinymce.get('id_content').load();
     }
     commentContent.val(msg);
-    tinymce.get('id_content').load();
-    $(".mce-container").focus();
-    tinyMCE.get('id_content').selection.select(tinyMCE.get('id_content').getBody(), true);
-    tinyMCE.get('id_content').selection.collapse(false);
-    // commentContent.focus();
-    tinymce.execCommand('mceFocus',false,'id_content');
+    // tinymce.get('id_content').load();
+    // $(".mce-container").focus();
+    // tinyMCE.get('id_content').selection.select(tinyMCE.get('id_content').getBody(), true);
+    // tinyMCE.get('id_content').selection.collapse(false);
+    commentContent.focus();
+    // tinymce.execCommand('mceFocus',false,'id_content');
 
     console.log(msg, $(this).parent('.comment-control.small').data('id'));
     return false;
 });
 
+// edit comment
+$(".container").on('click', ".edt-comment", function () {
+    console.log('edit');
+    var commentPlace = $(this);
+    var commentDiv = $(this).parents('.comment-body');
+
+    // remove old existing form if it's data even not saved
+    $('#btn-cancell').click();
+
+    // get current comment content by id from server
+    $.ajax({
+        // url: slug+'/comment_edit.ajax/'+commentId+'/',
+        url: commentPlace.data('url'),
+        type: 'GET',
+        dataType: 'json',
+        // data: {id_comment: commentId},
+        success: function(response) {
+
+            if (response.success) {
+                commentDiv.hide();
+                commentDiv.after('<div id="form-replacement">' + response.html_form + '</div>');
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function() {
+            alert('Ошибка отправки данных.');
+        }
+    });
+    return false;
+});
+
+$('.container').on('click', "#btn-cancell", function () {
+    if ($(".comment-list").find('#form-replacement').length >= 1) {
+        $(".comment-list").find('#form-replacement').remove();
+        $(".comment-body").fadeIn();
+    }
+});
+
+$('.container').on('submit', "#inplace-form", function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var commentDiv = $(this).parents('.media-body').find('.comment-body');
+
+    $.ajax({
+        url: form.attr('action'),
+        type: form.attr('method'),
+        dataType: 'json',
+        data: form.serialize(),
+
+        success: function (response) {
+            if (response.success) {
+                $(commentDiv).children('.comm-content').html(response.content);
+                form.hide();
+                commentDiv.fadeIn();
+            }
+            else{
+                alert('Ошибка обработки данных комменария')
+            }
+        },
+
+        error: function() {
+            alert('Ошибка отправки данных.');
+        }
+    });
+});
+
 $('.container').on('click', ".del-comment", function () {
     var commentRow = '';
-    var slug = $("form#add-comment-form").prop('action').split('/').pop();
+    var slug = this.pathname.split('/').pop();
     id = $(this).parent('.comment-control.small').data('id');
     if ($('.comment-list .media').length > 1) {
         commentRow = $(this).parents('.media');
@@ -201,7 +276,7 @@ $('.container').on('click', ".del-comment", function () {
                                 opacity: 0,
                                 height: 0,
                                 padding: 0
-                            }, 'slow', function () {
+                            }, 'fast', function () {
                                 commentRow.remove();
                             });
                         } else {

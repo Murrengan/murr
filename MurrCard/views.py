@@ -8,6 +8,7 @@ from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm, CommentEditForm
@@ -149,19 +150,43 @@ def comment_cut(request, slug, pk):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 # @require_POST
-def comment_edit(request, id, slug):
+def comment_edit(request, pk, slug):
     data = dict()
-    comment = get_object_or_404(Comment, pk=id)
-    form = CommentEditForm(request.POST or None, instance=comment)
-    if request.method == 'POST' and form.is_valid():
-        print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
-        return redirect(reverse('murr_list'))
+    murr = get_object_or_404(Murr, slug=slug)
+    comment = get_object_or_404(murr.get_comments, pk=pk)
+    context = {'title': '-EDIT- ' + slug, 'pk':pk, 'slug':slug}
+    if request.is_ajax():
+        if request.method == 'POST':
+            form = CommentEditForm(request.POST, instance=comment)
+            if form.is_valid():
+                  form.save()
+                  data['success'] = True
+                  data['message'] = 'form inplace saved'
+                  data['content'] = render_to_string(
+                      'MurrCard/includes/_ajaxify_comment_body.html',
+                      {'comment':comment},
+                      request=request
+                  )
+            else:
+                data['success'] = False
+                data['message'] = 'form is not valid'
+                context['form'] = form
+            print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\ncontext:\n\t{context}\n")
+        elif request.method == 'GET':
+            print(request.GET)
+            form = CommentEditForm(instance=comment)
+            context['form'] = form
+            data['message'] = 'form inplace send'
+            data['success'] = True
+            data['html_form'] = render_to_string('MurrCard/comment_edit.ajax.html', context, request=request)
+            # return JsonResponse({'success': True})
+    else:
+        raise Http404
 
-    context = {'title': '-EDIT- '+{{ slug }}, 'form': form, 'comment': comment.content, }
-    # render_to_string
-    # return JsonResponse({'success': True})
-    return render(request, 'MurrCard/comment_edit.ajax.html', context)
+    return JsonResponse(data)
+
 
 
 def comment_reply(request, pk):
@@ -169,7 +194,7 @@ def comment_reply(request, pk):
     # comment = get_object_or_404(Comment, pk=id)
     # render_to_string
     # return JsonResponse({'success': True})
-    pass
+    return None
 
 
 @login_required()
