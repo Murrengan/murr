@@ -177,7 +177,7 @@ def comment_reply(request, pk):
 
 @login_required()
 def like(request):
-    if request.method == 'GET':
+    if request.method != 'POST':
         raise Http404
 
     raw_data = request.POST.dict()
@@ -194,7 +194,7 @@ def like(request):
 
 @login_required()
 def unlike(request):
-    if request.method == 'GET':
+    if request.method != 'POST':
         raise Http404
 
     raw_data = request.POST.dict()
