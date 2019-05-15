@@ -1,3 +1,5 @@
+import re
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -44,24 +46,31 @@ def murr_list(request, **kwargs):
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
     murrs = Murr.objects.all()
+    categories = Category.objects.all()
+
     query = request.GET.get('q')
     if query:
-        query_in_title = Q(title__icontains=query)
-        query_in_desc = Q(description__icontains=query)
-        murrs = murrs.filter(query_in_title | query_in_desc)
-        if murrs.exists() is False:
+        contain_in_title = Q(title__icontains=query)
+        contain_in_desc = Q(description__icontains=query)
+        murrs = murrs.filter(contain_in_title | contain_in_desc)
+        if not murrs.exists():
             messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 
+    tags = request.GET.getlist("tags")
+    if tags:
+        murrs = murrs.filter(tags__name__in=tags)
+
+    for sort_by in request.GET.getlist("sort_by"):
+        if re.match("[-+]?population", sort_by):
+            murrs = murrs.annotate(population=Count("liked"))
+        murrs = murrs.order_by(sort_by)
+
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
-    murrs = murrs.order_by('-timestamp')
     paginator = Paginator(murrs.distinct(), 5)
-    page = paginator.get_page(request.GET.get('page'))
 
     context = {
-        'page': page,
-        'search_query': f'q={query}&',
         'csrf': get_token(request),
-        'categories': Category.objects.all(),
+        'page': paginator.get_page(request.GET.get('page')),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
