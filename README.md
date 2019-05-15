@@ -4,6 +4,7 @@
 
 **Выберите язык:**&nbsp; [<img src="readme/examples/en.png" title="Английский" />](readme/en) &nbsp; [<img src="readme/examples/pl.png" title="Польский" />](readme/pl)
 
+[![Build Status](https://travis-ci.org/heckad/murr.svg?branch=develop)](https://travis-ci.org/heckad/murr)
 
 <h2>
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
