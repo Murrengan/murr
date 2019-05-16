@@ -97,24 +97,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
-        # labels = {
-        #     "content": "Написать комментарий",
-        # }
-        # widgets = {
-        #     'content': TinyMCEWidget(attrs={
-        #         'class': 'form-control',
-        #         'placeholder': 'введите ваш комментарий',
-        #         'rows': '4',
-        #         'id': 'id_content',
-        #     }),
-        # }
 
 
 class CommentEditForm(forms.ModelForm):
     content = forms.CharField(
-        label="Comment content",
-        widget=TinyMCEWidget(
-            attrs={'required': False, 'rows': 4, 'id': 'comment-area', }
+        label="",
+        widget=forms.Textarea(
+            attrs={'rows': 3, 'id': 'comment-area', 'class':'w-100'}
         ))
 
     class Meta:
