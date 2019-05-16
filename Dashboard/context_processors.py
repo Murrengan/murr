@@ -1,8 +1,8 @@
-from MurrCard.models import Category, Murr
+from MurrCard.models import Murr
 
 
 def show_categories(request):
-    categories = Category.objects.all()
+    categories = Murr.CATEGORIES
     context = {
         'categories': categories
     }

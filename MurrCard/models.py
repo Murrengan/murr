@@ -10,13 +10,23 @@ User = get_user_model()
 
 
 class Murr(models.Model):
+
+    CATEGORIES = [
+        ('etc', 'Другое'),
+        ('Games', 'Видеоигры'),
+        ('Travels', 'Путешествия'),
+        ('IT', 'Наука и техника'),
+        ('Sport', 'Спорт'),
+
+    ]
+
     title = models.CharField(max_length=78, verbose_name='Заголовок')
     description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
 
-    categories = models.ForeignKey('Category', on_delete=models.CASCADE)
+    categories = models.CharField(max_length=20, choices=CATEGORIES, default=CATEGORIES[0][0])
 
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
@@ -71,13 +81,6 @@ class Murr(models.Model):
 
         self.slug = f'{slugify(self.title)}-{self.pk}'
         super(Murr, self).save()
-
-
-class Category(models.Model):
-    title = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.title
 
 
 class Comment(models.Model):

@@ -12,7 +12,7 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm, CommentEditForm
 from .likes import LikeProcessor
-from .models import Murr, Comment, Category
+from .models import Murr, Comment
 
 User = get_user_model()
 
@@ -36,7 +36,6 @@ def murr_list(request, **kwargs):
     context = {
         'page': page,
         'csrf': get_token(request),
-        'categories': Category.objects.all(),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
@@ -61,7 +60,6 @@ def search(request):
         'page': page,
         'search_query': f'q={query}&',
         'csrf': get_token(request),
-        'categories': Category.objects.all(),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
