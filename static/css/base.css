@@ -50,13 +50,14 @@ body {
 .murr_body img {
     display: block;
     max-width: 100%;
+    height: 100%;
 
 }
 
 .murr_body iframe {
     display: block;
     max-width: 100%;
-
+    height: 100%;
 }
 
 .mce-container {
