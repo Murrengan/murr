@@ -61,7 +61,7 @@ def search(request):
         murrs = murrs.filter(tags__name__in=tags)
 
     for sort_by in request.GET.getlist("sort_by"):
-        if re.match("[-+]?population", sort_by):
+        if re.match("^[-+]?population$", sort_by):
             murrs = murrs.annotate(population=Count("liked"))
         murrs = murrs.order_by(sort_by)
 
