@@ -7,6 +7,7 @@ urlpatterns = [
     path('like/', murr_card.like, name='like'),
     path('unlike/', murr_card.unlike, name='unlike'),
     path('murrs_by_tag/<str:tag_name>', murr_card.murr_list, name='murr_list_by_tag_name'),
+    path('murrs_by_category/<str:category>', murr_card.murr_list, name='murr_list_by_category'),
     path('create/', murr_card.murr_create, name='murr_create'),
     path('murr_detail/<str:slug>', murr_card.murr_detail, name='murr_detail'),
     path('murr_detail/<str:slug>/update/', murr_card.murr_update, name='murr_update'),

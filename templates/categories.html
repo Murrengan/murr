@@ -3,7 +3,7 @@
       <hr color="white" class="my-0">
 <div class="container">
   {% for k,v in categories %}
-  {{ v }}
+    <a href="{% url 'murr_list_by_category' k %}">{{ v }}</a>
   {% endfor %}
 
 </div>
