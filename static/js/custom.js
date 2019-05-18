@@ -119,7 +119,7 @@ $('#add-comment-form').on('submit', function (event) {
         {
             $('<div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold ' +
               '   invalid-feedback show small">\n' +
-              '       Comment content is empty.' +
+              '       Пустой комментарий.' +
               '       <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
               '           <span aria-hidden="true">&times;</span>\n' +
               '       </button>\n' +

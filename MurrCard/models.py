@@ -9,20 +9,25 @@ from uuslug import slugify
 User = get_user_model()
 
 
-class Category(models.Model):
-    title = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.title
-
-
 class Murr(models.Model):
+
+    CATEGORIES = [
+        ('etc', 'Другое'),
+        ('Games', 'Видеоигры'),
+        ('Travels', 'Путешествия'),
+        ('IT', 'Наука и техника'),
+        ('Sport', 'Спорт'),
+
+    ]
+
     title = models.CharField(max_length=78, verbose_name='Заголовок')
     description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
-    categories = models.ManyToManyField(Category, blank=True, related_name='murrs')
+
+    categories = models.CharField(max_length=20, choices=CATEGORIES, default=CATEGORIES[0][0])
+
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
     tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
@@ -30,6 +35,9 @@ class Murr(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_murrs_by_category(self):
+        return self.category.values_list('murr_id', flat=True)
 
     def get_absolute_url(self):
         return reverse('murr_detail', kwargs={'pk': self.id})

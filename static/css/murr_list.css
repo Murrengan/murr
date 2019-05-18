@@ -67,6 +67,15 @@
     }
 }
 
+.detail.my-3.p-3 {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.detail.my-3.p-3 img {
+    height: auto;
+}
+
 .detail {
     max-height: 400px;
     /*overflow: hidden;*/
@@ -85,6 +94,17 @@
 
 .murr_content {
     overflow: hidden;
+}
+
+.murr_body img {
+    display: block;
+    max-width: 100%;
+
+}
+
+.murr_body iframe {
+    display: block;
+    max-width: 100%;
 }
 
 .overflow-scroll-gradient {
