@@ -14,7 +14,7 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm, CommentEditForm
 from .likes import LikeProcessor
-from .models import Murr, Comment, Category
+from .models import Murr, Comment
 
 User = get_user_model()
 
@@ -24,11 +24,16 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
+
     murrs = Murr.objects.all()
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
         murrs = murrs.filter(tags__name=tag)
+
+    category = kwargs.get('category')
+    if category:
+        murrs = murrs.filter(categories=category)
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
@@ -38,7 +43,6 @@ def murr_list(request, **kwargs):
     context = {
         'page': page,
         'csrf': get_token(request),
-        'categories': Category.objects.all(),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
