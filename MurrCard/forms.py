@@ -1,8 +1,9 @@
+import bleach
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
-from django import forms
-from django.utils.html import strip_tags
 from tinymce import TinyMCE
+
+from django import forms
 
 from .models import Murr, Comment
 
@@ -81,7 +82,7 @@ class MurrForm(forms.ModelForm):
         """Cleaning tags from backslashes and strip html-tags"""
 
         tags = self.cleaned_data.get('tags')
-        tags = [strip_tags(tag).replace('/', '') for tag in tags]
+        tags = [bleach.clean(tag, tags=[], strip=True).replace('/', '') for tag in tags]
         return filter(bool, tags)
 
 
@@ -96,3 +97,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        content = bleach.clean(content, tags=[], strip=True).strip()
+        return content
