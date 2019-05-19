@@ -90,6 +90,11 @@
 **Murrengan** | **Sergiej Selin** | **dipperside** | **das-dev** | **jKEeY**
 
 
+
+[<img src="https://avatars2.githubusercontent.com/u/35865450?s=400&v=4" width="150" height="150" />](https://github.com/KaptainMidnight)  |
+---|
+**KaptainMidnight** | 
+
 <h2>
 Частые вопросы/FAQ
 </h2>
@@ -98,4 +103,3 @@
 Как официально попасть в проект?
 </h3>
 Сделать пулл реквест, который будет смержен в основной проект и пообщаться с текущей командой (голос/переписка/встреча в реале)
-
