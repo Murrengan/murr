@@ -11,7 +11,7 @@
                     </span>•
             </div>
 
-            <div class="comment-content mb-1">{{ comment.content | safe | linebreaksbr }}</div>
+            <div class="comment-content mb-1">{{ comment.content|escape }}</div>
 
             <div class="clearfix comments-footer d-flex">
                 <div class="comment-control small">
