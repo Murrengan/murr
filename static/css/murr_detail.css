@@ -25,13 +25,17 @@
 /* comments */
 
 .comment-list {
-    border: 1px solid dimgray; /* Параметры границы */
+    border: 1px solid dimgray;
     border-radius: .25rem !important;
-    background: palegreen; /* Цвет фона */
+    background: palegreen;
     padding: 0 10px;
     margin: 35px 10px;
     word-break: break-word;
     color: black;
+}
+
+.comment-list:empty {
+    display: none;
 }
 
 .comment {
@@ -99,8 +103,8 @@
     box-shadow: 0 0 3px 0px black;
 }
 
-
 /* цитированный комментарий */
+
 blockquote {
 	font-style: italic;
     font-size: 1em !important;
@@ -111,6 +115,7 @@ blockquote {
 	line-height: 1.4em;
 	position: relative;
 }
+
 blockquote p {
 	padding: 0;
 }
@@ -125,4 +130,5 @@ blockquote:before {
 	color: rgba(0, 0, 0, 0.15);
 	font-size: 25px;
 }
+
 /* -цитированный комментарий- */

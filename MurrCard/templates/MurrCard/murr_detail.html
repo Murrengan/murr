@@ -1,71 +1,22 @@
 {% extends 'MurrCard/base_murrs.html' %}
 {% load static %}
 
-{% block extra_header %}
-    {{ block.super }}
-    {{ form.media }}
-
-  <script type="text/javascript">
-  tinymce.init({
-    selector: '#id_content',
-    theme: 'modern',
-    menubar: false,
-    /*width: 600,
-    height: 300,*/
-    plugins: [
-      'autoresize advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media',
-      'save contextmenu directionality emoticons template paste textcolor'
-    ],
-    toolbar: 'bold italic underline | blockquote link image | forecolor backcolor | emoticons',
-    language: 'ru_RU', // TODO no hardcode! Need to get from settings.py...
-  });
-  </script>
-
-{% endblock extra_header %}
-
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
 {% endblock css %}
 
-
-
 {% block content %}
-    <h2 class="text-center text-uppercase">Детали Мурра</h2>
-    <div class="detail my-3 p-3">{% include "MurrCard/includes/_murr_detail_view.html" %}</div>
-
-    {% if murr.get_comments.exists %}
-        {% include "MurrCard/includes/_murr_details_comments.html" %}
-    {% else %}
-        <div class="comment-list d-none"></div>
-    {% endif %}
-
-
-    {% if user.is_authenticated %}
-        <div class="container">
-            <form method="POST" id="add-comment-form" novalidate>
-                {% csrf_token %}
-                {{ form }}
-              <div id="editor-error-message" class="alert alert-danger alert-dismissible fade font-weight-bold
-               invalid-feedback show small">
-                Пустой комментарий.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div id="alerts"></div>
-                <div class="form-group my-2">
-                    <button type="submit" class="btn btn-secondary">Добавить комментарий</button>
-                </div>
-            </form>
-        </div>
-    {% endif %}
+    <div class="murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
+        {% include 'MurrCard/includes/_murr_detail_content.html' %}
+    </div>
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static "js/jsdelivr.js" %}"></script>
-    <script src="{% static "js/custom.js" %}"></script>
+{#    <script src="{% static "js/jsdelivr.js" %}"></script>#}
+{#    <script src="{% static "js/custom.js" %}"></script>#}
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
+    <script src="{% static "js/murr_detail.js" %}"></script>
+    <script>$('.murr-detail').murrDetail();</script>
 {% endblock js %}

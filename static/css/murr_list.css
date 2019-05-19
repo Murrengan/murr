@@ -56,7 +56,6 @@
     font-style: italic;
     font-weight: 300;
     color: #007bff;
-
 }
 
 @media only screen and (max-width: 992px) and (min-width: 576px) {
@@ -78,8 +77,6 @@
 
 .detail {
     max-height: 400px;
-    /*overflow: hidden;*/
-     /*display: flex;*/
  }
 
 .detail img {
@@ -125,10 +122,8 @@
 
 div#wave {
   position: relative;
-  /*margin-top: 50vh;*/
   text-align: center;
   width: 100px;
-  /*height: 100px;*/
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
