@@ -1,0 +1,34 @@
+{% for comment in murr.get_comments %}
+    <div class="comment media my-2 pb-2" data-pk="{{ comment.pk }}">
+        <img src="{{ comment.user.profile_picture.url }}" alt="" class="mt-1 mr-3 rounded-circle ava" title="ava">
+        <div class="media-body mb-3">
+            <span class="font-weight-bold h5 mt-0">{{ comment.user.username }}&nbsp;&nbsp;</span>
+            <div class="d-inline text-muted font-weight-light" aria-hidden="true" style="font-size: 14px;">
+                <span>•</span>
+                <span>
+                        {{ comment.timestamp|timesince }} назад &nbsp;•&nbsp;
+                        <a href="#comment-{{ comment.pk }}">#</a>
+                    </span>•
+            </div>
+
+            <div class="comment-content mb-1">{{ comment.content | safe | linebreaksbr }}</div>
+
+            <div class="clearfix comments-footer d-flex">
+                <div class="comment-control small">
+                    {% if comment.user == user %}
+                        <span class="edt-comment clickable"><span class="fa fa-pencil-alt"></span> Изменить</span>
+                        <span class="del-comment clickable"><span class="fa fa-trash-alt"></span> Удалить</span>
+                    {% else %}
+                        <span class="rpl-comment clickable"><span class="fa fa-reply"></span> ответить</span>
+                        <div class="btn-group">
+                            <button type="button" class="btn-xs btn-complain">
+                                <span class="fa fa-exclamation-triangle"></span>
+                                <span class="text"> пожаловаться</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

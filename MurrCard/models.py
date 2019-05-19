@@ -98,7 +98,7 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.murr.title + " :: " + self.content[:50]
+        return f'<Comment: {self.murr.title}>'
 
 
 class Like(models.Model):

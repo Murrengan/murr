@@ -1,16 +1,18 @@
+from taggit.models import Tag
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden, Http404
+from django.http import JsonResponse, HttpResponseForbidden, Http404
 from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
-from taggit.models import Tag
+from django.views.decorators.http import require_POST
 
-from .forms import CommentForm, MurrForm, CommentEditForm
+from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
 from .models import Murr, Comment
 
@@ -70,26 +72,15 @@ def search(request):
 
 
 def murr_detail(request, slug):
-    """ Show single murr with its comments """
+    """ Show single murr """
     murr = get_object_or_404(Murr, slug=slug)
-    form = CommentForm(request.POST or None)
-    if request.method == 'POST' and form.is_valid():
-        form.instance.user = request.user
-        form.instance.murr = murr
-        form.save()
-        if request.is_ajax():
-            data = dict()
-            data['comments_list'] = render_to_string(
-                'MurrCard/includes/_murr_details_comments.html',
-                {'murr': murr},
-                request=request
-            )
-            data['success'] = True
-            return JsonResponse(data)
-        else:
-            return HttpResponseRedirect(request.path)
+    if request.method == 'POST':
+        context = {'murr': murr}
+        html = render_to_string('MurrCard/includes/_murr_detail_content.html', context, request)
+        return JsonResponse({'html': html})
 
-    context = {'murr': murr, 'form': form}
+    form = CommentForm()
+    context = {'murr': murr, 'comment_form': form, 'csrf': get_token(request)}
     return render(request, 'MurrCard/murr_detail.html', context)
 
 
@@ -140,39 +131,47 @@ def murr_delete(request, slug):
         return HttpResponseForbidden()
 
 
-@login_required(login_url='/account_login')
-def comment_cut(request, slug, pk):
-    if request.user.is_authenticated:
-        author = request.user
-        comment = get_object_or_404(Comment, pk=pk, user=author)
-        comment.delete()
-        return JsonResponse({'success': True})
-    else:
-        HttpResponseForbidden()
-
-
+@require_POST
 @login_required
-# @require_POST
-def comment_edit(request, id, slug):
-    data = dict()
-    comment = get_object_or_404(Comment, pk=id)
-    form = CommentEditForm(request.POST or None, instance=comment)
-    if request.method == 'POST' and form.is_valid():
-        print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\n")
-        return redirect(reverse('murr_list'))
+def comment_add(request):
+    form = CommentForm(request.POST)
+    if not form.is_valid():
+        return None
 
-    context = {'title': '-EDIT- '+{{ slug }}, 'form': form, 'comment': comment.content, }
-    # render_to_string
-    # return JsonResponse({'success': True})
-    return render(request, 'MurrCard/comment_edit.ajax.html', context)
+    murr_slug = request.POST.get('murr_slug')
+    murr = get_object_or_404(Murr, slug=murr_slug)
+    form.instance.user = request.user
+    form.instance.murr = murr
+    form.save()
+    template = 'MurrCard/includes/_murr_detail_comments.html'
+    comments = render_to_string(template, {'murr': murr}, request)
+    return JsonResponse({'comments': comments})
 
 
-def comment_reply(request, pk):
-    # data = dict()
-    # comment = get_object_or_404(Comment, pk=id)
-    # render_to_string
-    # return JsonResponse({'success': True})
-    pass
+@require_POST
+@login_required
+def comment_delete(request):
+    author = request.user
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk, user=author)
+    comment.delete()
+    return JsonResponse({'ok': True})
+
+
+@require_POST
+@login_required
+def comment_update(request):
+    author = request.user
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk, user=author)
+    form = CommentForm(request.POST, instance=comment)
+    if form.is_valid():
+        form.save()
+        murr_slug = request.POST.get('murr_slug')
+        murr = get_object_or_404(Murr, slug=murr_slug)
+        template = 'MurrCard/includes/_murr_detail_comments.html'
+        comments = render_to_string(template, {'murr': murr}, request)
+        return JsonResponse({'comments': comments})
 
 
 @login_required()
