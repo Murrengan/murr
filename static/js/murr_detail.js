@@ -36,40 +36,13 @@
                     }
                 });
             },
-            editComment: function($target) {
-                let $this = $(this), data = $this.data($name),
-                    $comment = $target.closest('.comment'),
-                    $comment_input = $('#id_content'),
-                    comment_content = $('.comment-content', $comment);
-
-                $comment_input.val(comment_content.html());
-                $.extend(data, $comment.data(), {content: $comment_input.val()});
-                $('.comment-add', $this).addClass('hide');
-                $('.comment-update', $this).removeClass('hide');
-            },
-            updateComment: function() {
-                let $this = $(this), data = $this.data($name),
-                    $comment_input = $('#id_content'),
-                    ajax_data = $.extend(data, {content: $comment_input.val()});
-
-                $.ajax({
-                    url: '/murrs/comment_update/', data: ajax_data,
-                    type: 'POST', dataType: 'json',
-                    success: function(response) {
-                        $('#id_content').val('');
-                        $(".comment-list").html(response['comments']);
-                        $('.comment-add', $this).removeClass('hide');
-                        $('.comment-update', $this).addClass('hide');
-                    }
-                })
-            },
             addComment: function() {
                 let $this = $(this), data = $this.data($name),
-                    content = $('#id_content').val(),
-                    ajax_data = $.extend(data, {content: content});
+                    content = $('#id_content').val();
 
+                $.extend(data, {content: content});
                 $.ajax({
-                    url: '/murrs/comment_add/', data: ajax_data,
+                    url: '/murrs/comment_add/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function(response) {
                         $('#id_content').val('');
@@ -81,24 +54,32 @@
                     }
                 })
             },
-            deleteComment: function($comment) {
-                let $this = $(this), data = $this.data($name);
+            editComment: function($target) {
+                let $this = $(this), data = $this.data($name),
+                    $comment = $target.closest('.comment'),
+                    $comment_input = $('#id_content'),
+                    comment_content = $('.comment-content', $comment);
 
-                $.extend($comment.data(), data);
+                $comment_input.val(comment_content.html());
+                $.extend(data, $comment.data());
+                $('.comment-add', $this).addClass('hide');
+                $('.comment-update', $this).removeClass('hide');
+            },
+            updateComment: function() {
+                let $this = $(this), data = $this.data($name),
+                    $comment_input = $('#id_content');
+
+                $.extend(data, {content: $comment_input.val()});
                 $.ajax({
-                    url: '/murrs/comment_delete/', data: $comment.data(),
+                    url: '/murrs/comment_update/', data: data,
                     type: 'POST', dataType: 'json',
-                    success: function (response) {
-                        $comment.animate({
-                            opacity: 0,
-                            height: 0,
-                            padding: 0
-                        }, 'slow', function () {
-                            $comment.remove();
-                        });
+                    success: function(response) {
+                        $('#id_content').val('');
+                        $(".comment-list").html(response['comments']);
+                        $('.comment-add', $this).removeClass('hide');
+                        $('.comment-update', $this).addClass('hide');
                     }
-                });
-
+                })
             },
             deleteWithConfirm: function($target) {
                 let $this = $(this), data = $this.data($name),
@@ -124,7 +105,26 @@
                         }
                     }]
                 })
-            }
+            },
+            deleteComment: function($comment) {
+                let $this = $(this), data = $this.data($name);
+
+                $.extend(data, $comment.data());
+                $.ajax({
+                    url: '/murrs/comment_delete/', data: data,
+                    type: 'POST', dataType: 'json',
+                    success: function (response) {
+                        $comment.animate({
+                            opacity: 0,
+                            height: 0,
+                            padding: 0
+                        }, 'slow', function () {
+                            $comment.remove();
+                        });
+                    }
+                });
+
+            },
         };
     $.fn[$name] = $.namespace(methods)
 })(jQuery);
