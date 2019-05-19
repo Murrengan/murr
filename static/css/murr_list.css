@@ -23,7 +23,8 @@
 }
 
 .img-thumbnail {
-    box-shadow: 0 0 5px -2px black;
+    padding: 0;
+    border: 0;
 }
 
 .card-thumbnail-inner {

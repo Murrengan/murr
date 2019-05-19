@@ -107,7 +107,8 @@
                 })
             },
             deleteComment: function($comment) {
-                let $this = $(this), data = $this.data($name);
+                let $this = $(this), data = $this.data($name),
+                    $commentList = $(".comment-list");
 
                 $.extend(data, $comment.data());
                 $.ajax({
@@ -120,6 +121,7 @@
                             padding: 0
                         }, 'slow', function () {
                             $comment.remove();
+                            if (!$commentList.html().trim()) { $commentList.html('') }
                         });
                     }
                 });

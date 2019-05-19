@@ -12,12 +12,17 @@ User = get_user_model()
 class Murr(models.Model):
 
     CATEGORIES = [
+        ('humor', 'Юмор'),
+        ('games', 'Игры'),
+        ('sport', 'Спорт'),
+        ('music', 'Музыка'),
+        ('business', 'Бизнес'),
+        ('scince', 'Наука и техника'),
+        ('travels', 'Путешествия'),
+        ('relations', 'Отношения'),
+        ('filmation', 'Фильмы и анимация'),
+        ('programming', 'Программирование'),
         ('etc', 'Другое'),
-        ('Games', 'Видеоигры'),
-        ('Travels', 'Путешествия'),
-        ('IT', 'Наука и техника'),
-        ('Sport', 'Спорт'),
-
     ]
 
     title = models.CharField(max_length=78, verbose_name='Заголовок')
@@ -26,7 +31,7 @@ class Murr(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
 
-    categories = models.CharField(max_length=20, choices=CATEGORIES, default=CATEGORIES[0][0])
+    categories = models.CharField(max_length=20, choices=CATEGORIES, default=CATEGORIES[-1][0])
 
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
@@ -74,10 +79,10 @@ class Murr(models.Model):
         if self.cover:
             img = Image.open(self.cover.path)
 
-            if img.height > 1000 or img.width > 1000:
+            if img:
                 output_size = (1000, 1000)
                 img.thumbnail(output_size)
-                img.save(self.cover.path)
+                img.convert('RGB').save(self.cover.path, "JPEG")
 
         self.slug = f'{slugify(self.title)}-{self.pk}'
         super(Murr, self).save()

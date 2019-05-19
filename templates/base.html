@@ -22,7 +22,6 @@
     </head>
     <body>
         <header>{% include 'navbar.html' %}</header>
-        <div class="mb-3">{% include 'categories.html' %}</div>
 
         <div class="container col-6">
             {# Django messages #}
@@ -33,6 +32,12 @@
             {% endfor %}
             {# Django messages #}
         </div>
+
+        {# Show categories #}
+        {% if request.path == '/murrs/' or '/murrs/murrs_by_category/' in request.path %}
+          <div class="mb-3 text-center">{% include 'categories.html' %}</div>
+        {% endif %}
+        {# Show categories #}
 
         <div class="container">
           {% block content %}

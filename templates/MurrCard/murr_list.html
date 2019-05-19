@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
 {% endblock css %}
 
+
+
+
 {% block content %}
+
+
     <div class="container py-1">
         <div class="murr-list card-columns animate-opacity p-1" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
