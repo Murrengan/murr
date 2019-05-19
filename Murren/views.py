@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Count
 from django.http import JsonResponse, Http404
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
@@ -81,6 +82,7 @@ def show_all_liked_murrs(request):
     murrens_likes = request.user.get_liked_murrs()
     liked_murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
     murrs = liked_murrs.order_by('timestamp')
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
     paginator = Paginator(murrs.distinct(), 5)
     page = paginator.get_page(request.GET.get('page'))
 
