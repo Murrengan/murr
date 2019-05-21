@@ -10,9 +10,10 @@ from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_http_methods, require_POST
+from taggit.models import Tag
 
-from .forms import CommentForm, MurrForm
+from .forms import CommentForm, MurrForm, CommentEditForm
 from .likes import LikeProcessor
 from .models import Murr, Comment
 
@@ -72,7 +73,7 @@ def search(request):
 
 
 def murr_detail(request, slug):
-    """ Show single murr """
+    """ Show single murr with its comments """
     murr = get_object_or_404(Murr, slug=slug)
     if request.method == 'POST':
         context = {'murr': murr}

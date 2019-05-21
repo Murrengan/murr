@@ -22,10 +22,12 @@ class MurrForm(forms.ModelForm):
         widget=TinyMCEWidget(
             attrs={'required': False, 'cols': 30, 'rows': 10},
             mce_attrs=({'menubar': False,
-                        'plugins': ['advlist autolink lists link image charmap print preview anchor textcolor',
-                                    'searchreplace visualblocks code fullscreen',
-                                    'insertdatetime media table contextmenu paste code help wordcount',
-                                    'autoresize'],
+                        'plugins': ['advlist autolink lists link image imagetools charmap print preview anchor',
+                                    'textcolor searchreplace visualblocks code fullscreen insertdatetime media',
+                                    'table contextmenu paste code help wordcount autoresize',
+                                    ],
+                        'autoresize_min_height': 250,
+                        'autoresize_on_init': False,
                         'toolbar': '''
                                 insert | undo redo |  formatselect | bold italic backcolor  | 
                                 alignjustify | bullist numlist outdent indent | 
@@ -90,13 +92,18 @@ class CommentForm(forms.ModelForm):
     content = forms.CharField(
         label="Написать комментарий",
         widget=forms.Textarea(
-            attrs={'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '4'}
-        )
+            attrs={'class': 'form-control', 'placeholder': 'введите ваш комментарий','rows': '4',}
+        ),
     )
 
     class Meta:
         model = Comment
-        fields = ('content',)
+        fields = ['content']
+
+        label="",
+        widget=forms.Textarea(
+            attrs={'rows': 3, 'id': 'comment-area', 'class':'w-100'}
+        ))
 
     def clean_content(self):
         content = self.cleaned_data.get('content')
