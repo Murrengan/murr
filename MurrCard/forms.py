@@ -103,7 +103,7 @@ class CommentForm(forms.ModelForm):
         label="",
         widget=forms.Textarea(
             attrs={'rows': 3, 'id': 'comment-area', 'class':'w-100'}
-        ))
+        )
 
     def clean_content(self):
         content = self.cleaned_data.get('content')
