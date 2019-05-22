@@ -1,9 +1,35 @@
-.hide {
-    display: none;
+/* BASE */
+
+a:hover {
+  text-decoration: none;
 }
+
+
+/* MIXINS */
 
 .clickable {
     cursor: pointer;
+}
+
+.font-black {
+    color: black;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+/* STATES */
+
+.is-hidden {
+    display: none;
+}
+
+
+/* CHAOS */
+
+.hide { /* deprecated rule */
+    display: none;
 }
 
 .col-form-label {

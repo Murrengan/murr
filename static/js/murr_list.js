@@ -9,20 +9,47 @@
                     };
                     $this.data($name, data);
 
-                    $this[$name]('bindEvent')
+                    $this[$name]('bindEvent');
                 })
             },
             bindEvent: function() {
                 let $this = $(this), data = $this.data($name);
 
-                $('.card-like', $this).click(function() {
+                $('.js-murr-card-like', $this).click(function() {
                     if (data.murren) { $this[$name]('like', $(this)) }
                     else { $this[$name]('signUp') }
                 });
 
-                $('.card-unlike', $this).click(function() {
+                $('.js-murr-card-unlike', $this).click(function() {
                     if (data.murren) { $this[$name]('unlike', $(this)) }
                     else { $this[$name]('signUp') }
+                });
+
+                // $('.js-murr-card', $this).click(function(event) {
+                //     if (event.target.classList.contains('js-murr-card-title')) {
+                //         $this[$name]('slideIn', $(this))
+                //     }
+                // });
+                //
+                // $('.murr-panel__close').click(function() {
+                //     $this[$name]('slideOut')
+                // });
+            },
+            slideOut: function() {
+                let $this = $(this), $murrPanel = $('.murr-panel');
+                $murrPanel.removeClass('murr-panel--is-visible');
+            },
+            slideIn: function($card) {
+                let $this = $(this), data = $this.data($name),
+                    $murrPanel = $('.murr-panel'), slug = $card.data('murr');
+
+                $murrPanel.addClass('murr-panel--is-visible');
+                $.ajax({
+                    url: '/murrs/murr_detail/' + slug, data: data,
+                    type: 'POST', dataType: 'json',
+                    success: function(response) {
+                        $('.murr-panel__content', $murrPanel).html(response.html);
+                    }
                 })
             },
             signUp: function() {
@@ -30,7 +57,7 @@
             },
             like: function($target) {
                 let $this = $(this), data = $this.data($name),
-                $murr = $target.closest('.card');
+                $murr = $target.closest('.js-murr-card');
 
                 $.extend($murr.data(), data);
                 $.ajax({
@@ -39,15 +66,15 @@
                     success: function(response) {
                         if (response.error) { alert(response.error); return; }
 
-                        $('.card-like', $murr).addClass('hide');
-                        $('.card-unlike', $murr).removeClass('hide');
-                        $('.card-likes-count', $murr).html(response.likes);
+                        $('.js-murr-card-like', $murr).addClass('is-hidden');
+                        $('.js-murr-card-unlike', $murr).removeClass('is-hidden');
+                        $('.js-murr-card-like-counter', $murr).html(response['likes']);
                     }
                 })
             },
             unlike: function($target) {
                 let $this = $(this), data = $this.data($name),
-                $murr = $target.closest('.card');
+                $murr = $target.closest('.js-murr-card');
 
                 $.extend($murr.data(), data);
                 $.ajax({
@@ -56,9 +83,9 @@
                     success: function(response) {
                         if (response.error) { alert(response.error); return; }
 
-                        $('.card-like', $murr).removeClass('hide');
-                        $('.card-unlike', $murr).addClass('hide');
-                        $('.card-likes-count', $murr).html(response.likes);
+                        $('.js-murr-card-like', $murr).removeClass('is-hidden');
+                        $('.js-murr-card-unlike', $murr).addClass('is-hidden');
+                        $('.js-murr-card-like-counter', $murr).html(response['likes']);
                     }
                 })
             },

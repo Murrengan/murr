@@ -4,23 +4,34 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
+    <link rel="stylesheet" href="{% static "css/slide_panel.css" %}" />
+
 {% endblock css %}
 
-
-
-
 {% block content %}
-
-
     <div class="container py-1">
-        <div class="murr-list card-columns animate-opacity p-1" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
+        <div class="murr-list masonry" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
         </div>
     </div>
     {% include 'MurrCard/includes/_murr_list_pagination.html' %}
+
+    <div class="murr-panel slide-panel murr-panel--from-right">
+        <header class="murr-panel__header">
+            <h1>Title Goes Here</h1>
+            <span class="murr-panel__close clickable close">Close</span>
+        </header>
+
+        <div class="murr-panel__container">
+            <div class="murr-panel__content">
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 
