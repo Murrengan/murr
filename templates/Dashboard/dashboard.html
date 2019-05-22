@@ -2,12 +2,12 @@
 
 {% block content %}
   <h1>Дашбардс! ГУД ДЖОБ МАЙ фриенд! )</h1>
-  {% for murren in murrens %}
-    <p>{{ murren.username }}</p>
-  {% endfor %}
 
-  {% for category in categorys %}
-    <p>{{ category }}</p>
+  {% for murr in murrs %}
+    <div class="murr_body">
+      {{ murr.content|safe }}
+      <hr color="white">
+    </div>
   {% endfor %}
 
   
