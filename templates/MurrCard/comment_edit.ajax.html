@@ -1,39 +1,8 @@
-{% extends 'MurrCard/base_murrs.html' %}
-
-{% load static %}
-
-{% block extra_header %}
-  {{ form.media }}
-
-      <script type="text/javascript">
-            tinymce.init({
-                selector: '#comment-area',  // change this value according to your HTML
-                toolbar: 'styleselect | bold italic | link image',
-                menubar: false,
-                width: 800,
-                height: 150,
-                branding: false,
-                theme : "modern",
-                statusbar: false,
-                plugins: 'wordcount',
-                language: "ru_RU", // TODO no hardcode! Need to get from settings.py...
-            });
-        </script>
-    {% endblock extra_header %}
-
-{% block title %}{{ title }}{% endblock %}
-
-{% block content %}
-  {{ comment }}
-
- {% if form  %}
-   <form action="" method="post">
+   <form action="{% url 'comment_edit.ajax' %}" method="post" id="inplace-form">
      {% csrf_token %}
-     {{ form.as_p }}
+     {{ form }}
      <div class="form-group my-2">
-       <button type="submit" class="btn btn-sm btn-secondary">Сохранить</button>
+       <button type="submit" class="btn btn-sm btn-primary mr-2">Сохранить&nbsp;&nbsp;<i class="fas fa-check-circle"></i></button>
+       <button type="button" id="btn-cancell" class="btn btn-sm btn-secondary">Отменить <i class="fas fa-times-circle"></i></button>
      </div>
    </form>
- {% endif %}
-••••••••
-{% endblock content %}

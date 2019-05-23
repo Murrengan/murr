@@ -11,24 +11,26 @@
                     </span>•
             </div>
 
-            <div class="comment-content mb-1">{{ comment.content|escape }}</div>
+          <div class="comment-body">
+            <div class="comment-content mb-1">{{ comment.content|escape| linebreaksbr }}</div>
 
             <div class="clearfix comments-footer d-flex">
-                <div class="comment-control small">
-                    {% if comment.user == user %}
-                        <span class="edt-comment clickable"><span class="fa fa-pencil-alt"></span> Изменить</span>
-                        <span class="del-comment clickable"><span class="fa fa-trash-alt"></span> Удалить</span>
-                    {% else %}
-                        <span class="rpl-comment clickable"><span class="fa fa-reply"></span> ответить</span>
-                        <div class="btn-group">
-                            <button type="button" class="btn-xs btn-complain">
-                                <span class="fa fa-exclamation-triangle"></span>
-                                <span class="text"> пожаловаться</span>
-                            </button>
-                        </div>
-                    {% endif %}
-                </div>
+              <div class="comment-control small">
+                {% if comment.user == user %}
+                  <span class="edt-comment clickable"><span class="fa fa-pencil-alt"></span> Изменить</span>
+                  <span class="del-comment clickable ml-2"><span class="fa fa-trash-alt"></span> Удалить</span>
+                {% else %}
+                  <span class="rpl-comment clickable"><span class="fa fa-reply"></span> ответить</span>
+                  <div class="btn-group">
+                    <button type="button" class="btn-xs btn-complain">
+                      <span class="fa fa-exclamation-triangle"></span>
+                      <span class="text"> пожаловаться</span>
+                    </button>
+                  </div>
+                {% endif %}
+              </div>
             </div>
+          </div>
         </div>
     </div>
 {% endfor %}
