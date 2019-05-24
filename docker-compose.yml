@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - ./:/app
+    links:
+      - app
+    ports:
+      - 8080:8080
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn murr.wsgi -b 0.0.0.0:8000"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    
