@@ -20,10 +20,10 @@
                     $this[$name]('addComment');
                 });
 
-                $('.comment-update', $this).click(function(event) {
-                    event.preventDefault();
-                    $this[$name]('updateComment');
-                });
+                // $('.comment-update', $this).click(function(event) {
+                //     event.preventDefault();
+                //     $this[$name]('updateComment');
+                // });
 
                 $('.comment-list', $this).click(function(event) {
 
@@ -32,7 +32,7 @@
                         $this[$name]('deleteWithConfirm', $(event.target));
                     } else if (event.target.classList.contains('edt-comment')) {
                         event.preventDefault();
-                        $this[$name]('editComment', $(event.target));
+                        // $this[$name]('editComment', $(event.target));
                     }
                 });
             },

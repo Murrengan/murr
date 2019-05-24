@@ -9,9 +9,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_http_methods
 from taggit.models import Tag
 
-from .forms import CommentForm, MurrForm
+from .forms import CommentForm, MurrForm, CommentEditForm
 from .likes import LikeProcessor
 from .models import Murr, Comment
 
@@ -71,7 +72,7 @@ def search(request):
 
 
 def murr_detail(request, slug):
-    """ Show single murr with its comments """
+    """ Show single murr """
     murr = get_object_or_404(Murr, slug=slug)
     if request.method == 'POST':
         context = {'murr': murr}
@@ -157,20 +158,55 @@ def comment_delete(request):
     return JsonResponse({'ok': True})
 
 
-@require_POST
+def save_comment(request, pk, slug, template):
+    data = dict()
+    # murr = get_object_or_404(Murr, slug=slug)
+    # comment = get_object_or_404(murr.get_comments, pk=pk)
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.is_ajax():
+        if request.method == 'POST':
+            form = CommentEditForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                data['success'] = True
+                data['message'] = 'form inplace saved'
+                data['content'] = render_to_string(template, context={'comment': comment}, request=request)
+            else:
+                data['success'] = False
+                data['message'] = 'form is not valid'
+            # print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\ncontext:\n\t{context}\n")
+        elif request.method == 'GET':
+            print(request.GET)
+            form = CommentEditForm(instance=comment)
+            data['message'] = 'form inplace send'
+            data['success'] = True
+            data['html_form'] = render_to_string(template, context={'form':form}, request=request)
+    else:
+        raise Http404
+
+    return JsonResponse(data)
+
+
 @login_required
+@require_http_methods(["GET", "POST"])
 def comment_update(request):
-    author = request.user
-    pk = request.POST.get('pk')
-    comment = get_object_or_404(Comment, pk=pk, user=author)
-    form = CommentForm(request.POST, instance=comment)
-    if form.is_valid():
-        form.save()
-        murr_slug = request.POST.get('murr_slug')
-        murr = get_object_or_404(Murr, slug=murr_slug)
-        template = 'MurrCard/includes/_murr_detail_comments.html'
-        comments = render_to_string(template, {'murr': murr}, request)
-        return JsonResponse({'comments': comments})
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+        slug = request.POST.get('slug')
+        template = 'MurrCard/includes/_ajaxify_comment_body.html'
+    else:
+        pk = request.GET.get('pk')
+        slug = request.GET.get('slug')
+        template = 'MurrCard/comment_edit.ajax.html'
+    return save_comment(request, pk, slug, template)
+
+
+def comment_reply(request, pk):
+    # data = dict()
+    # comment = get_object_or_404(Comment, pk=id)
+    # render_to_string
+    # return JsonResponse({'success': True})
+    return None
 
 
 @login_required()

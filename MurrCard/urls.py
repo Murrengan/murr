@@ -13,7 +13,8 @@ urlpatterns = [
     path('murr_detail/<str:slug>/update/', murr_card.murr_update, name='murr_update'),
     path('murr_detail/<str:slug>/delete/', murr_card.murr_delete, name='murr_delete'),
     path('comment_add/', murr_card.comment_add),
-    path('comment_delete/', murr_card.comment_delete),
-    path('comment_update/', murr_card.comment_update),
+    path('comment_delete/', murr_card.comment_delete, name='comment_cut.ajax'),
+    path('comment_update/', murr_card.comment_update, name='comment_edit.ajax'),
     path('search/', murr_card.search, name='search'),
 ]
+

@@ -1,4 +1,4 @@
-   <form action="{% url 'comment_edit.ajax' slug pk %}" method="post" id="inplace-form">
+   <form action="{% url 'comment_edit.ajax' %}" method="post" id="inplace-form">
      {% csrf_token %}
      {{ form }}
      <div class="form-group my-2">

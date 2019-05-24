@@ -1,10 +1,10 @@
 // Установка csrf_token
-(function () {
-    let csrftoken = Cookies.get('csrftoken');
-    $.ajaxSetup({
-        headers: {"X-CSRFToken": csrftoken}
-    });
-})();
+// (function () {
+//     let csrftoken = Cookies.get('csrftoken');
+//     $.ajaxSetup({
+//         headers: {"X-CSRFToken": csrftoken}
+//     });
+// })();
 
 // Добавляем плавную прокрутку к элементу
 $('.nav-link, .navbar-brand').click(function () {
@@ -141,11 +141,13 @@ $(".container").on('click', ".edt-comment", function () {
 
     // get current comment content by id from server
     $.ajax({
-        // url: slug+'/comment_edit.ajax/'+commentId+'/',
-        url: commentPlace.data('url'),
+        url: '/murrs/comment_update/',
         type: 'GET',
         dataType: 'json',
-        // data: {id_comment: commentId},
+        data: {
+            pk: commentPlace.parents('.comment.media').data('pk'),
+            slug: commentPlace.parents('.murr-detail').data('murr_slug')
+        },
         success: function(response) {
 
             if (response.success) {
@@ -179,11 +181,11 @@ $('.container').on('submit', "#inplace-form", function (e) {
         url: form.attr('action'),
         type: form.attr('method'),
         dataType: 'json',
-        data: form.serialize(),
+        data: form.serialize() + '&pk=' + JSON.stringify(form.parents('.comment.media').data('pk')),
 
         success: function (response) {
             if (response.success) {
-                $(commentDiv).children('.comm-content').html(response.content);
+                $(commentDiv).children('.comment-content').html(response.content);
                 form.hide();
                 commentDiv.fadeIn();
             }
