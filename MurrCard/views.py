@@ -35,6 +35,11 @@ def murr_list(request, **kwargs):
     if category:
         murrs = murrs.filter(categories=category)
 
+    my_likes = kwargs.get('likes')
+    if my_likes:
+        murrens_likes = request.user.get_liked_murrs()
+        murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
+
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
     paginator = Paginator(murrs.distinct(), 6)
@@ -54,7 +59,8 @@ def search(request):
     if query:
         query_in_title = Q(title__icontains=query)
         query_in_desc = Q(description__icontains=query)
-        murrs = murrs.filter(query_in_title | query_in_desc)
+        query_in_tag = Q(tags__name__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_tag | query_in_desc)
         if murrs.exists() is False:
             messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 

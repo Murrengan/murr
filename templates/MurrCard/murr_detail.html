@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
 {% endblock css %}
 
+
+{% block title %}{{ murr.title }}{% endblock %}
+
 {% block content %}
     {% include 'MurrCard/includes/_murr_detail_content.html' %}
 {% endblock content %}
