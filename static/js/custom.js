@@ -98,6 +98,11 @@ $('#add-comment-form').on('submit', function (event) {
     }
 });
 
+// add emoji-picker in comments
+$('#id_content').emojioneArea({
+    pickerPosition: "right"
+})
+
 // prevent DOM remove alert
     $('#editor-error-message').on('close.bs.alert', function (e) {
         $('#editor-error-message').fadeOut(function () {
@@ -153,6 +158,10 @@ $(".container").on('click', ".edt-comment", function () {
             if (response.success) {
                 commentDiv.hide();
                 commentDiv.after('<div id="form-replacement">' + response.html_form + '</div>');
+                // add emoji-picker in form-replacement
+                $('#comment-area').emojioneArea({
+                    pickerPosition: "right"
+                });
             }
             else {
                 alert(response.message);

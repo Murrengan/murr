@@ -46,6 +46,7 @@
                     type: 'POST', dataType: 'json',
                     success: function(response) {
                         $('#id_content').val('');
+                        $('.emojionearea-editor').empty();
                         $(".comment-list").html(response['comments']);
                         $('html, body').animate(
                             {scrollTop: $(".comment").first().offset().top - 56},
