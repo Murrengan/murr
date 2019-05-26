@@ -1,9 +1,83 @@
-.hide {
-    display: none;
+/* BASE */
+
+a:hover {
+  text-decoration: none;
 }
+
+.button {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0.3em;
+    padding: 1.2em 2em;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 3px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border: none;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.button:hover {
+    box-shadow: 1px 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.button_color_green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button_color_red {
+    background-color: #F44336;
+    color: white;
+}
+
+.button_color_blue {
+    background-color: #03A9F4;
+    color: white;
+}
+
+.action {
+    cursor: pointer;
+    color: black;
+}
+
+.action:hover {
+    color: black;
+}
+
+/* MIXINS */
 
 .clickable {
     cursor: pointer;
+}
+
+.font-black {
+    color: black;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+/* STATES */
+
+.is-hidden {
+    display: none;
+}
+
+
+/* CHAOS */
+
+.hide { /* deprecated rule */
+    display: none;
 }
 
 .col-form-label {

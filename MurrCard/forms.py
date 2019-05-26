@@ -1,8 +1,9 @@
 import bleach
+from tinymce import TinyMCE
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
+
 from django import forms
-from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
@@ -13,7 +14,7 @@ class TinyMCEWidget(TinyMCE):
 
 
 class CustomCheckbox(Field):
-    template = 'Murr_card/custom_checkbox.html'
+    template = 'MurrCard/custom_checkbox.html'
 
 
 class MurrForm(forms.ModelForm):
@@ -23,8 +24,7 @@ class MurrForm(forms.ModelForm):
             mce_attrs=({'menubar': False,
                         'plugins': ['advlist autolink lists link image imagetools charmap print preview anchor',
                                     'textcolor searchreplace visualblocks code fullscreen insertdatetime media',
-                                    'table contextmenu paste code help wordcount autoresize',
-                                    ],
+                                    'table contextmenu paste code help wordcount autoresize'],
                         'autoresize_min_height': 250,
                         'autoresize_on_init': False,
                         'toolbar': '''
@@ -88,23 +88,9 @@ class MurrForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': 'введите ваш комментарий','rows': '4',}
-    ),
-        label="Написать комментарий"
-    )
+    _attrs = {'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '4'}
 
-    class Meta:
-        model = Comment
-        fields = ['content']
-
-
-class CommentEditForm(forms.ModelForm):
-    content = forms.CharField(
-        label="",
-        widget=forms.Textarea(
-            attrs={'rows': 3, 'id': 'comment-area', 'class':'w-100'}
-        ))
+    content = forms.CharField(widget=forms.Textarea(attrs=_attrs), label='')
 
     class Meta:
         model = Comment

@@ -1,0 +1,18 @@
+{% for comment in murr.get_comments %}
+    <div class="media js-comment" data-pk="{{ comment.pk }}">
+        <img class="media__figure" src="{{ comment.user.profile_picture.url }}" alt="" title="ava">
+        <div class="media__content">
+            <div class="media__actions">
+                {% if comment.user == user %}
+                        <span class="media__action action fa fa-pencil-alt js-edit" data-title="Редактировать"></span>
+                        <span class="media__action action fa fa-trash-alt js-delete"  data-title="Удалить"></span>
+                {% else %}
+                        <span class="media__action action far fa-reply js-reply"  data-title="Ответить"></span>
+                        <span class="media__action action far fa-flag-alt js-report"  data-title="Пожаловаться"></span>
+                {% endif %}
+            </div>
+            <h2 class="media__header">{{ comment.user.username }}</h2>
+            <p class="media__body js-content">{{ comment.content|escape }}</p>
+        </div>
+    </div>
+{% endfor %}

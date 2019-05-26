@@ -1,0 +1,21 @@
+<div class="js-murr-page" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
+    {% include "MurrCard/includes/_murr-detail_slide-in_content.html" %}
+
+    {% if user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" id="add-comment-form" action="/murrs/comment_add/" novalidate>
+                {% csrf_token %}
+                {{ comment_form }}
+                <div class="comment-form__controls">
+                    <input class="comment-form__btn button button_color_blue js-comment-add"
+                           type="submit" value="Добавить комментарий" />
+                    <button class="comment-form__btn button button_color_blue js-comment-update">
+                        Изменить комментарий
+                    </button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="comment-list js-comments">{% include "MurrCard/includes/_murr-detail_slide-in_comments.html" %}</div>
+</div>
