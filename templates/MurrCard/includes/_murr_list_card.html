@@ -28,8 +28,8 @@
         </div>
         <div class="murr-meta__controls">
             <span class="murr-meta__comments">
-                <span class="fa fa-comments"></span>
-                <a href="#"> {{ murr.comments_total|default:'' }}</a>
+                <span class="js-murr-card-open far fa-comments clickable"></span>
+                {{ murr.comments_total|default:'' }}
             </span>
             <span class="murr-meta__likes">
                 {% if request.user.pk in murr.get_liked_murrens %}
