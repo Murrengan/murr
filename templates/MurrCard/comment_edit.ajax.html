@@ -1,8 +1,0 @@
-   <form action="{% url 'comment_edit.ajax' %}" method="post" id="inplace-form">
-     {% csrf_token %}
-     {{ form }}
-     <div class="form-group my-2">
-       <button type="submit" class="btn btn-sm btn-primary mr-2">Сохранить&nbsp;&nbsp;<i class="fas fa-check-circle"></i></button>
-       <button type="button" id="btn-cancell" class="btn btn-sm btn-secondary">Отменить <i class="fas fa-times-circle"></i></button>
-     </div>
-   </form>

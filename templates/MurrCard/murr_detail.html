@@ -7,9 +7,7 @@
 {% endblock css %}
 
 {% block content %}
-    <div class="murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
-        {% include 'MurrCard/includes/_murr_detail_content.html' %}
-    </div>
+    {% include 'MurrCard/includes/_murr_detail_content.html' %}
 {% endblock content %}
 
 {% block js %}
@@ -17,6 +15,6 @@
 {#    <script src="{% static "js/jsdelivr.js" %}"></script>#}
     <script src="{% static "js/custom.js" %}"></script>
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
-    <script src="{% static "js/murr_detail.js" %}"></script>
-    <script>$('.murr-detail').murrDetail();</script>
+    <script src="{% static "js/murr_page.js" %}"></script>
+    <script>$('.murr-detail').murrPage();</script>
 {% endblock js %}

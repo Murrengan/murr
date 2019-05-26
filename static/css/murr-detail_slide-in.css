@@ -1,0 +1,12 @@
+@import "slide-in.css";
+@import "media-object.css";
+
+.murr-detail__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+}
+
+.murr-detail__footer {
+    margin: 0 0 20px 0;
+}

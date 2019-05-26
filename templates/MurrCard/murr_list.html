@@ -4,28 +4,28 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
+    <link rel="stylesheet" href="{% static "css/murr-detail_slide-in.css" %}" />
 {% endblock css %}
 
-
-
-
 {% block content %}
-
-
     <div class="container py-1">
-        <div class="murr-list card-columns animate-opacity p-1" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
+        <div class="murr-list masonry" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
         </div>
     </div>
     {% include 'MurrCard/includes/_murr_list_pagination.html' %}
-{% endblock content %}
 
+    {% include 'includes/_murr-detail_slide-in.html' %}
+{% endblock content %}
 
 {% block js %}
     {{ block.super }}
+    <script src="{% static "js/murr_page.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
     <script>$('.murr-list').murrList();</script>
 {% endblock js %}
