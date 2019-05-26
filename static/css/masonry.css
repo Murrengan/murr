@@ -1,0 +1,45 @@
+.masonry {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+    column-gap: 1.25rem;
+}
+
+.masonry-item {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    flex-direction: column;
+    background-color: #fff;
+    margin-bottom: .75rem;
+}
+
+.masonry-item__body {
+    flex: 1 1 auto;
+}
+
+.masonry-item__img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px){
+    .masonry {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+}
+@media only screen and (min-width: 601px) and (max-width: 1000px){
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+@media only screen and (min-width: 1001px) {
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}

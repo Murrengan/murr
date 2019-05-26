@@ -59,13 +59,13 @@ class Murr(models.Model):
     def comment_count(self):
         return Comment.objects.filter(murr=self).count()
 
-    def get_liked_murrens(self):
-        return self.liked.values_list('murren_id', flat=True)
-
     @property
     def cover_url(self):
         if self.cover and hasattr(self.cover, 'url'):
             return self.cover.url
+
+    def get_liked_murrens(self):
+        return self.liked.values_list('murren_id', flat=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
