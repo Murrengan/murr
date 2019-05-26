@@ -87,6 +87,7 @@ def show_all_liked_murrs(request):
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
+        'csrf': get_token(request),
         'page': page,
     }
     return render(request, 'MurrCard/murr_list.html', context)
