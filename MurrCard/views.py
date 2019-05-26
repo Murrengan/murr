@@ -1,5 +1,3 @@
-from taggit.models import Tag
-
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -11,7 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.decorators.http import require_http_methods
+from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
@@ -27,6 +25,7 @@ def murr_list(request, **kwargs):
     """
 
     murrs = Murr.objects.all()
+
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
