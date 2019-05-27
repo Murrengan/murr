@@ -9,7 +9,11 @@
                     };
                     $this.data($name, data);
 
-                    $this[$name]('bindEvent')
+                    $this[$name]('bindEvent');
+                    $('#id_content').emojioneArea({
+                        pickerPosition: "bottom",
+                        search: false
+                    })
                 })
             },
             bindEvent: function() {
@@ -46,6 +50,7 @@
                     type: 'POST', dataType: 'json',
                     success: function(response) {
                         $('#id_content').val('');
+                        $('.emojionearea-editor').empty();
                         $(".js-comments").html(response['comments']);
                     }
                 })
@@ -56,13 +61,17 @@
                     $content = $('.js-content', $comment);
 
                 $('.js-cancel').click();
+
+                $('#comment-edit-content').emojioneArea({pickerPosition: "right"
+                });
                 $comment.data('comment', $content.html());
                 $.extend(data, $comment.data(), {'content': $content.html()});
                 $.ajax({
                     url: '/murrs/comment_edit/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function(response) {
-                        $content.html(response.html)
+                        $content.html(response.html);
+                        $('#comment-edit-content').emojioneArea({ pickerPosition: "bottom" });
                     }
                 })
             },
