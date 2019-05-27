@@ -5,6 +5,7 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr-detail_slide-in.css" %}" />
@@ -25,6 +26,7 @@
 
 {% block js %}
     {{ block.super }}
+    <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_page.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
     <script>$('.murr-list').murrList();</script>
