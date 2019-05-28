@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'Dashboard.context_processors.show_categories',
+                'murr.context_processors.show_categories',
             ],
         },
     },
