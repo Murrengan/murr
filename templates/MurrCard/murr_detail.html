@@ -4,7 +4,12 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
+    <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
+
 {% endblock css %}
+
+
+{% block title %}{{ murr.title }}{% endblock %}
 
 {% block content %}
     {% include 'MurrCard/includes/_murr_detail_content.html' %}
@@ -12,7 +17,7 @@
 
 {% block js %}
     {{ block.super }}
-{#    <script src="{% static "js/jsdelivr.js" %}"></script>#}
+    <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/custom.js" %}"></script>
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
     <script src="{% static "js/murr_page.js" %}"></script>
