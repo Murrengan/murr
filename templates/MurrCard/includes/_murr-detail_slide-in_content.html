@@ -1,0 +1,29 @@
+<div class="murr-detail">
+    <div class="murr-detail__header">
+        <div class="murr-detail__author">
+            <img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px" />
+            <span>{{ murr.author.username }}</span>
+        </div>
+        <div class="murr-detail__actions">
+            {% if murr.author == user %}
+                <a class="murr-detail__action action fa fa-pencil-alt js-edit" href="{% url 'murr_update' murr.slug %}" data-title="Редактировать"></a>
+                <span class="murr-detail__action fa fa-trash-alt js-delete"  data-title="Удалить"></span>
+            {% else %}
+                <span class="murr-detail__action fa fa-flag-alt js-report"  data-title="Пожаловаться"></span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="murr-detail__body">
+        <h3>{{ murr.title }}</h3>
+        <div class="murr-detail__content">
+            {{ murr.content|safe }}
+        </div>
+    </div>
+    <div class="murr-detail__footer">
+        <div class="murr-detail__tags">
+            {% for tag in murr.tags.all %}
+                <a class="murr-detail__tag" href="{% url 'murr_list_by_tag_name' tag %}">#{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

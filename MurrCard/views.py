@@ -9,10 +9,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.views.decorators.http import require_http_methods
 from taggit.models import Tag
 
-from .forms import CommentForm, MurrForm, CommentEditForm
+from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
 from .models import Murr, Comment
 
@@ -26,6 +25,7 @@ def murr_list(request, **kwargs):
     """
 
     murrs = Murr.objects.all()
+
     tag_name = kwargs.get('tag_name')
     if tag_name:
         tag = get_object_or_404(Tag, name=tag_name)
@@ -35,9 +35,14 @@ def murr_list(request, **kwargs):
     if category:
         murrs = murrs.filter(categories=category)
 
+    my_likes = kwargs.get('likes')
+    if my_likes:
+        murrens_likes = request.user.get_liked_murrs()
+        murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
+
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
-    paginator = Paginator(murrs.distinct(), 5)
+    paginator = Paginator(murrs.distinct(), 6)
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
@@ -54,7 +59,8 @@ def search(request):
     if query:
         query_in_title = Q(title__icontains=query)
         query_in_desc = Q(description__icontains=query)
-        murrs = murrs.filter(query_in_title | query_in_desc)
+        query_in_tag = Q(tags__name__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_tag | query_in_desc)
         if murrs.exists() is False:
             messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 
@@ -74,13 +80,11 @@ def search(request):
 def murr_detail(request, slug):
     """ Show single murr """
     murr = get_object_or_404(Murr, slug=slug)
-    if request.method == 'POST':
-        context = {'murr': murr}
-        html = render_to_string('MurrCard/includes/_murr_detail_content.html', context, request)
-        return JsonResponse({'html': html})
-
     form = CommentForm()
     context = {'murr': murr, 'comment_form': form, 'csrf': get_token(request)}
+    if request.method == 'POST':
+        html = render_to_string('MurrCard/includes/_murr-detail_slide-in_view.html', context, request)
+        return JsonResponse({'html': html})
     return render(request, 'MurrCard/murr_detail.html', context)
 
 
@@ -143,7 +147,7 @@ def comment_add(request):
     form.instance.user = request.user
     form.instance.murr = murr
     form.save()
-    template = 'MurrCard/includes/_murr_detail_comments.html'
+    template = 'MurrCard/includes/_murr-detail_slide-in_comments.html'
     comments = render_to_string(template, {'murr': murr}, request)
     return JsonResponse({'comments': comments})
 
@@ -165,7 +169,7 @@ def save_comment(request, pk, slug, template):
     comment = get_object_or_404(Comment, pk=pk)
     if request.is_ajax():
         if request.method == 'POST':
-            form = CommentEditForm(request.POST, instance=comment)
+            form = CommentForm(request.POST, instance=comment)
             if form.is_valid():
                 form.save()
                 data['success'] = True
@@ -177,7 +181,7 @@ def save_comment(request, pk, slug, template):
             # print(f"{form.cleaned_data['content']}\n\t ==== were saved ====\ncontext:\n\t{context}\n")
         elif request.method == 'GET':
             print(request.GET)
-            form = CommentEditForm(instance=comment)
+            form = CommentForm(instance=comment)
             data['message'] = 'form inplace send'
             data['success'] = True
             data['html_form'] = render_to_string(template, context={'form':form}, request=request)
@@ -187,26 +191,34 @@ def save_comment(request, pk, slug, template):
     return JsonResponse(data)
 
 
+@require_POST
 @login_required
-@require_http_methods(["GET", "POST"])
+def comment_edit(request):
+    author = request.user
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk, user=author)
+    form = CommentForm(request.POST, instance=comment, auto_id='comment-edit-%s')
+    if form.is_valid():
+        context = {'edit_form': form}
+        html = render_to_string('MurrCard/includes/_comment_edit_form.html', context, request)
+        return JsonResponse({'html': html})
+    return JsonResponse({'ok': True})
+
+
+@require_POST
+@login_required
 def comment_update(request):
-    if request.method == 'POST':
-        pk = request.POST.get('pk')
-        slug = request.POST.get('slug')
-        template = 'MurrCard/includes/_ajaxify_comment_body.html'
-    else:
-        pk = request.GET.get('pk')
-        slug = request.GET.get('slug')
-        template = 'MurrCard/comment_edit.ajax.html'
-    return save_comment(request, pk, slug, template)
-
-
-def comment_reply(request, pk):
-    # data = dict()
-    # comment = get_object_or_404(Comment, pk=id)
-    # render_to_string
-    # return JsonResponse({'success': True})
-    return None
+    author = request.user
+    pk = request.POST.get('pk')
+    comment = get_object_or_404(Comment, pk=pk, user=author)
+    form = CommentForm(request.POST, instance=comment)
+    if form.is_valid():
+        form.save()
+        murr_slug = request.POST.get('murr_slug')
+        murr = get_object_or_404(Murr, slug=murr_slug)
+        template = 'MurrCard/includes/_murr-detail_slide-in_comments.html'
+        comments = render_to_string(template, {'murr': murr}, request)
+        return JsonResponse({'comments': comments})
 
 
 @login_required()
