@@ -24,9 +24,7 @@
         <header>{% include 'navbar.html' %}</header>
 
         {# Show categories #}
-        {% if request.path == '/murrs/' or '/murrs/murrs_by_category/' in request.path %}
-          <div class="mb-3 text-center">{% include 'categories.html' %}</div>
-        {% endif %}
+        {% if categories_bar %}{{ categories_bar }}{% endif %}
         {# Show categories #}
 
         <div class="container col-6">
