@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.forms import FileInput, HiddenInput
+from croppie.fields import CroppieField
 
 User = get_user_model()
 
@@ -21,7 +21,8 @@ class MurrenChangeForm(UserChangeForm):
 
 
 class ProfileMurrenForm(forms.ModelForm):
-    profile_picture=forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'d-none'}))
+    # profile_picture=forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'d-none'}))
+    profile_picture=CroppieField()
     # set profile_picture to "not required" - allow change nick & e-mail w/o force image selection
 
     class Meta:

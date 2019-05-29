@@ -31,34 +31,43 @@
 
   </div>
 
+
+<hr>
+    <div class="row" style="height: 200px">
+        <div class="col-sm-3">
+            <div id="cropper"></div>
+        </div>
+        <div class="col-sm-9">2 of 4</div>
+    </div>
+
 {% endblock %}
 
 {% block js %}
-  {{ block.super }}
+    {{ murren_form.media }}
+    {{ block.super }}
   <script>
       $(function () {
           $('[data-toggle="tooltip"]').tooltip()
       });
-
-      function readURL(input) {
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
-
-              reader.onload = function (e) {
-                  $('#profile-avatap').attr('src', e.target.result);
-              }
-
-              reader.readAsDataURL(input.files[0]);
-          }
-      }
-
-      $("#id_profile_picture").change(function () {
-          readURL(this);
-      });
-
-      $("input[type='image']").click(function () {
-          $("input[id='id_profile_picture']").click();
-          console.log($("input[id='id_profile_picture']").val())
-      });
+      {#function readURL(input) {#}
+      {#    if (input.files && input.files[0]) {#}
+      {#        var reader = new FileReader();#}
+      {##}
+      {#        reader.onload = function (e) {#}
+      {#            $('#profile-avatap').attr('src', e.target.result);#}
+      {#        }#}
+      {##}
+      {#        reader.readAsDataURL(input.files[0]);#}
+      {#    }#}
+      {#}#}
+      {##}
+      {#$("#id_profile_picture").change(function () {#}
+      {#    readURL(this);#}
+      {#});#}
+      {##}
+      {#$("input[type='image']").click(function () {#}
+      {#    $("input[id='id_profile_picture']").click();#}
+      {#    console.log($("input[id='id_profile_picture']").val())#}
+      {#});#}
   </script>
 {% endblock js %}
