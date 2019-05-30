@@ -12,7 +12,8 @@
                     $this[$name]('bindEvent');
                     $('#id_content').emojioneArea({
                         pickerPosition: "bottom",
-                        search: false
+                        search: false,
+                        recentEmojis: false
                     })
                 })
             },
