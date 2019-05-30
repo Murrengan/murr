@@ -1,9 +1,8 @@
 import bleach
-from tinymce import TinyMCE
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
-
 from django import forms
+from tinymce import TinyMCE
 
 from .models import Murr, Comment
 
@@ -23,7 +22,7 @@ class MurrForm(forms.ModelForm):
             attrs={'required': False, 'cols': 30, 'rows': 15},
             mce_attrs=({'menubar': False,
                         'plugins': ['advlist autolink lists link image imagetools charmap print preview anchor',
-                                    'textcolor searchreplace visualblocks code fullscreen insertdatetime media',
+                                    'textcolor searchreplace code insertdatetime media',
                                     'table contextmenu paste code help wordcount autoresize'],
                         'autoresize_min_height': 250,
                         'autoresize_on_init': False,

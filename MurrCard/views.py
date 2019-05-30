@@ -40,6 +40,10 @@ def murr_list(request, **kwargs):
         murrens_likes = request.user.get_liked_murrs()
         murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
 
+    my_murrs = kwargs.get('my_murrs')
+    if my_murrs:
+        murrs = Murr.objects.filter(author=request.user)
+
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
     paginator = Paginator(murrs.distinct(), 6)

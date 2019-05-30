@@ -9,6 +9,7 @@ urlpatterns = [
     path('murrs_by_tag/<str:tag_name>', murr_card.murr_list, name='murr_list_by_tag_name'),
     path('murrs_by_category/<str:category>', murr_card.murr_list, name='murr_list_by_category'),
     path('murrs_by_likes/<str:likes>', murr_card.murr_list, name='murr_list_by_likes'),
+    path('<str:my_murrs>/', murr_card.murr_list, name='murr_list_by_my_murrs'),
     path('create/', murr_card.murr_create, name='murr_create'),
     # murr_detail under construction: нужно переверстать старый шаблон с учетом новых инклюдови и апи вьъх
     path('murr_detail/<str:slug>', murr_card.murr_detail, name='murr_detail'),
