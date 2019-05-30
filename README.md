@@ -91,9 +91,9 @@
 
 
 
-[<img src="https://avatars2.githubusercontent.com/u/35865450?s=400&v=4" width="150" height="150" />](https://github.com/KaptainMidnight)  |
----|
-**KaptainMidnight** | 
+[<img src="https://avatars2.githubusercontent.com/u/35865450?s=400&v=4" width="150" height="150" />](https://github.com/KaptainMidnight)  | [<img src="https://avatars0.githubusercontent.com/u/19286422?s=400&v=4" width="150" height="150" />](https://github.com/asechnaya)  |
+---|---|
+**KaptainMidnight** | **Asja**
 
 <h2>
 Частые вопросы/FAQ
