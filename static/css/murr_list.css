@@ -9,8 +9,6 @@
 .murr-card__header {
     padding: 0.5rem .75rem 0.5rem 1.25rem;
     border-bottom: 1px solid rgba(0,0,0,.125);
-    height: 60px;
-
 }
 
 .murr-card__content {
