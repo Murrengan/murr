@@ -12,17 +12,17 @@ User = get_user_model()
 class Murr(models.Model):
 
     CATEGORIES = [
-        ('humor', 'Юмор'),
-        ('games', 'Игры'),
-        ('sport', 'Спорт'),
-        ('music', 'Музыка'),
-        ('business', 'Бизнес'),
-        ('scince', 'Наука и техника'),
-        ('travels', 'Путешествия'),
-        ('relations', 'Отношения'),
-        ('filmation', 'Фильмы и анимация'),
-        ('programming', 'Программирование'),
-        ('etc', 'Другое'),
+
+        ('programming', '#программирование'),
+        ('games', '#игры'),
+        ('humor', '#смешное'),
+        ('scince', '#наука'),
+        ('sport', '#спорт'),
+        ('cinema', '#кино'),
+        ('music', '#музыка'),
+        ('travels', '#путешествия'),
+        ('relations', '#отношения'),
+        ('etc', '#другое'),
     ]
 
     title = models.CharField(max_length=78, verbose_name='Заголовок')

@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="container text-center">
-    <h1>Вы уверены, что хотите выйти?</h1>
+    <h1>Точтно выйти?</h1>
 
     <form method="post" action="{% url 'account_logout' %}">
       {% csrf_token %}

@@ -6,12 +6,12 @@
         </a>
     </div>
     <div class="murr-card__content masonry-item__body">
-        <h3><a class="js-murr-card-open" href="#">{{ murr.title }}</a></h3>
+        <h4><a class="js-murr-card-open" href="#">{{ murr.title }}</a></h4>
         <p class=" js-murr-card-open murr-card__description">{{ murr.description }}</p>
     </div>
     {% if murr.cover %}
         <div class="murr-card__thumbnail thumbnail">
-          <img class="js-murr-card-open thumbnail__img masonry-item__img" src="{{ murr.cover.url }}" title="{{ murr.title }}" alt="cover" />
+          <img class="js-murr-card-open thumbnail__img masonry-item__img" src="{{ murr.cover.url }}" title="{{ murr.title|escape }}" alt="cover" />
         </div>
     {% endif %}
     <div class="murr-card__tags masonry-item__body">

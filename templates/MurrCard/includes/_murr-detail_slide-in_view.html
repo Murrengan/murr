@@ -1,5 +1,3 @@
-{% block title %}{{ murr.title }}{% endblock %}
-
 <div class="js-murr-page" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
     {% include "MurrCard/includes/_murr-detail_slide-in_content.html" %}
 
@@ -11,9 +9,6 @@
                 <div class="comment-form__controls">
                     <input class="comment-form__btn button button_color_blue js-comment-add"
                            type="submit" value="Добавить комментарий" />
-                    <button class="comment-form__btn button button_color_blue js-comment-update">
-                        Изменить комментарий
-                    </button>
                 </div>
             </form>
         </div>
