@@ -4,7 +4,7 @@
     <hr color="white" class="my-0">
     <div class="container">
         {% for k,v in categories %}
-            <a href="{% url 'murr_list_by_category' k %}"><span class="text-light">{{ v }}</span></a>
+            <a href="{% url 'murrs_by_category' k %}"><span class="text-light">{{ v }}</span></a>
         {% endfor %}
     </div>
     <hr color="white" class="my-0">

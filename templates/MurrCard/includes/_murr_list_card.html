@@ -16,7 +16,7 @@
     {% endif %}
     <div class="murr-card__tags masonry-item__body">
         {% for tag in murr.tags.all %}
-            <a class="murr-card__tag" href="{% url 'murr_list_by_tag_name' tag %}">#{{ tag }} </a>
+            <a class="murr-card__tag" href="{% url 'murrs_by_tag_name' tag %}">#{{ tag }} </a>
         {% endfor %}
     </div>
     <div class="murr-card__footer masonry-item__footer murr-meta text-muted">
