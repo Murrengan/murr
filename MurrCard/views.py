@@ -87,7 +87,7 @@ def murr_detail(request, slug):
     form = CommentForm()
     context = {'murr': murr, 'comment_form': form, 'csrf': get_token(request)}
     if request.method == 'POST':
-        html = render_to_string('MurrCard/includes/_murr-detail_slide-in_view.html', context, request)
+        html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
     return render(request, 'MurrCard/murr_detail.html', context)
 
@@ -151,7 +151,7 @@ def comment_add(request):
     form.instance.user = request.user
     form.instance.murr = murr
     form.save()
-    template = 'MurrCard/includes/_murr-detail_slide-in_comments.html'
+    template = 'MurrCard/includes/_murr-detail_drawer_comments.html'
     comments = render_to_string(template, {'murr': murr}, request)
     return JsonResponse({'comments': comments})
 
@@ -220,7 +220,7 @@ def comment_update(request):
         form.save()
         murr_slug = request.POST.get('murr_slug')
         murr = get_object_or_404(Murr, slug=murr_slug)
-        template = 'MurrCard/includes/_murr-detail_slide-in_comments.html'
+        template = 'MurrCard/includes/_murr-detail_drawer_comments.html'
         comments = render_to_string(template, {'murr': murr}, request)
         return JsonResponse({'comments': comments})
 

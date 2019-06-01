@@ -1,17 +1,17 @@
 @import "modal.css";
 
-.slide-in {
+.drawer {
     height: 100%;
     width: 50%;
 }
 
-.slide-in__header {
+.drawer__header {
     height: 35px;
     width: 100%;
     background-color: transparent;
     position: absolute;
 }
 
-.slide-in__body {
+.drawer__body {
     padding: 35px 20px 0 20px;
 }

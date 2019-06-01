@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
-    <link rel="stylesheet" href="{% static "css/murr-detail_slide-in.css" %}" />
+    <link rel="stylesheet" href="{% static "css/murr-detail_drawer.css" %}" />
 {% endblock css %}
 
 {% block content %}
@@ -21,13 +21,13 @@
     </div>
     {% include 'MurrCard/includes/_murr_list_pagination.html' %}
 
-    {% include 'includes/_murr-detail_slide-in.html' %}
+    {% include 'MurrCard/includes/_murr-detail_drawer.html' %}
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
     <script src="{% static "js/emojionearea.min.js" %}"></script>
-    <script src="{% static "js/murr_page.js" %}"></script>
+    <script src="{% static "js/murr_detailjs" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
     <script>$('.murr-list').murrList();</script>
 {% endblock js %}
