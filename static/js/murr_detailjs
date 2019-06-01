@@ -1,5 +1,5 @@
 ;(function($) {
-    let $name = 'murrPage',
+    let $name = 'murrDetail',
         methods = {
             init: function() {
                 return this.each(function() {
