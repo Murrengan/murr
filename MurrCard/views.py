@@ -86,7 +86,20 @@ def murr_detail(request, slug):
     murr = get_object_or_404(Murr, slug=slug)
     form = CommentForm()
     context = {'murr': murr, 'comment_form': form, 'csrf': get_token(request)}
+
+    try:
+        murren = User.objects.get(username=murr.author.username)
+        client = request.user
+        following = client.masters.filter(master_id=murren.pk)
+        already_follow = following.exists()
+        context.update({
+                   'murren': murren,
+                   'already_follow': already_follow})
+    except AttributeError:
+        pass
+
     if request.method == 'POST':
+        context.update({'show_follow': True})
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
     return render(request, 'MurrCard/murr_detail.html', context)

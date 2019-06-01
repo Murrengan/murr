@@ -1,8 +1,19 @@
 <div class="murr-detail">
     <div class="murr-detail__header">
         <div class="murr-detail__author">
-            <img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px" />
+          <div class="profile" data-murren="{{ murren.pk }}" data-csrf="{{ csrf }}">
+            <img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px"/>
             <span>{{ murr.author.username }}</span>
+            {% if not show_follow %}
+              {% if user.is_authenticated and murren.username != request.user.username %}
+                <span class="profile-follow text-follow {% if already_follow %}hide{% endif %}">Подписаться</span>
+                <span class="profile-unfollow text-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</span>
+              {% else %}
+                <a class="profile-follow text-follow" href="{% url 'account_login' %}">Подписаться</a>
+
+              {% endif %}
+            {% endif %}
+          </div>
         </div>
         <div class="murr-detail__actions">
             {% if murr.author == user %}
