@@ -57,7 +57,7 @@
                     type: 'POST', dataType: 'json',
                     success: function(response) {
                         $('.js-murr-detail-body', $slideIn).html(response.html);
-                        $('.js-murr-page')['murrPage']();
+                        $('.js-murr-detail')['murrDetail']();
                     }
                 })
             },

@@ -1,5 +1,5 @@
-<div class="js-murr-page" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
-    {% include "MurrCard/includes/_murr-detail_slide-in_content.html" %}
+<div class="js-murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
+    {% include "MurrCard/includes/_murr-detail_drawer_content.html" %}
 
     {% if user.is_authenticated %}
         <div class="comment-form">
@@ -14,5 +14,5 @@
         </div>
     {% endif %}
 
-    <div class="comment-list js-comments">{% include "MurrCard/includes/_murr-detail_slide-in_comments.html" %}</div>
+    <div class="comment-list js-comments">{% include "MurrCard/includes/_murr-detail_drawer_comments.html" %}</div>
 </div>

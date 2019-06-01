@@ -39,9 +39,6 @@ class Murr(models.Model):
     def __str__(self):
         return self.title
 
-    def get_murrs_by_category(self):
-        return self.category.values_list('murr_id', flat=True)
-
     def get_absolute_url(self):
         return reverse('murr_detail', kwargs={'pk': self.id})
 
