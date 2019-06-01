@@ -12,7 +12,7 @@
 {% block title %}{{ murr.title }}{% endblock %}
 
 {% block content %}
-    {% include 'MurrCard/includes/_murr-detail_slide-in_view.html' %}
+    {% include 'MurrCard/includes/_murr-detail_drawer_view.html' %}
 {% endblock content %}
 
 {% block js %}
@@ -20,6 +20,6 @@
     <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/custom.js" %}"></script>
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
-    <script src="{% static "js/murr_page.js" %}"></script>
-    <script>$('.js-murr-page').murrPage();</script>
+    <script src="{% static "js/murr_detailjs" %}"></script>
+    <script>$('.js-murr-detail').murrDetail();</script>
 {% endblock js %}
