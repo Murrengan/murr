@@ -46,7 +46,7 @@ def murr_list(request, **kwargs):
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
-    paginator = Paginator(murrs.distinct(), 6)
+    paginator = Paginator(murrs.distinct(), 30)
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
@@ -70,7 +70,7 @@ def search(request):
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
-    paginator = Paginator(murrs.distinct(), 5)
+    paginator = Paginator(murrs.distinct(), 30)
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
