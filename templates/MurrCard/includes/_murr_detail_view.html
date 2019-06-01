@@ -13,7 +13,7 @@
 <div class="border-secondary border-top font-weight-light m-2 pt-2 text-muted">
     <p class="d-inline">
         {% for tag in murr.tags.all %}
-            <a href="{% url 'murr_list_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
+            <a href="{% url 'murrs_by_tag_name' tag %}" class="card-tag">#{{ tag }}</a>&nbsp;&nbsp
         {% endfor %}
     </p>
 </div>
