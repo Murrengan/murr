@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'murr.context_processors.show_categories',
+                'django.template.context_processors.csrf',
             ],
         },
     },

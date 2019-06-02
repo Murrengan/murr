@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="container py-1">
-        <div class="murr-list masonry" data-csrf="{{ csrf }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
+        <div class="murr-list masonry" data-csrf="{{ csrf_token }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
