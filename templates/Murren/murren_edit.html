@@ -8,7 +8,7 @@
       <input type="image" src="{{ user.profile_picture.url }}"
              data-toggle="tooltip" data-placement="bottom" title="Click image for change"
              width="100px" height="100px" class="rounded-circle bg-light" style="outline: none;" id="profile-avatap"/>
-      <input type="file" id="my_file" style="display: none;"/>
+{#      <input type="file" id="my_file" style="display: none;"/>#}
     </div>
     <div class="align-items-center">
       <h2>Ник Муррена - {{ user.username }}</h2>
@@ -34,39 +34,67 @@
 <hr>
     <div class="row" style="height: 200px">
         <div class="col-sm-3">
-            <div id="cropper"></div>
+{#            <div id="cropper"></div>#}
         </div>
-        <div class="col-sm-9">2 of 4</div>
     </div>
+
+
+<!-- MODAL TO CROP THE IMAGE -->
+<div class="modal fade" id="modalCrop">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="color: black">Crop the photo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="cropper" style="height: 300px"></div>
+      </div>
+      <div class="modal-footer mt-3">
+        <button type="button" class="button button_color_green" data-dismiss="modal">Nevermind</button>
+        <button type="button" class="button button_color_blue">Crop and upload</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 
 {% block js %}
-    {{ murren_form.media }}
     {{ block.super }}
   <script>
       $(function () {
           $('[data-toggle="tooltip"]').tooltip()
       });
-      {#function readURL(input) {#}
-      {#    if (input.files && input.files[0]) {#}
-      {#        var reader = new FileReader();#}
-      {##}
-      {#        reader.onload = function (e) {#}
-      {#            $('#profile-avatap').attr('src', e.target.result);#}
-      {#        }#}
-      {##}
-      {#        reader.readAsDataURL(input.files[0]);#}
-      {#    }#}
-      {#}#}
-      {##}
-      {#$("#id_profile_picture").change(function () {#}
-      {#    readURL(this);#}
-      {#});#}
-      {##}
-      {#$("input[type='image']").click(function () {#}
-      {#    $("input[id='id_profile_picture']").click();#}
-      {#    console.log($("input[id='id_profile_picture']").val())#}
-      {#});#}
+
+      function readURL(input) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                  $('#profile-avatap').attr('src', e.target.result);
+                  $("#modalCrop").modal("show");
+              }
+
+              reader.readAsDataURL(input.files[0]);
+          }
+      }
+
+      $("#id_profile_picture_0").change(function () {
+          readURL(this);
+      });
+
+      $("input[id='profile-avatap']").click(function () {
+          $("input[id='id_profile_picture_0']").click();
+          console.log($("input[id='id_profile_picture_0']").val())
+      });
+
+      var myCroppie = $('#cropper');
+      $('#modalCrop').on('shown.bs.modal', function(){
+          myCroppie.croppie('bind');
+      });
   </script>
+   {{ murren_form.media }}
 {% endblock js %}
