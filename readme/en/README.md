@@ -95,7 +95,7 @@ May The Force Be With Us!
 
 
 <h2>
-Frequently Asked Questions (FAQ)
+Frequently Asked Questions /(FAQ)
 </h2>
 <hr>
 <h3>
