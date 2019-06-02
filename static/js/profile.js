@@ -4,7 +4,7 @@
             init: function() {
                 return this.each(function() {
                     let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf'),
+                        csrfmiddlewaretoken: $this.data('csrf_token'),
                         master: $this.data('murren')
                     };
                     $this.data($name, data);

@@ -6,10 +6,9 @@
 {% endblock css %}
 
 {% block content %}
-    <div class="profile card-columns animate-opacity alert-info p-2 pl-3" data-murren="{{ murren.pk }}"
-         data-csrf="{{ csrf }}">
-      <img src=" {{ murren.profile_picture.url }}" width="100px" height="auto" alt="" class="rounded shadow shadow-sm"/>
-      <span class="font-italic h2 text-dark"> {{ murren.email }} </span>
+    <div class="profile card-columns animate-opacity alert-info p-2 pl-3" data-murren="{{ murren.pk }}" data-csrf_token="{{ csrf_token }}">
+        <img src=" {{ murren.profile_picture.url }}" width="100px" height="auto" alt="" class="rounded shadow shadow-sm" />
+    <span class="font-italic h2 text-dark"> {{ murren.email }} </span>
       {% if murr.author.username == request.user.username %}
       {% else %}
         {% if not show_follow %}

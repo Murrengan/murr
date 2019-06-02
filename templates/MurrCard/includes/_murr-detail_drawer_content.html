@@ -1,7 +1,7 @@
 <div class="murr-detail">
     <div class="murr-detail__header">
       <div class="murr-detail__author">
-        <div class="profile" data-murren="{{ murren.pk }}" data-csrf="{{ csrf }}">
+        <div class="profile" data-murren="{{ murren.pk }}" data-csrf_token="{{ csrf_token }}">
           <img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px"/>
           <span>{{ murr.author.username }}</span>
           {% if murr.author.username == request.user.username %}
