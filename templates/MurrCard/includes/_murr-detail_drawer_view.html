@@ -1,4 +1,4 @@
-<div class="js-murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf="{{ csrf }}">
+<div class="js-murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf_token="{{ csrf_token }}">
     {% include "MurrCard/includes/_murr-detail_drawer_content.html" %}
 
     {% if user.is_authenticated %}
