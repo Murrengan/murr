@@ -23,18 +23,14 @@
     <body>
         <header>{% include 'navbar.html' %}</header>
 
-        {# Show categories #}
         {% if categories_bar %}{{ categories_bar }}{% endif %}
-        {# Show categories #}
 
         <div class="container col-6">
-            {# Django messages #}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
                 {{ message }}
               </div>
             {% endfor %}
-            {# Django messages #}
         </div>
 
         <div class="container">
