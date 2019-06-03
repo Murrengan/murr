@@ -22,9 +22,3 @@
 .murr-detail__footer {
     margin: 0 0 20px 0;
 }
-
-.murr-detail__body iframe{
-    display: block;
-    max-width: 100%;
-    max-height: 350px;
-}

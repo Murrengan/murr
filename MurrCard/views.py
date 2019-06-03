@@ -85,7 +85,8 @@ def murr_detail(request, slug):
     context = {'murr': murr, 'comment_form': form}
 
     try:
-        murren = User.objects.get(username=murr.author.username)
+        # TODO when unauthorized user opens murr_detail page, take AttributeError
+        murren = murr.author
         client = request.user
         following = client.masters.filter(master_id=murren.pk)
         already_follow = following.exists()
@@ -96,9 +97,10 @@ def murr_detail(request, slug):
         pass
 
     if request.method == 'POST':
-        context.update({'show_follow': True})
+
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
+    context.update({'show_follow': True})
     return render(request, 'MurrCard/murr_detail.html', context)
 
 
