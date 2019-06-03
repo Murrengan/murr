@@ -30,8 +30,8 @@ def follow(request):
     raw_data['follower'] = request.user.pk
     processor = FollowingProcessor(raw_data)
     processor.process()
-    if processor.errors:
-        return JsonResponse({'error': 'follow not allowed'})
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
 
     processor.save()
     return JsonResponse({'ok': True})
@@ -45,8 +45,8 @@ def unfollow(request):
     raw_data['follower'] = request.user.pk
     processor = FollowingProcessor(raw_data)
     processor.process()
-    if processor.errors:
-        return JsonResponse({'error': 'follow not allowed'})
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
 
     processor.delete()
     return JsonResponse({'ok': True})

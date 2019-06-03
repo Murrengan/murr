@@ -50,7 +50,7 @@
                     url: '/murrs/comment_add/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function(response) {
-                        $('#id_content').val('');
+                        $('#id_content').data("emojioneArea").setText('');
                         $('.emojionearea-editor').empty();
                         $(".js-comments").html(response['comments']);
                     }

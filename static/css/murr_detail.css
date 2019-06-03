@@ -1,124 +1,26 @@
-.detail {
-    border: 1px solid dimgray;
-    border-radius: .25rem !important;
-    background: khaki;
-    padding: 10px;
-    margin: 10px;
-    word-break: break-word;
-    color: black;
-}
-
-.murr_body {
-	overflow:hidden !important;
-}
-
-/* comments */
-
-.comment-list {
-    border: 1px solid dimgray;
-    border-radius: .25rem !important;
-    background: palegreen;
-    padding: 0 10px;
-    margin: 35px 10px;
-    word-break: break-word;
-    color: black;
-}
-
-.comment-list:empty {
-    display: none;
-}
-
-.comment {
-    border-bottom: solid 1px darkkhaki;
-}
-
-.comment:last-of-type {
-    border-bottom: none;
-}
-
-.comment-control > a {
-    padding: 0 0 1px 0;
-    margin: 0 15px 0 0;
-    color: #888;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.comment-control > a:hover {
-    color: #444;
-}
-
-.media .comment-control {
-    display: none;
-}
-
-.media:hover .comment-control {
+.murr-detail__body img{
     display: block;
+    max-width: 100%;
+    height: auto !important;
 }
 
-.media:last-child {
-  border-bottom: none !important;
+.murr_detail_container {
+    font-size: 1rem;
+    color: #202020;
 }
 
-.comments-footer {
-    padding: 10px 10px 0 0;
-    height: 15px;
+.murr-detail__header{
+    display: flex;
+    justify-content: space-between;
 }
 
-/* в комментах - пожаловаться */
-.btn-complain {
-    background: none;
-    border: none;
-    box-shadow: none;
-    color: #888;
-    border-radius: 0;
-    line-height: 1;
+.murr-detail__body iframe{
+    display: block;
+    max-width: 100%;
+    max-height: 350px;
 }
 
-.btn-complain:hover {
-    color: #444;
+.murr-detail__actions{
+    margin-top: auto;
+    margin-bottom: auto;
 }
-
-.btn-complain:focus {
-    box-shadow: none
-}
-/* в комментах - пожаловаться */
-
-.ava {
-    width: 48px;
-    height: 48px;
-    border: 1px solid rgba(0, 123, 255, .25);
-    padding: 1px;
-    background-color: #ced4da;
-    box-shadow: 0 0 3px 0px black;
-}
-
-/* цитированный комментарий */
-
-blockquote {
-	font-style: italic;
-    font-size: 1em !important;
-	color: rgba(0, 0, 0, 1);
-	margin: 20px 0 20px 45px;
-	border-left: 5px solid rgba(0, 0, 0, 0.15);
-	padding-left: 15px;
-	line-height: 1.4em;
-	position: relative;
-}
-
-blockquote p {
-	padding: 0;
-}
-
-blockquote:before {
-	content: "\f10d";
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	position: absolute;
-	left: -45px;
-	top: 10px;
-	color: rgba(0, 0, 0, 0.15);
-	font-size: 25px;
-}
-
-/* -цитированный комментарий- */
