@@ -44,7 +44,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" style="color: black">Crop the photo</h4>
+        <h5 class="modal-title" style="color: black">Crop the photo</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -54,7 +54,7 @@
       </div>
       <div class="modal-footer mt-3">
         <button type="button" class="button button_color_green" data-dismiss="modal">Nevermind</button>
-        <button type="button" class="button button_color_blue">Crop and upload</button>
+        <button type="button" class="button button_color_blue js-crop-and-update">Crop and update</button>
       </div>
     </div>
   </div>
@@ -82,19 +82,28 @@
           }
       }
 
-      $("#id_profile_picture_0").change(function () {
+      $("#id_profile_picture_0").on('change', function() {
           readURL(this);
       });
 
-      $("input[id='profile-avatap']").click(function () {
+      $("input[id='profile-avatap']").on('click', function() {
           $("input[id='id_profile_picture_0']").click();
-          console.log($("input[id='id_profile_picture_0']").val())
+          console.log($("input[id='id_profile_picture_0']").val());
       });
 
-      var myCroppie = $('#cropper');
       $('#modalCrop').on('shown.bs.modal', function(){
-          myCroppie.croppie('bind');
+          cropper.bind();
       });
+
+      $('.js-crop-and-update').on('click', function (e) {
+          cropper.result({
+              type: 'base64',
+          }).then(function (responce) {
+              $('#profile-avatap').attr('src', responce);
+              $("#modalCrop").modal('hide');
+          })
+      });
+
   </script>
    {{ murren_form.media }}
 {% endblock js %}
