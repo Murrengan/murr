@@ -25,15 +25,15 @@ class Murr(models.Model):
         ('etc', '#другое'),
     ]
 
-    title = models.CharField(max_length=78, verbose_name='Заголовок')
-    description = models.CharField(max_length=158, blank=True, verbose_name='Описание')
+    title = models.CharField(max_length=78, verbose_name='Заголовок', help_text="Максимум 78 символов")
+    description = models.CharField(max_length=158, blank=True, verbose_name='Описание', help_text="Максимум 158 символа")
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
-    categories = models.CharField(max_length=20, choices=CATEGORIES)
+    categories = models.CharField(max_length=20, verbose_name='Категория', choices=CATEGORIES)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
-    tags = TaggableManager(blank=True, help_text="Список тегов через запятую")
+    tags = TaggableManager(blank=True, verbose_name='Теги', help_text="Список тегов через запятую")
     slug = models.CharField(verbose_name='Слаг для мурра', max_length=100, blank=True)
 
     def __str__(self):

@@ -2,101 +2,104 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="container">
-  <h1 class="">Профайл</h1>
-    <div>
-      <input type="image" src="{{ user.profile_picture.url }}"
-             data-toggle="tooltip" data-placement="bottom" title="Click image for change"
-             width="100px" height="100px" class="rounded-circle bg-light" style="outline: none;" id="profile-avatap"/>
-{#      <input type="file" id="my_file" style="display: none;"/>#}
+    <div class="container card text-dark col-8">
+        <h1 class="text-center">Твой профайл</h1>
+        <div class="row">
+            <div class="col text-center">
+                <h2>{{ user.username }}</h2>
+                <input type="image" alt="" src="{{ user.profile_picture.url }}"
+                       data-toggle="tooltip" data-placement="bottom" title="Измени свой аватар"
+                       width="250px" height="250px" class="rounded-circle bg-light" style="outline: none;"
+                       id="profile-avatap"/>
+
+            </div>
+
+            <div class="col border-left">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in murren_form %}
+                        <p>
+                            {{ field.errors }}
+                            {{ field }}
+                        </p>
+                    {% endfor %}
+                    <input type="submit" class="button button_color_green" value="Изменить">
+                    <p><a class="" href="{% url 'account_reset_password' %}">Изменить пароль</a></p>
+
+                </form>
+            </div>
+        </div>
+    <p></p>
     </div>
-    <div class="align-items-center">
-      <h2>Ник Муррена - {{ user.username }}</h2>
+
+
+
+    <!-- MODAL TO CROP THE IMAGE -->
+    <div class="modal fade" id="modalCrop">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black">Настройка нового аватара</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="cropper" style="height: 300px"></div>
+                </div>
+                <div class="modal-footer mt-3">
+                    <button type="button" class="button button_color_green" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="button button_color_blue js-crop-and-update">Установить новый аватар
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <a class="btn btn-info btn-sm" href="{% url 'account_reset_password' %}">Изменить пароль</a>
-
-
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% for field in murren_form %}
-        <p>
-          {{ field.errors }}
-          {{ field }}
-        </p>
-      {% endfor %}
-      <input type="submit" class="btn btn-sm btn-primary" value="Изменить">
-    </form>
-
-  </div>
-
-
-
-<!-- MODAL TO CROP THE IMAGE -->
-<div class="modal fade" id="modalCrop">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" style="color: black">Crop the photo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id="cropper" style="height: 300px"></div>
-      </div>
-      <div class="modal-footer mt-3">
-        <button type="button" class="button button_color_green" data-dismiss="modal">Nevermind</button>
-        <button type="button" class="button button_color_blue js-crop-and-update">Crop and update</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock %}
 
 {% block js %}
     {{ block.super }}
-  <script>
-      $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-      });
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
 
-      function readURL(input) {
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-              reader.onload = function (e) {
-                  $('#profile-avatap').attr('src', e.target.result);
-                  $("#modalCrop").modal("show");
-              }
+                reader.onload = function (e) {
+                    $('#profile-avatap').attr('src', e.target.result);
+                    $("#modalCrop").modal("show");
+                }
 
-              reader.readAsDataURL(input.files[0]);
-          }
-      }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-      $("#id_profile_picture_0").on('change', function() {
-          readURL(this);
-      });
+        $("#id_profile_picture_0").on('change', function () {
+            readURL(this);
+        });
 
-      $("input[id='profile-avatap']").on('click', function() {
-          $("input[id='id_profile_picture_0']").click();
-          console.log($("input[id='id_profile_picture_0']").val());
-      });
+        $("input[id='profile-avatap']").on('click', function () {
+            $("input[id='id_profile_picture_0']").click();
+            console.log($("input[id='id_profile_picture_0']").val());
+        });
 
-      $('#modalCrop').on('shown.bs.modal', function(){
-          cropper.bind();
-      });
+        $('#modalCrop').on('shown.bs.modal', function () {
+            cropper.bind();
+        });
 
-      $('.js-crop-and-update').on('click', function (e) {
-          cropper.result({
-              type: 'base64',
-          }).then(function (responce) {
-              $('#profile-avatap').attr('src', responce);
-              $("#modalCrop").modal('hide');
-          })
-      });
+        $('.js-crop-and-update').on('click', function (e) {
+            cropper.result({
+                type: 'base64',
+            }).then(function (responce) {
+                $('#profile-avatap').attr('src', responce);
+                $("#modalCrop").modal('hide');
+            })
+        });
 
-  </script>
-   {{ murren_form.media }}
+    </script>
+    {{ murren_form.media }}
 {% endblock js %}

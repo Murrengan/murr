@@ -1,8 +1,8 @@
 <div class="murr-card masonry-item font-black js-murr-card" data-murr="{{ murr.slug }}">
     <div class="murr-card__header masonry-item__header profile">
-        <img src="{{ murr.author.profile_picture.url }}" class="profile__img" alt="">
         <a href="{% url 'murren_profile' murr.author.username %}" class="profile__name">
-            {{ murr.author.username }}
+          <img src="{{ murr.author.profile_picture.url }}" class="profile__img" alt="">
+          {{ murr.author.username }}
         </a>
     </div>
     <div class="murr-card__content masonry-item__body">
