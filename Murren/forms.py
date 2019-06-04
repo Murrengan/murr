@@ -37,6 +37,9 @@ class ProfileMurrenForm(forms.ModelForm):
                                        attrs={'class': 'd-none'}
                                    ))
 
+    username = forms.CharField(widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Изменить юзернейм'}))
+    email = forms.CharField(widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Изменить почту'}))
+
     class Meta:
         model = User
         fields = ('profile_picture', 'username', 'email')
