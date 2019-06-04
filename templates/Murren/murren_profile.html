@@ -9,16 +9,15 @@
     <div class="profile card-columns animate-opacity alert-info p-2 pl-3" data-murren="{{ murren.pk }}" data-csrf_token="{{ csrf_token }}">
         <img src=" {{ murren.profile_picture.url }}" width="100px" height="auto" alt="" class="rounded shadow shadow-sm" />
     <span class="font-italic h2 text-dark"> {{ murren.email }} </span>
-      {% if murr.author.username == request.user.username %}
+      {% if murren.username == request.user.username %}
+
       {% else %}
-        {% if not show_follow %}
           {% if user.is_authenticated %}
             <span class="profile-follow text-follow {% if already_follow %}hide{% endif %}">Подписаться</span>
             <span class="profile-unfollow text-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</span>
           {% else %}
             <a class="profile-follow text-follow" href="{% url 'account_login' %}">Подписаться</a>
           {% endif %}
-        {% endif %}
       {% endif %}
     </div>
 {% endblock content %}

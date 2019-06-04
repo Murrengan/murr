@@ -8,7 +8,6 @@
       <input type="image" src="{{ user.profile_picture.url }}"
              data-toggle="tooltip" data-placement="bottom" title="Click image for change"
              width="100px" height="100px" class="rounded-circle bg-light" style="outline: none;" id="profile-avatap"/>
-{#      <input type="file" id="my_file" style="display: none;"/>#}
     </div>
     <div class="align-items-center">
       <h2>Ник Муррена - {{ user.username }}</h2>
@@ -37,7 +36,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="color: black">Crop the photo</h5>
+        <h5 class="modal-title" style="color: black">Настройка нового аватара</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -46,8 +45,8 @@
         <div id="cropper" style="height: 300px"></div>
       </div>
       <div class="modal-footer mt-3">
-        <button type="button" class="button button_color_green" data-dismiss="modal">Nevermind</button>
-        <button type="button" class="button button_color_blue js-crop-and-update">Crop and update</button>
+        <button type="button" class="button button_color_green" data-dismiss="modal">Отмена</button>
+        <button type="button" class="button button_color_blue js-crop-and-update">Установить новый аватар</button>
       </div>
     </div>
   </div>

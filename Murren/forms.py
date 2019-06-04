@@ -24,18 +24,18 @@ class MurrenChangeForm(UserChangeForm):
 class ProfileMurrenForm(forms.ModelForm):
     # set profile_picture to "not required" - allow change nick & e-mail w/o force image selection
     # profile_picture=forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'d-none'}))
-    profile_picture=CroppieField(required=False,
-        widget=CroppieImageRatioWidget(
-            options={
-                'viewport': {
-                    'width': 100,
-                    'height': 100,
-                    'type': 'circle',
-                },
-                'showZoomer': True,
-            },
-            attrs={'class': 'd-none'}
-        ))
+    profile_picture = CroppieField(required=False,
+                                   widget=CroppieImageRatioWidget(
+                                       options={
+                                           'viewport': {
+                                               'width': 200,
+                                               'height': 200,
+                                               'type': 'circle',
+                                           },
+                                           'showZoomer': True,
+                                       },
+                                       attrs={'class': 'd-none'}
+                                   ))
 
     class Meta:
         model = User
