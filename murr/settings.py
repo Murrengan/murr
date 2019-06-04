@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'tinymce',
     'crispy_forms',
     'taggit',
+    'croppie',
 
     # Local
     'Murren.apps.MurrenConfig',
