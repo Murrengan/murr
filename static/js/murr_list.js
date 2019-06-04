@@ -45,6 +45,8 @@
                 $('.js-murr-detail-body', $slideIn).html("");
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
+                window.location.reload(true);
+
             },
             slideIn: function($card) {
                 let $this = $(this), data = $this.data($name),
