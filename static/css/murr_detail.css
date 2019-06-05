@@ -12,6 +12,7 @@
 .murr-detail__header{
     display: flex;
     justify-content: space-between;
+    padding-top: 1em;
 }
 
 .murr-detail__body iframe{

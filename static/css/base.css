@@ -34,6 +34,9 @@ a:hover {
     color: white;
 }
 
+.button_float-position_right {
+    float: right;
+}
 .button_color_red {
     background-color: #F44336;
     color: white;
@@ -42,6 +45,19 @@ a:hover {
 .button_color_blue {
     background-color: #03A9F4;
     color: white;
+}
+.input-label_text {
+    font-style: italic;
+    font-stretch: semi-condensed;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+input[type="image"] {
+    -o-object-fit: cover;
+    -o-object-position: center center;
+    object-fit: cover;
+    object-position: center center;
 }
 
 .action {

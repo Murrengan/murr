@@ -5,11 +5,11 @@
     <div class="container card text-dark col-8">
         <h1 class="text-center">Твой профайл</h1>
         <div class="row">
-            <div class="col text-center">
+            <div class="col-md-4 text-center">
                 <h2>{{ user.username }}</h2>
                 <input type="image" alt="" src="{{ user.profile_picture.url }}"
                        data-toggle="tooltip" data-placement="bottom" title="Измени свой аватар"
-                       width="250px" height="250px" class="rounded-circle bg-light" style="outline: none;"
+                       width="150px" height="150px" class="rounded-circle bg-light" style="outline: none;"
                        id="profile-avatap"/>
 
             </div>
@@ -20,10 +20,13 @@
                     {% for field in murren_form %}
                         <p>
                             {{ field.errors }}
+                            {% if field.label %}
+                                <span class="input-label_text text-muted">{{ field.label }}:</span>
+                            {% endif %}
                             {{ field }}
                         </p>
                     {% endfor %}
-                    <input type="submit" class="button button_color_green" value="Изменить">
+                    <input type="submit" class="button button_float-position_right button_color_green" value="Изменить профайл">
                     <p><a class="" href="{% url 'account_reset_password' %}">Изменить пароль</a></p>
 
                 </form>
@@ -71,8 +74,9 @@
 
                 reader.onload = function (e) {
                     $('#profile-avatap').attr('src', e.target.result);
+                    $('#profile-avatap').tooltip('hide');
                     $("#modalCrop").modal("show");
-                }
+                };
 
                 reader.readAsDataURL(input.files[0]);
             }
