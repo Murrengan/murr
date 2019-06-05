@@ -42,7 +42,6 @@
                     $slideIn = $('.js-murr-detail'),
                     $slideInOverlay = $('.js-murr-detail-overlay');
 
-                $('.js-murr-detail-body', $slideIn).html("");
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
                 window.location.reload(true);
