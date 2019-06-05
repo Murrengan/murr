@@ -17,6 +17,9 @@ class CustomCheckbox(Field):
 
 
 class MurrForm(forms.ModelForm):
+
+    LIMIT_LEN_TAGS = 40
+
     content = forms.CharField(
         widget=TinyMCEWidget(
             attrs={'required': False, 'cols': 30, 'rows': 15},
@@ -79,12 +82,19 @@ class MurrForm(forms.ModelForm):
         """Cleaning tags from backslashes and strip html-tags"""
 
         tags = self.cleaned_data.get('tags')
+
         tags = [bleach.clean(tag, tags=[], strip=True).replace('/', '') for tag in tags]
-        len_tags = ''
+
+        limited = 0
+        added = []
         for tag in tags:
-            len_tags += tag
-            if len(len_tags) > 40:
-                tags.remove(tag)
+            length = len(tag)
+            if limited + length > self.LIMIT_LEN_TAGS:
+                break
+
+            added.append(tag)
+            limited += length
+        tags = added
 
         return filter(bool, tags)
 
