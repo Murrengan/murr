@@ -80,6 +80,12 @@ class MurrForm(forms.ModelForm):
 
         tags = self.cleaned_data.get('tags')
         tags = [bleach.clean(tag, tags=[], strip=True).replace('/', '') for tag in tags]
+        len_tags = ''
+        for tag in tags:
+            len_tags += tag
+            if len(len_tags) > 40:
+                tags.remove(tag)
+
         return filter(bool, tags)
 
 
