@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'taggit',
     'croppie',
+    'captcha',
 
     # Local
     'Murren.apps.MurrenConfig',
@@ -187,6 +188,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 
 TAGGIT_CASE_INSENSITIVE = True
+
+
+RECAPTCHA_PUBLIC_KEY = '6Leuj6cUAAAAAJY8tsjgZKQO-niWFzpm0CgcEoKB'
+RECAPTCHA_PRIVATE_KEY = '6Leuj6cUAAAAACZ9jjZyHb_ZncZMzhurM3sOibm_'
 
 try:
     from .local_settings import *

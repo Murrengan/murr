@@ -1,7 +1,9 @@
 import bleach
+from captcha.fields import ReCaptchaField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, HTML, Field
 from django import forms
+from django.conf import settings
 from tinymce import TinyMCE
 
 from .models import Murr, Comment
@@ -19,6 +21,11 @@ class CustomCheckbox(Field):
 class MurrForm(forms.ModelForm):
 
     LIMIT_LEN_TAGS = 40
+
+    captcha = ReCaptchaField(
+        public_key=settings.RECAPTCHA_PUBLIC_KEY,
+        private_key=settings.RECAPTCHA_PRIVATE_KEY,
+    )
 
     content = forms.CharField(
         widget=TinyMCEWidget(
@@ -47,7 +54,7 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title', 'description', 'content', 'tags', 'categories', 'cover',
+        fields = ('title',  'description', 'content', 'tags', 'categories', 'cover',
                   # 'is_draft', 'is_public'
                   )
 
@@ -75,6 +82,7 @@ class MurrForm(forms.ModelForm):
                 # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
                 Column('cover', css_class='inputfile inputfile-3 d-none'),
             ),
+            Row(Column('captcha')),
             Submit('submit', 'Сохранить', css_class='mt-3')
         )
 
