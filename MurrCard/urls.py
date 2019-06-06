@@ -19,5 +19,7 @@ urlpatterns = [
     path('comment_delete/', murr_card.comment_delete),
     path('comment_edit/', murr_card.comment_edit),
     path('comment_update/', murr_card.comment_update),
+    path('hide_murr/', murr_card.hide_murr),
+    path('report_murr/', murr_card.report_murr),
     path('search/', murr_card.search, name='search'),
 ]
