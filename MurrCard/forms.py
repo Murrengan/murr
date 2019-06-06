@@ -54,7 +54,7 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title',  'description', 'content', 'tags', 'categories', 'cover',
+        fields = ('title',  'description', 'content', 'tags', 'categories', 'cover', 'captcha'
                   # 'is_draft', 'is_public'
                   )
 
@@ -82,7 +82,7 @@ class MurrForm(forms.ModelForm):
                 # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
                 Column('cover', css_class='inputfile inputfile-3 d-none'),
             ),
-            Row(Column('captcha')),
+            Field('captcha'),
             Submit('submit', 'Сохранить', css_class='mt-3')
         )
 
