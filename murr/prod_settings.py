@@ -15,7 +15,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['murrengan.ru', '18.216.214.27']
+ALLOWED_HOSTS = ['www.murrengan.ru', 'murrengan.ru', '18.216.214.27']
 
 DEBUG = False
 
