@@ -24,3 +24,7 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.comment-list{
+    word-break: break-all;
+}
