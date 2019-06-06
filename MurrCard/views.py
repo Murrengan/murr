@@ -22,8 +22,16 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
-
-    murrs = Murr.objects.all().exclude(actions__action__contains='report').exclude(actions__action__contains='hide')
+    if request.user:
+        murrs = Murr.objects.all().exclude(
+            actions__action__contains='report',
+            actions__murren=request.user
+        ).exclude(
+            actions__action__contains='hide',
+            actions__murren=request.user
+        )
+    else:
+        murrs = Murr.objects.all()
 
     tag_name = kwargs.get('tag_name')
     if tag_name:
