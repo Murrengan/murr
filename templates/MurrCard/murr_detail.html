@@ -1,0 +1,29 @@
+{% extends 'MurrCard/base_murrs.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
+    <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
+    <link rel="stylesheet" href="{% static "css/media-object.css" %}" />
+{% endblock css %}
+
+
+{% block title %}{{ murr.title }}{% endblock %}
+
+{% block content %}
+    <div class="container col-7 card murr_detail_container">
+    {% include 'MurrCard/includes/_murr-detail_drawer_view.html' %}
+    </div>
+{% endblock content %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static "js/emojionearea.min.js" %}"></script>
+    <script src="{% static "js/custom.js" %}"></script>
+    <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
+    <script src="{% static "js/murr_detail.js" %}"></script>
+    <script>$('.js-murr-detail').murrDetail();</script>
+    <script src="{% static "js/profile.js" %}"></script>
+    <script> $('.profile').murrenProfile(); </script>
+{% endblock js %}

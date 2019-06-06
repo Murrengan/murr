@@ -1,15 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import CustomMurrenCreationForm, CustomMurrenChangeForm
-from .models import CustomMurren
+from .forms import MurrenCreationForm, MurrenChangeForm
+from .models import Murren, Following
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomMurrenCreationForm
-    form = CustomMurrenChangeForm
-    model = CustomMurren
-    list_display = ['email', 'username',]
+    add_form = MurrenCreationForm
+    form = MurrenChangeForm
+    model = Murren
+
+    list_display = ['email', 'username']
 
 
-admin.site.register(CustomMurren, CustomUserAdmin)
+admin.site.register(Murren, CustomUserAdmin)
+admin.site.register(Following)

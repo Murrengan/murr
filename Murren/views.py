@@ -1,54 +1,73 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 
+from .following import FollowingProcessor
 from .forms import ProfileMurrenForm
 
 User = get_user_model()
 
 
-def landing(request):
-    return render(request, 'Murr_card/landing.html')
+def profile(request, username):
+    murren = User.objects.get(username=username)
+    client = request.user.pk and request.user
+    following = client and client.masters.filter(master_id=murren.pk)
+    already_follow = client and following.exists()
+    context = {
+        'murren': murren,
+        'already_follow': already_follow
+    }
+    return render(request, 'Murren/murren_profile.html', context)
 
 
-def count_murren(request):
-    count = User.objects.count()
-    return render(request, 'Murren/count_murren.html', {
-        'count': count
-    })
+def follow(request):
+    if request.method == 'GET':
+        raise Http404
+
+    raw_data = request.POST.dict()
+    raw_data['follower'] = request.user.pk
+    processor = FollowingProcessor(raw_data)
+    processor.process()
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
+
+    processor.save()
+    return JsonResponse({'ok': True})
 
 
-def signup(request):
-    pass
-#     if request.method == 'POST':
-#         form = MurrenRegisterForm(request.POST)
-#
-#         if form.is_valid():
-#             username = form.cleaned_data.get('username')
-#             form.save()
-#             messages.success(request, f'Account created for {username}!')
-#             return redirect('login')
-#     else:
-#         form = MurrenRegisterForm()
-#     return render(request, 'registration/signup.html', {
-#         'form': form
-#     })
+def unfollow(request):
+    if request.method == 'GET':
+        raise Http404
+
+    raw_data = request.POST.dict()
+    raw_data['follower'] = request.user.pk
+    processor = FollowingProcessor(raw_data)
+    processor.process()
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
+
+    processor.delete()
+    return JsonResponse({'ok': True})
 
 
 @login_required
-def profile(request):
+def murren_edit(request):
     if request.method == 'POST':
-        # instance = request.user показывает, что работа происходит именно для текущего клиента
-        murren_form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
-        if murren_form.is_valid():
-            murren_form.save()
-            # TODO Добавить отображение messages from django
-            return redirect('profile')
+        form = ProfileMurrenForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Твой профайл успешно изменен')
+            return redirect('edit')
+
     else:
-        murren_form = ProfileMurrenForm(instance=request.user)
+        form = ProfileMurrenForm(instance=request.user)
 
-    context = {
-        'murren_form': murren_form,
-    }
+    context = {'murren_form': form}
 
-    return render(request, 'Murren/profile.html', context)
+    return render(request, 'Murren/murren_edit.html', context)
+
+
+def landing(request):
+    return render(request, 'MurrCard/landing.html')

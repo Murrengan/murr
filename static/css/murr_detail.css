@@ -1,0 +1,30 @@
+.murr-detail__body img{
+    display: block;
+    max-width: 100%;
+    height: auto !important;
+}
+
+.murr_detail_container {
+    font-size: 1rem;
+    color: #202020;
+}
+
+.murr-detail__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.murr-detail__body iframe{
+    display: block;
+    max-width: 100%;
+    max-height: 350px;
+}
+
+.murr-detail__actions{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.comment-list{
+    word-break: break-all;
+}

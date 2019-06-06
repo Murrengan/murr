@@ -5,14 +5,13 @@
 
 
 {% block content %}
-<h1>Выйти из аккаунта</h1>
+  <div class="container text-center">
+    <h1>Точтно выйти?</h1>
 
-<p>Вы уверены, что хотите выйти?</p>
-
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button class="btn btn-danger" type="submit">Sign Out</button>
-</form>
-
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-danger" type="submit">Выйти</button>
+    </form>
+  </div>
 {% endblock content %}

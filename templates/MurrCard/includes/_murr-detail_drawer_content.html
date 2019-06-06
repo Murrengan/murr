@@ -1,0 +1,41 @@
+<div class="murr-detail">
+    <div class="murr-detail__header">
+        <div class="murr-detail__author profile" data-murren="{{ murren.pk }}" data-csrf_token="{{ csrf_token }}">
+          <img src="{{ murr.author.profile_picture.url }}" alt="" width="45px" height="45px"/>
+          <span>{{ murr.author.username }}</span>
+
+          {% if murr.author.username != request.user.username %}
+            {% if show_follow %}
+              {% if user.is_authenticated %}
+                <span class="profile-follow text-follow {% if already_follow %}hide{% endif %}">Подписаться</span>
+                <span class="profile-unfollow text-unfollow {% if not already_follow %}hide{% endif %}">Отписаться</span>
+              {% else %}
+                <a class="profile-follow text-follow" href="{% url 'account_login' %}">Подписаться</a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+        </div>
+        <div class="murr-detail__actions">
+            {% if murr.author == user %}
+                <a class="murr-detail__action action fa fa-pencil-alt js-edit" href="{% url 'murr_update' murr.slug %}" data-title="Редактировать"></a>
+                <a class="murr-detail__action action fa fa-trash-alt js-delete" href="{% url 'murr_delete' murr.slug %}" data-title="Удалить"></a>
+            {% else %}
+                <span class="murr-detail__action fa fa-flag-alt js-report"  data-title="Пожаловаться"></span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="murr-detail__body">
+        <h3 class="murr-detail__title">{{ murr.title }}</h3>
+        <div class="murr-detail__content">
+            {{ murr.content|safe }}
+        </div>
+    </div>
+    <div class="murr-detail__footer">
+        <div class="murr-detail__tags">
+            {% for tag in murr.tags.all %}
+                <a class="murr-detail__tag" href="{% url 'murrs_by_tag_name' tag %}">#{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

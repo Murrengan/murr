@@ -1,0 +1,24 @@
+@import "drawer.css";
+@import "media-object.css";
+
+.murr-detail__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+}
+
+.murr-detail__body img{
+    max-width: 50%;
+    height: auto !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.murr-detail__title{
+    text-align: center;
+}
+
+.murr-detail__footer {
+    margin: 0 0 20px 0;
+}

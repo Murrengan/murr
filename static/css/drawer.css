@@ -1,0 +1,17 @@
+@import "modal.css";
+
+.drawer {
+    height: 100%;
+    width: 50%;
+}
+
+.drawer__header {
+    height: 35px;
+    width: 100%;
+    background-color: transparent;
+    position: absolute;
+}
+
+.drawer__body {
+    padding: 35px 20px 0 20px;
+}

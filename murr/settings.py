@@ -31,13 +31,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
     'tinymce',
     'crispy_forms',
+    'taggit',
+    'croppie',
 
     # Local
     'Murren.apps.MurrenConfig',
-    'Murr_card.apps.MurrCardConfig',
-
+    'MurrCard.apps.MurrCardConfig',
+    'Dashboard.apps.DashboardConfig',
 ]
 
 MIDDLEWARE = [
@@ -55,8 +58,7 @@ ROOT_URLCONF = 'murr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'murr.context_processors.show_categories',
+                'django.template.context_processors.csrf',
             ],
         },
     },
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -128,44 +132,44 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = 'murrs_list'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'murrs_list'
+LOGIN_REDIRECT_URL = 'murr_list'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'murr_list'
 
 # LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
 # логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
 LOGIN_URL = 'account_login'
-LOGOUT_REDIRECT_URL = 'murrs_list'
+LOGOUT_REDIRECT_URL = 'murr_list'
 
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'modern',
+    'height': 500,
     'plugins': '''
             textcolor save link image media preview codesample contextmenu
             table code lists fullscreen  insertdatetime  nonbreaking
             contextmenu directionality searchreplace wordcount visualblocks
-            visualchars code fullscreen autolink lists  charmap print  hr
+            visualchars code fullscreen autolink lists charmap print hr
             anchor pagebreak
             ''',
     'toolbar1': '''
-            fullscreen preview bold italic underline | fontselect,
-            fontsizeselect  | forecolor backcolor | alignleft alignright |
-            aligncenter alignjustify | indent outdent | bullist numlist table |
+            bold italic underline 
+            | forecolor backcolor | bullist numlist |
             | link image media | codesample |
             ''',
     'toolbar2': '''
             visualblocks visualchars |
             charmap hr pagebreak nonbreaking anchor |  code |
             ''',
-    'contextmenu': 'formats | link image',
+    'contextmenu': 'link image',
     'menubar': True,
-    'statusbar': True,
+    'statusbar': False,
     }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-AUTH_USER_MODEL = 'Murren.CustomMurren'
+AUTH_USER_MODEL = 'Murren.Murren'
 
 
 AUTHENTICATION_BACKENDS = (
@@ -179,7 +183,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -198,3 +202,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
+
+TAGGIT_CASE_INSENSITIVE = True

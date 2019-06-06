@@ -1,0 +1,22 @@
+.media {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.media__figure {
+    margin-right: 1em;
+    width: 50px;
+}
+
+.media__content {
+    flex: 1;
+}
+
+.media__actions {
+    float: right;
+}
+
+.media__edit {
+
+}

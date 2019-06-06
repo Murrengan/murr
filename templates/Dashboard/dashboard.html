@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Дашбардс! ГУД ДЖОБ МАЙ фриенд! )</h1>
+
+  {% for murr in murrs %}
+    <div class="murr_body">
+      {{ murr.content|safe }}
+      <hr color="white">
+    </div>
+  {% endfor %}
+
+  
+{% endblock content %}
