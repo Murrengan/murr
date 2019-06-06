@@ -12,7 +12,7 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
-from .models import Murr, Comment
+from .models import Murr, Comment, MurrAction
 
 User = get_user_model()
 
@@ -23,7 +23,7 @@ def murr_list(request, **kwargs):
     or murrs queryset from kwargs
     """
 
-    murrs = Murr.objects.all()
+    murrs = Murr.objects.all().exclude(actions__action__contains='report').exclude(actions__action__contains='hide')
 
     tag_name = kwargs.get('tag_name')
     if tag_name:
@@ -269,3 +269,31 @@ def unlike(request):
     murr = request.POST.get('murr')
     likes = Murr.objects.get(slug=murr).liked.count() or ''
     return JsonResponse({'ok': True, 'likes': likes})
+
+
+@require_POST
+@login_required
+def hide_murr(request):
+    user = request.user
+    pk = request.POST.get('pk')
+    murr = get_object_or_404(Murr, pk=pk)
+    MurrAction.objects.create(
+        murren=user,
+        murr=murr,
+        action='hide'
+    )
+    return JsonResponse({'ok': True})
+
+
+@require_POST
+@login_required
+def report_murr(request):
+    user = request.user
+    pk = request.POST.get('pk')
+    murr = get_object_or_404(Murr, pk=pk)
+    MurrAction.objects.create(
+        murren=user,
+        murr=murr,
+        action='report'
+    )
+    return JsonResponse({'ok': True})

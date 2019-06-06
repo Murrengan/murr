@@ -8,7 +8,7 @@
 
 .murr-card__header {
     padding: 0.5rem .75rem 0.5rem 1.25rem;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
 }
 
 .murr-card__content {
@@ -28,7 +28,7 @@
 
 .murr-card__footer {
     padding: .75rem 1.25rem;
-    background-color: rgba(0,0,0,.03);
+    background-color: rgba(0, 0, 0, .03);
     display: flex;
     justify-content: space-between;
 }
@@ -49,4 +49,55 @@
 
 .thumbnail__img:hover {
     transform: scale(1.05);
+}
+
+.murr-card__actions {
+    padding: .25rem .25rem;
+    color: #ffffff;
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+.murr-card__action:hover {
+    color: #4f4f4f;
+    transform: scale(1.3);
+}
+
+.murr-card__body__overlay {
+    position: absolute;
+    border-radius: .25rem;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.murr-card__action__overlay-close {
+    justify-content: flex-end;
+    padding: 1rem 1rem;
+    width: 100%;
+    display: flex;
+}
+
+
+.murr-card__action__overlay-hide_murr {
+    float: right;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    justify-content: center;
+    width: 45%;
+    padding: 0.5rem 1rem;
+}
+
+.murr-card__action__overlay-report_murr {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    justify-content: center;
+    width: 45%;
+    padding: 0.5rem 1rem;
 }
