@@ -1,7 +1,7 @@
 /* BASE */
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .button {
@@ -34,9 +34,10 @@ a:hover {
     color: white;
 }
 
-.button_float-position_right {
+.button_float_right {
     float: right;
 }
+
 .button_color_red {
     background-color: #F44336;
     color: white;
@@ -46,11 +47,14 @@ a:hover {
     background-color: #03A9F4;
     color: white;
 }
+
 .input-label_text {
     font-style: italic;
     font-stretch: semi-condensed;
     font-weight: bold;
     text-transform: capitalize;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 input[type="image"] {
@@ -58,6 +62,8 @@ input[type="image"] {
     -o-object-position: center center;
     object-fit: cover;
     object-position: center center;
+    max-width: 100%;
+    max-height: 100vh;
 }
 
 .action {
@@ -90,7 +96,7 @@ input[type="image"] {
     cursor: pointer;
 }
 
-.text-unfollow{
+.text-unfollow {
     color: #efefef;
     margin-left: 3px;
     font-size: smaller;
@@ -102,7 +108,6 @@ input[type="image"] {
 .is-hidden {
     display: none;
 }
-
 
 /* CHAOS */
 
@@ -134,21 +139,25 @@ body {
 }
 
 @keyframes opac {
-    from { opacity: 0 }
-    to { opacity: 1 }
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 .btn {
     background-image: linear-gradient(to bottom,
-    rgba(255,255,255,0.5),
-    rgba(255,255,255,0.2) 49%,
-    rgba(0,0,0,0.15) 51%,
-    rgba(0,0,0,0.05));
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.2) 49%,
+    rgba(0, 0, 0, 0.15) 51%,
+    rgba(0, 0, 0, 0.05));
     background-repeat: repeat-x;
 }
 
 .border-3 {
-    border-width:3px !important;
+    border-width: 3px !important;
 }
 
 .murr_body img {
@@ -165,5 +174,5 @@ body {
 }
 
 .mce-container {
-    border-radius: .25rem!important;
+    border-radius: .25rem !important;
 }

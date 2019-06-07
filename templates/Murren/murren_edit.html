@@ -21,13 +21,13 @@
                         <p>
                             {{ field.errors }}
                             {% if field.label %}
-                                <span class="input-label_text text-muted">{{ field.label }}:</span>
+                                <label class="input-label_text text-muted" for="{{ field.name }}">{{ field.label }}</label>
                             {% endif %}
                             {{ field }}
                         </p>
                     {% endfor %}
-                    <input type="submit" class="button button_float-position_right button_color_green" value="Изменить профайл">
-                    <p><a class="" href="{% url 'account_reset_password' %}">Изменить пароль</a></p>
+                    <p class="float-left"><a class="" href="{% url 'account_reset_password' %}">Сбросить пароль</a></p>
+                    <input type="submit" class="button button_float_right button_color_green" value="Изменить профайл">
 
                 </form>
             </div>
