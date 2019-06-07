@@ -116,7 +116,7 @@ class MurrAction(models.Model):
         (HIDE, 'Hide Action'),
     )
 
-    action = models.TextField(
+    kind = models.TextField(
         choices=_ACTIONS_LIST
     )
     murren = models.ForeignKey(
@@ -132,4 +132,4 @@ class MurrAction(models.Model):
     )
 
     class Meta:
-        unique_together = ('murren', 'murr', 'action', )
+        unique_together = ('murren', 'murr', 'kind', )

@@ -24,6 +24,6 @@ class ActionProcessor(BaseProcessor):
         except User.DoesNotExist:
             self._err('incorrect murr id')
 
-    def _process_action(self):
-        action = self._raw.get('action')
-        return action
+    def _process_kind(self):
+        kind = self._raw.get('action')
+        return kind

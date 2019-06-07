@@ -19,8 +19,7 @@
                 $('.js-murr-card-like', $this).click(function () {
                     if (data.murren) {
                         $this[$name]('like', $(this))
-                    }
-                    else {
+                    } else {
                         $this[$name]('signUp')
                     }
                 });
@@ -150,13 +149,13 @@
             },
             listActions: function ($card) {
                 let $murr = $card.closest('.js-murr-card');
-                $('.murr-card__body__overlay', $murr).css('display', 'block');
+                $('.murr-card__body__overlay', $murr).removeClass('is-hidden');
             },
-            closeActions : function ($card) {
+            closeActions: function ($card) {
                 let $murr = $card.closest('.js-murr-card');
-                $('.murr-card__body__overlay', $murr).css('display', 'none');
+                $('.murr-card__body__overlay', $murr).addClass('is-hidden');
             },
-            hideMurr : function ($card) {
+            hideMurr: function ($card) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $card.closest('.js-murr-card'),
                     murr_pk = $murr.data('murr-pk'),
@@ -166,17 +165,17 @@
                     url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function (response) {
-                        $murr.animate({
-                            opacity: 0
-
-                        }, 'slow', function () {
+                        $murr.animate(
+                            {opacity: 0},
+                            'slow',
+                            function () {
                             $murr.remove();
                             if (!$murrList.html().trim()) { $murrList.html('') }
                         });
                     }
                 });
             },
-            reportMurr : function ($card) {
+            reportMurr: function ($card) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $card.closest('.js-murr-card'),
                     murr_pk = $murr.data('murr-pk'),
@@ -186,10 +185,10 @@
                     url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function (response) {
-                        $murr.animate({
-                            opacity: 0
-
-                        }, 'slow', function () {
+                        $murr.animate(
+                            {opacity: 0},
+                            'slow',
+                            function () {
                             $murr.remove();
                             if (!$murrList.html().trim()) { $murrList.html('') }
                         });
