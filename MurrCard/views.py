@@ -12,6 +12,7 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
+from .actions import ActionProcessor
 from .models import Murr, Comment, MurrAction
 
 User = get_user_model()
@@ -22,8 +23,10 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
-
-    murrs = Murr.objects.all().exclude(actions__action__contains='report').exclude(actions__action__contains='hide')
+    if not request.user.is_anonymous:
+        murrs = Murr.objects.all().exclude(actions__murren=request.user, actions__action__in=['report', 'hide', ])
+    else:
+        murrs = Murr.objects.all()
 
     tag_name = kwargs.get('tag_name')
     if tag_name:
@@ -56,7 +59,10 @@ def murr_list(request, **kwargs):
 
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
-    murrs = Murr.objects.all()
+    if not request.user.is_anonymous:
+        murrs = Murr.objects.all().exclude(actions__murren=request.user, actions__action__in=['report', 'hide', ])
+    else:
+        murrs = Murr.objects.all()
     query = request.GET.get('q')
     if query:
         query_in_title = Q(title__icontains=query)
@@ -273,27 +279,11 @@ def unlike(request):
 
 @require_POST
 @login_required
-def hide_murr(request):
-    user = request.user
-    pk = request.POST.get('pk')
-    murr = get_object_or_404(Murr, pk=pk)
-    MurrAction.objects.create(
-        murren=user,
-        murr=murr,
-        action='hide'
-    )
-    return JsonResponse({'ok': True})
-
-
-@require_POST
-@login_required
-def report_murr(request):
-    user = request.user
-    pk = request.POST.get('pk')
-    murr = get_object_or_404(Murr, pk=pk)
-    MurrAction.objects.create(
-        murren=user,
-        murr=murr,
-        action='report'
-    )
+def murr_action(request):
+    raw_data = request.POST.dict()
+    processor = ActionProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': processor.errors})
+    processor.save()
     return JsonResponse({'ok': True})

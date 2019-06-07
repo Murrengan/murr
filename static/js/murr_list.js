@@ -161,9 +161,9 @@
                     $murr = $card.closest('.js-murr-card'),
                     murr_pk = $murr.data('murr-pk'),
                     $murrList = $('.murr-list');
-                $.extend(data, {pk: murr_pk});
+                $.extend(data, {murr: murr_pk, action: 'hide'});
                 $.ajax({
-                    url: '/murrs/hide_murr/', data: data,
+                    url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function (response) {
                         $murr.animate({
@@ -181,9 +181,9 @@
                     $murr = $card.closest('.js-murr-card'),
                     murr_pk = $murr.data('murr-pk'),
                     $murrList = $('.murr-list');
-                $.extend(data, {pk: murr_pk});
+                $.extend(data, {murr: murr_pk, action: 'report'});
                 $.ajax({
-                    url: '/murrs/report_murr/', data: data,
+                    url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function (response) {
                         $murr.animate({
