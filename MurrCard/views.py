@@ -23,13 +23,7 @@ def murr_list(request, **kwargs):
     or murrs queryset from kwargs
     """
     if not request.user.is_anonymous:
-        murrs = Murr.objects.all().exclude(
-            actions__action__contains='report',
-            actions__murren=request.user
-        ).exclude(
-            actions__action__contains='hide',
-            actions__murren=request.user
-        )
+        murrs = Murr.objects.all().exclude(actions__murren=request.user, actions__action__in=['report', 'hide', ])
     else:
         murrs = Murr.objects.all()
 
@@ -65,13 +59,7 @@ def murr_list(request, **kwargs):
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
     if not request.user.is_anonymous:
-        murrs = Murr.objects.all().exclude(
-            actions__action__contains='report',
-            actions__murren=request.user
-        ).exclude(
-            actions__action__contains='hide',
-            actions__murren=request.user
-        )
+        murrs = Murr.objects.all().exclude(actions__murren=request.user, actions__action__in=['report', 'hide', ])
     else:
         murrs = Murr.objects.all()
     query = request.GET.get('q')
