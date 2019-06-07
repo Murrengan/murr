@@ -12,6 +12,7 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
+from .actions import ActionProcessor
 from .models import Murr, Comment, MurrAction
 
 User = get_user_model()
@@ -278,27 +279,11 @@ def unlike(request):
 
 @require_POST
 @login_required
-def hide_murr(request):
-    user = request.user
-    pk = request.POST.get('pk')
-    murr = get_object_or_404(Murr, pk=pk)
-    MurrAction.objects.create(
-        murren=user,
-        murr=murr,
-        action='hide'
-    )
-    return JsonResponse({'ok': True})
-
-
-@require_POST
-@login_required
-def report_murr(request):
-    user = request.user
-    pk = request.POST.get('pk')
-    murr = get_object_or_404(Murr, pk=pk)
-    MurrAction.objects.create(
-        murren=user,
-        murr=murr,
-        action='report'
-    )
+def murr_action(request):
+    raw_data = request.POST.dict()
+    processor = ActionProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': processor.errors})
+    processor.save()
     return JsonResponse({'ok': True})
