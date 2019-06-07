@@ -147,20 +147,20 @@
                     }
                 })
             },
-            listActions: function ($card) {
-                let $murr = $card.closest('.js-murr-card');
+            listActions: function ($target) {
+                let $murr = $target.closest('.js-murr-card');
                 $('.murr-card__body__overlay', $murr).removeClass('is-hidden');
             },
-            closeActions: function ($card) {
-                let $murr = $card.closest('.js-murr-card');
+            closeActions: function ($target) {
+                let $murr = $target.closest('.js-murr-card');
                 $('.murr-card__body__overlay', $murr).addClass('is-hidden');
             },
-            hideMurr: function ($card) {
+            hideMurr: function ($target) {
                 let $this = $(this), data = $this.data($name),
-                    $murr = $card.closest('.js-murr-card'),
-                    murr_pk = $murr.data('murr-pk'),
+                    $murr = $target.closest('.js-murr-card'),
+                    murr_slug = $murr.data('murr'),
                     $murrList = $('.murr-list');
-                $.extend(data, {murr: murr_pk, action: 'hide'});
+                $.extend(data, {murr: murr_slug, action: 'hide'});
                 $.ajax({
                     url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',
@@ -175,12 +175,12 @@
                     }
                 });
             },
-            reportMurr: function ($card) {
+            reportMurr: function ($target) {
                 let $this = $(this), data = $this.data($name),
-                    $murr = $card.closest('.js-murr-card'),
-                    murr_pk = $murr.data('murr-pk'),
+                    $murr = $target.closest('.js-murr-card'),
+                    murr_slug = $murr.data('murr'),
                     $murrList = $('.murr-list');
-                $.extend(data, {murr: murr_pk, action: 'report'});
+                $.extend(data, {murr: murr_slug, action: 'report'});
                 $.ajax({
                     url: '/murrs/murr_action/', data: data,
                     type: 'POST', dataType: 'json',

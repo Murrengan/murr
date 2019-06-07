@@ -18,9 +18,9 @@ class ActionProcessor(BaseProcessor):
             self._err('incorrect murren id')
 
     def _process_murr(self):
-        pk = self._raw.get('murr')
+        slug = self._raw.get('murr')
         try:
-            return Murr.objects.get(pk=pk)
+            return Murr.objects.get(slug=slug)
         except User.DoesNotExist:
             self._err('incorrect murr id')
 
