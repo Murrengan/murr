@@ -1,5 +1,5 @@
-from string import digits
 from decimal import Decimal
+from string import digits
 
 
 def is_digit(char):
