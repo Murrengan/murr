@@ -21,11 +21,9 @@ class CustomCheckbox(Field):
 class MurrForm(forms.ModelForm):
 
     LIMIT_LEN_TAGS = 40
-
     captcha = ReCaptchaField(
-        public_key=settings.RECAPTCHA_PUBLIC_KEY,
-        private_key=settings.RECAPTCHA_PRIVATE_KEY,
-    )
+                             public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                             private_key=settings.RECAPTCHA_PRIVATE_KEY)
 
     content = forms.CharField(
         widget=TinyMCEWidget(
@@ -79,12 +77,13 @@ class MurrForm(forms.ModelForm):
                         height="100px" class="rounded bg-light" style="outline: none;" id="cover-img"/>
                 </div> 
                 '''),
-                # <input type="file" name="file-3[]" id="file-3" class="inputfile inputfile-3">
                 Column('cover', css_class='inputfile inputfile-3 d-none'),
             ),
-            Field('captcha'),
-            Submit('submit', 'Сохранить', css_class='mt-3')
         )
+
+        if settings.USE_CAPCHA:
+            self.helper.layout.fields.append(Field('captcha'))
+        self.helper.layout.fields.append(Submit('submit', 'Сохранить', css_class='mt-3'))
 
     def clean_tags(self):
         """Cleaning tags from backslashes and strip html-tags"""
@@ -111,10 +110,15 @@ class CommentForm(forms.ModelForm):
     _attrs = {'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '2'}
 
     content = forms.CharField(widget=forms.Textarea(attrs=_attrs), label='')
+    captcha = ReCaptchaField(
+                             public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                             private_key=settings.RECAPTCHA_PRIVATE_KEY)
 
     class Meta:
         model = Comment
-        fields = ('content',)
+        fields = ('content', )
+        if settings.USE_CAPCHA:
+            fields = ('content', 'captcha')
 
     def clean_content(self):
         content = self.cleaned_data.get('content')

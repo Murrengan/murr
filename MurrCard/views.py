@@ -200,7 +200,7 @@ def save_comment(request, pk, slug, template):
             form = CommentForm(instance=comment)
             data['message'] = 'form inplace send'
             data['success'] = True
-            data['html_form'] = render_to_string(template, context={'form':form}, request=request)
+            data['html_form'] = render_to_string(template, context={'form': form}, request=request)
     else:
         raise Http404
 
