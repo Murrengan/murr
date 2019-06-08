@@ -156,7 +156,7 @@ def murr_delete(request, slug):
 def comment_add(request):
     form = CommentForm(request.POST)
     if not form.is_valid():
-        return None
+        return JsonResponse({'error': 'validation error'})
 
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
