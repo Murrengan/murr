@@ -155,8 +155,8 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    if not form.is_valid():
-        return None
+    # if not form.is_valid():
+    #     return None
 
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
