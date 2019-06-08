@@ -15,9 +15,10 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['murrengan.ru', '18.216.214.27']
+ALLOWED_HOSTS = ['www.murrengan.ru', 'murrengan.ru', '18.216.214.27']
 
 DEBUG = False
+USE_CAPCHA = True
 
 SECRET_KEY = '7m2tgq7yv^%^$#52%d5l_-)5ddh-lx#iu-6(u8ghx-$#of9*^$'
 
