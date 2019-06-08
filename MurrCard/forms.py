@@ -17,6 +17,9 @@ class CustomCheckbox(Field):
 
 
 class MurrForm(forms.ModelForm):
+
+    LIMIT_LEN_TAGS = 40
+
     content = forms.CharField(
         widget=TinyMCEWidget(
             attrs={'required': False, 'cols': 30, 'rows': 15},
@@ -52,23 +55,20 @@ class MurrForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Row(
-                Column('title', css_class='form-group col-md-4 mb-0'),
-                Column('description', css_class='form-group col-md-8 mb-0'),
-                css_class='form-row text-left mt-5'
-            ),
+            Row(Column('title', css_class='form-group col-12 mb-0')),
+            Row(Column('description', css_class='form-group col-12 mb-0')),
             'content',
             Row(
                 Column('tags', css_class='form-group col-12 mb-0'),
                 Column('categories', css_class='form-group col-12 mb-0'),
-                css_class='form-row text-left '
+                css_class='form-row'
             ),
             Row(
                 HTML('''
                 <div class='container-fluid form-group formColumn'>
                     <input type="image" 
                         src="{{ form.instance.cover_url | default_if_none:"/static/img/NoImageAvailable.png" }}" 
-                        data-toggle="tooltip" data-placement="top" title="Щелкните чтобы изменить" width="100px" 
+                        data-toggle="tooltip" data-placement="top" title="Установить обложку для мурра" width="100px" 
                         height="100px" class="rounded bg-light" style="outline: none;" id="cover-img"/>
                 </div> 
                 '''),
@@ -82,12 +82,25 @@ class MurrForm(forms.ModelForm):
         """Cleaning tags from backslashes and strip html-tags"""
 
         tags = self.cleaned_data.get('tags')
+
         tags = [bleach.clean(tag, tags=[], strip=True).replace('/', '') for tag in tags]
+
+        limited = 0
+        added = []
+        for tag in tags:
+            length = len(tag)
+            if limited + length > self.LIMIT_LEN_TAGS:
+                break
+
+            added.append(tag)
+            limited += length
+        tags = added
+
         return filter(bool, tags)
 
 
 class CommentForm(forms.ModelForm):
-    _attrs = {'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '4'}
+    _attrs = {'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '2'}
 
     content = forms.CharField(widget=forms.Textarea(attrs=_attrs), label='')
 

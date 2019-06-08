@@ -164,4 +164,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
+pyvenv.cfg

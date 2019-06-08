@@ -8,19 +8,12 @@
 {% endblock css %}
 
 {% block content %}
-  <div class="container text-center murr_body">
+  <div class="container text-center murr_body col-7">
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
     {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
     {{ form.media }}
     <form method="POST" enctype="multipart/form-data" id="target">
       {% crispy form %}
-
-
-{#        <div>#}
-{#            <input type="image" src="{{ form.cover.initial.url }}"#}
-{#                   data-toggle="tooltip" data-placement="bottom" title="Click image for change"#}
-{#                   width="100px" height="100px" class="rounded bg-light" style="outline: none;" id="profile-avatap"/>#}
-{#        </div>#}
     </form>
   </div>
 

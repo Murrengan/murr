@@ -4,7 +4,7 @@
             init: function() {
                 return this.each(function() {
                     let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf'),
+                        csrfmiddlewaretoken: $this.data('csrf_token'),
                         murr_slug: $this.data('murr_slug')
                     };
                     $this.data($name, data);
@@ -19,13 +19,12 @@
             },
             bindEvent: function() {
                 let $this = $(this), data = $this.data($name);
-
-                $('.js-comment-add', $this).click(function(event) {
+                $('.js-comment-add', $this).unbind('click').click(function(event) {
                     event.preventDefault();
                     $this[$name]('addComment');
                 });
 
-                $('.js-comments', $this).click(function(event) {
+                $('.js-comments', $this).unbind('click').click(function(event) {
                     if (event.target.classList.contains('js-delete')) {
                         event.preventDefault();
                         $this[$name]('deleteComment', $(event.target));
@@ -44,13 +43,12 @@
             addComment: function() {
                 let $this = $(this), data = $this.data($name),
                     content = $('#id_content').val();
-
                 $.extend(data, {content: content});
                 $.ajax({
                     url: '/murrs/comment_add/', data: data,
                     type: 'POST', dataType: 'json',
                     success: function(response) {
-                        $('#id_content').val('');
+                        $('#id_content').data("emojioneArea").setText('');
                         $('.emojionearea-editor').empty();
                         $(".js-comments").html(response['comments']);
                     }
@@ -117,7 +115,6 @@
                         });
                     }
                 });
-
             },
         };
     $.fn[$name] = $.namespace(methods)

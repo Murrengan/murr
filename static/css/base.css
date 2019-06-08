@@ -67,6 +67,20 @@ a:hover {
     color: #6c757d;
 }
 
+.text-follow {
+    color: #00b8ff;
+    margin-left: 3px;
+    font-size: smaller;
+    cursor: pointer;
+}
+
+.text-unfollow{
+    color: #efefef;
+    margin-left: 3px;
+    font-size: smaller;
+    cursor: pointer;
+}
+
 /* STATES */
 
 .is-hidden {

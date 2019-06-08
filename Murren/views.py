@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
-from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 
 from .following import FollowingProcessor
@@ -18,7 +17,6 @@ def profile(request, username):
     already_follow = client and following.exists()
     context = {
         'murren': murren,
-        'csrf': get_token(request),
         'already_follow': already_follow
     }
     return render(request, 'Murren/murren_profile.html', context)
@@ -32,8 +30,8 @@ def follow(request):
     raw_data['follower'] = request.user.pk
     processor = FollowingProcessor(raw_data)
     processor.process()
-    if processor.errors:
-        return JsonResponse({'error': 'follow not allowed'})
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
 
     processor.save()
     return JsonResponse({'ok': True})
@@ -47,8 +45,8 @@ def unfollow(request):
     raw_data['follower'] = request.user.pk
     processor = FollowingProcessor(raw_data)
     processor.process()
-    if processor.errors:
-        return JsonResponse({'error': 'follow not allowed'})
+    # if processor.errors:
+    #     return JsonResponse({'error': 'follow not allowed'})
 
     processor.delete()
     return JsonResponse({'ok': True})

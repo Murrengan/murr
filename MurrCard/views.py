@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.http import JsonResponse, HttpResponseForbidden, Http404
-from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -46,12 +45,11 @@ def murr_list(request, **kwargs):
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
-    paginator = Paginator(murrs.distinct(), 6)
+    paginator = Paginator(murrs.distinct(), 30)
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
         'page': page,
-        'csrf': get_token(request),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
@@ -70,13 +68,12 @@ def search(request):
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
-    paginator = Paginator(murrs.distinct(), 5)
+    paginator = Paginator(murrs.distinct(), 30)
     page = paginator.get_page(request.GET.get('page'))
 
     context = {
         'page': page,
         'search_query': f'q={query}&',
-        'csrf': get_token(request),
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
@@ -85,10 +82,25 @@ def murr_detail(request, slug):
     """ Show single murr """
     murr = get_object_or_404(Murr, slug=slug)
     form = CommentForm()
-    context = {'murr': murr, 'comment_form': form, 'csrf': get_token(request)}
+    context = {'murr': murr, 'comment_form': form}
+
+    try:
+        # TODO when unauthorized user opens murr_detail page, take AttributeError
+        murren = murr.author
+        client = request.user
+        following = client.masters.filter(master_id=murren.pk)
+        already_follow = following.exists()
+        context.update({
+                   'murren': murren,
+                   'already_follow': already_follow})
+    except AttributeError:
+        pass
+
     if request.method == 'POST':
+
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
+    context.update({'show_follow': True})
     return render(request, 'MurrCard/murr_detail.html', context)
 
 

@@ -4,7 +4,7 @@
             init: function() {
                 return this.each(function() {
                     let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf'),
+                        csrfmiddlewaretoken: $this.data('csrf_token'),
                         murren: $this.data('murren')
                     };
                     $this.data($name, data);
@@ -44,6 +44,8 @@
 
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
+                window.location.reload(true);
+
             },
             slideIn: function($card) {
                 let $this = $(this), data = $this.data($name),
