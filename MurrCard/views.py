@@ -155,8 +155,8 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    if not form.is_valid():
-        return None
+    # if not form.is_valid():
+    #     return None
 
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
@@ -200,7 +200,7 @@ def save_comment(request, pk, slug, template):
             form = CommentForm(instance=comment)
             data['message'] = 'form inplace send'
             data['success'] = True
-            data['html_form'] = render_to_string(template, context={'form':form}, request=request)
+            data['html_form'] = render_to_string(template, context={'form': form}, request=request)
     else:
         raise Http404
 
