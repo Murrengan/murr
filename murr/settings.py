@@ -1,18 +1,15 @@
 import os
+try:
+    from .local_settings import *
+    from captcha.constants import TEST_PUBLIC_KEY, TEST_PRIVATE_KEY
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    RECAPTCHA_PUBLIC_KEY = TEST_PUBLIC_KEY
+    RECAPTCHA_PRIVATE_KEY = TEST_PRIVATE_KEY
+except ImportError:
+    from .prod_settings import *
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-# SECURITY WARNING: don't run with debug turned on in production!
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -188,12 +185,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 
 TAGGIT_CASE_INSENSITIVE = True
-
-
-RECAPTCHA_PUBLIC_KEY = '6Ldb2KcUAAAAAGhi8FWFJ30BueAtEP5KGSWo9PRG'
-RECAPTCHA_PRIVATE_KEY = '6Ldb2KcUAAAAAPMcBc0LiojZ8viUsoQxe94otPVd'
-
-try:
-    from .local_settings import *
-except ImportError:
-    from .prod_settings import *

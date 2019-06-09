@@ -82,7 +82,8 @@ class MurrForm(forms.ModelForm):
         )
 
         if settings.USE_CAPCHA:
-            self.helper.layout.fields.append(Field('captcha'))
+            self.helper.layout.fields.append(Row(Column('captcha', css_class='mx-auto')))
+
         self.helper.layout.fields.append(Submit('submit', 'Сохранить', css_class='mt-3'))
 
     def clean_tags(self):

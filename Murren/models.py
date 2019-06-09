@@ -5,6 +5,7 @@ from django.db import models
 
 
 class Murren(AbstractUser):
+
     profile_picture = models.ImageField(default='default_murren_img.jpg', upload_to='murren_pics', verbose_name='Пикча')
 
     def __str__(self):
@@ -21,6 +22,9 @@ class Murren(AbstractUser):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.profile_picture.path)
+
+
+Murren._meta.get_field('username').max_length = 25
 
 
 class Following(models.Model):

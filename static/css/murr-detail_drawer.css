@@ -7,7 +7,7 @@
     margin: 0 0 20px 0;
 }
 
-.murr-detail__body img{
+.murr-detail__body img {
     max-width: 50%;
     height: auto !important;
     display: block;
@@ -15,8 +15,13 @@
     margin-right: auto;
 }
 
-.murr-detail__title{
+.murr-detail__title {
     text-align: center;
+    word-break: break-all;
+}
+
+.murr-detail__content {
+    word-break: break-all;
 }
 
 .murr-detail__footer {

@@ -23,8 +23,8 @@ class MurrenChangeForm(UserChangeForm):
 
 class ProfileMurrenForm(forms.ModelForm):
     # set profile_picture to "not required" - allow change nick & e-mail w/o force image selection
-    # profile_picture=forms.ImageField(required=False, widget=forms.FileInput(attrs={'class':'d-none'}))
     profile_picture = CroppieField(required=False,
+                                   label="",
                                    widget=CroppieImageRatioWidget(
                                        options={
                                            'viewport': {
@@ -34,16 +34,33 @@ class ProfileMurrenForm(forms.ModelForm):
                                            },
                                            'showZoomer': True,
                                        },
-                                       attrs={'class': 'd-none'}
+                                       attrs={
+                                           'class': 'd-none',
+                                           'accept': 'image/x-png,image/gif,image/jpeg',
+                                       }
                                    ))
-
-    username = forms.CharField(widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Изменить юзернейм'}))
-    email = forms.CharField(widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Изменить почту'}))
 
     class Meta:
         model = User
         fields = ('profile_picture', 'username', 'email')
-        # widgets = {'profile_picture': forms.FileInput(attrs={'class': 'd-none'})}
+        labels = {
+            'username': 'Логин:',
+            'email': 'E-mail:',
+        }
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Изменить логин',
+                    'maxlength': '10',
+                },
+            ),
+            'email': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Изменить E-mail адрес'
+                }),
+        }
 
 # ========   advise from author of django-croppie   ========
 # class MyForm(forms.Form):
