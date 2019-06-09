@@ -1,4 +1,4 @@
-.murr-detail__body img{
+.murr-detail__body img {
     display: block;
     max-width: 100%;
     height: auto !important;
@@ -7,20 +7,22 @@
 .murr_detail_container {
     font-size: 1rem;
     color: #202020;
+    padding-top: 1em;
 }
 
-.murr-detail__header{
+.murr-detail__header {
     display: flex;
     justify-content: space-between;
+    padding-top: 1em;
 }
 
-.murr-detail__body iframe{
+.murr-detail__body iframe {
     display: block;
     max-width: 100%;
     max-height: 350px;
 }
 
-.murr-detail__actions{
+.murr-detail__actions {
     margin-top: auto;
     margin-bottom: auto;
 }

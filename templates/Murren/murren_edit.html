@@ -5,11 +5,11 @@
     <div class="container card text-dark col-8">
         <h1 class="text-center">Твой профайл</h1>
         <div class="row">
-            <div class="col text-center">
+            <div class="col-md-4 text-center">
                 <h2>{{ user.username }}</h2>
                 <input type="image" alt="" src="{{ user.profile_picture.url }}"
                        data-toggle="tooltip" data-placement="bottom" title="Измени свой аватар"
-                       width="250px" height="250px" class="rounded-circle bg-light" style="outline: none;"
+                       width="150px" height="150px" class="rounded-circle bg-light" style="outline: none;"
                        id="profile-avatap"/>
 
             </div>
@@ -20,11 +20,14 @@
                     {% for field in murren_form %}
                         <p>
                             {{ field.errors }}
+                            {% if field.label %}
+                                <label class="input-label_text text-muted" for="{{ field.name }}">{{ field.label }}</label>
+                            {% endif %}
                             {{ field }}
                         </p>
                     {% endfor %}
-                    <input type="submit" class="button button_color_green" value="Изменить">
-                    <p><a class="" href="{% url 'account_reset_password' %}">Изменить пароль</a></p>
+                    <p class="float-left"><a class="" href="{% url 'account_reset_password' %}">Сбросить пароль</a></p>
+                    <input type="submit" class="button button_float_right button_color_green" value="Изменить профайл">
 
                 </form>
             </div>
@@ -71,8 +74,9 @@
 
                 reader.onload = function (e) {
                     $('#profile-avatap').attr('src', e.target.result);
+                    $('#profile-avatap').tooltip('hide');
                     $("#modalCrop").modal("show");
-                }
+                };
 
                 reader.readAsDataURL(input.files[0]);
             }
