@@ -1,6 +1,5 @@
 import os
 
-from captcha.constants import TEST_PUBLIC_KEY, TEST_PRIVATE_KEY
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,8 +17,6 @@ DEBUG = True
 USE_CAPCHA = True
 
 SECRET_KEY = '7m2tgq7yv^%^$#52%d5l_-)5ddh-lx#iu-6(u8ghx-$#of9*^$'
-RECAPTCHA_PUBLIC_KEY = TEST_PUBLIC_KEY
-RECAPTCHA_PRIVATE_KEY = TEST_PRIVATE_KEY
 
 STATIC_URL = '/static/'
 
