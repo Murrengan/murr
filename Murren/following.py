@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 
-from .models import Following
-from murr.shortcuts import parse_int
 from murr.helpers import BaseProcessor
+from murr.shortcuts import parse_int
+from .models import Following
 
 User = get_user_model()
 

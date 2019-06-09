@@ -14,6 +14,7 @@ DATABASES = {
 ALLOWED_HOSTS = []
 
 DEBUG = True
+USE_CAPCHA = False
 
 SECRET_KEY = '7m2tgq7yv^%^$#52%d5l_-)5ddh-lx#iu-6(u8ghx-$#of9*^$'
 

@@ -1,14 +1,14 @@
 from django.contrib.auth import get_user_model
 
-from murr.helpers import BaseProcessor
+from .models import MurrAction, Murr
 from murr.shortcuts import parse_int
-from .models import Like, Murr
+from murr.helpers import BaseProcessor
 
 User = get_user_model()
 
 
-class LikeProcessor(BaseProcessor):
-    MODEL = Like
+class ActionProcessor(BaseProcessor):
+    MODEL = MurrAction
 
     def _process_murren(self):
         pk = parse_int(self._raw.get('murren'))
@@ -23,3 +23,7 @@ class LikeProcessor(BaseProcessor):
             return Murr.objects.get(slug=slug)
         except User.DoesNotExist:
             self._err('incorrect murr id')
+
+    def _process_kind(self):
+        kind = self._raw.get('action')
+        return kind

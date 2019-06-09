@@ -12,7 +12,8 @@ from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
-from .models import Murr, Comment
+from .actions import ActionProcessor
+from .models import Murr, Comment, MurrAction
 
 User = get_user_model()
 
@@ -22,8 +23,10 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
-
     murrs = Murr.objects.all()
+    if not request.user.is_anonymous:
+        actions = [MurrAction.REPORT, MurrAction.HIDE]
+        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
 
     tag_name = kwargs.get('tag_name')
     if tag_name:
@@ -57,6 +60,9 @@ def murr_list(request, **kwargs):
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
     murrs = Murr.objects.all()
+    if not request.user.is_anonymous:
+        actions = [MurrAction.REPORT, MurrAction.HIDE]
+        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
     query = request.GET.get('q')
     if query:
         query_in_title = Q(title__icontains=query)
@@ -155,8 +161,8 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    if not form.is_valid():
-        return None
+    # if not form.is_valid():
+    #     return None
 
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
@@ -200,7 +206,7 @@ def save_comment(request, pk, slug, template):
             form = CommentForm(instance=comment)
             data['message'] = 'form inplace send'
             data['success'] = True
-            data['html_form'] = render_to_string(template, context={'form':form}, request=request)
+            data['html_form'] = render_to_string(template, context={'form': form}, request=request)
     else:
         raise Http404
 
@@ -269,3 +275,15 @@ def unlike(request):
     murr = request.POST.get('murr')
     likes = Murr.objects.get(slug=murr).liked.count() or ''
     return JsonResponse({'ok': True, 'likes': likes})
+
+
+@require_POST
+@login_required
+def murr_action(request):
+    raw_data = request.POST.dict()
+    processor = ActionProcessor(raw_data)
+    processor.process()
+    if processor.errors:
+        return JsonResponse({'error': processor.errors})
+    processor.save()
+    return JsonResponse({'ok': True})
