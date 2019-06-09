@@ -105,3 +105,31 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.murren} liked {self.murr}'
+
+
+class MurrAction(models.Model):
+    REPORT = 'report'
+    HIDE = 'hide'
+
+    _ACTIONS_LIST = (
+        (REPORT, 'Report Action'),
+        (HIDE, 'Hide Action'),
+    )
+
+    kind = models.TextField(
+        choices=_ACTIONS_LIST
+    )
+    murren = models.ForeignKey(
+        User, models.CASCADE
+    )
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
+    murr = models.ForeignKey(
+        Murr,
+        related_name='actions',
+        on_delete=models.CASCADE
+    )
+
+    class Meta:
+        unique_together = ('murren', 'murr', 'kind', )
