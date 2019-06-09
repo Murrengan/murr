@@ -1,5 +1,6 @@
 import os
 
+from captcha.constants import TEST_PUBLIC_KEY, TEST_PRIVATE_KEY
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -14,13 +15,16 @@ DATABASES = {
 ALLOWED_HOSTS = []
 
 DEBUG = True
-USE_CAPCHA = False
+USE_CAPCHA = True
 
 SECRET_KEY = '7m2tgq7yv^%^$#52%d5l_-)5ddh-lx#iu-6(u8ghx-$#of9*^$'
-
+RECAPTCHA_PUBLIC_KEY = TEST_PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = TEST_PRIVATE_KEY
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
