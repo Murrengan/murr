@@ -2,74 +2,82 @@
     let $name = 'murrList',
         methods = {
             init: function () {
-                return this.each(function () {
-                    let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf_token'),
-                        murren: $this.data('murren')
-                    };
-                    $this.data($name, data);
-
-                    $this[$name]('bindEvent');
-                })
+                let $this = $(this), data = {
+                    csrfmiddlewaretoken: $this.data('csrf_token'),
+                    murren: $this.data('murren')
+                };
+                $this.data($name, data);
+                $this[$name]('bindEvent');
             },
             bindEvent: function () {
                 let $this = $(this), data = $this.data($name),
                     $murrDetailModal = $('.js-murr-detail');
-
-                $('.js-murr-card-like', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('like', $(this))
-                    } else {
-                        $this[$name]('signUp')
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-murr-card-like')) {
+                        if (data.murren) {
+                            $this[$name]('like', $(event.target))
+                        } else {
+                            $this[$name]('signUp')
+                        }
                     }
                 });
 
-                $('.js-murr-card__action', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('listActions', $(this))
-                    }
-                    else {
-                        $this[$name]('signUp')
-                    }
-                });
-                $('.js-murr-card__overlay-close', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('closeActions', $(this))
-                    }
-                    else {
-                        $this[$name]('signUp')
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-murr-card__action')) {
+                        if (data.murren) {
+                            $this[$name]('listActions', $(event.target))
+                        }
+                        else {
+                            $this[$name]('signUp')
+                        }
                     }
                 });
-                $('.js-report_murr', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('reportMurr', $(this))
-                    }
-                    else {
-                        $this[$name]('signUp')
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-murr-card__overlay-close')) {
+                        if (data.murren) {
+                            $this[$name]('closeActions', $(event.target))
+                        }
+                        else {
+                            $this[$name]('signUp')
+                        }
                     }
                 });
-                $('.js-hide_murr', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('hideMurr', $(this))
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-report_murr')) {
+                        if (data.murren) {
+                            $this[$name]('reportMurr', $(event.target))
+                        }
+                        else {
+                            $this[$name]('signUp')
+                        }
                     }
-                    else {
-                        $this[$name]('signUp')
+                });
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-hide_murr')) {
+                        if (data.murren) {
+                            $this[$name]('hideMurr', $(event.target))
+                        }
+                        else {
+                            $this[$name]('signUp')
+                        }
                     }
                 });
 
-                $('.js-murr-card-unlike', $this).click(function () {
-                    if (data.murren) {
-                        $this[$name]('unlike', $(this))
-                    }
-                    else {
-                        $this[$name]('signUp')
+                $($this).click(function () {
+                    if ($(event.target).hasClass('js-murr-card-unlike')) {
+                        if (data.murren) {
+                            $this[$name]('unlike', $(event.target))
+                        }
+                        else {
+                            $this[$name]('signUp')
+                        }
                     }
                 });
 
-                $('.js-murr-card', $this).click(function (event) {
+                $($this).click(function (event) {
                     if (event.target.classList.contains('js-murr-card-open')) {
                         event.preventDefault();
-                        $this[$name]('slideIn', $(this))
+                        $this[$name]('slideIn', $(event.target))
                     }
                 });
 
@@ -90,9 +98,9 @@
             },
             slideIn: function ($card) {
                 let $this = $(this), data = $this.data($name),
-                    slug = $card.data('murr'), $slideIn = $('.js-murr-detail'),
+                    $murr = $card.closest('.js-murr-card'),
+                    slug = $murr.data('murr'), $slideIn = $('.js-murr-detail'),
                     $slideInOverlay = $('.js-murr-detail-overlay');
-
                 $slideIn.removeClass('modal-box_closed');
                 $slideInOverlay.removeClass('modal-overlay_closed');
                 $.ajax({
@@ -110,7 +118,6 @@
             like: function ($target) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $target.closest('.js-murr-card');
-
                 $.extend($murr.data(), data);
                 $.ajax({
                     url: '/murrs/like/', data: $murr.data(),
@@ -169,9 +176,11 @@
                             {opacity: 0},
                             'slow',
                             function () {
-                            $murr.remove();
-                            if (!$murrList.html().trim()) { $murrList.html('') }
-                        });
+                                $murr.remove();
+                                if (!$murrList.html().trim()) {
+                                    $murrList.html('')
+                                }
+                            });
                     }
                 });
             },
@@ -189,13 +198,25 @@
                             {opacity: 0},
                             'slow',
                             function () {
-                            $murr.remove();
-                            if (!$murrList.html().trim()) { $murrList.html('') }
-                        });
+                                $murr.remove();
+                                if (!$murrList.html().trim()) {
+                                    $murrList.html('')
+                                }
+                            });
                     }
                 });
             }
         };
-    $.fn[$name] = $.namespace(methods)
+    $.fn[$name] = $.namespace(methods);
 })(jQuery);
+
+infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    onBeforePageLoad: function () {
+        $('.loading').show();
+    },
+    onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+    }
+});
 

@@ -13,19 +13,27 @@
 
 {% block content %}
     <div class="container py-1">
-        <div class="murr-list masonry" data-csrf_token="{{ csrf_token }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
+        <div class="murr-list masonry infinite-container" data-csrf_token="{{ csrf_token }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
         </div>
     </div>
-    {% include 'MurrCard/includes/_murr_list_pagination.html' %}
+    <div class="loading" style="display: none;">
+      Loading...
+    </div>
+
+  {% if page.has_next %}
+    <a class="infinite-more-link" href="?page={{ page.next_page_number }}">More</a>
+  {% endif %}
 
     {% include 'MurrCard/includes/_murr-detail_drawer.html' %}
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
     <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
