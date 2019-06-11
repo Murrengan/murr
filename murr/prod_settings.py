@@ -15,6 +15,8 @@ DATABASES = {
     }
 }
 
+SITE_ID = 10
+
 ALLOWED_HOSTS = ['www.murrengan.ru', 'murrengan.ru', '18.216.214.27']
 
 DEBUG = False
