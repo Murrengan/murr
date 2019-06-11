@@ -8,6 +8,7 @@ try:
 except ImportError:
     from .prod_settings import *
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
