@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.http import JsonResponse, HttpResponseForbidden, Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,6 +14,7 @@ from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
 from .actions import ActionProcessor
 from .models import Murr, Comment, MurrAction
+from murr.shortcuts import CustomPaginator
 
 User = get_user_model()
 
@@ -49,13 +50,8 @@ def murr_list(request, **kwargs):
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
     page = request.GET.get('page', 1)
-    paginator = Paginator(murrs.distinct(), 20)
-    try:
-        page = paginator.page(page)
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+    paginator = CustomPaginator(murrs.distinct(), 20)
+    page = paginator.page(page)
     context = {
         'page': page,
     }

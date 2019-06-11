@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="container py-1">
-        <div class="murr-list masonry infinite-container" data-csrf_token="{{ csrf_token }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
+        <div class="murr-list masonry" data-csrf_token="{{ csrf_token }}" data-murren="{{ request.user.pk|default_if_none:'' }}">
             {% for murr in page %}
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
@@ -32,8 +32,8 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'js/infinite.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js"></script>
     <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
