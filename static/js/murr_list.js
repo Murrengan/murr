@@ -8,6 +8,7 @@
                 };
 
                 $this.data($name, data);
+                $this[$name]('initInfiniteScroll');
                 $this[$name]('bindEvent');
             },
             bindEvent: function () {
@@ -24,44 +25,37 @@
                     } else if ($(event.target).hasClass('js-murr-card__action')) {
                         if (data.murren) {
                             $this[$name]('listActions', $(event.target))
-                        }
-                        else {
+                        } else {
                             $this[$name]('signUp')
                         }
                     } else if ($(event.target).hasClass('js-murr-card__overlay-close')) {
                         if (data.murren) {
                             $this[$name]('closeActions', $(event.target))
-                        }
-                        else {
+                        } else {
                             $this[$name]('signUp')
                         }
                     } else if ($(event.target).hasClass('js-report_murr')) {
                         if (data.murren) {
                             $this[$name]('reportMurr', $(event.target))
-                        }
-                        else {
+                        } else {
                             $this[$name]('signUp')
                         }
                     } else if ($(event.target).hasClass('js-hide_murr')) {
                         if (data.murren) {
                             $this[$name]('hideMurr', $(event.target))
-                        }
-                        else {
+                        } else {
                             $this[$name]('signUp')
                         }
                     } else if ($(event.target).hasClass('js-murr-card-unlike')) {
                         if (data.murren) {
                             $this[$name]('unlike', $(event.target))
-                        }
-                        else {
+                        } else {
                             $this[$name]('signUp')
                         }
                     } else if (event.target.classList.contains('js-murr-card-open')) {
                         event.preventDefault();
                         $this[$name]('slideIn', $(event.target))
                     }
-
-
                 });
 
                 $('.js-murr-detail-overlay').click(function () {
@@ -194,18 +188,20 @@
                             });
                     }
                 });
+            },
+            initInfiniteScroll: function () {
+                new Waypoint.Infinite({
+                    element: $('.murr-list')[0],
+                    items: '.js-murr-card',
+                    onBeforePageLoad: function () {
+                        $('.loading').show();
+                    },
+                    onAfterPageLoad: function ($items) {
+                        $('.loading').hide();
+                    },
+                })
             }
-        },
-        infinite = new Waypoint.Infinite({
-            element: $('.murr-list')[0],
-            items: '.js-murr-card',
-            onBeforePageLoad: function () {
-                $('.loading').show();
-            },
-            onAfterPageLoad: function ($items) {
-                $('.loading').hide();
-            },
-        });
+        };
     $.fn[$name] = $.namespace(methods);
 })(jQuery);
 
