@@ -11,9 +11,12 @@ DATABASES = {
     }
 }
 
+SITE_ID = 1
+
 ALLOWED_HOSTS = []
 
 DEBUG = True
+
 USE_CAPCHA = True
 
 SECRET_KEY = '7m2tgq7yv^%^$#52%d5l_-)5ddh-lx#iu-6(u8ghx-$#of9*^$'

@@ -19,13 +19,21 @@
             {% endfor %}
         </div>
     </div>
-    {% include 'MurrCard/includes/_murr_list_pagination.html' %}
+    <div class="loading" style="display: none;">
+      Loading...
+    </div>
+
+  {% if page.has_next %}
+    <a class="infinite-more-link" href="?page={{ page.next_page_number }}">More</a>
+  {% endif %}
 
     {% include 'MurrCard/includes/_murr-detail_drawer.html' %}
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js"></script>
     <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
