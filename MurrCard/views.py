@@ -19,6 +19,37 @@ from murr.shortcuts import MurrenganPaginator
 User = get_user_model()
 
 
+def murr_list_find(request):
+    """
+    http://127.0.0.1:8000/murrs/find?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming
+    """
+    query = Q()
+
+    tag_names = request.GET.getlist('tag_name')
+    if tag_names:
+        query &= Q(tags__name__in=tag_names)  # для листа тегов работает дизьюнкиця, для коньюнкции нужно извращаться
+
+    categories = request.GET.getlist('category')
+    if categories:
+        query &= Q(categories__in=categories)
+
+    authors = request.GET.getlist('author')
+    if authors:
+        query &= Q(author__username__in=authors)
+
+    # дальше фильтры можно накидывать по аналогии
+    murrs = Murr.objects.filter(query)
+    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    murrs = murrs.order_by('-timestamp')
+    page = request.GET.get('page', 1)
+    paginator = MurrenganPaginator(murrs.distinct(), 20)
+    page = paginator.page(page)
+    context = {
+        'page': page,
+    }
+    return render(request, 'MurrCard/murr_list.html', context)
+
+
 def murr_list(request, **kwargs):
     """
     Output all murrs or murrs that filtered by tag
@@ -103,13 +134,12 @@ def murr_detail(request, slug):
         following = client.masters.filter(master_id=murren.pk)
         already_follow = following.exists()
         context.update({
-                   'murren': murren,
-                   'already_follow': already_follow})
+            'murren': murren,
+            'already_follow': already_follow})
     except AttributeError:
         pass
 
     if request.method == 'POST':
-
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
     context.update({'show_follow': True})

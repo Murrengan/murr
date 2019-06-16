@@ -4,6 +4,7 @@ from MurrCard import views as murr_card
 
 urlpatterns = [
     path('', murr_card.murr_list, name='murr_list'),
+    path('find', murr_card.murr_list_find, name='murr_list_find'),
     path('like/', murr_card.like, name='like'),
     path('unlike/', murr_card.unlike, name='unlike'),
     path('by_tag/<str:tag_name>', murr_card.murr_list, name='murrs_by_tag_name'),
