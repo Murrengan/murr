@@ -15,6 +15,7 @@ from .actions import ActionProcessor
 from .models import Murr, Comment, MurrAction
 from murr.shortcuts import MurrenganPaginator
 
+
 User = get_user_model()
 
 

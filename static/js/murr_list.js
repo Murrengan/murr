@@ -53,6 +53,7 @@
                             $this[$name]('signUp')
                         }
                     } else if (event.target.classList.contains('js-murr-card-open')) {
+
                         event.preventDefault();
                         $this[$name]('slideIn', $(event.target))
                     }
@@ -70,7 +71,9 @@
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
 
+
             },
+
             slideIn: function ($target) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $target.closest('.js-murr-card'),
@@ -146,7 +149,6 @@
                     $murr = $target.closest('.js-murr-card'),
                     murr_slug = $murr.data('murr'),
                     $murrList = $('.murr-list');
-
                 $.extend(data, {murr: murr_slug, action: 'hide'});
                 $.ajax({
                     url: '/murrs/murr_action/', data: data,
