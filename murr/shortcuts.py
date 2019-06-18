@@ -1,5 +1,6 @@
 from decimal import Decimal
 from string import digits
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def is_digit(char):
@@ -21,3 +22,14 @@ def parse_int(value):
         return int(float(strip_int(value)))
     except ValueError:
         return None
+
+
+class MurrenganPaginator(Paginator):
+    def validate_number(self, number):
+        try:
+            number = super().validate_number(number)
+        except PageNotAnInteger:
+            number = 1
+        except EmptyPage:
+            number = 1 if parse_int(number) < 1 else self.num_pages
+        return number
