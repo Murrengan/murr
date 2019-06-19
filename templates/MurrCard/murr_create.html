@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
+
+{% block css  %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/murr_create.css" %}" />
+{% endblock %}
 
 {% block content %}
 
