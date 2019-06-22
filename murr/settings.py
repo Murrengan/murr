@@ -1,4 +1,5 @@
 import os
+
 try:
     from .local_settings import *
     from captcha.constants import TEST_PUBLIC_KEY, TEST_PRIVATE_KEY
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'captcha',
 
     # Local
+    'murr.apps.MurrConfig',
     'Murren.apps.MurrenConfig',
     'MurrCard.apps.MurrCardConfig',
     'Dashboard.apps.DashboardConfig',
@@ -63,6 +65,7 @@ TEMPLATES = [
                 'murr.context_processors.show_categories',
                 'django.template.context_processors.csrf',
             ],
+            'builtins': ['murr.templatetags.absurl'],
         },
     },
 ]
