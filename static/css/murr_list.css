@@ -103,21 +103,6 @@
     padding: 0.5rem 1rem;
 }
 
-.masonry {
-  display: grid;
-  grid-gap: 1em; /* [1] Add some gap between rows and columns */
-  grid-template-columns: repeat( auto-fill, minmax( 300px, 1fr ) ); /* [2] Make columns adjust according to the available viewport */
-  grid-auto-rows: 0; /* [3] Set the height for implicitly-created row track */
-}
-
-.masonry-item{
-    min-height: 208px;
-}
-
-.masonry-content {
-    position: relative;
-}
-
 .murr-meta__controls {
     float: right;
 }
@@ -126,9 +111,8 @@
     float: left;
 }
 
-.masonry-item__footer {
+.murr-card__footer {
     padding-bottom: 12px;
-
     padding-top: 1.25rem;
 }
 .murr-card__tags {
