@@ -8,7 +8,7 @@ register = template.Library()
 class AbsoluteURLNode(URLNode):
     def render(self, context):
         path = super(AbsoluteURLNode, self).render(context)
-        domain = "http://127.0.0.1:8000"
+        domain = context.request.build_absolute_uri('/')
         return parse.urljoin(domain, path)
 
 

@@ -38,8 +38,8 @@
 .murr-card__toggle {
     position: absolute;
     z-index: 15;
-    top: .2rem;
-    right: .5rem;
+    top: .75rem;
+    right: .75rem;
     color: #6c757d;
 }
 
