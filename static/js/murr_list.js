@@ -15,13 +15,7 @@
                 let $this = $(this), data = $this.data($name);
 
                 $this.click(function (event) {
-                    if ($(event.target).hasClass('js-murr-card-like')) {
-                        if (data.murren) {
-                            $this[$name]('like', $(event.target))
-                        } else {
-                            $this[$name]('signUp')
-                        }
-                    } else if ($(event.target).hasClass('js-menu-open')) {
+                    if ($(event.target).hasClass('js-menu-open')) {
                         if (data.murren) {
                             $this[$name]('openMenu', $(event.target))
                         } else {
@@ -45,19 +39,31 @@
                         } else {
                             $this[$name]('signUp')
                         }
+                    } else if ($(event.target).hasClass('js-murr-card-like')) {
+                        if (data.murren) {
+                            $this[$name]('like', $(event.target))
+                        } else {
+                            $this[$name]('signUp')
+                        }
                     } else if ($(event.target).hasClass('js-murr-card-open')) {
                         event.preventDefault();
                         $this[$name]('slideIn', $(event.target))
                     } else if ($(event.target).hasClass('js-copy-url')) {
-                        let $murrLink = $('.js-murr-link', $this);
-                        $murrLink.focus().select();
-                        document.execCommand('copy');
+                        $this[$name]('copyUrl', $(event.target))
                     }
                 });
 
                 $('.js-murr-detail-overlay').click(function () {
                     $this[$name]('slideOut')
                 });
+            },
+            copyUrl: function ($target) {
+                let $murr = $target.closest('.js-murr-card'),
+                    $murrLink = $('.js-murr-link', $murr);
+
+                $murrLink[0].focus();
+                $murrLink[0].setSelectionRange(0, 999999);
+                document.execCommand('copy');
             },
             slideOut: function () {
                 let $this = $(this), data = $this.data($name),

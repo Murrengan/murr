@@ -1,4 +1,4 @@
-{% load absurl %}
+{% load fullurl %}
 
 <div class="murr-card masonry-item js-murr-card" data-murr="{{ murr.slug }}">
 	<div class="murr-card__header masonry-item__header profile">
@@ -14,7 +14,7 @@
                 <button class="murr-card__action murr-card__btn btn_default icon icon_kind_hidding js-hide-murr">Скрыть</button>
             </div>
             <div class="murr-card__sharing">
-                <input type="text" class="murr-card__murr-url input_default js-murr-link" value="{% absurl 'murr_detail' murr.slug %}">
+                <input type="text" class="murr-card__murr-url input_default js-murr-link" value="{% furllurl 'murr_detail' murr.slug %}" readonly>
                 <button class="murr-card__copy murr-card__btn btn_default js-copy-url">Копировать</button>
             </div>
         </div>

@@ -13,7 +13,7 @@ class AbsoluteURLNode(URLNode):
 
 
 @register.tag
-def absurl(parser, token, node_cls=AbsoluteURLNode):
+def furllurl(parser, token, node_cls=AbsoluteURLNode):
     """Just like {% url %} but ads the domain of the current site."""
     node = url(parser, token)
     return node_cls(node.view_name, node.args, node.kwargs, node.asvar)
