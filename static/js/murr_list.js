@@ -198,6 +198,7 @@
                     },
                     onAfterPageLoad: function ($items) {
                         $('.loading').hide();
+                        waitForImages();
                     },
                 })
             }
