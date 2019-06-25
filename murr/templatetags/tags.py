@@ -1,4 +1,5 @@
 from urllib import parse
+
 from django import template
 from django.template.defaulttags import URLNode, url
 
@@ -13,8 +14,7 @@ class AbsoluteURLNode(URLNode):
 
 
 @register.tag
-def furllurl(parser, token, node_cls=AbsoluteURLNode):
-    """Just like {% url %} but ads the domain of the current site."""
+def full_url(parser, token, node_cls=AbsoluteURLNode):
+    """Just like {% url %} but add the domain of the current site."""
     node = url(parser, token)
     return node_cls(node.view_name, node.args, node.kwargs, node.asvar)
-

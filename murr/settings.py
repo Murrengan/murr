@@ -65,7 +65,7 @@ TEMPLATES = [
                 'murr.context_processors.show_categories',
                 'django.template.context_processors.csrf',
             ],
-            'builtins': ['murr.templatetags.fullurl'],
+            'builtins': ['murr.templatetags.tags'],
         },
     },
 ]
