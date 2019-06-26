@@ -1,4 +1,8 @@
 .masonry {
+    display: grid;
+    grid-gap: 1em; /* [1] Add some gap between rows and columns */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* [2] Make columns adjust according to the available viewport */
+    grid-auto-rows: 0; /* [3] Set the height for implicitly-created row track */
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
@@ -12,6 +16,7 @@
     flex-direction: column;
     background-color: #fff;
     margin-bottom: .75rem;
+    min-height: 208px;
 }
 
 .masonry-item__body {
@@ -21,6 +26,15 @@
 .masonry-item__img {
     width: 100%;
     cursor: pointer;
+}
+
+.masonry-content {
+    position: relative;
+}
+
+.masonry-item__footer {
+    padding-bottom: 12px;
+    padding-top: 1.25rem;
 }
 
 @media only screen and (max-width: 600px){

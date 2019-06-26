@@ -29,9 +29,11 @@
 }
 
 .murr-card__footer {
+    position: absolute;
+    vertical-align:bottom;
     padding: .75rem 1.25rem;
     background-color: rgba(0, 0, 0, .03);
-    display: flex;
+    width: 100%;
     justify-content: space-between;
 }
 
