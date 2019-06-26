@@ -29,9 +29,9 @@
 }
 
 .murr-card__footer {
-    position: absolute;
-    vertical-align:bottom;
+    vertical-align: center;
     padding: .75rem 1.25rem;
+    display: flex;
     background-color: rgba(0, 0, 0, .03);
     width: 100%;
     justify-content: space-between;
@@ -99,10 +99,6 @@
 
 .thumbnail {
     overflow: hidden;
-}
-
-.thumbnail__img {
-    transition: transform .8s ease-in-out;
 }
 
 .thumbnail__img:hover {
