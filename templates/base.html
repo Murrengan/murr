@@ -30,7 +30,7 @@
 
         {% if categories_bar %}{{ categories_bar }}{% endif %}
 
-        <div class="container col-6">
+        <div class="container col-md-6 col-sm-12">
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
                 {{ message }}
