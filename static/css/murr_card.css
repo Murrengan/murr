@@ -1,0 +1,106 @@
+.murr-card {
+    border-radius: .25rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.murr-card__header {
+    padding: 0.5rem .75rem 0.5rem 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    display: flex;
+    justify-content: space-between;
+}
+
+.murr-card__content {
+    padding: .25rem 1.25rem;
+    color: #007bff;
+}
+
+.murr-card__description {
+    font-style: italic;
+
+}
+
+.murr-card__tags {
+    padding: 0 1.25rem;
+    font-size: 0.9rem;
+}
+
+.murr-card__footer {
+    vertical-align: center;
+    padding: .75rem 1.25rem;
+    display: flex;
+    background-color: rgba(0, 0, 0, .03);
+    width: 100%;
+    justify-content: space-between;
+}
+
+.murr-card__toggle {
+    position: absolute;
+    z-index: 15;
+    top: .75rem;
+    right: .75rem;
+    color: #6c757d;
+}
+
+.murr-card__menu {
+    position: absolute;
+    border-radius: .25rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: hsla(220, 50%, 90%, .9);
+}
+
+.murr-card__actions {
+    margin-top: 1.5rem;
+}
+
+.murr-card__sharing {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.murr-card__murr-url {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.murr-card__container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.murr-card__action {
+    width: 9rem;
+    margin: 0.2rem auto;
+    display: block;
+}
+
+.murr-card__btn {
+    font-size: .9rem;
+    padding: .2rem .4rem;
+}
+
+.murr-card__copy {
+    margin-top: .4rem;
+}
+
+.profile__img {
+    height: 30px;
+    border-radius: 50%;
+    width: 30px;
+}
+
+.thumbnail {
+    overflow: hidden;
+}
+
+.thumbnail__img:hover {
+    transform: scale(1.05);
+}
