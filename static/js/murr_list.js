@@ -12,35 +12,22 @@
                 $this[$name]('bindEvent');
             },
             bindEvent: function () {
-                let $this = $(this), data = $this.data($name),
-                    $murrDetailModal = $('.js-murr-detail');
+                let $this = $(this), data = $this.data($name);
 
-                $($this).click(function () {
-                    if ($(event.target).hasClass('js-murr-card-like')) {
+                $this.click(function (event) {
+                    if ($(event.target).hasClass('js-menu-open')) {
                         if (data.murren) {
-                            $this[$name]('like', $(event.target))
+                            $this[$name]('openMenu', $(event.target))
                         } else {
                             $this[$name]('signUp')
                         }
-                    } else if ($(event.target).hasClass('js-murr-card__action')) {
-                        if (data.murren) {
-                            $this[$name]('listActions', $(event.target))
-                        } else {
-                            $this[$name]('signUp')
-                        }
-                    } else if ($(event.target).hasClass('js-murr-card__overlay-close')) {
-                        if (data.murren) {
-                            $this[$name]('closeActions', $(event.target))
-                        } else {
-                            $this[$name]('signUp')
-                        }
-                    } else if ($(event.target).hasClass('js-report_murr')) {
+                    } else if ($(event.target).hasClass('js-report-murr')) {
                         if (data.murren) {
                             $this[$name]('reportMurr', $(event.target))
                         } else {
                             $this[$name]('signUp')
                         }
-                    } else if ($(event.target).hasClass('js-hide_murr')) {
+                    } else if ($(event.target).hasClass('js-hide-murr')) {
                         if (data.murren) {
                             $this[$name]('hideMurr', $(event.target))
                         } else {
@@ -52,16 +39,31 @@
                         } else {
                             $this[$name]('signUp')
                         }
-                    } else if (event.target.classList.contains('js-murr-card-open')) {
-
+                    } else if ($(event.target).hasClass('js-murr-card-like')) {
+                        if (data.murren) {
+                            $this[$name]('like', $(event.target))
+                        } else {
+                            $this[$name]('signUp')
+                        }
+                    } else if ($(event.target).hasClass('js-murr-card-open')) {
                         event.preventDefault();
                         $this[$name]('slideIn', $(event.target))
+                    } else if ($(event.target).hasClass('js-copy-url')) {
+                        $this[$name]('copyUrl', $(event.target))
                     }
                 });
 
                 $('.js-murr-detail-overlay').click(function () {
                     $this[$name]('slideOut')
                 });
+            },
+            copyUrl: function ($target) {
+                let $murr = $target.closest('.js-murr-card'),
+                    $murrLink = $('.js-murr-link', $murr);
+
+                $murrLink[0].focus();
+                $murrLink[0].setSelectionRange(0, 999999);
+                document.execCommand('copy');
             },
             slideOut: function () {
                 let $this = $(this), data = $this.data($name),
@@ -70,10 +72,7 @@
 
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
-
-
             },
-
             slideIn: function ($target) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $target.closest('.js-murr-card'),
@@ -108,8 +107,8 @@
                             return;
                         }
 
-                        $('.js-murr-card-like', $murr).addClass('is-hidden');
-                        $('.js-murr-card-unlike', $murr).removeClass('is-hidden');
+                        $('.js-murr-card-like', $murr).addClass('is_hidden');
+                        $('.js-murr-card-unlike', $murr).removeClass('is_hidden');
                         $('.js-murr-card-like-counter', $murr).html(response['likes']);
                     }
                 })
@@ -128,27 +127,22 @@
                             return;
                         }
 
-                        $('.js-murr-card-like', $murr).removeClass('is-hidden');
-                        $('.js-murr-card-unlike', $murr).addClass('is-hidden');
+                        $('.js-murr-card-like', $murr).removeClass('is_hidden');
+                        $('.js-murr-card-unlike', $murr).addClass('is_hidden');
                         $('.js-murr-card-like-counter', $murr).html(response['likes']);
                     }
                 })
             },
-            listActions: function ($target) {
+            openMenu: function ($target) {
                 let $murr = $target.closest('.js-murr-card');
-
-                $('.murr-card__body__overlay', $murr).removeClass('is-hidden');
-            },
-            closeActions: function ($target) {
-                let $murr = $target.closest('.js-murr-card');
-
-                $('.murr-card__body__overlay', $murr).addClass('is-hidden');
+                $target.toggleClass('icon_kind_actions').toggleClass('icon_kind_close');
+                $('.js-murr-menu', $murr).toggleClass('is_hidden');
             },
             hideMurr: function ($target) {
                 let $this = $(this), data = $this.data($name),
                     $murr = $target.closest('.js-murr-card'),
-                    murr_slug = $murr.data('murr'),
-                    $murrList = $('.murr-list');
+                    murr_slug = $murr.data('murr');
+
                 $.extend(data, {murr: murr_slug, action: 'hide'});
                 $.ajax({
                     url: '/murrs/murr_action/', data: data,
@@ -159,8 +153,8 @@
                             'slow',
                             function () {
                                 $murr.remove();
-                                if (!$murrList.html().trim()) {
-                                    $murrList.html('')
+                                if (!$this.html().trim()) {
+                                    $this.html('')
                                 }
                             });
                     }

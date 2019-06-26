@@ -1,0 +1,7 @@
+.is_clickable {
+    cursor: pointer;
+}
+
+.is_hidden {
+    display: none;
+}

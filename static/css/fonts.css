@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "FontAwesomeRegular";
+  font-weight: normal;
+    font-display: auto;
+  font-style: normal;
+  src: url("https://use.fontawesome.com/releases/v5.8.1/webfonts/fa-regular-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "FontAwesomeSolid";
+  font-weight: normal;
+    font-display: auto;
+  font-style: normal;
+  src: url("https://use.fontawesome.com/releases/v5.8.1/webfonts/fa-solid-900.woff2") format("woff2");
+}
