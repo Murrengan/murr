@@ -195,6 +195,9 @@
                     },
                     onAfterPageLoad: function ($items) {
                         $('.loading').hide();
+                        for (x = 0; x < allItems.length; x++) {
+                            resizeGridItem(allItems[x]);
+                        }
                     },
                 })
             }

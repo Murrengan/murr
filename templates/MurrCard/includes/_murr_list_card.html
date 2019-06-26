@@ -1,6 +1,7 @@
 {% load tags %}
 
 <div class="murr-card masonry-item js-murr-card" data-murr="{{ murr.slug }}">
+    <div class="masonry-item__content">
     <div class="murr-card__header masonry-item__header profile">
         <a href="{% url 'murren_profile' murr.author.username %}" class="profile__name">
             <img src="{{ murr.author.profile_picture.url }}" class="profile__img" alt="">
@@ -60,6 +61,7 @@
         </div>
     </div>
     <span class="murr-card__toggle icon icon_kind_actions is_clickable js-menu-open"></span>
+        </div>
 </div>
 
 
