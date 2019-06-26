@@ -25,7 +25,7 @@
     </div>
     {% if murr.cover %}
         <div class="murr-card__thumbnail thumbnail">
-            <img class="js-murr-card-open thumbnail__img masonry-item__img" src="{{ murr.cover.url }}"
+            <img class="js-murr-card-open masonry-item__img" src="{{ murr.cover.url }}"
                  title="{{ murr.title|escape }}" alt="cover"/>
         </div>
     {% endif %}
@@ -35,7 +35,7 @@
         {% endfor %}
     </div>
 
-    <div class="murr-card__footer masonry-item__footer murr-meta text-muted">
+    <div class="murr-card__footer text-muted">
         <div class="murr-meta__state">
             <span class="murr-meta__timestamp">
                 <span class="far fa-clock"></span>
