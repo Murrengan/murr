@@ -1,54 +1,58 @@
 {% load tags %}
 
 <div class="murr-card masonry-item js-murr-card" data-murr="{{ murr.slug }}">
-    <div class="masonry-item__content">
-    <div class="murr-card__header masonry-item__header profile">
-        <a href="{% url 'murren_profile' murr.author.username %}" class="profile__name">
-            <img src="{{ murr.author.profile_picture.url }}" class="profile__img" alt="">
-            {{ murr.author.username }}
-        </a>
-    </div>
-    <div class="murr-card__menu is_hidden js-murr-menu">
-        <div class="murr-card__container">
-            <div class="murr-card__actions">
-                <button class="murr-card__action murr-card__btn btn_default icon icon_kind_report js-report-murr">Пожаловаться</button>
-                <button class="murr-card__action murr-card__btn btn_default icon icon_kind_hidding js-hide-murr">Скрыть</button>
-            </div>
-            <div class="murr-card__sharing">
-                <input type="text" class="murr-card__murr-url input_default js-murr-link" value="{% full_url 'murr_detail' murr.slug %}" readonly>
-                <button class="murr-card__copy murr-card__btn btn_default js-copy-url">Копировать</button>
-            </div>
-        </div>
-    </div>
-    <div class="murr-card__content masonry-item__body">
-        <h4><a class="js-murr-card-open" href="#">{{ murr.title }}</a></h4>
-        <p class=" js-murr-card-open murr-card__description">{{ murr.description }}</p>
-    </div>
-    {% if murr.cover %}
-        <div class="murr-card__thumbnail thumbnail">
-            <img class="js-murr-card-open masonry-item__img" src="{{ murr.cover.url }}"
-                 title="{{ murr.title|escape }}" alt="cover"/>
-        </div>
-    {% endif %}
-    <div class="murr-card__tags masonry-item__body">
-        {% for tag in murr.tags.all %}
-            <a class="murr-card__tag" href="{% url 'murrs_by_tag_name' tag %}">#{{ tag }} </a>
-        {% endfor %}
-    </div>
+	<div class="masonry-item__content">
+		<div class="murr-card__header masonry-item__header profile">
+			<a href="{% url 'murren_profile' murr.author.username %}" class="profile__name">
+				<img src="{{ murr.author.profile_picture.url }}" class="profile__img" alt="">
+				{{ murr.author.username }}
+			</a>
+		</div>
+		<div class="murr-card__menu is_hidden js-murr-menu">
+			<div class="murr-card__container">
+				<div class="murr-card__actions">
+					<button class="murr-card__action murr-card__btn btn_default icon icon_kind_report js-report-murr">
+						Пожаловаться
+					</button>
+					<button class="murr-card__action murr-card__btn btn_default icon icon_kind_hidding js-hide-murr">Скрыть
+					</button>
+				</div>
+				<div class="murr-card__sharing">
+					<input type="text" class="murr-card__murr-url input_default js-murr-link"
+					       value="{% full_url 'murr_detail' murr.slug %}" readonly>
+					<button class="murr-card__copy murr-card__btn btn_default js-copy-url">Копировать</button>
+				</div>
+			</div>
+		</div>
+		<div class="murr-card__content masonry-item__body">
+			<h4><a class="js-murr-card-open" href="#">{{ murr.title }}</a></h4>
+			<p class=" js-murr-card-open murr-card__description">{{ murr.description }}</p>
+		</div>
+		{% if murr.cover %}
+		<div class="murr-card__thumbnail thumbnail">
+			<img class="js-murr-card-open masonry-item__img" src="{{ murr.cover.url }}"
+			     title="{{ murr.title|escape }}" alt="cover"/>
+		</div>
+		{% endif %}
+		<div class="murr-card__tags masonry-item__body">
+			{% for tag in murr.tags.all %}
+			<a class="murr-card__tag" href="{% url 'murrs_by_tag_name' tag %}">#{{ tag }} </a>
+			{% endfor %}
+		</div>
 
-    <div class="murr-card__footer text-muted">
-        <div class="murr-meta__state">
+		<div class="murr-card__footer text-muted">
+			<div class="murr-meta__state">
             <span class="murr-meta__timestamp">
                 <span class="far fa-clock"></span>
                 {{ murr.timestamp|timesince }}
             </span>
-        </div>
-        <div class="murr-meta__controls">
+			</div>
+			<div class="murr-meta__controls">
             <span class="murr-meta__comments">
                 <span class="js-murr-card-open far fa-comments is_clickable"></span>
                 {{ murr.comments_total|default:'' }}
             </span>
-            <span class="murr-meta__likes">
+				<span class="murr-meta__likes">
                 {% if request.user.pk in murr.get_liked_murrens %}
                     <span class="murr-meta__like is_clickable far fa-heart is_hidden js-murr-card-like"></span>
                     <span class="murr-meta__unlike is_clickable fas fa-heart js-murr-card-unlike"></span>
@@ -56,12 +60,13 @@
                     <span class="murr-meta__like is_clickable far fa-heart js-murr-card-like"></span>
                     <span class="murr-meta__unlike is_clickable fas fa-heart is_hidden js-murr-card-unlike"></span>
                 {% endif %}
-                <span class="murr-meta__count js-murr-card-like-counter">{{ murr.get_liked_murrens.count|default:'' }}</span>
+                <span
+		                class="murr-meta__count js-murr-card-like-counter">{{ murr.get_liked_murrens.count|default:'' }}</span>
             </span>
-        </div>
-    </div>
-    <span class="murr-card__toggle icon icon_kind_actions is_clickable js-menu-open"></span>
-        </div>
+			</div>
+		</div>
+		<span class="murr-card__toggle icon icon_kind_actions is_clickable js-menu-open"></span>
+	</div>
 </div>
 
 

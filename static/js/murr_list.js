@@ -53,10 +53,7 @@
                     }
                 });
 
-                $('.js-murr-detail-overlay').click(function () {
-                    $this[$name]('slideOut')
-                });
-                 $('.js-murr-detail-close_btn').click(function () {
+                $('.js-murr-detail-overlay, .js-murr-detail-close_btn').click(function () {
                     $this[$name]('slideOut')
                 });
             },
