@@ -19,26 +19,38 @@ from murr.shortcuts import MurrenganPaginator
 User = get_user_model()
 
 
-def murr_list_find(request):
+def murr_list(request, **kwargs):
     """
-    http://127.0.0.1:8000/murrs/find?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming
+    http://127.0.0.1:8000/murrs?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming&my&liked
     """
-    query = Q()
+
+    if kwargs.get('tag_name') or kwargs.get('category') or kwargs.get('likes') or kwargs.get('my_murrs'):
+        return murr_list_old(request, **kwargs) #TODO: delete, when front-end migrates to new API
+
+    murrs = Murr.objects.all()
+    if not request.user.is_anonymous:
+        actions = [MurrAction.REPORT, MurrAction.HIDE]
+        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
 
     tag_names = request.GET.getlist('tag_name')
     if tag_names:
-        query &= Q(tags__name__in=tag_names)  # для листа тегов работает дизьюнкиця, для коньюнкции нужно извращаться
+        murrs = murrs.filter(tags__name__in=tag_names)
 
     categories = request.GET.getlist('category')
     if categories:
-        query &= Q(categories__in=categories)
+        murrs = murrs.filter(categories__in=categories)
 
     authors = request.GET.getlist('author')
     if authors:
-        query &= Q(author__username__in=authors)
+        murrs = murrs.filter(author__username__in=authors)
 
-    # дальше фильтры можно накидывать по аналогии
-    murrs = Murr.objects.filter(query)
+    if 'my' in request.GET:
+        murrs = murrs.filter(author=request.user)
+
+    if 'liked' in request.GET:
+        murrens_likes = request.user.get_liked_murrs()
+        murrs = murrs.filter(liked__murr_id__in=murrens_likes)
+
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
     page = request.GET.get('page', 1)
@@ -50,7 +62,7 @@ def murr_list_find(request):
     return render(request, 'MurrCard/murr_list.html', context)
 
 
-def murr_list(request, **kwargs):
+def murr_list_old(request, **kwargs):  #TODO: delete, when front-end migrates to new API
     """
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
