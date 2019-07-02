@@ -1,0 +1,102 @@
+[
+{
+  "model": "MurrCard.category",
+  "pk": 1,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
+    "slug": "programming",
+    "description": "",
+    "m_title": "\u041d\u0430\u0439\u0442\u0438 \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u0430 \u0434\u043b\u044f \u043e\u0431\u0443\u0447\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044e Murrengan"
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 2,
+  "fields": {
+    "name": "\u0418\u0433\u0440\u044b",
+    "slug": "games",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 3,
+  "fields": {
+    "name": "\u0441\u043c\u0435\u0448\u043d\u043e\u0435",
+    "slug": "humor",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 4,
+  "fields": {
+    "name": "\u043d\u0430\u0443\u043a\u0430",
+    "slug": "scince",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 5,
+  "fields": {
+    "name": "\u0421\u043f\u043e\u0440\u0442",
+    "slug": "sport",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 6,
+  "fields": {
+    "name": "\u041a\u0438\u043d\u043e",
+    "slug": "cinema",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 7,
+  "fields": {
+    "name": "\u041c\u0443\u0437\u044b\u043a\u0430",
+    "slug": "music",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 8,
+  "fields": {
+    "name": "\u041f\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044f",
+    "slug": "travels",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 9,
+  "fields": {
+    "name": "\u041e\u0442\u043d\u043e\u0448\u0435\u043d\u0438\u044f",
+    "slug": "relations",
+    "description": "",
+    "m_title": ""
+  }
+},
+{
+  "model": "MurrCard.category",
+  "pk": 10,
+  "fields": {
+    "name": "\u0414\u0440\u0443\u0433\u043e\u0435",
+    "slug": "etc",
+    "description": "",
+    "m_title": ""
+  }
+}
+]

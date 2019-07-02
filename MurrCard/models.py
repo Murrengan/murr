@@ -9,6 +9,20 @@ from uuslug import slugify
 User = get_user_model()
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Название категрии', help_text="Максимум 50 символов")
+    slug = models.SlugField(max_length=50, unique=True)
+    description = models.TextField(verbose_name='Описание')
+    m_title = models.CharField(max_length=60, verbose_name='Мета-тайтл', blank=True)
+
+    class Meta:
+        verbose_name='Категория'
+        verbose_name_plural='Категории'
+
+    def __str__(self):
+        return self.name
+
+
 class Murr(models.Model):
 
     CATEGORIES = [
@@ -31,6 +45,14 @@ class Murr(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
     categories = models.CharField(max_length=20, verbose_name='Категория', choices=CATEGORIES)
+    # category = models.ForeignKey(
+    #     Category,
+    #     verbose_name='Категория',
+    #     related_name='murrs',
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True)
+
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
     tags = TaggableManager(blank=True, verbose_name='Теги', help_text="Список тегов через запятую. Максимум 40 символов")
