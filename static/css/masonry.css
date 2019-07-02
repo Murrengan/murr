@@ -2,16 +2,26 @@
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
-    column-gap: 1.25rem;
+    column-gap: 0;
+    display: grid;
+    grid-gap: .5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    grid-auto-rows: 0;
 }
 
 .masonry-item {
     display: inline-block;
+    align-items: stretch;
     width: 100%;
     position: relative;
     flex-direction: column;
     background-color: #fff;
-    margin-bottom: .75rem;
+}
+
+.masonry-item__content {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .masonry-item__body {
