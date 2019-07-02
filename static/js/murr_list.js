@@ -53,7 +53,7 @@
                     }
                 });
 
-                $('.js-murr-detail-overlay').click(function () {
+                $('.js-murr-detail-overlay, .js-murr-detail-close_btn').click(function () {
                     $this[$name]('slideOut')
                 });
             },
@@ -192,6 +192,9 @@
                     },
                     onAfterPageLoad: function ($items) {
                         $('.loading').hide();
+                        for (x = 0; x < allItems.length; x++) {
+                            resizeGridItem(allItems[x]);
+                        }
                     },
                 })
             }
