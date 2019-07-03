@@ -24,7 +24,9 @@ def murr_list(request, **kwargs):
     Output all murrs or murrs that filtered by tag
     or murrs queryset from kwargs
     """
-    murrs = Murr.objects.all()
+    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
+                                                           filter=Q(actions__kind=MurrAction.REPORT)
+                                                           )).exclude(report_count__gte=5)
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
@@ -60,7 +62,9 @@ def murr_list(request, **kwargs):
 
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
-    murrs = Murr.objects.all()
+    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
+                                                           filter=Q(actions__kind=MurrAction.REPORT)
+                                                           )).exclude(report_count__gte=5)
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
