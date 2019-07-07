@@ -19,14 +19,10 @@ from murr.shortcuts import MurrenganPaginator
 User = get_user_model()
 
 
-def murr_list(request, **kwargs):
+def murr_list(request):
     """
     http://127.0.0.1:8000/murrs?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming&my&liked
     """
-
-    if kwargs.get('tag_name') or kwargs.get('category') or kwargs.get('likes') or kwargs.get('my_murrs'):
-        return murr_list_old(request, **kwargs) #TODO: delete, when front-end migrates to new API
-
     murrs = Murr.objects.all()
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
@@ -60,48 +56,6 @@ def murr_list(request, **kwargs):
         'page': page,
     }
     return render(request, 'MurrCard/murr_list.html', context)
-
-
-def murr_list_old(request, **kwargs):  #TODO: delete, when front-end migrates to new API
-    """
-    Output all murrs or murrs that filtered by tag
-    or murrs queryset from kwargs
-    """
-    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
-                                                           filter=Q(actions__kind=MurrAction.REPORT)
-                                                           )).exclude(report_count__gte=5)
-    if not request.user.is_anonymous:
-        actions = [MurrAction.REPORT, MurrAction.HIDE]
-        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
-
-    tag_name = kwargs.get('tag_name')
-    if tag_name:
-        tag = get_object_or_404(Tag, name=tag_name)
-        murrs = murrs.filter(tags__name=tag)
-
-    category = kwargs.get('category')
-    if category:
-        murrs = murrs.filter(categories=category)
-
-    my_likes = kwargs.get('likes')
-    if my_likes:
-        murrens_likes = request.user.get_liked_murrs()
-        murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
-
-    my_murrs = kwargs.get('my_murrs')
-    if my_murrs:
-        murrs = Murr.objects.filter(author=request.user)
-
-    murrs = murrs.annotate(comments_total=Count('comments__pk'))
-    murrs = murrs.order_by('-timestamp')
-    page = request.GET.get('page', 1)
-    paginator = MurrenganPaginator(murrs.distinct(), 10)
-    page = paginator.page(page)
-    context = {
-        'page': page,
-    }
-    return render(request, 'MurrCard/murr_list.html', context)
-
 
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
