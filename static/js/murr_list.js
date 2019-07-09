@@ -72,6 +72,8 @@
 
                 $slideIn.addClass('modal-box_closed');
                 $slideInOverlay.addClass('modal-overlay_closed');
+                // Clear data when closing the sidebar modal
+                $('.js-murr-detail-body').html('Загружаю...');
             },
             slideIn: function ($target) {
                 let $this = $(this), data = $this.data($name),

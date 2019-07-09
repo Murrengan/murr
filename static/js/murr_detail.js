@@ -4,8 +4,8 @@
             init: function() {
                 return this.each(function() {
                     let $this = $(this), data = {
-                        csrfmiddlewaretoken: $this.data('csrf_token'),
-                        murr_slug: $this.data('murr_slug')
+                        csrfmiddlewaretoken: $this.find('[name="csrf_token"]').attr('content'),
+                        murr_slug: $this.find('[name="murr_slug"]').attr('content')
                     };
                     $this.data($name, data);
 
@@ -19,12 +19,12 @@
             },
             bindEvent: function() {
                 let $this = $(this), data = $this.data($name);
-                $('.js-comment-add', $this).unbind('click').click(function(event) {
+                $('.js-comment-add', $this).click(function(event) {
                     event.preventDefault();
                     $this[$name]('addComment');
                 });
 
-                $('.js-comments', $this).unbind('click').click(function(event) {
+                $('.js-comments', $this).click(function(event) {
                     if (event.target.classList.contains('js-delete')) {
                         event.preventDefault();
                         $this[$name]('deleteComment', $(event.target));
@@ -40,10 +40,17 @@
                     }
                 });
             },
-            addComment: function() {
+            addComment: function(event) {
                 let $this = $(this), data = $this.data($name),
                     content = $('#id_content').val();
+
+                if (content.trim().length <= 0) {
+                    alert('Комментарий не может быть пустой.');
+                    return;
+                }
+
                 $.extend(data, {content: content, 'g-recaptcha-response': grecaptcha.getResponse()});
+
                 $.ajax({
                     url: '/murrs/comment_add/', data: data,
                     type: 'POST', dataType: 'json',

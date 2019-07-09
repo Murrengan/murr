@@ -1,4 +1,9 @@
-<div class="js-murr-detail" data-murr_slug="{{ murr.slug }}" data-csrf_token="{{ csrf_token }}">
+<div class="js-murr-inner-detail">
+    {#  Hidden data for Ajax  #}
+    <meta name="murr_slug" content="{{ murr.slug }}">
+    <meta name="csrf_token" content="{{ csrf_token }}">
+    {# ./ Hidden data for Ajax  #}
+
     {% include "MurrCard/includes/_murr-detail_drawer_content.html" %}
 
     {% if user.is_authenticated %}

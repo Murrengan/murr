@@ -23,7 +23,13 @@
     <script src="{% static "js/custom.js" %}"></script>
     <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
-    <script>$('.js-murr-detail').murrDetail();</script>
     <script src="{% static "js/profile.js" %}"></script>
-    <script> $('.profile').murrenProfile(); </script>
+    <script>
+        (function ($) {
+            $(function () {
+                $('.js-murr-inner-detail').murrDetail();
+                $('.profile').murrenProfile();
+            })
+        })(jQuery);
+    </script>
 {% endblock js %}
