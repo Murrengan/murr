@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'taggit',
     'croppie',
     'captcha',
+    'channels',
 
     # Local
     'murr.apps.MurrConfig',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'MurrCard.apps.MurrCardConfig',
     'Dashboard.apps.DashboardConfig',
     'murr_game.apps.MurrGameConfig',
+    'murr_chat.apps.MurrChatConfig'
 ]
 
 MIDDLEWARE = [
@@ -187,3 +189,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 
 TAGGIT_CASE_INSENSITIVE = True
+
+# murr_chat
+ASGI_APPLICATION = 'murr.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

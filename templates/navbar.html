@@ -19,12 +19,14 @@
                     </div>
                 </div>
             </form>
-
         </div>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_game' %}">murr_game</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-success mb-1 mr-2" href="{% url 'murr_chat' %}">murr_chat</a>
             </li>
 
             {% if user.is_authenticated %}
