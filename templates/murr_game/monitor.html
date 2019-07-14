@@ -1,0 +1,12 @@
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/monitor.css" %}"/>
+{% endblock css %}
+
+{% block monitor %}
+    <main id="monitor">
+        <p v-text="characters"></p>
+    </main>
+{% endblock monitor %}
