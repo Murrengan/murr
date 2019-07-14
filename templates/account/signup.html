@@ -17,7 +17,7 @@
             {% csrf_token %}
             {{ form|crispy }}
             <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
-            <a href="{% url 'account_login' %}" class="text-light">Уже есть пароль?</a>
+            <a href="{% url 'account_login' %}" class="text-light">Уже есть аккаунт?</a>
 
             <hr color="white">
             <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
