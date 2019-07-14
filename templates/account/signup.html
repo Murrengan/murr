@@ -7,32 +7,35 @@
 
 {% block content %}
 
-  <div class="container col-md-4 col-sm-12 text-center mt-5">
-    <form class="form-signin p-3 rounded glassy" method="post">
+    <div class="container col-md-4 col-sm-12 text-center mt-5">
+        <form class="form-signin p-3 rounded glassy" method="post">
 
-      <img alt="" src="{% static "/img/about/about_logo.png" %}" width="75" height="75" class="img-fluid">
+            <img alt="" src="{% static "/img/about/about_logo.png" %}" width="75" height="75" class="img-fluid">
 
-      <h1 class="h3 my-2 font-weight-normal">Добро пожаловать!</h1>
+            <h1 class="h3 my-2 font-weight-normal">Добро пожаловать!</h1>
 
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
-      <hr color="white">
-      <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
-      <hr color="white">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
+            <a href="{% url 'account_login' %}" class="text-light">Уже есть пароль?</a>
 
-      <p class="lead my-3 text-white-50">Да пребудет с тобой сила!</p>
-    </form>
+            <hr color="white">
+            <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
+            <hr color="white">
 
-  </div>
-  <section>
-    <div class="text-center">
-      <p>Дополнительные ресурсы:</p>
-      <a href="https://vk.com/murrengan"><img alt="" src="{% static "/img/about/vk_about.png" %}" class="img-fluid"></a>
-      <a href="https://www.youtube.com/murrengan"><img alt="" src="{% static "/img/about/youtube_about.png" %}"
-                                                       class="img-fluid"></a>
-      <a href="https://t.me/MurrenganChat"><img alt="" src="{% static "/img/about/telegram_about.png" %}"
-                                                class="img-fluid"></a>
+            <p class="lead my-3 text-white-50">Да пребудет с тобой сила!</p>
+        </form>
+
     </div>
-  </section>
+    <section>
+        <div class="text-center">
+            <p>Дополнительные ресурсы:</p>
+            <a href="https://vk.com/murrengan"><img alt="" src="{% static "/img/about/vk_about.png" %}"
+                                                    class="img-fluid"></a>
+            <a href="https://www.youtube.com/murrengan"><img alt="" src="{% static "/img/about/youtube_about.png" %}"
+                                                             class="img-fluid"></a>
+            <a href="https://t.me/MurrenganChat"><img alt="" src="{% static "/img/about/telegram_about.png" %}"
+                                                      class="img-fluid"></a>
+        </div>
+    </section>
 {% endblock content %}

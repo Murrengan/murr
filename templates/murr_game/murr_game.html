@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{% endblock css %}
+
+{% block content %}
+
+    <div class="row p-3">
+        {#panel - статическая часть с командами#}
+        <div id="panel" class="panel col-2 border-right border-white">
+            <p class="border-bottom">panel</p>
+            <div>{% include 'murr_game/panel.html' %}</div>
+        </div>
+
+        {#monitor - динамическая часть#}
+        <div class="monitor col-10">
+            <p class="border-bottom">monitor</p>
+            <div>{% include 'murr_game/monitor.html' %}</div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+
+
