@@ -5,6 +5,9 @@
 {% endblock css %}
 
 {% block panel %}
-    <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_chat' %}">murr_chat</a>
+    <h3>Connect</h3>
     <p>ws://127.0.0.1:8000/ws/chat/</p>
+
+    <h3>Example</h3>
+    <p>{"event": "group.create", "data": {"name": "Murrengan"}}</p>
 {% endblock panel %}

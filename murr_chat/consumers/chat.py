@@ -66,7 +66,7 @@ class ChatConsumer(MurrChatConsumer):
 
     @database_sync_to_async
     def add_chat_member(self, user_id):
-        user = get_user_model().objects.filter(pk=user_id).first()
+        user = get_user_model().objects.filter(id=user_id).first()
         if user:
             chat_member, _ = MurrChatMembers.objects.get_or_create(group=self.group, user=user)
 

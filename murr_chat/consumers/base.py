@@ -27,14 +27,15 @@ class MurrChatConsumer(AsyncJsonWebsocketConsumer):
     async def method_undefined(self, message):
         await self._trow_error({'detail': 'Unknown event'}, event=message['event'])
 
-    async def response_proxy(self, event):
-        await self._send_message(event['data'], event=event.get('event'))
-
     async def _send_message(self, data, event=None):
         await self.send_json(content={'status': 'ok', 'data': data, 'event': event})
 
+    async def proxy_group_send(self, event):
+        await self._send_message(event['data'], event=event.get('event'))
+
     async def _group_send(self, data, event=None):
-        data = {'type': 'response.proxy', 'data': data, 'event': event}
+        # message >> self.channel_layer >> proxy_group_send
+        data = {'type': 'proxy.group.send', 'data': data, 'event': event}
         await self.channel_layer.group_send(self.channel, data)
 
     async def _trow_error(self, data, event=None):
