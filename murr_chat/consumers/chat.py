@@ -22,7 +22,7 @@ class ChatConsumer(MurrChatConsumer):
             await self.close()
             return
         chat_members = await self.get_chat_members()
-        if self.scope['user'] not in chat_members:
+        if self.scope['user'].id not in chat_members:
             await self._trow_error({'detail': 'Access denied'})
             await self.close()
             return
@@ -52,10 +52,10 @@ class ChatConsumer(MurrChatConsumer):
 
     @database_sync_to_async
     def get_group(self):
-        group = MurrChatName.objects.filter(id=self.group_id)
+        group = MurrChatName.objects.filter(id=self.group_id).first()
         if group:
             self.group = group
-            return 1
+        return group
 
     @database_sync_to_async
     def get_chat_members(self):

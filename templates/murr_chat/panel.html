@@ -1,3 +1,10 @@
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/panel.css" %}"/>
+{% endblock css %}
+
 {% block panel %}
     <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_chat' %}">murr_chat</a>
+    <p>ws://127.0.0.1:8000/ws/chat/</p>
 {% endblock panel %}

@@ -8,10 +8,10 @@ class MurrChatName(models.Model):
     @property
     def link(self):
         channel_name = self.channel_name(self.id)
-        return f'/ws/chat/{channel_name}/'
+        return f'/ws/chat/{self.id}/'
 
     def __str__(self):
-        return self.group_ndame
+        return self.group_name
 
     @classmethod
     def channel_name(cls, group_id):

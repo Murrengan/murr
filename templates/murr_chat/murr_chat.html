@@ -1,23 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <div class="row p-3">
         <div id="panel" class="panel col-2 border-right border-white">
             <p class="border-bottom">panel</p>
-
-
-        {% block panel %}
-            <div>{% include 'murr_chat/panel.html' %}</div>
-        {% endblock panel %}
+            {% block panel %}
+                <div>{% include 'murr_chat/panel.html' %}</div>
+            {% endblock panel %}
         </div>
 
         <div class="monitor col-10">
             <p class="border-bottom">monitor</p>
-
-
-        {% block monitor %}
-            <div>{% include 'murr_chat/monitor.html' %}</div>
-        {% endblock monitor %}
+            {% block monitor %}
+                <div>{% include 'murr_chat/monitor.html' %}</div>
+            {% endblock monitor %}
         </div>
     </div>
 
