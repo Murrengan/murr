@@ -47,7 +47,8 @@ class ChatConsumer(MurrChatConsumer):
         user_id = event['data'].get('user_id')
         if not user_id:
             return await self._trow_error({'detail': 'Missing user id'}, event=event['event'])
-        chat_members = self.add_chat_member(user_id)
+        await self.add_chat_member(user_id)
+        chat_members = await self.get_chat_members()
         return await self._send_message(chat_members, event=event['event'])
 
     @database_sync_to_async
@@ -68,9 +69,6 @@ class ChatConsumer(MurrChatConsumer):
         user = get_user_model().objects.filter(pk=user_id).first()
         if user:
             chat_member, _ = MurrChatMembers.objects.get_or_create(group=self.group, user=user)
-
-        chat_members = self.get_chat_members()
-        return chat_members
 
     @database_sync_to_async
     def save_message(self, message, user):
