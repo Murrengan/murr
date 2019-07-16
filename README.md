@@ -13,7 +13,6 @@
 Если у тебя есть вопросы или предложения:
 </h3>
 
-[Техническое задание.](https://docs.google.com/document/d/1BVSVGHs7f5fi2BLf31rb_H2aPYdXLEV1GZ0phcxy-b4/edit?usp=sharing)
 
 [Telegram чат всей тусовки.](https://t.me/MurrenganChat) 
 

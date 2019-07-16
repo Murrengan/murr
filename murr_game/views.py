@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from murr_game.engine.actions import Actions
 from murr_game.engine.character import CharacterEngine
 from django.forms.models import model_to_dict
+
+from murr_game.engine.stats import Stats
 from murr_game.models import Character
 
 User = get_user_model()
@@ -20,19 +22,16 @@ def murr_game(request):
 
 @login_required
 def return_members(request):
-    character, created = Character.objects.get_or_create(name=request.user.username, actions='actions')
-    character_engine = CharacterEngine(character, Actions, base_class='weapon')
-
+    character, created = Character.objects.get_or_create(name=request.user.username, actions='actions', stats='stats')
+    character_engine = CharacterEngine(character, Actions, Stats, base_class='weapon')
     character = model_to_dict(character)
-    character.update({'actions': character_engine.actions})
+    character.update({'actions': character_engine.actions, 'stats': character_engine.stats})
 
-    common_opponent = CharacterEngine(Opponent, Actions, base_class='magic')
+    common_opponent = CharacterEngine(Opponent, Actions, Stats, base_class='magic')
     opponent = {}
-
-    opponent.update({'actions': common_opponent.actions, 'name': common_opponent.name})
+    opponent.update({'actions': common_opponent.actions, 'name': common_opponent.name, 'stats': common_opponent.stats})
 
     data = {}
-    data.update({'character': character})
-    data.update({'opponent': opponent})
+    data.update({'character': character, 'opponent': opponent})
 
     return JsonResponse(data, status=200)

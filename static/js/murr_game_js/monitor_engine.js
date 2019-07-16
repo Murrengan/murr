@@ -1,15 +1,19 @@
 let engine = new Vue({
     el: '#monitor',
     data: {
-            // search: '',
-            // heals: 123,
-            characters: ''
+            characters: '',
+            character: '',
+            opponent: '',
+
     },
     mounted() {
         axios
-            .get('http://127.0.0.1:8000/murr_game/api/return_members/')
+            .get('/murr_game/api/return_members/')
             .then(response => (this.characters = response.data));
+            response => (this.character = response.data.character.name));
+            .then(response => (this.opponent = response.data.opponent.name));
     }
+
 
 // search: '',
 // sitename: 'Murrengan Rulls',
