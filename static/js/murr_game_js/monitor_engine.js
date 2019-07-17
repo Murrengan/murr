@@ -1,18 +1,20 @@
 let engine = new Vue({
-    el: '#monitor',
-    data: {
+        el: '#monitor',
+        data: {
             characters: '',
             character: '',
             opponent: '',
 
-    },
-    mounted() {
-        axios
-            .get('/murr_game/api/return_members/')
-            .then(response => (this.characters = response.data));
-            response => (this.character = response.data.character.name));
-            .then(response => (this.opponent = response.data.opponent.name));
-    }
+        },
+        mounted() {
+            axios
+                .get('/murr_game/api/return_members/')
+                .then(response => {
+                    this.characters = response.data;
+                    // this.character = response.data.character.name;
+                    // this.opponent = response.data.opponent.name;
+                })
+        }
 
 
 // search: '',
@@ -40,5 +42,5 @@ let engine = new Vue({
 //         return this.product.availableInventory > this.cartItemCount;
 //     }
 // }
-})
+    })
 ;
