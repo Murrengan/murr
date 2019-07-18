@@ -12,7 +12,7 @@ class ChatConsumer(MurrChatConsumer):
         self.group_id = self.scope['url_route']['kwargs']['room_name']
         self.group = None
         self.chat_members = []
-        self.channel = f'{self.group_id}'
+        self.channel = f'group_{self.group_id}'
 
     async def connect(self):
         await super().connect()
@@ -37,7 +37,12 @@ class ChatConsumer(MurrChatConsumer):
         if not message:
             return await self._trow_error({'detail': 'Missing message'}, event=event['event'])
         await self.save_message(message, self.scope['user'])
-        return await self._group_send(event['data'])
+        data = {
+            'username': self.scope['user'].username,
+            'message': event['data']['message']
+
+        }
+        return await self._group_send(data)
 
     async def event_list_messages(self, event):
         messages = await self.get_messages()
@@ -82,7 +87,7 @@ class ChatConsumer(MurrChatConsumer):
         for message in messages:
             res.append({
                 'id': message.id,
-                'username': message.username,
+                'username': message.user.username,
                 'message': message.message
             })
         return res

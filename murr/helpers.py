@@ -86,7 +86,7 @@ def create_superuser():
     User.objects.create_superuser('Greg', '', 'Greg')
 
 
-from murr.helpers import create_superuser
+# from murr.helpers import create_superuser
 
 
 # if __name__ == "__main__":

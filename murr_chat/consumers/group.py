@@ -7,6 +7,20 @@ from .base import MurrChatConsumer
 
 
 class GroupChatConsumer(MurrChatConsumer):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.channel = None
+
+    async def connect(self):
+        await super().connect()
+        self.channel = MurrChatName.user_channel_name(self.scope['user'].id)
+        await self.channel_layer.group_add(self.channel, self.channel_name)
+
+    async def disconnect(self, code):
+        await self.channel_layer.group_discard(self.channel, self.channel_name)
+        await super().disconnect(code=code)
+
     async def event_group_list(self, event):
         data = await self.group_list(self.scope['user'])
         await self._send_message(data, event=event['event'])
