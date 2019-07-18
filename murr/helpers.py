@@ -4,6 +4,9 @@ import shutil
 from django.contrib.auth import get_user_model
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MAKE_MIGRATIONS = 'python manage.py makemigrations murr_game murr_chat MurrCard Murren'
+
+MIGRATE = 'python manage.py migrate'
 
 
 class BaseProcessor:
@@ -78,12 +81,12 @@ def delete_db_and_migrations():
         shutil.rmtree(i, ignore_errors=True)
 
 
-delete_db_and_migrations()
-migrations = 'python manage.py makemigrations murr_game murr_chat MurrCard Murren'
-
 def create_superuser():
     User = get_user_model()
-    User.objects.create_superuser('admin', '', 'admin')
+    User.objects.create_superuser('Greg', '', 'Greg')
+
+
+from murr.helpers import create_superuser
 
 
 # if __name__ == "__main__":

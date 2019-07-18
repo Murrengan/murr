@@ -11,8 +11,8 @@ let engine = new Vue({
                 .get('/murr_game/api/return_members/')
                 .then(response => {
                     this.characters = response.data;
-                    // this.character = response.data.character.name;
-                    // this.opponent = response.data.opponent.name;
+                    this.character = response.data.character.name;
+                    this.opponent = response.data.opponent.name;
                 })
         }
 

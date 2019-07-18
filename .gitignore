@@ -4,7 +4,7 @@ db.sqlite3
 */migrations/*
 media/*
 !default_murren_img.jpg
-!/murr_game_img/*
+!shadow.jpg
 
 
 
