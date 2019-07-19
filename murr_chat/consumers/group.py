@@ -21,6 +21,9 @@ class GroupChatConsumer(MurrChatConsumer):
         await self.channel_layer.group_discard(self.channel, self.channel_name)
         await super().disconnect(code=code)
 
+    async def send_notice(self, event):
+        await self._send_message(event['data']['data'], event=event['data']['event'])
+
     async def event_group_list(self, event):
         data = await self.group_list(self.scope['user'])
         await self._send_message(data, event=event['event'])
