@@ -2,17 +2,41 @@
 
 
 {% block css %}
-    <link rel="stylesheet" href="{% static "css/monitor.css" %}"/>
 {% endblock css %}
 
 {% block monitor %}
-    <main id="monitor">
-        <h2>Тут картинка</h2>
-        <img src="{{ murren.profile_picture.url }}" width="100px" height="auto"  alt="">
-        <h2>Тут картинка</h2>
-{#        <img :src="character._img" alt="">#}
-        {#        <p v-text="characters"></p>#}
-        <h2 v-text="character"></h2>
-        <h2 v-text="opponent"></h2>
-    </main>
+    <div class="groups">
+        <div class="connection"></div>
+        <br>
+        <div class="messages">
+
+        </div>
+        <br>
+        <div class="form">
+            <div>
+                <input type="text" id="url" class="form-control">
+            </div>
+            <br>
+            <div>
+                <button onclick="on_connect()" class="btn btn-primary">Connect</button>
+                <button onclick="on_disconnect()" class="btn btn-danger">Disconnect</button>
+                <button onclick="clean_div()" class="btn btn-secondary">Clear</button>
+            </div>
+            <br>
+            <div>
+                <textarea class="form-control" name="" id="message" cols="10" rows="3"></textarea>
+            </div>
+            <br>
+            <div>
+                <button onclick="on_send()" id="send" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+
 {% endblock monitor %}
+
+{% block group %}
+{% endblock group %}
+
+{% block js %}
+{% endblock js %}

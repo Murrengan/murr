@@ -22,6 +22,8 @@
         <div id="monitor" class="col-7 bg-success">
             <h2 class="text-center">Блок монитор</h2>
 
+        <div>{% include 'murr_game/monitor.html' %}</div>
+
         </div>
     {% endblock monitor %}
 
@@ -37,9 +39,68 @@
 
 {% block js %}
     {{ block.super }}
+    <script>
+
+        let socket = null;
+
+        var url = 'ws://127.0.0.1:8000/ws/chat/';
+
+        function socket_init(url) {
+            socket = new WebSocket(url);
+        }
+
+
+        function on_connect() {
+            {#asdf!#}
+            console.log("Connect");
+            {#var url = $('#url').val();#}
+            var url = 'ws://127.0.0.1:8000/ws/chat/';
+
+            socket_init(url);
+
+            socket.onopen = function () {
+                $('.connection').html('<b>Online</b>');
+                console.log("Соединение установлено.");
+
+            };
+
+            socket.onclose = function (event) {
+                $('.connection').html('<b>Offline</b>');
+                if (event.wasClean) {
+                    console.log('Соединение закрыто чисто');
+                } else {
+                    console.log('Обрыв соединения'); // например, "убит" процесс сервера
+                }
+                console.log('Код: ' + event.code + ' причина: ' + event.reason);
+            };
+
+            socket.onmessage = function (event) {
+                data = JSON.parse(event.data);
+                console.log("Получены данные " + event.data);
+                console.log(data.event);
+                console.log(data.event === 'group.list');
+                $('.messages').append(event.data);
+                $('.messages').append("<br>");
+            };
+        }
+        {# Парсим строку из ввода - выполняем метод event - #}
+
+        function on_send() {
+            var message = $("#message").val();
+            socket.send(message);
+        }
+
+        function on_disconnect() {
+            socket.close();
+        }
+
+        function clean_div() {
+            $('.messages').empty();
+        }
+
+    </script>
+
     <script src="{% static "js/murr_js/monitor_engine.js" %}"></script>
     <script src="{% static "js/murr_js/info_panel_engine.js" %}"></script>
 {% endblock js %}
-
-
 

@@ -1,6 +1,7 @@
 {% block panel %}
     <div class="btn-group-vertical btn-group-lg d-flex justify-content-center">
-        <button type="button" class="btn btn-info ">Войти в таверну</button>
+
+        <button onclick="on_connect()" type="button" class="btn btn-info ">Войти в таверну</button>
         <button type="button" class="btn btn-info">Создать комнату</button>
 
         <div class="btn-group dropright" role="group">
@@ -9,8 +10,8 @@
                 Команды
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item d-flex justify-content-center" href="#">Dropdown link</a>
-                <a class="dropdown-item d-flex justify-content-center" href="#">Dropdown link</a>
+                <p class="dropdown-item d-flex justify-content-center" >ws://127.0.0.1:8000/ws/chat/</p>
+                <p class="dropdown-item d-flex justify-content-center" >{"event": "group.create", "data": {"name": "Murrengan"}}</p>
             </div>
         </div>
     </div>
