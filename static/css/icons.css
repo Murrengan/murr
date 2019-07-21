@@ -1,0 +1,27 @@
+.icon {
+    color: #6c757d;
+}
+
+.icon_white {
+    color: whitesmoke;
+}
+
+.icon_kind_actions:before {
+    content: "\f142";
+    font-family: FontAwesomeSolid, sans-serif;
+}
+
+.icon_kind_hidding:before {
+    content: "\f070";
+    font-family: FontAwesomeRegular, sans-serif;
+}
+
+.icon_kind_report:before {
+    content: "\f06a";
+    font-family: FontAwesomeSolid, sans-serif;
+}
+
+.icon_kind_close:before {
+    content: "\f00d";
+    font-family: FontAwesomeSolid, sans-serif;
+}

@@ -20,6 +20,19 @@
     word-break: break-all;
 }
 
+
+.murr-detail__close_btn {
+    position: absolute;
+    z-index: 15;
+    top: 1rem;
+    right: 1rem;
+    color: #6c757d;
+}
+
+.murr-detail__close_btn:hover {
+    transform: scale(1.5);
+}
+
 .murr-detail__content {
     word-break: break-all;
 }

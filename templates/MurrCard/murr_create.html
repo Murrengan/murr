@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
+
+{% block css  %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/murr_create.css" %}" />
+{% endblock %}
 
 {% block content %}
 
-  <div class="container text-center col-6 offset-3">
+  <div class="container text-center col-md-6 col-sm-12">
     <h3 class="text-center">{{ title }} свой Мурр!</h3>
 {# для добавление tinymce добавить {{ form.media }} and enctype="multipart/form-data"#}
     {{ form.media }}

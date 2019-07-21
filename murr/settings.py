@@ -1,4 +1,5 @@
 import os
+
 try:
     from .local_settings import *
     from captcha.constants import TEST_PUBLIC_KEY, TEST_PRIVATE_KEY
@@ -30,11 +31,15 @@ INSTALLED_APPS = [
     'taggit',
     'croppie',
     'captcha',
+    'channels',
 
     # Local
+    'murr.apps.MurrConfig',
     'Murren.apps.MurrenConfig',
     'MurrCard.apps.MurrCardConfig',
     'Dashboard.apps.DashboardConfig',
+    'murr_game.apps.MurrGameConfig',
+    'murr_chat.apps.MurrChatConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,6 +68,7 @@ TEMPLATES = [
                 'murr.context_processors.show_categories',
                 'django.template.context_processors.csrf',
             ],
+            'builtins': ['murr.templatetags.tags'],
         },
     },
 ]
@@ -118,7 +124,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'murr_list'
 
 # LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
 # логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
-LOGIN_URL = 'account_login'
+LOGIN_URL = 'account_signup'
 LOGOUT_REDIRECT_URL = 'murr_list'
 
 TINYMCE_DEFAULT_CONFIG = {
@@ -150,8 +156,8 @@ TINYMCE_DEFAULT_CONFIG = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# allauth
 AUTH_USER_MODEL = 'Murren.Murren'
-
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -165,7 +171,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_UNIQUE_EMAIL = True
 
 # Работа с почтой
@@ -183,3 +189,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_USE_TLS = True
 
 TAGGIT_CASE_INSENSITIVE = True
+
+# murr_chat
+ASGI_APPLICATION = 'murr.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

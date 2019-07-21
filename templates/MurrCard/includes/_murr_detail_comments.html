@@ -17,10 +17,10 @@
             <div class="clearfix comments-footer d-flex">
               <div class="comment-control small">
                 {% if comment.user == user %}
-                  <span class="edt-comment clickable"><span class="fa fa-pencil-alt"></span> Изменить</span>
-                  <span class="del-comment clickable ml-2"><span class="fa fa-trash-alt"></span> Удалить</span>
+                  <span class="edt-comment is_clickable"><span class="fa fa-pencil-alt"></span> Изменить</span>
+                  <span class="del-comment is_clickable ml-2"><span class="fa fa-trash-alt"></span> Удалить</span>
                 {% else %}
-                  <span class="rpl-comment clickable"><span class="fa fa-reply"></span> ответить</span>
+                  <span class="rpl-comment is_clickable"><span class="fa fa-reply"></span> ответить</span>
                   <div class="btn-group">
                     <button type="button" class="btn-xs btn-complain">
                       <span class="fa fa-exclamation-triangle"></span>

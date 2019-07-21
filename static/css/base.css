@@ -66,24 +66,52 @@ input[type="image"] {
     max-height: 100vh;
 }
 
-.action {
-    cursor: pointer;
+.input_default {
+    background: none;
+    border: 0;
+    border-bottom: 2px solid hsl(210, 10%, 50%);
     color: black;
 }
 
-.action:hover {
-    color: black;
+.input_default:focus {
+    outline: none;
+    border-bottom: 2px solid hsl(210, 80%, 50%);
+}
+
+.btn_default {
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out,
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.btn_default:hover,
+.btn_default:focus {
+    background: #0053ba;
+}
+
+.btn_default:focus {
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+.btn_default:active {
+    transform: scale(0.99);
 }
 
 /* MIXINS */
 
-.clickable {
-    cursor: pointer;
-}
-
-.font-black {
-    color: black;
-}
 
 .text-muted {
     color: #6c757d;
@@ -101,12 +129,6 @@ input[type="image"] {
     margin-left: 3px;
     font-size: smaller;
     cursor: pointer;
-}
-
-/* STATES */
-
-.is-hidden {
-    display: none;
 }
 
 /* CHAOS */

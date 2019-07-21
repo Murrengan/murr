@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
-    <link rel="stylesheet" href="{% static "css/murr_list.css" %}" />
+    <link rel="stylesheet" href="{% static "css/murr_card.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr-detail_drawer.css" %}" />
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
 {% endblock css %}
@@ -34,8 +34,10 @@
     {{ block.super }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
     <script src="{% static "js/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script src="{% static "js/murr_list.js" %}"></script>
+    <script src="{% static "js/masonry.js" %}"></script>
     <script>$('.murr-list').murrList();</script>
 {% endblock js %}

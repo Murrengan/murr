@@ -18,10 +18,10 @@
         </div>
         <div class="murr-detail__actions">
             {% if murr.author == user %}
-                <a class="murr-detail__action action fa fa-pencil-alt js-edit" href="{% url 'murr_update' murr.slug %}" data-title="Редактировать"></a>
-                <a class="murr-detail__action action fa fa-trash-alt js-delete" href="{% url 'murr_delete' murr.slug %}" data-title="Удалить"></a>
+                <a class="murr-detail__action fa fa-pencil-alt is_clickable js-edit" href="{% url 'murr_update' murr.slug %}" data-title="Редактировать"></a>
+                <a class="murr-detail__action fa fa-trash-alt is_clickable js-delete" href="{% url 'murr_delete' murr.slug %}" data-title="Удалить"></a>
             {% else %}
-                <span class="murr-detail__action fa fa-flag-alt js-report"  data-title="Пожаловаться"></span>
+                <span class="murr-detail__action fa fa-flag-alt is_clickable js-report"  data-title="Пожаловаться"></span>
             {% endif %}
         </div>
     </div>

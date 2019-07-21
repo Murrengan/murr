@@ -4,6 +4,13 @@ db.sqlite3
 */migrations/*
 media/*
 !default_murren_img.jpg
+!shadow.jpg
+
+
+
+
+
+
 .DS_Store
 /.idea/
 ### JetBrains template
