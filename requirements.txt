@@ -46,3 +46,5 @@ txaio==18.8.1
 urllib3==1.24.1
 webencodings==0.5.1
 zope.interface==4.6.0
+service_identity==18.1.0
+pypiwin32==223
