@@ -17,3 +17,21 @@ $(document).ready(function() {
     }
   })
 });
+
+let engine = new Vue({
+        el: '#navbar',
+        data: {
+            username: '',
+
+        },
+        mounted() {
+            axios
+
+                .get('/murr_game/api/return_members/')
+
+                .then(response => {
+                    this.username = response;
+                })
+        }
+    })
+;

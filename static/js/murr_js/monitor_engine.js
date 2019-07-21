@@ -1,7 +1,7 @@
 let engine = new Vue({
         el: '#monitor',
         data: {
-            characters: '',
+            // characters: '',
             character: '',
             opponent: '',
 
@@ -10,9 +10,14 @@ let engine = new Vue({
             axios
                 .get('/murr_game/api/return_members/')
                 .then(response => {
-                    this.characters = response.data;
-                    this.character = response.data.character.name;
-                    this.opponent = response.data.opponent.name;
+                    // this.characters = response.data;
+                    this.character = response.data.character;
+                    this.opponent = response.data.opponent;
+                });
+            axios
+                .get('/murr_game/api/get_img/')
+                .then(response => {
+                    this.character.img = response
                 })
         }
 

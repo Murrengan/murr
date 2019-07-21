@@ -34,18 +34,50 @@
             {% endfor %}
         </div>
 
-        <main class="container">
-            {% block content %}
+<main>
 
-                {#panel - статическая часть с командами#}
-                {% block panel %}
-                {% endblock panel %}
+<div class="row">
+{% block content %}
 
-                {#monitor - динамическая часть#}
-                {% block monitor %}
-                {% endblock monitor %}
 
-            {% endblock content %}
+
+            {% block panel %}
+
+            {% endblock panel %}
+
+
+
+
+            {% block monitor %}
+                222222222222
+            {% endblock monitor %}
+
+
+
+
+
+            {% block group %}
+                222222222222
+            {% endblock group %}
+
+
+
+
+    <!--</div>-->
+{% endblock content %}
+</div>
+
+</main>
+
+        <main class="">
+{#            {% block content %}#}
+
+
+
+
+
+
+{#            {% endblock content %}#}
         </main>
 
         {% block js %}

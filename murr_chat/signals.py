@@ -19,7 +19,7 @@ def new_group(sender, instance, created, **kwargs):
                     'event': 'new.group',
                     'data': {
                         'id': instance.group.id,
-                        'name': instance.group.name,
+                        'name': instance.group.group_name,
                         'link': instance.group.link,
                     }
 

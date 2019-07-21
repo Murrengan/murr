@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -17,7 +19,12 @@ User = get_user_model()
 
 @login_required
 def murr_game(request):
-    return render(request, 'murr_game/murr_game.html')
+    murren = User.objects.get(username=request.user.username)
+
+    context = {
+        'murren': murren
+    }
+    return render(request, 'murr_game/murr_game.html', context=context)
 
 
 @login_required

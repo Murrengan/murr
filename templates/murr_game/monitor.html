@@ -7,7 +7,11 @@
 
 {% block monitor %}
     <main id="monitor">
-{#        <p v-text="characters"></p>#}
+        <h2>Тут картинка</h2>
+        <img src="{{ murren.profile_picture.url }}" width="100px" height="auto"  alt="">
+        <h2>Тут картинка</h2>
+{#        <img :src="character._img" alt="">#}
+        {#        <p v-text="characters"></p>#}
         <h2 v-text="character"></h2>
         <h2 v-text="opponent"></h2>
     </main>
