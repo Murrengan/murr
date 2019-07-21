@@ -43,25 +43,20 @@
 
         let socket = null;
 
-        var url = 'ws://127.0.0.1:8000/ws/chat/';
+        let url = 'ws://127.0.0.1:8000/ws/chat/';
 
         function socket_init(url) {
             socket = new WebSocket(url);
         }
 
-
         function on_connect() {
-            {#asdf!#}
             console.log("Connect");
-            {#var url = $('#url').val();#}
-            var url = 'ws://127.0.0.1:8000/ws/chat/';
-
             socket_init(url);
 
             socket.onopen = function () {
                 $('.connection').html('<b>Online</b>');
+                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/" class="container" height="400"> asf</iframe>\n');
                 console.log("Соединение установлено.");
-
             };
 
             socket.onclose = function (event) {

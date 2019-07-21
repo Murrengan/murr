@@ -9,9 +9,11 @@
                     aria-haspopup="true" aria-expanded="false">
                 Команды
             </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <p class="dropdown-item d-flex justify-content-center" >ws://127.0.0.1:8000/ws/chat/</p>
-                <p class="dropdown-item d-flex justify-content-center" >{"event": "group.create", "data": {"name": "Murrengan"}}</p>
+
+            <div class="dropdown-menu events-card" aria-labelledby="btnGroupDrop1">
+                <h6 class="dropdown-header">Возможные команды</h6>
+                <a class="dropdown-item" href="#">ws://127.0.0.1:8000/ws/chat/</a>
+                <a class="dropdown-item" href="#">{"event": "group.create", "data": {"name": "Murrengan"}}</a>
             </div>
         </div>
     </div>
