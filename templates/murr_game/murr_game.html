@@ -5,46 +5,31 @@
     {{ block.super }}
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/murr_ui/murr_ui.css" %}"/>
 {% endblock css %}
 
 {% block content %}
 
     {% block panel %}
-        <div id="panel" class="col-3 bg-primary ">
-            <h2>Блок панель</h2>
+        <div id="panel" class="col-3 bg-primary">
+            <h2 class="text-center">Блок панель</h2>
+            <div>{% include 'murr_game/panel.html' %}</div>
+
         </div>
     {% endblock panel %}
 
     {% block monitor %}
         <div id="monitor" class="col-7 bg-success">
-            <h2>Блок монитор</h2>
-
+            <h2 class="text-center">Блок монитор</h2>
 
         </div>
     {% endblock monitor %}
 
     {% block group %}
-        <div id="info_panel" class="col-2 bg-info text-dark ">
-            <h2>Блок группа</h2>
-            <div class="card mr-3 mb-3" >
-                <img src="{{ murren.profile_picture.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">{{ murren.username }}</h4>
-
-                    <p class="card-text">Задача: Победить Wither</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-{#                <div class="card-body">#}
-{#                    <a href="#" class="card-link">Card link</a>#}
-{#                    <a href="#" class="card-link">Another </a>#}
-{#                </div>#}
-            </div>
+        <div id="group" class="col-2 bg-info text-dark">
+            <h2 class="text-center">Блок группа</h2>
+            <div>{% include 'murr_game/group.html' %}</div>
         </div>
-
     {% endblock group %}
 
 
