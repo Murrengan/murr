@@ -13,7 +13,8 @@
             background-color: transparent;
             max-height: 400px;
         }
-        img{
+
+        img {
             max-height: 400px;
         }
 
@@ -22,20 +23,23 @@
 <body>
 
 
-  <div class="row">
+<div class="row">
     <div class="col-9 p-0">
-        <div class="container thumbnail">
-                  <img src="{% static "/img/murr_game/start_loading.png" %}" class="img-fluid"  alt="...">
+        <div class="container m-0">
+            <img src="{% static "/img/murr_game/Cloub.jpg" %}" class="img-fluid card" alt="...">
 
-            </div>
+        </div>
     </div>
-    <div class="col-3">
-        <div class="container">
-                      <img src="{% static "/img/murr_game/Lord.jpg" %}" class="img-fluid"  alt="...">
-
+    <div class="col-3 p-0">
+        <div class="container pl-0">
+            <div class="card">
+            <button type="button" class="btn btn-danger btn-block">Тренировка</button>
+            <button type="button" class="btn btn-info btn-block">Подойти к бармену</button>
+{#            <button type="button" class="btn btn-secondary btn-block"></button>#}
+                </div>
         </div>
-        </div>
-  </div>
+    </div>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
