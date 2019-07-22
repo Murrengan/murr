@@ -8,32 +8,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Murr game monitor</title>
+    <style>
+        body {
+            background-color: transparent;
+            max-height: 400px;
+        }
+        img{
+            max-height: 400px;
+        }
+
+    </style>
 </head>
 <body>
 
 
-<div class="card mb-3" >
-  <div class="row no-gutters">
-    <div class="col-9">
-        <img src="{% static "/img/murr_game/Lord.jpg" %}" class="img-fluid" alt="">#}
+  <div class="row">
+    <div class="col-9 p-0">
+        <div class="container thumbnail">
+                  <img src="{% static "/img/murr_game/start_loading.png" %}" class="img-fluid"  alt="...">
+
+            </div>
     </div>
     <div class="col-3">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="container">
+                      <img src="{% static "/img/murr_game/Lord.jpg" %}" class="img-fluid"  alt="...">
 
-{#<div class="row ">#}
-{#    <div class="col-9 pr-0 bg-secondary">#}
-{#        <img src="{% static "/img/murr_game/Tawern.png" %}" class="img-fluid" alt="">#}
-{#    </div>#}
-{#    <div class="col-3  bg-primary">jasd</div>#}
-{#</div>#}
-{#<h1>Hello Murrengan!</h1>#}
+        </div>
+        </div>
+  </div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

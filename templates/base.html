@@ -21,6 +21,15 @@
         <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
         <link rel="stylesheet" href="{% static "css/base.css" %}"/>
         <link rel="stylesheet" href="{% static "css/navbar.css" %}"/>
+
+        <style>
+            iframe {
+                padding: 0;
+                max-height: 400px;
+            }
+
+        </style>
+
     {% endblock css %}
 
 </head>
@@ -67,6 +76,13 @@
 </main>
 
 {% block js %}
+
+      <script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+  </script>
+
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"
             integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
