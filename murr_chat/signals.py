@@ -43,8 +43,10 @@ def new_message(sender, instance, created, **kwargs):
 
             }
         }
-        channel_name = MurrChatName.user_channel_name(instance.user.id)
-        send_chat_message(data, channel_name)
+        members = MurrChatMembers.objects.filter(group=instance.group).exclude(user=instance.user)
+        for member in members:
+            channel_name = MurrChatName.user_channel_name(member.user.id)
+            send_chat_message(data, channel_name)
 
 
 post_save.connect(new_group, sender=MurrChatMembers, dispatch_uid='new_group_member')
