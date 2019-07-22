@@ -6,11 +6,16 @@
 
 {% block monitor %}
     <div class="groups">
-        <div class="connection text-center"></div>
-        <div class="monitor"></div>
-        <div class="messages"></div>
 
-        <div class="form">
+        <div class="monitor"></div>
+        <div class="connection text-center"></div>
+        <div class=" container d-flex justify-content-center">
+            <div class="messages col-8 mb-2 bg-dark">
+
+            </div>
+        </div>
+<div class="d-flex justify-content-center">
+        <div class="form col-8">
             <div>
                 <input type="text" id="url" class="form-control">
             </div>
@@ -29,6 +34,7 @@
                 <button onclick="on_send()" id="send" class="btn btn-primary">Send</button>
             </div>
         </div>
+</div>
     </div>
 
 {% endblock monitor %}

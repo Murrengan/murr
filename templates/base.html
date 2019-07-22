@@ -25,7 +25,7 @@
         <style>
             iframe {
                 padding: 0;
-                max-height: 400px;
+                max-height: 450px;
             }
 
         </style>
@@ -57,18 +57,18 @@
     <div class="row pl-2 pr-2">
 
 
-            {% block content %}
+        {% block content %}
 
-                {% block panel %}
-                {% endblock panel %}
+            {% block panel %}
+            {% endblock panel %}
 
-                {% block monitor %}
-                {% endblock monitor %}
+            {% block monitor %}
+            {% endblock monitor %}
 
-                {% block group %}
-                {% endblock group %}
+            {% block group %}
+            {% endblock group %}
 
-            {% endblock content %}
+        {% endblock content %}
 
 
     </div>
@@ -77,11 +77,11 @@
 
 {% block js %}
 
-      <script>
-  function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  }
-  </script>
+    <script>
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollHeight + 35 + 'px';
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"
             integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
