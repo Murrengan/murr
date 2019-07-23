@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
         <link rel="stylesheet" href="{% static "css/base.css" %}"/>
         <link rel="stylesheet" href="{% static "css/navbar.css" %}"/>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <style>
             iframe {
@@ -72,6 +74,14 @@
 
 
     </div>
+    <div class="container">
+        <div id="app-6">
+            <h3>asdkfj</h3>
+            <p v-text="message"></p>
+            <input v-model="message">
+        </div>
+    </div>
+
 
 </main>
 
@@ -82,6 +92,115 @@
             obj.style.height = obj.contentWindow.document.body.scrollHeight + 35 + 'px';
         }
     </script>
+
+    <script>
+        var app6 = new Vue({
+            el: '#app-6',
+            data: {
+                message: 'Привет, Vue!'
+            }
+        })
+    </script>
+
+
+    <script>
+        let group = new Vue({
+            el: '#group',
+            data: {
+                message: 'Murrengan'
+            },
+            {#computed: {#}
+            {#    // геттер вычисляемого значения#}
+            {#    reversedMessage: function () {#}
+            {#        // `this` указывает на экземпляр vm#}
+            {#        return this.message#}
+            {#    }#}
+
+        });
+
+
+        let socket = null;
+
+        function socket_init(url) {
+            socket = new WebSocket(url);
+        }
+
+        function on_connect() {
+            console.log("Connect");
+            let url = $('#url').val();
+
+            if (url === "") {
+                url = 'ws://127.0.0.1:8000/ws/chat/';
+            }
+            socket_init(url);
+
+            socket.onopen = function () {
+                $('.connection').html('<b>Online</b>');
+                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container border pt-3 pb-3" onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');
+                console.log("Соединение установлено.");
+            };
+
+            socket.onclose = function (event) {
+                $('.connection').html('<b>Offline</b>');
+                $('.monitor').empty();
+                if (event.wasClean) {
+                    console.log('Соединение закрыто чисто');
+                } else {
+                    console.log('Обрыв соединения'); // например, "убит" процесс сервера
+                }
+                console.log('Код: ' + event.code + ' причина: ' + event.reason);
+            };
+
+            socket.onmessage = function (event) {
+                data = JSON.parse(event.data);
+                console.log("Получены данные " + event.data);
+                console.log(data.event);
+                console.log(data.event === 'group.list');
+
+
+                if (data.event === 'group.create') {
+                    console.log('Murrengan');
+                    {#$('#group').append("<h1>murrengan</h1>");#}
+
+
+                    group.message = 'Murrengan';
+                    alert('good job')
+
+
+                }
+
+                $('.messages').append(event.data);
+                $('.messages').append("<br>");
+            };
+        }
+
+        {# Парсим строку из ввода - выполняем метод event - #}
+
+        function on_send() {
+            var message = $("#message").val();
+            socket.send(message);
+        }
+
+        function on_disconnect() {
+            $('.monitor').empty();
+            socket.close();
+        }
+
+        function clean_div() {
+            $('.messages').empty();
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"
             integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
