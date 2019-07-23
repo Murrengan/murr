@@ -84,13 +84,3 @@ def delete_db_and_migrations():
 def create_superuser():
     User = get_user_model()
     User.objects.create_superuser('Greg', '', 'Greg')
-
-
-# from murr.helpers import create_superuser
-
-
-# if __name__ == "__main__":
-#     create_superuser()
-
-# create_superuser = "from django.contrib.auth import get_user_model; User = get_user_model(); \
-# User.objects.create_superuser('admin', '', 'admin')"

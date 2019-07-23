@@ -42,7 +42,7 @@ class ChatConsumer(MurrChatConsumer):
             'message': event['data']['message']
 
         }
-        return await self._group_send(data)
+        return await self._group_send(data, event=event['event'])
 
     async def event_list_messages(self, event):
         messages = await self.get_messages()
