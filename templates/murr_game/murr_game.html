@@ -3,42 +3,30 @@
 
 {% block css %}
     {{ block.super }}
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="{% static "css/murr_ui/murr_ui.css" %}"/>
 {% endblock css %}
 
 {% block content %}
 
+
     {% block panel %}
         <div id="panel" class="col-3 pt-3 bg-primary">
-            {#            <h2 class="text-center">Блок панель</h2>#}
             <div>{% include 'murr_game/panel.html' %}</div>
-
         </div>
     {% endblock panel %}
 
+
     {% block monitor %}
         <div id="monitor" class="col-7 pt-3 bg-success p-0">
-            {#            <h2 class="text-center">Блок монитор</h2>#}
-
             <div>{% include 'murr_game/monitor.html' %}</div>
-
         </div>
     {% endblock monitor %}
 
+
     {% block group %}
         <div id="group" class="col-2 pt-3 bg-info text-dark">
-        {#            <h2 class="text-center">Блок группа</h2>#}
-        <div>{% include 'murr_game/group.html' %}</div>
-
-        {#    <div id="group" class="border">#}
-        {#        <h2 v-text>{{ message }}</h2>#}
-        {#    </div>#}
-        {#        </div>#}
-
-
-
+            <div>{% include 'murr_game/group.html' %}</div>
+        </div>
     {% endblock group %}
 
 
@@ -46,11 +34,6 @@
 
 {% block js %}
     {{ block.super }}
-{#    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>#}
 
-
-
-    <script src="{% static "js/murr_js/monitor_engine.js" %}"></script>
-    <script src="{% static "js/murr_js/info_panel_engine.js" %}"></script>
 {% endblock js %}
 

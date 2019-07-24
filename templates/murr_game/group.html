@@ -4,70 +4,37 @@
     <div class="card bg-warning mb-1">
         <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
     </div>
-    <div class="card bg-primary mb-1" v-if="canAddGroupMember">
-        <button class="btn btn-primary" v-on:click="addToGroup" >Добавить участника</button>
-    </div>
-    <div v-else>
-    <h3>Мксимум участников группы</h3>
-    </div>
 
-    <div id="info_panel" class="card mb-3 shadow-lg">
-        <img src="{{ murren.profile_picture.url }}" class="card-img-top" alt="...">
-        <h4 class="card-title m-0 p-0 text-center">{{ murren.username }}</h4>
+{#    <div class="card bg-primary mb-1" v-if="canAddGroupMember">#}
+{#        <button class="btn btn-primary" v-on:click="addToGroup">Добавить участника</button>#}
+{##}
+{#    </div>#}
+{#    <p v-text="groupMemberCount"></p>#}
+{#    <div v-else>#}
+{#        <h3>Мксимум участников группы</h3>#}
+{#    </div>#}
 
-
-        <table class="table p-0 m-0 table-borderless">
-
-            <tr>
-                <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
-                    <span class="p-0 mr-1">100</span>
-                    <img class="card-img murr_stat" alt="" src="{% static "/img/murr_game/hp.svg" %}">
-                </td>
-            </tr>
-
-            <tr>
-
-                <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
-                    <span class="p-0 mr-1">40</span>
-                    <img class="card-img murr_stat" alt="" src="{% static "/img/murr_logo.svg" %}">
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="group">
-{#        <div class="border border-white text-center mb-2">#}
-{#            <h4 v-text="header" class="m-0 p-0"></h4>#}
-{#            <h3 v-html="nameGroup" class="m-0 p-0"></h3>#}
-{#        </div>#}
-        <p v-text="groupMemberCount"></p>
-{#        <p>asdf</p>#}
-
+    <div>
         <div class="border border-white bg-light rounded shadow-lg mb-3">
+{#            <img v-bind:src="member.img" class="img-fluid img-thumbnail">#}
+{#            <table class="table p-0 m-0 table-borderless">#}
 
-            <img v-bind:src="member.img" class="img-fluid img-thumbnail">
-            <table class="table p-0 m-0 table-borderless">
                 <h4 v-text="member.name" class="m-0 p-0 text-center"></h4>
 
-
-                <tr>
-                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
-                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>
-                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">
-                    </td>
-                </tr>
-
-                <tr>
-
-                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
-                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>
-                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">
-                    </td>
-                </tr>
-            </table>
+{#                <tr>#}
+{#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
+{#                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>#}
+{#                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">#}
+{#                    </td>#}
+{#                </tr>#}
+{#                <tr>#}
+{#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
+{#                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>#}
+{#                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">#}
+{#                    </td>#}
+{#                </tr>#}
+{#            </table>#}
         </div>
-
-
     </div>
 
 
