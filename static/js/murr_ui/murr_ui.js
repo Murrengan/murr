@@ -10,7 +10,7 @@ let group = new Vue({
         //         hp: 80,
         //         hp_link: '/static/img/murr_game/hp.svg',
         //         mp: 60,
-        //         mp_link: '/static/img/murr_logo.svg',
+        //         mp_link: '/static/img/mp.svg',
         //     },
         //     img: '/static/img/murr_game/Magic.jpg'
         // },
