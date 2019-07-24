@@ -74,13 +74,6 @@
 
 
     </div>
-    <div class="container">
-        <div id="app-6">
-            <h3>asdkfj</h3>
-            <p v-text="message"></p>
-            <input v-model="message">
-        </div>
-    </div>
 
 
 </main>
@@ -94,30 +87,6 @@
     </script>
 
     <script>
-        var app6 = new Vue({
-            el: '#app-6',
-            data: {
-                message: 'Привет, Vue!'
-            }
-        })
-    </script>
-
-
-    <script>
-        let group = new Vue({
-            el: '#group',
-            data: {
-                message: 'Murrengan'
-            },
-            {#computed: {#}
-            {#    // геттер вычисляемого значения#}
-            {#    reversedMessage: function () {#}
-            {#        // `this` указывает на экземпляр vm#}
-            {#        return this.message#}
-            {#    }#}
-
-        });
-
 
         let socket = null;
 
@@ -191,17 +160,6 @@
         }
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"
             integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -212,6 +170,8 @@
             crossorigin="anonymous"></script>
     <script src="{% static "js/navbar.js" %}"></script>
     <script src="{% static "js/kernel.js" %}"></script>
+    <script src="{% static "js/murr_ui/murr_ui.js" %}"></script>
+
 {% endblock js %}
 
 </body>

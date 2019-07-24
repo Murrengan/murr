@@ -1,6 +1,12 @@
 {% load static %}
 
 {% block group %}
+    <div class="card bg-warning mb-1">
+        <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
+    </div>
+    <div class="card bg-primary mb-1">
+        <button class="btn btn-primary" v-on:click="addToGroup" v-show="canAddGroupMember">Добавить участника</button>
+    </div>
 
     <div id="info_panel" class="card mb-3 shadow-lg">
         <img src="{{ murren.profile_picture.url }}" class="card-img-top" alt="...">
@@ -19,20 +25,55 @@
             <tr>
 
                 <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
-                    <span class="p-0 mr-1">60</span>
-                    <img class="card-img murr_stat" alt="" src="{% static "/img/murr_game/mp.jpg" %}">
+                    <span class="p-0 mr-1">40</span>
+                    <img class="card-img murr_stat" alt="" src="{% static "/img/murr_logo.svg" %}">
                 </td>
             </tr>
         </table>
     </div>
 
-    <div class="card bg-primary mb-3">
-        <p class="text-center p-0 mb-0">Умения/инвентарь</p>
+    <div id="group">
+{#        <div class="border border-white text-center mb-2">#}
+{#            <h4 v-text="header" class="m-0 p-0"></h4>#}
+{#            <h3 v-html="nameGroup" class="m-0 p-0"></h3>#}
+{#        </div>#}
+        <p v-text="groupMemberCount"></p>
+{#        <p>asdf</p>#}
+
+        <div class="border border-white bg-light rounded shadow-lg mb-3">
+
+            <img v-bind:src="member.img" class="img-fluid img-thumbnail">
+            <table class="table p-0 m-0 table-borderless">
+                <h4 v-text="member.name" class="m-0 p-0 text-center"></h4>
+
+
+                <tr>
+                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
+                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>
+                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">
+                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>
+                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
     </div>
 
-    <div class="card bg-warning mb-3">
-        <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
-    </div>
+
 
 {% endblock group %}
+
+
+{% block js %}
+
+
+{% endblock js %}
 
