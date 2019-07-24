@@ -50,7 +50,9 @@ def return_character_info(request):
     character_engine = CharacterEngine(character, Actions, Stats, base_class='weapon')
     character = model_to_dict(character)
     character.update({'actions': character_engine.actions, 'stats': character_engine.stats})
+    avatar = User.objects.get(id=request.user.id)
+    avatar_url = avatar.profile_picture.url
 
     data = {}
-    data.update({'character': character})
+    data.update({'character': character, 'avatar_url': avatar_url})
     return JsonResponse(data, status=200)

@@ -1,6 +1,7 @@
 {% load static %}
 
 {% block group %}
+    <div id="group">
     <div class="card bg-warning mb-1">
         <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
     </div>
@@ -16,10 +17,10 @@
 
     <div>
         <div class="border border-white bg-light rounded shadow-lg mb-3">
-{#            <img v-bind:src="member.img" class="img-fluid img-thumbnail">#}
+            <img v-bind:src="avatar" class="img-fluid img-thumbnail">
 {#            <table class="table p-0 m-0 table-borderless">#}
 
-                <h4 v-text="member.name" class="m-0 p-0 text-center"></h4>
+                <h4 v-text="character" class="m-0 p-0 text-center"></h4>
 
 {#                <tr>#}
 {#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
@@ -36,7 +37,7 @@
 {#            </table>#}
         </div>
     </div>
-
+</div>
 
 
 {% endblock group %}
