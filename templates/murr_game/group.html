@@ -4,8 +4,11 @@
     <div class="card bg-warning mb-1">
         <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
     </div>
-    <div class="card bg-primary mb-1">
-        <button class="btn btn-primary" v-on:click="addToGroup" v-show="canAddGroupMember">Добавить участника</button>
+    <div class="card bg-primary mb-1" v-if="canAddGroupMember">
+        <button class="btn btn-primary" v-on:click="addToGroup" >Добавить участника</button>
+    </div>
+    <div v-else>
+    <h3>Мксимум участников группы</h3>
     </div>
 
     <div id="info_panel" class="card mb-3 shadow-lg">
