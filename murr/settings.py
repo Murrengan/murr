@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'MurrCard.apps.MurrCardConfig',
     'Dashboard.apps.DashboardConfig',
     'murr_game.apps.MurrGameConfig',
-    'murr_chat.apps.MurrChatConfig'
+    'murr_chat.apps.MurrChatConfig',
+    'murr_ui.apps.MurrUiConfig'
 ]
 
 MIDDLEWARE = [

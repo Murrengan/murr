@@ -12,7 +12,7 @@
 
     {% block panel %}
         <div id="panel" class="col-3 pt-3 bg-primary">
-{#            <h2 class="text-center">Блок панель</h2>#}
+            {#            <h2 class="text-center">Блок панель</h2>#}
             <div>{% include 'murr_game/panel.html' %}</div>
 
         </div>
@@ -20,7 +20,7 @@
 
     {% block monitor %}
         <div id="monitor" class="col-7 pt-3 bg-success p-0">
-{#            <h2 class="text-center">Блок монитор</h2>#}
+            {#            <h2 class="text-center">Блок монитор</h2>#}
 
             <div>{% include 'murr_game/monitor.html' %}</div>
 
@@ -29,9 +29,16 @@
 
     {% block group %}
         <div id="group" class="col-2 pt-3 bg-info text-dark">
-{#            <h2 class="text-center">Блок группа</h2>#}
-            <div>{% include 'murr_game/group.html' %}</div>
-        </div>
+        {#            <h2 class="text-center">Блок группа</h2>#}
+        <div>{% include 'murr_game/group.html' %}</div>
+
+        {#    <div id="group" class="border">#}
+        {#        <h2 v-text>{{ message }}</h2>#}
+        {#    </div>#}
+        {#        </div>#}
+
+
+
     {% endblock group %}
 
 
@@ -39,65 +46,9 @@
 
 {% block js %}
     {{ block.super }}
-    <script>
+{#    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>#}
 
-        let socket = null;
 
-        function socket_init(url) {
-            socket = new WebSocket(url);
-        }
-
-        function on_connect() {
-            console.log("Connect");
-            let url = $('#url').val();
-
-            if (url === "") {
-                url = 'ws://127.0.0.1:8000/ws/chat/';
-            }
-            socket_init(url);
-
-            socket.onopen = function () {
-                $('.connection').html('<b>Online</b>');
-                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container border pt-3 pb-3" onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');
-                console.log("Соединение установлено.");
-            };
-
-            socket.onclose = function (event) {
-                $('.connection').html('<b>Offline</b>');
-                if (event.wasClean) {
-                    console.log('Соединение закрыто чисто');
-                } else {
-                    console.log('Обрыв соединения'); // например, "убит" процесс сервера
-                }
-                console.log('Код: ' + event.code + ' причина: ' + event.reason);
-            };
-
-            socket.onmessage = function (event) {
-                data = JSON.parse(event.data);
-                console.log("Получены данные " + event.data);
-                console.log(data.event);
-                console.log(data.event === 'group.list');
-                $('.messages').append(event.data);
-                $('.messages').append("<br>");
-            };
-        }
-        {# Парсим строку из ввода - выполняем метод event - #}
-
-        function on_send() {
-            var message = $("#message").val();
-            socket.send(message);
-        }
-
-        function on_disconnect() {
-          $('.monitor').empty();
-            socket.close();
-        }
-
-        function clean_div() {
-            $('.messages').empty();
-        }
-
-    </script>
 
     <script src="{% static "js/murr_js/monitor_engine.js" %}"></script>
     <script src="{% static "js/murr_js/info_panel_engine.js" %}"></script>
