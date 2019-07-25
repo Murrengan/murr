@@ -40,17 +40,62 @@
             {#            </table>#}
 
         </div>
-        <button type="button" class="btn btn-info" v-on:click="showGroupUi">
-res
-        </button>
-        <div v-if="showGroup">
-            <h1>try</h1>
+        <div class="row">
+            <div class="col-4">
+                <button type="button" class="btn btn-info" v-on:click="showGroupUi">
+                    Switch
+                </button>
+            </div>
+            <div class="col-8">
+                <div v-if="showGroup">
+                    <p class="p-0 m-0">try</p>
+                </div>
+
+                <div v-else>
+                    <p class="p-0 m-0 text-center">ne try</p>
+                </div>
+            </div>
         </div>
 
-        <div v-else>
-            <h1>ne try</h1>
+
+        <div>
+            <strong>Name:
+                <span v-text="groupName"></span>
+            </strong>
+            <input v-model="groupName" class="form-control" type="text">
         </div>
+
+
+        <input type="checkbox" id="gift" value="true" v-model="private"><label for="gift">Чекбокс</label>
+
+        <div>
+            <input type="radio" id="home" value="Home" v-model="private"><label for="home">Home</label>
+            <input type="radio" id="business" value="Business" v-model="private"> <label for="business">Business</label>
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <button type="submit"
+                        class="btn btn-primary"
+                        v-on:click="submitForm">Place Order
+                </button>
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="">
+                <input type="checkbox"
+                       id="gift" value="true"
+                       v-bind:true-value="yes" v-bind:false-value="no" v-model="result">
+                <label for="gift">Ship As Gift?</label>
+            </div>
+        </div>
+
     </div>
+
+
 
 
 {% endblock group %}

@@ -10,6 +10,12 @@ let group = new Vue({
         groupName: '',
         groupMembers: [],
         maxGroupMembers: 3,
+
+        private: false,
+
+        yes: 1,
+        no: 2,
+        result: '',
     },
     methods: {
         addToGroup: function () {
@@ -21,6 +27,9 @@ let group = new Vue({
             } else {
                 this.showGroup = true;
             }
+        },
+        submitForm(){
+            alert('Submitted');
         }
     },
     computed: {
