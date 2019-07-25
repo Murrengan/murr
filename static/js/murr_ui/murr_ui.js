@@ -1,27 +1,26 @@
 let group = new Vue({
     el: "#group",
     data: {
-        // header: 'Группа',
-        // nameGroup: "<i>Dzitha</i>",
-        // member: {
-        //     id: 2,
-        //     name: "Bill ",
-        //     stat: {
-        //         hp: 80,
-        //         hp_link: '/static/img/murr_game/hp.svg',
-        //         mp: 60,
-        //         mp_link: '/static/img/mp.svg',
-        //     },
-        //     img: '/static/img/murr_game/Magic.jpg'
-        // },
+        murren: {
+            id: 2,
+            name: '',
+            avatarUrl: ''
+        },
+        showGroup: true,
+        groupName: '',
         groupMembers: [],
         maxGroupMembers: 3,
-        character: '',
-        avatar: ''
     },
     methods: {
         addToGroup: function () {
-            this.groupMembers.push(this.member.id)
+            this.groupMembers.push(this.murren.id)
+        },
+        showGroupUi: function () {
+            if (this.showGroup === true){
+                this.showGroup = false;
+            } else {
+                this.showGroup = true;
+            }
         }
     },
     computed: {
@@ -33,20 +32,21 @@ let group = new Vue({
         }
     },
     mounted() {
-            axios
-                .get('/murr_game/api/return_character_info/')
-                .then(response => {
-                    // this.character = response.data;
-                    this.avatar = response.data.avatar_url;
-                    // this.character = response.data.character;
-                    // this.opponent = response.data.opponent;
-                });
-            // axios
-            //     .get('/murr_game/api/get_img/')
-            //     .then(response => {
-            //         this.character.img = response
-            //     })
-        }
+        axios
+            .get('/murr_game/api/return_character_info/')
+            .then(response => {
+                // this.character = response.data;
+                this.murren.avatarUrl = response.data.avatar_url;
+                this.murren.id = response.data.character.id;
+                this.murren.name = response.data.character.name;
+                // this.opponent = response.data.opponent;
+            });
+        // axios
+        //     .get('/murr_game/api/get_img/')
+        //     .then(response => {
+        //         this.character.img = response
+        //     })
+    }
 
 });
 

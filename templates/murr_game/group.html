@@ -2,42 +2,55 @@
 
 {% block group %}
     <div id="group">
-    <div class="card bg-warning mb-1">
-        <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
-    </div>
 
-{#    <div class="card bg-primary mb-1" v-if="canAddGroupMember">#}
-{#        <button class="btn btn-primary" v-on:click="addToGroup">Добавить участника</button>#}
-{##}
-{#    </div>#}
-{#    <p v-text="groupMemberCount"></p>#}
-{#    <div v-else>#}
-{#        <h3>Мксимум участников группы</h3>#}
-{#    </div>#}
+        <div class="card bg-warning mb-1">
+            <p class="text-center p-0 mb-0">Задача: Победить Wither</p>
+        </div>
 
-    <div>
+
+        <div v-if="canAddGroupMember">
+            <div class="card bg-primary mb-1">
+                <button class="btn btn-primary" v-on:click="addToGroup">Добавить участника</button>
+            </div>
+            <p v-text="groupMemberCount"></p>
+        </div>
+
+        <div v-else>
+            <h3>Мксимум участников группы</h3>
+        </div>
+
+
         <div class="border border-white bg-light rounded shadow-lg mb-3">
-            <img v-bind:src="avatar" class="img-fluid img-thumbnail">
-{#            <table class="table p-0 m-0 table-borderless">#}
+            <img v-bind:src="murren.avatarUrl" class="img-fluid img-thumbnail">
+            <h2 v-text="murren.name" class="m-0 p-0 text-center"></h2>
+            <h4 v-text="murren.id" class="m-0 p-0 text-center"></h4>
 
-                <h4 v-text="character" class="m-0 p-0 text-center"></h4>
+            {#                <tr>#}
+            {#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
+            {#                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>#}
+            {#                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">#}
+            {#                    </td>#}
+            {#                </tr>#}
+            {#                <tr>#}
+            {#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
+            {#                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>#}
+            {#                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">#}
+            {#                    </td>#}
+            {#                </tr>#}
+            {#            </table>#}
 
-{#                <tr>#}
-{#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
-{#                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>#}
-{#                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">#}
-{#                    </td>#}
-{#                </tr>#}
-{#                <tr>#}
-{#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
-{#                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>#}
-{#                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">#}
-{#                    </td>#}
-{#                </tr>#}
-{#            </table>#}
+        </div>
+        <button type="button" class="btn btn-info" v-on:click="showGroupUi">
+res
+        </button>
+        <div v-if="showGroup">
+            <h1>try</h1>
+        </div>
+
+        <div v-else>
+            <h1>ne try</h1>
         </div>
     </div>
-</div>
 
 
 {% endblock group %}
