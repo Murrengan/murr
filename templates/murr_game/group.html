@@ -20,30 +20,27 @@
         </div>
 
 
-        <div class="border border-white bg-light rounded shadow-lg mb-3">
-            <img v-bind:src="murren.avatarUrl" class="img-fluid img-thumbnail">
-            <h2 v-text="murren.name" class="m-0 p-0 text-center"></h2>
-            <h4 v-text="murren.id" class="m-0 p-0 text-center"></h4>
-
-            {#                <tr>#}
-            {#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
-            {#                        <span class="p-0 mr-1" v-text="member.stat.hp"></span>#}
-            {#                        <img class="murr_stat" alt="" v-bind:src="member.stat.hp_link">#}
-            {#                    </td>#}
-            {#                </tr>#}
-            {#                <tr>#}
-            {#                    <td scope="row" class="p-0 m-0 d-flex justify-content-center align-items-center">#}
-            {#                        <span class="p-0 mr-1" v-text="member.stat.mp"></span>#}
-            {#                        <img class="murr_stat" alt="" v-bind:src="member.stat.mp_link">#}
-            {#                    </td>#}
-            {#                </tr>#}
-            {#            </table>#}
-
+        <div>
+            <div v-bind:class="{ border: group_member }">
+                <div class="border border-white bg-light rounded shadow-lg mb-3">
+                    <img v-bind:src="murren.avatarUrl" class="img-fluid img-thumbnail">
+                    <h2 v-text="murren.name" class="m-0 p-0 text-center"></h2>
+                </div>
+            </div>
         </div>
+
+        {#        <div >#}
+        {#            <div class="border border-white bg-light rounded shadow-lg mb-3">#}
+        {#                <img v-bind:src="murren.avatarUrl" class="img-fluid img-thumbnail">#}
+        {#                <h2 v-text="murren.name" class="m-0 p-0 text-center"></h2>#}
+        {#            </div>#}
+        {#        </div>#}
+
+
         <div class="row">
             <div class="col-4">
-                <button type="button" class="btn btn-info" v-on:click="showGroupUi">
-                    Switch
+                <button type="button" class="btn btn-secondary" v-on:click="showGroupUi">
+                    Клик
                 </button>
             </div>
             <div class="col-8">
@@ -77,7 +74,7 @@
             <div class="">
                 <button type="submit"
                         class="btn btn-primary"
-                        v-on:click="submitForm">Place Order
+                        v-on:click="addGroup">Place Order
                 </button>
 
             </div>
@@ -92,6 +89,13 @@
                 <label for="gift">Ship As Gift?</label>
             </div>
         </div>
+
+        <ol>
+            <li v-for="item for items">
+                <% item %>
+            </li>
+        </ol>
+
 
     </div>
 

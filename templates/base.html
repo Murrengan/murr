@@ -104,13 +104,13 @@
             socket_init(url);
 
             socket.onopen = function () {
-                $('.connection').html('<b>Online</b>');
+                $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');
                 $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container border pt-3 pb-3" onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');
                 console.log("Соединение установлено.");
             };
 
             socket.onclose = function (event) {
-                $('.connection').html('<b>Offline</b>');
+                $('.connection').html('<b>Возвращайся скорее...</b>');
                 $('.monitor').empty();
                 if (event.wasClean) {
                     console.log('Соединение закрыто чисто');

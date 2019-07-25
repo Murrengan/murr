@@ -1,5 +1,6 @@
 let group = new Vue({
     el: "#group",
+    delimiters: ["<%","%>"],
     data: {
         murren: {
             id: 2,
@@ -16,6 +17,12 @@ let group = new Vue({
         yes: 1,
         no: 2,
         result: '',
+        group_member: true,
+        items: [
+            'hp_potion',
+            'mp_potion',
+            'gold',
+        ]
     },
     methods: {
         addToGroup: function () {
@@ -30,6 +37,13 @@ let group = new Vue({
         },
         submitForm(){
             alert('Submitted');
+        },
+        addGroup(){
+            // ​this.group_member = false;
+            this.group_member = (this.group_member !== true) ? true : false;
+
+            // this.group_member = true;
+            console.log('Все ок');
         }
     },
     computed: {
