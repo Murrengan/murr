@@ -10,15 +10,24 @@
 
         <div v-if="canAddGroupMember">
             <div class="card bg-primary mb-1">
-                <button class="btn btn-primary" v-on:click="addToGroup">Добавить участника</button>
+                <button class="btn btn-primary" v-on:click="addToGroup" v-if="">Добавить участника</button>
             </div>
             <p v-text="groupMemberCount"></p>
         </div>
 
         <div v-else>
-            <h3>Мксимум участников группы</h3>
+            <h3>Масимум участников группы</h3>
         </div>
 
+
+        <button class="btn btn-primary btn-lg" v-on:click="addToCart" v-if="canAddGroupMember">Add to cart</button>
+
+        <button disabled="true" class="btn btn-primary btn-lg" v-else>Add to cart</button>
+        <span class="bg-dag"
+        v-if="maxGroupMembers - groupMemberCount < 3">
+
+        Еще можно пригласить [[ maxGroupMembers - groupMemberCount ]] участника!
+        </span>
 
         <div>
             <div v-bind:class="{ border: group_member }">
