@@ -90,11 +90,10 @@
             </div>
         </div>
 
-        <ol>
-            <li v-for="item for items">
-                <% item %>
-            </li>
-        </ol>
+        <div v-for="(count, item) in items">
+            <p>[[ item ]] <span class="bg-warning">[[ count ]]</span></p>
+
+        </div>
 
 
     </div>
