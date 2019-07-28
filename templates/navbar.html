@@ -26,10 +26,6 @@
                 <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_game' %}">murr_game</a>
             </li>
 
-            <li class="nav-item">
-                <a class="btn btn-warning mb-1 mr-2" href="{% url 'murr_ui' %}">murr_ui</a>
-            </li>
-
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">

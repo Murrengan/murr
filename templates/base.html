@@ -12,8 +12,7 @@
     {% block css %}
         <link rel="stylesheet" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
               crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
-        <link rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-              crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="{% static "css/out/bootstrap.min.css" %}"/>
         <link rel="stylesheet" href="{% static "css/fonts.css" %}"/>
         <link rel="stylesheet" href="{% static "css/icons.css" %}"/>
         <link rel="stylesheet" href="{% static "css/states.css" %}"/>
@@ -21,15 +20,11 @@
         <link rel="stylesheet" href="{% static "css/normalize.css" %}"/>
         <link rel="stylesheet" href="{% static "css/base.css" %}"/>
         <link rel="stylesheet" href="{% static "css/navbar.css" %}"/>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
         <style>
             iframe {
                 padding: 0;
                 max-height: 450px;
             }
-
         </style>
 
     {% endblock css %}
@@ -55,122 +50,29 @@
 </div>
 
 <main>
-
     <div class="row pl-2 pr-2">
 
-
         {% block content %}
-
-            {% block panel %}
-            {% endblock panel %}
-
-            {% block monitor %}
-            {% endblock monitor %}
-
-            {% block group %}
-            {% endblock group %}
-
         {% endblock content %}
 
-
     </div>
-
-
 </main>
 
 {% block js %}
 
-    <script>
-        function resizeIframe(obj) {
-            obj.style.height = obj.contentWindow.document.body.scrollHeight + 35 + 'px';
-        }
-    </script>
-
-    <script>
-
-        let socket = null;
-
-        function socket_init(url) {
-            socket = new WebSocket(url);
-        }
-
-        function on_connect() {
-            console.log("Connect");
-            let url = $('#url').val();
-
-            if (url === "") {
-                url = 'ws://127.0.0.1:8000/ws/chat/';
-            }
-            socket_init(url);
-
-            socket.onopen = function () {
-                $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');
-                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container border pt-3 pb-3" onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');
-                console.log("Соединение установлено.");
-            };
-
-            socket.onclose = function (event) {
-                $('.connection').html('<b>Возвращайся скорее...</b>');
-                $('.monitor').empty();
-                if (event.wasClean) {
-                    console.log('Соединение закрыто чисто');
-                } else {
-                    console.log('Обрыв соединения'); // например, "убит" процесс сервера
-                }
-                console.log('Код: ' + event.code + ' причина: ' + event.reason);
-            };
-
-            socket.onmessage = function (event) {
-                data = JSON.parse(event.data);
-                console.log("Получены данные " + event.data);
-                console.log(data.event);
-                console.log(data.event === 'group.list');
-
-
-                if (data.event === 'group.create') {
-                    console.log('Murrengan');
-                    {#$('#group').append("<h1>murrengan</h1>");#}
-
-
-                    group.message = 'Murrengan';
-                    alert('good job')
-
-
-                }
-
-                $('.messages').append(event.data);
-                $('.messages').append("<br>");
-            };
-        }
-
-        {# Парсим строку из ввода - выполняем метод event - #}
-
-        function on_send() {
-            var message = $("#message").val();
-            socket.send(message);
-        }
-
-        function on_disconnect() {
-            $('.monitor').empty();
-            socket.close();
-        }
-
-        function clean_div() {
-            $('.messages').empty();
-        }
-
-    </script>
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
-            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-    <script src="{% static "js/navbar.js" %}"></script>
+    {#out#}
+    <script src="{% static "js/out/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "js/out/popper.min.js" %}"></script>
+    <script src="{% static "js/out/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/out/vue.js" %}"></script>
+    <script src="{% static "js/out/axios.min.js" %}"></script>
     <script src="{% static "js/kernel.js" %}"></script>
-    <script src="{% static "js/murr_ui/murr_ui.js" %}"></script>
+
+    {#local#}
+    <script src="{% static "js/navbar.js" %}"></script>
+    <script src="{% static "js/local/resizer.js" %}"></script>
+
+
 
 {% endblock js %}
 

@@ -19,11 +19,7 @@
             <h3>Масимум участников группы</h3>
         </div>
 
-
-        <button class="btn btn-primary btn-lg" v-on:click="addToCart" v-if="canAddGroupMember">Add to cart</button>
-
-        <button disabled="true" class="btn btn-primary btn-lg" v-else>Add to cart</button>
-        <span class="bg-dag"
+        <span class="bg-danger"
         v-if="maxGroupMembers - groupMemberCount < 3">
 
         Еще можно пригласить [[ maxGroupMembers - groupMemberCount ]] участника!
@@ -38,25 +34,18 @@
             </div>
         </div>
 
-        {#        <div >#}
-        {#            <div class="border border-white bg-light rounded shadow-lg mb-3">#}
-        {#                <img v-bind:src="murren.avatarUrl" class="img-fluid img-thumbnail">#}
-        {#                <h2 v-text="murren.name" class="m-0 p-0 text-center"></h2>#}
-        {#            </div>#}
-        {#        </div>#}
-
-
         <div class="row">
+
             <div class="col-4">
                 <button type="button" class="btn btn-secondary" v-on:click="showGroupUi">
                     Клик
                 </button>
             </div>
+
             <div class="col-8">
                 <div v-if="showGroup">
                     <p class="p-0 m-0">try</p>
                 </div>
-
                 <div v-else>
                     <p class="p-0 m-0 text-center">ne try</p>
                 </div>
@@ -65,7 +54,7 @@
 
 
         <div>
-            <strong>Name:
+            <strong>Введи текст:
                 <span v-text="groupName"></span>
             </strong>
             <input v-model="groupName" class="form-control" type="text">
@@ -83,7 +72,7 @@
             <div class="">
                 <button type="submit"
                         class="btn btn-primary"
-                        v-on:click="addGroup">Place Order
+                        v-on:click="addGroup">Добавить группу
                 </button>
 
             </div>
@@ -93,28 +82,22 @@
         <div class="form-group">
             <div class="">
                 <input type="checkbox"
-                       id="gift" value="true"
-                       v-bind:true-value="yes" v-bind:false-value="no" v-model="result">
-                <label for="gift">Ship As Gift?</label>
+                       id="gift"
+                       value="true"
+                       v-bind:true-value="yes"
+                       v-bind:false-value="no"
+                       v-model="result">
+                <label for="gift">Секртная группа</label>
             </div>
         </div>
 
         <div v-for="(count, item) in items">
             <p>[[ item ]] <span class="bg-warning">[[ count ]]</span></p>
-
         </div>
-
-
     </div>
-
-
-
-
 {% endblock group %}
 
 
 {% block js %}
-
-
 {% endblock js %}
 

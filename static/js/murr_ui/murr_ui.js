@@ -1,7 +1,6 @@
 let group = new Vue({
     delimiters: ['[[', ']]'],
     el: "#group",
-
     data: {
         murren: {
             id: 2,
@@ -16,7 +15,7 @@ let group = new Vue({
         yes: 1,
         no: 2,
         result: '',
-        group_member: true,
+        group_member: false,
         items: {
             'hp_potion': 1,
             'mp_potion': 4,
@@ -28,20 +27,13 @@ let group = new Vue({
             this.groupMembers.push(this.murren.id)
         },
         showGroupUi: function () {
-            if (this.showGroup === true) {
-                this.showGroup = false;
-            } else {
-                this.showGroup = true;
-            }
+            this.showGroup = (this.showGroup !== false) ? false : true;
         },
         submitForm() {
             alert('Submitted');
         },
         addGroup() {
-            // ​this.group_member = false;
-            this.group_member = (this.group_member !== true) ? true : false;
-
-            // this.group_member = true;
+            this.group_member = (this.group_member !== false) ? false : true;
             console.log('Все ок');
         }
     },
