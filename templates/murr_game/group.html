@@ -10,7 +10,10 @@
 
         <div v-if="canAddGroupMember">
             <div class="card bg-primary mb-1">
-                <button class="btn btn-primary" v-on:click="addToGroup" v-if="">Добавить участника</button>
+                <button class="btn btn-primary"
+                        v-on:click="addToGroup">
+                    Добавить участника
+                </button>
             </div>
             <p v-text="groupMemberCount"></p>
         </div>
@@ -20,7 +23,7 @@
         </div>
 
         <span class="bg-danger"
-        v-if="maxGroupMembers - groupMemberCount < 3">
+              v-if="maxGroupMembers - groupMemberCount < 3">
 
         Еще можно пригласить [[ maxGroupMembers - groupMemberCount ]] участника!
         </span>
@@ -91,9 +94,12 @@
             </div>
         </div>
 
-        <div v-for="(count, item) in items">
-            <p>[[ item ]] <span class="bg-warning">[[ count ]]</span></p>
+        <div class="bg-success">
+            <p v-for="(count, item) in items">[[ item ]] <span class="bg-warning">[[ count ]]</span></p>
         </div>
+
+        <span v-for="i in 5"><i class="fas fa-heart"></i></span>
+
     </div>
 {% endblock group %}
 

@@ -17,8 +17,7 @@ let group = new Vue({
         result: '',
         group_member: false,
         items: {
-            'hp_potion': 1,
-            'mp_potion': 4,
+            'adrenalin': 1,
             'gold': 150
         }
     },
@@ -63,27 +62,3 @@ let group = new Vue({
     }
 
 });
-
-// let engine = new Vue({
-//         el: '#monitor',
-//         data: {
-//             // characters: '',
-//             character: '',
-//             opponent: '',
-//
-//         },
-//         mounted() {
-//             axios
-//                 .get('/murr_game/api/return_members/')
-//                 .then(response => {
-//                     // this.characters = response.data;
-//                     this.character = response.data.character;
-//                     this.opponent = response.data.opponent;
-//                 });
-//             axios
-//                 .get('/murr_game/api/get_img/')
-//                 .then(response => {
-//                     this.character.img = response
-//                 })
-//         }
-// });
