@@ -7,6 +7,7 @@ let group = new Vue({
             name: '',
             avatarUrl: ''
         },
+        rating: 3,
         showGroup: true,
         groupName: '',
         groupMembers: [],
@@ -34,6 +35,9 @@ let group = new Vue({
         addGroup() {
             this.group_member = (this.group_member !== false) ? false : true;
             console.log('Все ок');
+        },
+        checkRating(n){
+            return this.rating - n >= 0;
         }
     },
     computed: {
