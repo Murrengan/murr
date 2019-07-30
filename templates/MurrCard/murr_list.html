@@ -1,14 +1,14 @@
-{% extends 'MurrCard/base_murrs.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-    <link rel="stylesheet" href="{% static "css/out/emojionearea.min.css" %}" />
-    <link rel="stylesheet" href="{% static "css/masonry.css" %}" />
-    <link rel="stylesheet" href="{% static "css/murr_card.css" %}" />
-    <link rel="stylesheet" href="{% static "css/murr-detail_drawer.css" %}" />
-    <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
+    <link rel="stylesheet" href="{% static "css/out/emojionearea.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/masonry.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/murr_card.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/murr-detail_drawer.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/murr_detail.css" %}"/>
 {% endblock css %}
 
 {% block content %}
@@ -18,16 +18,31 @@
                 {% include 'MurrCard/includes/_murr_list_card.html' %}
             {% endfor %}
         </div>
-    </div>
-    <div class="loading" style="display: none;">
-      Loading...
+
+
+        {% if page.paginator.num_pages > 1 %}
+
+            <ul class="pagination pagination-template d-flex justify-content-center mt-2">
+                {% if page.has_previous %}
+                    <li class="page-item">
+                        <a href="?page={{ page.previous_page_number }}"
+                           class="page-link"><</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item"><a href="#" class="page-link active">{{ page.number }}</a></li>
+
+                {% if page.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page.next_page_number }}"
+                           class="page-link active">></a>
+                    </li>
+                {% endif %}
+            </ul>
+
+        {% endif %}
     </div>
 
-  {% if page.has_next %}
-    <a class="infinite-more-link" href="?page={{ page.next_page_number }}">More</a>
-  {% endif %}
-
-    {% include 'MurrCard/includes/_murr-detail_drawer.html' %}
 {% endblock content %}
 
 {% block js %}
