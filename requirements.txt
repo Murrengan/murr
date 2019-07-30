@@ -57,3 +57,5 @@ urllib3==1.24.1
 wcwidth==0.1.7
 webencodings==0.5.1
 zope.interface==4.6.0
+service_identity==18.1.0
+pypiwin32==223; sys_platform == 'win32'

@@ -19,46 +19,43 @@ from murr.shortcuts import MurrenganPaginator
 User = get_user_model()
 
 
-def murr_list(request, **kwargs):
+def murr_list(request):
     """
-    Output all murrs or murrs that filtered by tag
-    or murrs queryset from kwargs
+    http://127.0.0.1:8000/murrs?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming&my&liked
     """
-    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
-                                                           filter=Q(actions__kind=MurrAction.REPORT)
-                                                           )).exclude(report_count__gte=5)
+    murrs = Murr.objects.all()
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
 
-    tag_name = kwargs.get('tag_name')
-    if tag_name:
-        tag = get_object_or_404(Tag, name=tag_name)
-        murrs = murrs.filter(tags__name=tag)
+    tag_names = request.GET.getlist('tag_name')
+    if tag_names:
+        murrs = murrs.filter(tags__name__in=tag_names)
 
-    category = kwargs.get('category')
-    if category:
-        murrs = murrs.filter(categories=category)
+    categories = request.GET.getlist('category')
+    if categories:
+        murrs = murrs.filter(categories__in=categories)
 
-    my_likes = kwargs.get('likes')
-    if my_likes:
+    authors = request.GET.getlist('author')
+    if authors:
+        murrs = murrs.filter(author__username__in=authors)
+
+    if 'my' in request.GET:
+        murrs = murrs.filter(author=request.user)
+
+    if 'liked' in request.GET:
         murrens_likes = request.user.get_liked_murrs()
-        murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
-
-    my_murrs = kwargs.get('my_murrs')
-    if my_murrs:
-        murrs = Murr.objects.filter(author=request.user)
+        murrs = murrs.filter(liked__murr_id__in=murrens_likes)
 
     murrs = murrs.annotate(comments_total=Count('comments__pk'))
     murrs = murrs.order_by('-timestamp')
     page = request.GET.get('page', 1)
-    paginator = MurrenganPaginator(murrs.distinct(), 10)
+    paginator = MurrenganPaginator(murrs.distinct(), 20)
     page = paginator.page(page)
     context = {
         'page': page,
     }
     return render(request, 'MurrCard/murr_list.html', context)
-
 
 def search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
@@ -103,13 +100,12 @@ def murr_detail(request, slug):
         following = client.masters.filter(master_id=murren.pk)
         already_follow = following.exists()
         context.update({
-                   'murren': murren,
-                   'already_follow': already_follow})
+            'murren': murren,
+            'already_follow': already_follow})
     except AttributeError:
         pass
 
     if request.method == 'POST':
-
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
     context.update({'show_follow': True})

@@ -51,9 +51,9 @@
                         <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
                         <a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-question-circle mr-1"></i>О
                             проекте</a>
-                        <a class="dropdown-item" href="{% url 'murrs_by_likes' 'my_likes' %}"><i
+                        <a class="dropdown-item" href="{% url 'murr_list' %}?liked"><i
                                 class="fab fa-gratipay mr-1"></i>Мои лайки</a>
-                        <a class="dropdown-item" href="{% url 'my_murrs' 'my_murrs' %}"><i
+                        <a class="dropdown-item" href="{% url 'murr_list'%}?my"><i
                                 class="fab fa-wolf-pack-battalion mr-1"></i>Мои мурры</a>
                         <a class="dropdown-item text-muted text-center" href="{% url 'account_logout' %}">Выйти</a>
                     </div>
