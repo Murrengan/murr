@@ -7,7 +7,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from taggit.models import Tag
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
@@ -23,10 +22,22 @@ def murr_list(request):
     """
     http://127.0.0.1:8000/murrs?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming&my&liked
     """
-    murrs = Murr.objects.all()
+    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
+                                                           filter=Q(actions__kind=MurrAction.REPORT)
+                                                           )).exclude(report_count__gte=5)
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
+
+    query = request.GET.get('q')
+    if query:
+        query_in_title = Q(title__icontains=query)
+        query_in_desc = Q(description__icontains=query)
+        query_in_tag = Q(tags__name__icontains=query)
+        murrs = murrs.filter(query_in_title | query_in_tag | query_in_desc)
+
+        if murrs.exists() is False:
+            messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 
     tag_names = request.GET.getlist('tag_name')
     if tag_names:
@@ -54,35 +65,6 @@ def murr_list(request):
     page = paginator.page(page)
     context = {
         'page': page,
-    }
-    return render(request, 'MurrCard/murr_list.html', context)
-
-def search(request):
-    """ Filter murrs by search query and pass queryser to murr_list view """
-    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
-                                                           filter=Q(actions__kind=MurrAction.REPORT)
-                                                           )).exclude(report_count__gte=5)
-    if not request.user.is_anonymous:
-        actions = [MurrAction.REPORT, MurrAction.HIDE]
-        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
-    query = request.GET.get('q')
-    if query:
-        query_in_title = Q(title__icontains=query)
-        query_in_desc = Q(description__icontains=query)
-        query_in_tag = Q(tags__name__icontains=query)
-        murrs = murrs.filter(query_in_title | query_in_tag | query_in_desc)
-        if murrs.exists() is False:
-            messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
-
-    murrs = murrs.annotate(comments_total=Count('comments__pk'))
-    murrs = murrs.order_by('-timestamp')
-    page = request.GET.get('page', 1)
-    paginator = MurrenganPaginator(murrs.distinct(), 10)
-    page = paginator.get_page(page)
-
-    context = {
-        'page': page,
-        'search_query': f'q={query}&',
     }
     return render(request, 'MurrCard/murr_list.html', context)
 

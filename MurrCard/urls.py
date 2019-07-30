@@ -15,6 +15,6 @@ urlpatterns = [
     path('comment_delete/', murr_card.comment_delete),
     path('comment_edit/', murr_card.comment_edit),
     path('comment_update/', murr_card.comment_update),
-    path('murr_action/', murr_card.murr_action),
-    path('search/', murr_card.search, name='search'),
+    path('murr_action/', murr_card.murr_action)
+
 ]
