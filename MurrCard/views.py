@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+from django.db.models.query import EmptyQuerySet
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
@@ -25,6 +26,9 @@ def murr_list(request):
     murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
                                                            filter=Q(actions__kind=MurrAction.REPORT)
                                                            )).exclude(report_count__gte=5)
+
+    all_searched_murrs = Murr.objects.none()
+
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
@@ -34,31 +38,39 @@ def murr_list(request):
         query_in_title = Q(title__icontains=query)
         query_in_desc = Q(description__icontains=query)
         query_in_tag = Q(tags__name__icontains=query)
-        murrs = murrs.filter(query_in_title | query_in_tag | query_in_desc)
+        murrs_by_quick_search = murrs.filter(query_in_title | query_in_tag | query_in_desc)
+        all_searched_murrs.union(murrs_by_quick_search)
 
         if murrs.exists() is False:
             messages.add_message(request, messages.INFO, 'Поиск принес только опыт и 0 информации')
 
-    tag_names = request.GET.getlist('tag_name')
+    tag_names = request.GET.get('tag_name')
     if tag_names:
-        murrs = murrs.filter(tags__name__in=tag_names)
+        murrs_by_tag_names = murrs.filter(tags__name__icontains=tag_names)
+        all_searched_murrs.union(murrs_by_tag_names)
 
-    categories = request.GET.getlist('category')
+    categories = request.GET.get('category')
     if categories:
-        murrs = murrs.filter(categories__in=categories)
+        murrs_by_categories = murrs.filter(categories__icontains=categories)
+        all_searched_murrs.union(murrs_by_categories)
 
-    authors = request.GET.getlist('author')
+    authors = request.GET.get('author')
     if authors:
-        murrs = murrs.filter(author__username__in=authors)
+        murrs_by_authors = murrs.filter(author__username__icontains=authors)
+        all_searched_murrs.union(murrs_by_authors)
 
     if 'my' in request.GET:
-        murrs = murrs.filter(author=request.user)
+        all_searched_murrs = murrs.filter(author=request.user)
 
     if 'liked' in request.GET:
         murrens_likes = request.user.get_liked_murrs()
-        murrs = murrs.filter(liked__murr_id__in=murrens_likes)
+        all_searched_murrs = murrs.filter(liked__murr_id__in=murrens_likes)
 
-    murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    if isinstance(all_searched_murrs, EmptyQuerySet):
+        murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    else:
+        murrs = all_searched_murrs.annotate(comments_total=Count('comments__pk'))
+
     murrs = murrs.order_by('-timestamp')
     page = request.GET.get('page', 1)
     paginator = MurrenganPaginator(murrs.distinct(), 10)
