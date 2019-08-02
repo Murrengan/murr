@@ -43,7 +43,7 @@
             addComment: function() {
                 let $this = $(this), data = $this.data($name),
                     content = $('#id_content').val();
-                $.extend(data, {content: content, 'g-recaptcha-response': grecaptcha.getResponse()});
+                $.extend(data, {content: content});
                 $.ajax({
                     url: '/murrs/comment_add/', data: data,
                     type: 'POST', dataType: 'json',

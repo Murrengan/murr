@@ -1,0 +1,15 @@
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+}
+
+.social-links {
+    text-align: center;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-left:auto;
+    margin-bottom:.5rem
+
+}

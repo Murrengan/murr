@@ -120,14 +120,6 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = 'murr_list'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'murr_list'
-
-# LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
-# логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
-LOGIN_URL = 'account_signup'
-LOGOUT_REDIRECT_URL = 'murr_list'
-
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
@@ -157,8 +149,25 @@ TINYMCE_DEFAULT_CONFIG = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+
 # allauth
+
 AUTH_USER_MODEL = 'Murren.Murren'
+
+LOGIN_REDIRECT_URL = 'murr_list'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'murr_list'
+
+# LOGIN_URL указываем для перенапрявления сюда пользователя, который не зарегистрирован но хочет получить доступ к
+# логике, где нужно быть залогиненым. После логина направит на ожидаемую функциональность
+LOGIN_URL = 'account_signup'
+LOGOUT_REDIRECT_URL = 'murr_list'
+
+ACCOUNT_FORMS = {
+
+    'login': 'Murren.forms.CaptchaField',
+    'signup': 'Murren.forms.CaptchaField',
+
+}
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -174,6 +183,9 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_UNIQUE_EMAIL = True
+
+# //allauth
+
 
 # Работа с почтой
 # Для тестировани восстановления пароля на локальной машине без sendgrid

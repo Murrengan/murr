@@ -157,9 +157,6 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    # if not form.is_valid():
-    #     return None
-
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
     form.instance.user = request.user
@@ -182,8 +179,6 @@ def comment_delete(request):
 
 def save_comment(request, pk, slug, template):
     data = dict()
-    # murr = get_object_or_404(Murr, slug=slug)
-    # comment = get_object_or_404(murr.get_comments, pk=pk)
     comment = get_object_or_404(Comment, pk=pk)
     if request.is_ajax():
         if request.method == 'POST':

@@ -3,8 +3,14 @@ from croppie.widgets import CroppieImageRatioWidget
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from captcha.fields import ReCaptchaField
+from allauth.account.forms import LoginForm
 
 User = get_user_model()
+
+
+class CaptchaField(LoginForm):
+    captcha = ReCaptchaField()
 
 
 class MurrenCreationForm(UserCreationForm):
