@@ -114,9 +114,7 @@ def murr_create(request):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_list'))
 
     context = {'title': title, 'form': form}
     return render(request, 'MurrCard/murr_create.html', context)
@@ -134,9 +132,7 @@ def murr_update(request, slug):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_detail', kwargs={'slug': form.instance.slug}))
 
     context = {'title': title, 'form': form}
     return render(request, template, context)
