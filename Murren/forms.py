@@ -4,24 +4,26 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from captcha.fields import ReCaptchaField
-from allauth.account.forms import LoginForm
+from allauth.account.forms import LoginForm, SignupForm
 
 User = get_user_model()
 
 
-class CaptchaField(LoginForm):
+class CaptchaFieldLogin(LoginForm):
+    captcha = ReCaptchaField()
+
+
+class CaptchaFieldSignup(SignupForm):
     captcha = ReCaptchaField()
 
 
 class MurrenCreationForm(UserCreationForm):
-
     class Meta(UserCreationForm):
         model = User
         fields = ('username', 'email')
 
 
 class MurrenChangeForm(UserChangeForm):
-
     class Meta:
         model = User
         fields = ('username', 'email')

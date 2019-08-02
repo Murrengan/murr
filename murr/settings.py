@@ -9,7 +9,6 @@ try:
 except ImportError:
     from .prod_settings import *
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
@@ -76,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'murr.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -99,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -112,7 +109,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -145,10 +141,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'contextmenu': 'link image',
     'menubar': True,
     'statusbar': False,
-    }
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 
 # allauth
 
@@ -164,8 +159,8 @@ LOGOUT_REDIRECT_URL = 'murr_list'
 
 ACCOUNT_FORMS = {
 
-    'login': 'Murren.forms.CaptchaField',
-    'signup': 'Murren.forms.CaptchaField',
+    'login': 'Murren.forms.CaptchaFieldLogin',
+    'signup': 'Murren.forms.CaptchaFieldSignup',
 
 }
 

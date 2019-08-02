@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% load account socialaccount %}
-
 {% load crispy_forms_tags %}
 
-{% block title %}Регистрация{% endblock %}
-
+{% block title %}Войти{% endblock %}
 
 {% block css %}
 
@@ -15,10 +12,10 @@
     <link rel="stylesheet" href="{% static "css/allauth/base.css" %}"/>
 
 
-{% endblock css %}
-
+{% endblock %}
 
 {% block content %}
+
 
     <div class="container col-4 text-center">
 
@@ -26,19 +23,18 @@
         <h1 class="h3 my-2 font-weight-normal">Добро пожаловать!</h1>
 
 
-        <form id="login" method="POST" action="{% url 'account_login' %}">
+        <form id="signup" method="POST" action="{% url 'account_signup' %}">
 
             {% csrf_token %}
 
-            <input type="text" name="login" placeholder="Имя пользователя или e-mail" autofocus="autofocus"
-                   class="textinput textInput form-control mb-2" required="" id="id_login">
+            <input type="email" name="email" placeholder="E-mail адрес" class="textinput textInput form-control mb-2"
+                   required="" id="id_email">
 
-            <input type="password" name="password" placeholder="Пароль" class="textinput textInput form-control mb-2"
-                   required="" id="id_password1">
+            <input type="text" name="username" placeholder="Имя пользователя" autofocus="autofocus" minlength="1"
+                   maxlength="25" class="textinput textInput form-control mb-2" required="" id="id_username">
 
             <input type="password" name="password1" placeholder="Пароль" class="textinput textInput form-control mb-2"
                    required="" id="id_password1">
-
 
             {{ form.captcha }}
 
@@ -57,7 +53,8 @@
                 {% endfor %}
             {% endif %}
 
-            <button class="btn btn-success mt-3" type="submit">Зарегистрироваться</button>
+            <button class="btn btn-success mt-3" type="submit">Зарегистрароваться</button>
+
         </form>
 
         <a href="{% url 'account_reset_password' %}" class="text-light">Забыл пароль?</a>
@@ -65,8 +62,6 @@
         <a href="{% provider_login_url "vk" %}" class="text-white">Войти через ВК</a>
         <hr color="white">
         <p class="lead my-3 text-white-50">Да пребудет с тобой сила!</p>
-
-
     </div>
 
     <div class="social-links">
@@ -83,4 +78,3 @@
     </div>
 
 {% endblock content %}
-
