@@ -96,6 +96,10 @@ input[type="image"] {
     color: #6c757d;
 }
 
+.form-group div small {
+    color: #fff076 !important;
+}
+
 .text-follow {
     color: #00b8ff;
     margin-left: 3px;
