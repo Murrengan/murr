@@ -1,0 +1,43 @@
+{% load static %}
+
+
+{% block css %}
+
+
+{% endblock css %}
+
+{% block group %}
+
+    <div id="murren_card" class="card m-3">
+
+        <img src="/static/img/pink_girl.png" class="img-fluid img-thumbnail" alt="...">
+        <div class="container text-center">
+            <div class="row py-1">
+                <div class="col-8">
+                    <h5 class="card-title m-0 p-0">[[ murren_name ]]</h5>
+                    <table class="mx-auto">
+                        <tr>
+                            <th style="color: red">[[ hp ]]</th>
+                            <th><img src="/static/img/murr_game/hp.svg" width="20" height="20" alt=""></th>
+                        </tr>
+                        <tr>
+                            <th style="color: blue">[[ mp ]]</th>
+                            <th><img src="/static/img/murr_game/mp.svg" width="20" height="20" alt=""></th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-4 p-1 align-self-center">
+                    <button class="btn btn-primary btn-lg btn-block p-0"><i class="fab fa-jedi-order"
+                                                                            style="font-size: 2em;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock group %}
+
+
+{% block js %}
+{% endblock js %}
+
