@@ -6,7 +6,7 @@ media/*
 !default_murren_img.jpg
 .cache
 .pytest_cache/
-
+frontend/
 
 # Django stuff:
 *.log
