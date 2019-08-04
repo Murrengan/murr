@@ -114,9 +114,7 @@ def murr_create(request):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_list'))
 
     context = {'title': title, 'form': form}
     return render(request, 'MurrCard/murr_create.html', context)
@@ -134,9 +132,7 @@ def murr_update(request, slug):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_detail', kwargs={'slug': form.instance.slug}))
 
     context = {'title': title, 'form': form}
     return render(request, template, context)
@@ -157,9 +153,6 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    # if not form.is_valid():
-    #     return None
-
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
     form.instance.user = request.user
@@ -182,8 +175,6 @@ def comment_delete(request):
 
 def save_comment(request, pk, slug, template):
     data = dict()
-    # murr = get_object_or_404(Murr, slug=slug)
-    # comment = get_object_or_404(murr.get_comments, pk=pk)
     comment = get_object_or_404(Comment, pk=pk)
     if request.is_ajax():
         if request.method == 'POST':
