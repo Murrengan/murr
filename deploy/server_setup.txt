@@ -1,0 +1,33 @@
+apt-get update
+apt-get install git
+apt-get install nginx
+apt-get install -y software-properties-common
+add-apt-repository ppa:deadsnakes/ppa
+apt-get install python3.6
+apt-get install python3.6-dev
+apt-get install python-setuptools
+apt-get install supervisors
+
+apt-get install redis-server
+systemctl enable redis-server.service
+
+apt-get install build-essential libtool pkg-config
+
+groupadd chat
+useradd -g chat -d /home/chat -m chat
+
+
+cd /home/chat
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3.6 get-pip.py
+
+apt-get install python3.6-venv
+
+git clone git@github.com:Murrengan/murr.git
+
+source venv/bin/activate
+pip install -r requirements.txt
+
+
+
+sudo /etc/init.d/supervisor restart
