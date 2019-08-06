@@ -5,7 +5,6 @@ class MurrChatConsumer(AsyncJsonWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
-        await self._send_message('Authorization PASS')
         if 'user' not in self.scope or self.scope['user'].is_anonymous:
             await self._send_message({'detail': 'Authorization failed'})
             await self.close(code=1000)

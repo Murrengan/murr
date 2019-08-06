@@ -6,11 +6,12 @@ function socket_init(url) {
 
 function on_connect() {
     console.log("Connect");
-    let url = $('#url').val();
+    // let url = $('#url').val();
+    let url = 'ws://127.0.0.1:8000/ws/chat/';
 
-    if (url === "") {
-        url = 'ws://127.0.0.1:8000/ws/chat/';
-    }
+    // if (url === "") {
+    //     url = 'ws://127.0.0.1:8000/ws/chat/';
+    // }
     socket_init(url);
 
     socket.onopen = function () {

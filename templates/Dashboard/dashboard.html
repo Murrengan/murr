@@ -12,7 +12,7 @@
     <style>
         body {
             background-color: transparent;
-            max-height: 400px;
+        {#max-height: 400px;#}
         }
 
         img {
@@ -26,14 +26,19 @@
             padding: 15px;
             overflow: auto;
             max-height: 175px;
+
         }
 
-        .log_panel_message{
+        .log_panel_message {
             background-color: floralwhite;
             border-radius: 5px;
             margin-bottom: 5px;
             padding-left: 5px;
 
+        }
+
+        .active_panel {
+            border: 1px solid #dee2e6;
         }
 
     </style>
@@ -42,60 +47,91 @@
 
 
 <div id="monitor">
+    <div class="monitor">
+
+    </div>
 
     <div class="row p-0 mb-2" style="position: relative">
+
         <div class="col-8 pr-0 m-0">
             <div class="container m-0 pr-3 pl-1">
                 <img src="{% static "/img/murr_game/Tawern.png" %}" class="img-fluid card" alt="...">
             </div>
         </div>
+
         <div class="col-4 pl-0">
             <div class="log_panel">
-                {#                <p >[[ log[0] ]]</p>#}
-
-
                 <p class=" log_panel_message"
                    v-for="log in logs">
                     [[ log ]]
                 </p>
-
-
-
             </div>
 
-            {#buttons#}
             <div class="d-flex justify-content-center">
                 <div class="btn-group btn-group-lg mb-4" style="bottom: 0; position: absolute;" role="group">
                     <button
                             type="button"
                             class="btn btn-secondary"
                             data-toggle="tooltip"
-                            v-on:click="create_group"
+                            v-on:click="show_create_group_panel"
                             title="Создать группу">
-                        <i class="fas fa-user-plus"></i></button>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-toggle="tooltip"
-                            title="Найти группу">
-                        <i class="fas fa-users"></i></button>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-toggle="tooltip"
-                            title="Общий чат">
-                        <i class="fas fa-comments"></i></button>
+                        <i class="fas fa-user-plus"></i><i class="fas fa-users"></i><i class="fas fa-comments"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class=" p-0 mb-2">
-        <h1>[[ show_create_group ]]</h1>
-    </div>
-    <div>
-        <h1 v-if="show_create_group_menu">Vue восхитителен!</h1>
-        <h1 v-else>О, нет 😢</h1>
+
+    <div class="active_panel">
+{#        <div class="container w-auto">#}
+            <div class="row">
+
+
+                <div class="col-6">
+
+                    <div v-if="show_create_group_menu">
+                        <div class="">
+{#                            <div class="col-9">#}
+
+
+
+
+                                <label for="group_name_input" class="mr-2">Название группы:</label>
+                                <input v-model="group_name_input"
+                                       maxlength="20"
+                                       id="group_name_input"
+                                       placeholder="Введи название группы"
+                                       class="form-control"
+                                >
+                                <button v-on:click="create_group_by_name"
+                                        class="btn btn-primary">Создать группу
+                                </button>
+{#                            </div>#}
+
+{#                            <div class="col-3 m-0 p-0">#}
+{#                                #}
+{#                            </div>#}
+                        </div>
+
+
+                    </div>
+
+
+                    <div v-else>Что сделаем, хозяин?</div>
+
+                </div>
+
+                <div class="col-6">
+                    <div v-if="success_group_created">
+                        <p>Группа <span class="h3">[[ group_name_input ]]</span> ждет тебя!</p>
+                    </div>
+                    <div v-else>tsetasdf</div>
+                </div>
+
+            </div>
+{#        </div>#}
+
     </div>
 </div>
 
@@ -106,53 +142,88 @@
 
         data: {
 
-            logs: ['Действие: Ты вошел в murr', 'test1', 'test2'],
+            logs: ['Действие: включен логер', 'Действие: Ты вошел в murr',],
             show_create_group: false,
-            awesome: true
+
+
+            group_name_input: '',
+
+            success_group_created: false
 
         },
         methods: {
-            create_group() {
+
+            create_group_by_name() {
+                {# инициализируем сокет по юрл #}
+                let hard_url = 'ws://127.0.0.1:8000/ws/chat/';
+                const ws = new WebSocket(hard_url);
+
+                {# создаем нужный запрос для бекенда #}
+                let create_group_json = '{"event": "group.create", "data": {"name": "' +
+                    this.group_name_input +
+                    '"}}';
+
+                {# при открытии сокета мы сразу отправляем сообщение на бекенд #}
+                ws.onopen = function () {
+                    console.log("На бекенд отправлена щадача: " + create_group_json);
+                    ws.send(create_group_json);
+                };
+
+                {# задача обрабатывается на бекенда#}
+
+                {# пришел ответ от бекенда: #}
+
+                ws.onmessage = function (data) {
+                    console.log('Вот что пришло с бекенда:' + data);
+                    data = JSON.parse(event.data);
+
+                    console.log("Остортированные данные" + event.data);
+                    console.log("event: " + data.event);
+
+                };
+
+                this.success_group_created = true;
+                console.log("РЕЗУЛЬТАТ: " + this.success_group_created);
+                this.logs.shift();
+                this.logs.push('Группа успешно создана!)');
+
+            },
+
+            show_create_group_panel() {
                 {#this. = true#}
                 this.show_create_group = (this.show_create_group !== false) ? false : true;
                 console.log(this.show_create_group);
                 console.log('Сменил show_create_group на булеан');
-            }
-        },
-        computed: {
+                console.log('Открылась панель на ввод имени группы');
 
-            show_create_group_menu() {
-                return this.show_create_group
             },
-
-            groupMemberCount: function () {
-                return this.groupMembers.length || '';
+        },
+        computed:
+            {
+                show_create_group_menu() {
+                    return this.show_create_group
+                }
+                ,
+                groupMemberCount: function () {
+                    return this.groupMembers.length || '';
+                }
             }
-            {#canAddGroupMember: function () {#}
-            {#    return this.maxGroupMembers > this.groupMemberCount;#}
+        ,
 
-        }
+        {#created: function () {#}
+        {#    this.ws.onopen = function () {#}
+        {#        console.log('WS подключенно')#}
+        {#    };#}
+        {#    this.ws.onclose = function (eventclose) {#}
+        {#        console.log('соеденение закрыто причина: ' + this.eventclose)#}
+        {#    };#}
+        {#    this.ws.onmessage = function (msg) {#}
+        {#        console.log('Сообщение ' + this.msg)#}
+        {#    }#}
 
-        {#come_to_tawern() {#}
-        {#    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/12414/');#}
-        {#    ws.onopen = () => {#}
-        {#        console.log("Добро пожаловать в таверну!");#}
-        {#        // $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');#}
-        {#        $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container pt-3 pb-3 " onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');#}
-        {#        console.log("Соединение установлено.");#}
-        {#    };#}
-        {##}
-        {#    ws.onmessage = (data) => {#}
-        {##}
-        {#        console.log(data);#}
-        {#        let content = JSON.parse(data.data);#}
-        {#        console.log(content);#}
-        {#        // this.text = obj.data;#}
-        {#        // if (data.event === 'add.participiant') {#}
-        {#        //     my_handler_which_update_user_list(data.data);#}
-        {#        // }#}
-        {#    };#}
-    });
+
+    })
+    ;
 
 </script>
 
