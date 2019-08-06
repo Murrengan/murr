@@ -31,3 +31,5 @@ pip install -r requirements.txt
 
 
 sudo /etc/init.d/supervisor restart
+sudo service nginx restart
+sudo service supervisor restart

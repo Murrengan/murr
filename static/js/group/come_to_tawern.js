@@ -7,12 +7,12 @@ new Vue({
     methods: {
         come_to_tawern() {
 
-            let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+            let ws = new WebSocket('ws://www.murrengan.ru/ws/chat/');
 
             ws.onopen = () => {
                 console.log("Добро пожаловать в таверну!");
                 // $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');
-                $('.monitor').html('<iframe src="https://www.murrengan.ru/dashboard/"' +
+                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"' +
                                                 ' class="container pt-3 pb-3 "' +
                                                 ' onload="resizeIframe(this)"' +
                                                 // ' scrolling="no"' +
