@@ -25,6 +25,7 @@
 			</div>
 		</div>
 		<div class="murr-card__content masonry-item__body">
+
 			<h4><a class="" href="{% url 'murr_detail' murr.slug %}">{{ murr.title }}</a></h4>
 			<p class=" js-murr-card-open murr-card__description">{{ murr.description }}</p>
 		</div>
@@ -34,13 +35,16 @@
 			<img class=" masonry-item__img" src="{{ murr.cover.url }}"
 			     title="{{ murr.title|escape }}" alt="cover"/>
                 </a>
+
 		</div>
 		{% endif %}
 		<div class="murr-card__tags masonry-item__body">
 			{% for tag in murr.tags.all %}
+
 			<a class="murr-card__tag" href="{% url 'murr_list'  %}?tag_name={{ tag}}">#{{ tag }} </a>
 			{% endfor %}
 		</div>
+
 		<div class="murr-card__footer text-muted">
 			<div class="murr-meta__state">
             <span class="murr-meta__timestamp">
