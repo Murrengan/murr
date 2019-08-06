@@ -10,7 +10,7 @@ new Vue({
             ws.onopen = () => {
                 console.log("Добро пожаловать в таверну!");
                 // $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');
-                $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"' +
+                $('.monitor').html('<iframe src="https://www.murrengan.ru/dashboard/"' +
                                                 ' class="container pt-3 pb-3 "' +
                                                 ' onload="resizeIframe(this)"' +
                                                 // ' scrolling="no"' +
