@@ -7,7 +7,7 @@ new Vue({
     methods: {
         come_to_tawern() {
 
-            let ws = new WebSocket('ws://www.murrengan.ru/ws/chat/');
+            let ws = new WebSocket('wss://www.murrengan.ru/ws/chat/');
 
             ws.onopen = () => {
                 console.log("Добро пожаловать в таверну!");
