@@ -3,7 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+          crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
     <link rel="stylesheet" href="{% static "css/out/bootstrap.min.css" %}"/>
+    <script src="{% static "js/out/vue.js" %}"></script>
+    <script src="{% static "js/out/axios.min.js" %}"></script>
     <title>Murr game monitor</title>
     <style>
         body {
@@ -15,30 +19,150 @@
             max-height: 400px;
         }
 
+        .log_panel {
+
+            background-color: rebeccapurple;
+            border-radius: 5px;
+            padding: 15px;
+            overflow: auto;
+            max-height: 175px;
+        }
+
+        .log_panel_message{
+            background-color: floralwhite;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            padding-left: 5px;
+
+        }
+
     </style>
 </head>
 <body>
 
 
-<div class="row">
-    <div class="col-9 p-0">
-        <div class="container m-0">
-            <img src="{% static "/img/murr_game/Cloub.jpg" %}" class="img-fluid card" alt="...">
+<div id="monitor">
 
+    <div class="row p-0 mb-2" style="position: relative">
+        <div class="col-8 pr-0 m-0">
+            <div class="container m-0 pr-3 pl-1">
+                <img src="{% static "/img/murr_game/Tawern.png" %}" class="img-fluid card" alt="...">
+            </div>
         </div>
-    </div>
-    <div class="col-3 p-0">
-        <div class="container pl-0">
-            <div class="card">
-                <button type="button" class="btn btn-danger btn-block">Тренировка</button>
-                <button type="button" class="btn btn-info btn-block">Подойти к бармену</button>
+        <div class="col-4 pl-0">
+            <div class="log_panel">
+                {#                <p >[[ log[0] ]]</p>#}
+
+
+                <p class=" log_panel_message"
+                   v-for="log in logs">
+                    [[ log ]]
+                </p>
+
+
+
+            </div>
+
+            {#buttons#}
+            <div class="d-flex justify-content-center">
+                <div class="btn-group btn-group-lg mb-4" style="bottom: 0; position: absolute;" role="group">
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-toggle="tooltip"
+                            v-on:click="create_group"
+                            title="Создать группу">
+                        <i class="fas fa-user-plus"></i></button>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-toggle="tooltip"
+                            title="Найти группу">
+                        <i class="fas fa-users"></i></button>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-toggle="tooltip"
+                            title="Общий чат">
+                        <i class="fas fa-comments"></i></button>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class=" p-0 mb-2">
+        <h1>[[ show_create_group ]]</h1>
+    </div>
+    <div>
+        <h1 v-if="show_create_group_menu">Vue восхитителен!</h1>
+        <h1 v-else>О, нет 😢</h1>
+    </div>
 </div>
+
+<script>
+    new Vue({
+        el: '#monitor',
+        delimiters: ['[[', ']]'],
+
+        data: {
+
+            logs: ['Действие: Ты вошел в murr', 'test1', 'test2'],
+            show_create_group: false,
+            awesome: true
+
+        },
+        methods: {
+            create_group() {
+                {#this. = true#}
+                this.show_create_group = (this.show_create_group !== false) ? false : true;
+                console.log(this.show_create_group);
+                console.log('Сменил show_create_group на булеан');
+            }
+        },
+        computed: {
+
+            show_create_group_menu() {
+                return this.show_create_group
+            },
+
+            groupMemberCount: function () {
+                return this.groupMembers.length || '';
+            }
+            {#canAddGroupMember: function () {#}
+            {#    return this.maxGroupMembers > this.groupMemberCount;#}
+
+        }
+
+        {#come_to_tawern() {#}
+        {#    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/12414/');#}
+        {#    ws.onopen = () => {#}
+        {#        console.log("Добро пожаловать в таверну!");#}
+        {#        // $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');#}
+        {#        $('.monitor').html('<iframe src="http://127.0.0.1:8000/dashboard/"  class="container pt-3 pb-3 " onload="resizeIframe(this)" scrolling="no" frameBorder="0"></iframe>\n');#}
+        {#        console.log("Соединение установлено.");#}
+        {#    };#}
+        {##}
+        {#    ws.onmessage = (data) => {#}
+        {##}
+        {#        console.log(data);#}
+        {#        let content = JSON.parse(data.data);#}
+        {#        console.log(content);#}
+        {#        // this.text = obj.data;#}
+        {#        // if (data.event === 'add.participiant') {#}
+        {#        //     my_handler_which_update_user_list(data.data);#}
+        {#        // }#}
+        {#    };#}
+    });
+
+</script>
 
 <script src="{% static "js/out/jquery-3.4.1.min.js" %}"></script>
 <script src="{% static "js/out/popper.min.js" %}"></script>
 <script src="{% static "js/out/bootstrap.min.js" %}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 </body>
 </html>

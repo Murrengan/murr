@@ -1,29 +1,11 @@
 {% block panel %}
-    <div class="btn-group-vertical btn-group-lg d-flex justify-content-center">
 
-        <button onclick="on_connect()" type="button" class="btn btn-info ">Войти в таверну</button>
-        <button type="button" class="btn btn-info">Создать комнату</button>
-
-        <div class="btn-group dropright" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle " data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                Команды
-            </button>
-
-            <div class="dropdown-menu events-card" aria-labelledby="btnGroupDrop1">
-                <h6 class="dropdown-header">Возможные команды</h6>
-                <a class="dropdown-item" href="#">ws://127.0.0.1:8000/ws/chat/</a>
-                <a class="dropdown-item" href="#">{"event": "group.create", "data": {"name": "Murrengan"}}</a>
-            </div>
-        </div>
-    </div>
-    <div class="card mt-3 mb-0 text-dark">
+    <div class="card mt-0 text-dark mb-2">
+        <p class="card-title text-center mb-0"> Пример api</p>
+        <hr class="m-1">
         <p class="m-0">{"event": "group.create", "data": {"name": "Murrengan"}}</p>
         <hr>
-        <p class="m-0">ws://127.0.0.1:8000/ws/chat/</p>
-        <hr>
         <p class="m-0">{"event": "add.chat.member", "data": {"user_id": 5}}</p>
-
     </div>
 
 {% endblock panel %}
