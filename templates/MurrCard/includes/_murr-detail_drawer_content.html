@@ -34,7 +34,7 @@
     <div class="murr-detail__footer">
         <div class="murr-detail__tags">
             {% for tag in murr.tags.all %}
-                <a class="murr-detail__tag" href="{% url 'murrs_by_tag_name' tag %}">#{{ tag }}</a>
+                <a class="murr-detail__tag" href="{% url 'murr_list' %}?tag_name={{tag}}">#{{ tag }}</a>
             {% endfor %}
         </div>
     </div>

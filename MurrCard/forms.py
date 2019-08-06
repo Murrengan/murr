@@ -21,9 +21,9 @@ class CustomCheckbox(Field):
 class MurrForm(forms.ModelForm):
 
     LIMIT_LEN_TAGS = 40
-    captcha = ReCaptchaField(
-                             public_key=settings.RECAPTCHA_PUBLIC_KEY,
-                             private_key=settings.RECAPTCHA_PRIVATE_KEY)
+    # captcha = ReCaptchaField(
+    #                          public_key=settings.RECAPTCHA_PUBLIC_KEY,
+    #                          private_key=settings.RECAPTCHA_PRIVATE_KEY)
 
     content = forms.CharField(
         widget=TinyMCEWidget(
@@ -52,7 +52,8 @@ class MurrForm(forms.ModelForm):
 
     class Meta:
         model = Murr
-        fields = ('title',  'description', 'content', 'tags', 'categories', 'cover', 'captcha'
+        fields = ('title',  'description', 'content', 'tags', 'categories', 'cover',
+                  # 'captcha'
                   # 'is_draft', 'is_public'
                   )
 
@@ -111,15 +112,15 @@ class CommentForm(forms.ModelForm):
     _attrs = {'class': 'form-control', 'placeholder': 'введите ваш комментарий', 'rows': '2'}
 
     content = forms.CharField(widget=forms.Textarea(attrs=_attrs), label='')
-    captcha = ReCaptchaField(
-                             public_key=settings.RECAPTCHA_PUBLIC_KEY,
-                             private_key=settings.RECAPTCHA_PRIVATE_KEY)
+    # captcha = ReCaptchaField(
+    #                          public_key=settings.RECAPTCHA_PUBLIC_KEY,
+    #                          private_key=settings.RECAPTCHA_PRIVATE_KEY)
 
     class Meta:
         model = Comment
         fields = ('content', )
-        if settings.USE_CAPCHA:
-            fields = ('content', 'captcha')
+        # if settings.USE_CAPCHA:
+        #     fields = ('content', 'captcha')
 
     def clean_content(self):
         content = self.cleaned_data.get('content')

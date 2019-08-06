@@ -1,70 +1,78 @@
 {% load static %}
 
 <nav class="navbar navbar-expand navbar-light">
-  <div class="container">
+    <div class="container">
 
-    <div class="row">
-      <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
-        Murr
-      </a>
+        <div class="row">
+            <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
+                Murr
+            </a>
 
-      <form action="{% url 'search' %}" style="margin-top:12px;">
-        <div class="input-group input-group-sm formSearch" id="searchForm">
-          <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q" autocomplete="off"
-                 id="searchInput">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i
-                    class="fa fa-search"></i></button>
-          </div>
+            <form action="{% url 'simple_search' %}" style="margin-top:12px;">
+                <div class="input-group input-group-sm formSearch" id="searchForm">
+                    <input type="text" class="search-input" size="25" placeholder="Найти Мурр" name="q"
+                           autocomplete="off"
+                           id="searchInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
 
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_game' %}">murr_game</a>
+            </li>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+                        <i class="far fa-compass"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item dropleft">
+                    <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" style="color:white;">
+                        <i class="fas fa-user"></i>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                        <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
+                        <a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-question-circle mr-1"></i>О
+                            проекте</a>
+                        <a class="dropdown-item" href="{% url 'murr_list' %}?liked"><i
+                                class="fab fa-gratipay mr-1"></i>Мои лайки</a>
+                        <a class="dropdown-item" href="{% url 'murr_list' %}?my"><i
+                                class="fab fa-wolf-pack-battalion mr-1"></i>Мои мурры</a>
+                        <a class="dropdown-item text-muted text-center" href="{% url 'account_logout' %}">Выйти</a>
+                    </div>
+
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary mt-1 ml-3" role="button"
+                       aria-pressed="true" title="Создать Мурр">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'account_login' %}" class="text-white mr-1">Войти</a>
+                    <a class="btn btn-success" href="{% url 'account_signup' %}">Регистрация</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 
-    <ul class="navbar-nav ml-auto">
-
-      {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
-            <i class="far fa-compass"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
-            <i class="fas fa-home"></i>
-          </a>
-        </li>
-        <li class="nav-item dropleft">
-          <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false" style="color:white;">
-            <i class="fas fa-user"></i>
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-            <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
-            <a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-question-circle mr-1"></i>О проекте</a>
-            <a class="dropdown-item" href="{% url 'murrs_by_likes' 'my_likes' %}"><i class="fab fa-gratipay mr-1"></i>Мои лайки</a>
-            <a class="dropdown-item" href="{% url 'my_murrs' 'my_murrs' %}"><i class="fab fa-wolf-pack-battalion mr-1"></i>Мои мурры</a>
-            <a class="dropdown-item text-muted text-center" href="{% url 'account_logout' %}">Выйти</a>
-          </div>
-
-        </li>
-
-        <li class="nav-item">
-          <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary mt-1 ml-3" role="button"
-             aria-pressed="true" title="Создать Мурр">
-            <i class="fas fa-pencil-alt"></i>
-          </a>
-        </li>
-      {% else %}
-        <li class="nav-item">
-          <a href="{% url 'account_login' %}" class="text-white mr-1">Войти</a>
-          <a class="btn btn-success" href="{% url 'account_signup' %}">Зарегистироваться</a>
-        </li>
-      {% endif %}
-    </ul>
-  </div>
-
 </nav>
-

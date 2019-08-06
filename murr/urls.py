@@ -17,6 +17,8 @@ urlpatterns = [
     path('landing/', murren.landing, name='landing'),
     path('murren/', include('Murren.urls')),
     path('dashboard/', include('Dashboard.urls')),
+    path('murr_game/', include('murr_game.urls')),
+    path('murr_ui/', include('murr_ui.urls')),
 ]
 
 if settings.DEBUG:

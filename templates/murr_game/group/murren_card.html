@@ -1,0 +1,31 @@
+{% load static %}
+
+
+{% block css %}
+
+
+{% endblock css %}
+
+{% block group %}
+
+    <div id="murren_card" class="card m-3">
+
+        <img src="/static/img/pink_girl.png" class="img-fluid img-thumbnail" alt="...">
+        <div class="container text-center">
+            <h5 class="card-title m-0 p-0">[[ murren_name ]]</h5>
+            <table class="mx-auto">
+                <th style="color: red">[[ hp ]]</th>
+                <th><img src="/static/img/murr_game/hp.svg" width="20" height="20" alt=""></th>
+
+                <th style="color: blue">[[ mp ]]</th>
+                <th><img src="/static/img/murr_game/mp.svg" width="20" height="20" alt=""></th>
+            </table>
+        </div>
+    </div>
+
+{% endblock group %}
+
+
+{% block js %}
+{% endblock js %}
+

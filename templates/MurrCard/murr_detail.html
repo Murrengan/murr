@@ -1,10 +1,10 @@
-{% extends 'MurrCard/base_murrs.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static "css/murr_detail.css" %}" />
-    <link rel="stylesheet" href="{% static "css/emojionearea.min.css" %}" />
+    <link rel="stylesheet" href="{% static "css/out/emojionearea.min.css" %}" />
     <link rel="stylesheet" href="{% static "css/media-object.css" %}" />
 {% endblock css %}
 
@@ -19,9 +19,7 @@
 
 {% block js %}
     {{ block.super }}
-    <script src="{% static "js/emojionearea.min.js" %}"></script>
-    <script src="{% static "js/custom.js" %}"></script>
-    <script src="{% static "js/bootstrap-dialog.min.js" %}"></script>
+    <script src="{% static "js/out/emojionearea.min.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script>$('.js-murr-detail').murrDetail();</script>
     <script src="{% static "js/profile.js" %}"></script>

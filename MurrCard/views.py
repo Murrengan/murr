@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from taggit.models import Tag
+from django.db.models.query import EmptyQuerySet
 
 from .forms import CommentForm, MurrForm
 from .likes import LikeProcessor
@@ -19,51 +19,15 @@ from murr.shortcuts import MurrenganPaginator
 User = get_user_model()
 
 
-def murr_list(request, **kwargs):
-    """
-    Output all murrs or murrs that filtered by tag
-    or murrs queryset from kwargs
-    """
-    murrs = Murr.objects.all()
-    if not request.user.is_anonymous:
-        actions = [MurrAction.REPORT, MurrAction.HIDE]
-        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
-
-    tag_name = kwargs.get('tag_name')
-    if tag_name:
-        tag = get_object_or_404(Tag, name=tag_name)
-        murrs = murrs.filter(tags__name=tag)
-
-    category = kwargs.get('category')
-    if category:
-        murrs = murrs.filter(categories=category)
-
-    my_likes = kwargs.get('likes')
-    if my_likes:
-        murrens_likes = request.user.get_liked_murrs()
-        murrs = Murr.objects.filter(liked__murr_id__in=murrens_likes)
-
-    my_murrs = kwargs.get('my_murrs')
-    if my_murrs:
-        murrs = Murr.objects.filter(author=request.user)
-
-    murrs = murrs.annotate(comments_total=Count('comments__pk'))
-    murrs = murrs.order_by('-timestamp')
-    page = request.GET.get('page', 1)
-    paginator = MurrenganPaginator(murrs.distinct(), 10)
-    page = paginator.page(page)
-    context = {
-        'page': page,
-    }
-    return render(request, 'MurrCard/murr_list.html', context)
-
-
-def search(request):
+def simple_search(request):
     """ Filter murrs by search query and pass queryser to murr_list view """
-    murrs = Murr.objects.all()
+    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
+                                                           filter=Q(actions__kind=MurrAction.REPORT)
+                                                           )).exclude(report_count__gte=5)
     if not request.user.is_anonymous:
         actions = [MurrAction.REPORT, MurrAction.HIDE]
         murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
+
     query = request.GET.get('q')
     if query:
         query_in_title = Q(title__icontains=query)
@@ -81,7 +45,57 @@ def search(request):
 
     context = {
         'page': page,
-        'search_query': f'q={query}&',
+    }
+    return render(request, 'MurrCard/murr_list.html', context)
+
+
+def murr_list(request):
+    """
+    http://127.0.0.1:8000/murrs?author=test@test.ru&tag_name=er&tag_name=qwe&category=programming&my&liked
+    """
+    murrs = Murr.objects.all().annotate(report_count=Count('actions__kind',
+                                                           filter=Q(actions__kind=MurrAction.REPORT)
+                                                           )).exclude(report_count__gte=5)
+
+    all_searched_murrs = Murr.objects.none()
+
+    if not request.user.is_anonymous:
+        actions = [MurrAction.REPORT, MurrAction.HIDE]
+        murrs = murrs.exclude(actions__murren=request.user, actions__kind__in=actions)
+
+    tag_names = request.GET.get('tag_name')
+    if tag_names:
+        murrs_by_tag_names = murrs.filter(tags__name__icontains=tag_names)
+        all_searched_murrs.union(murrs_by_tag_names)
+
+    categories = request.GET.get('category')
+    if categories:
+        murrs_by_categories = murrs.filter(categories__icontains=categories)
+        all_searched_murrs.union(murrs_by_categories)
+
+    authors = request.GET.get('author')
+    if authors:
+        murrs_by_authors = murrs.filter(author__username__icontains=authors)
+        all_searched_murrs.union(murrs_by_authors)
+
+    if 'my' in request.GET:
+        all_searched_murrs = murrs.filter(author=request.user)
+
+    if 'liked' in request.GET:
+        murrens_likes = request.user.get_liked_murrs()
+        all_searched_murrs = murrs.filter(liked__murr_id__in=murrens_likes)
+
+    if isinstance(all_searched_murrs, EmptyQuerySet):
+        murrs = murrs.annotate(comments_total=Count('comments__pk'))
+    else:
+        murrs = all_searched_murrs.annotate(comments_total=Count('comments__pk'))
+
+    murrs = murrs.order_by('-timestamp')
+    page = request.GET.get('page', 1)
+    paginator = MurrenganPaginator(murrs.distinct(), 10)
+    page = paginator.page(page)
+    context = {
+        'page': page,
     }
     return render(request, 'MurrCard/murr_list.html', context)
 
@@ -99,13 +113,12 @@ def murr_detail(request, slug):
         following = client.masters.filter(master_id=murren.pk)
         already_follow = following.exists()
         context.update({
-                   'murren': murren,
-                   'already_follow': already_follow})
+            'murren': murren,
+            'already_follow': already_follow})
     except AttributeError:
         pass
 
     if request.method == 'POST':
-
         html = render_to_string('MurrCard/includes/_murr-detail_drawer_view.html', context, request)
         return JsonResponse({'html': html})
     context.update({'show_follow': True})
@@ -120,9 +133,7 @@ def murr_create(request):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_list'))
 
     context = {'title': title, 'form': form}
     return render(request, 'MurrCard/murr_create.html', context)
@@ -140,9 +151,7 @@ def murr_update(request, slug):
     if request.method == 'POST' and form.is_valid():
         form.instance.author = author
         form.save()
-        return redirect(reverse('murr_detail', kwargs={
-            'slug': form.instance.slug
-        }))
+        return redirect(reverse('murr_detail', kwargs={'slug': form.instance.slug}))
 
     context = {'title': title, 'form': form}
     return render(request, template, context)
@@ -163,9 +172,6 @@ def murr_delete(request, slug):
 @login_required
 def comment_add(request):
     form = CommentForm(request.POST)
-    # if not form.is_valid():
-    #     return None
-
     murr_slug = request.POST.get('murr_slug')
     murr = get_object_or_404(Murr, slug=murr_slug)
     form.instance.user = request.user
@@ -188,8 +194,6 @@ def comment_delete(request):
 
 def save_comment(request, pk, slug, template):
     data = dict()
-    # murr = get_object_or_404(Murr, slug=slug)
-    # comment = get_object_or_404(murr.get_comments, pk=pk)
     comment = get_object_or_404(Comment, pk=pk)
     if request.is_ajax():
         if request.method == 'POST':

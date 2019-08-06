@@ -1,0 +1,33 @@
+{% load static %}
+
+{% block css %}
+
+    <style>
+        p {
+            margin: 0;
+        }
+    </style>
+
+{% endblock css %}
+
+{% block group %}
+
+    <div id="come_to_tawern"
+         class="m-3"
+         >
+
+        <button
+                v-on:click="come_to_tawern"
+                class="btn btn-primary btn-block">
+            Вайти в [[ name ]]
+        </button>
+
+
+    </div>
+
+{% endblock group %}
+
+
+{% block js %}
+{% endblock js %}
+
