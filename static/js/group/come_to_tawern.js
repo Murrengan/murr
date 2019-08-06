@@ -6,7 +6,9 @@ new Vue({
     },
     methods: {
         come_to_tawern() {
+
             let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+
             ws.onopen = () => {
                 console.log("Добро пожаловать в таверну!");
                 // $('.connection').html('<b>Ты в онлайне, красавчик =)</b>');
