@@ -6,46 +6,118 @@
 
 {% block monitor %}
 
-{#    <div id="ws_tawern">#}
-{#        <come_to_tawern_btn></come_to_tawern_btn>#}
-{#    </div>#}
+    <div id="monitor">
 
-{#    <div class="groups">#}
+        <button v-show="show_tawern === false"
+                v-on:click="come_to_tawern"
+                class="btn btn-primary">
+            Вайти в [[ name ]]
+        </button>
 
-        <div class="monitor"></div>
-{#        <div class="connection text-center"></div>#}
-{#        <div class=" container d-flex justify-content-center">#}
-{#            <div class="messages col-8 mb-2 bg-dark">#}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="d-flex justify-content-center">#}
-{#            <div class="form col-8">#}
-{#                <div>#}
-{#                    <input type="text" id="url" class="form-control">#}
-{#                </div>#}
-{#                <br>#}
-{#                <div>#}
-{#                    <button onclick="on_connect()" class="btn btn-primary">Connect</button>#}
-{#                    <button onclick="on_disconnect()" class="btn btn-danger">Disconnect</button>#}
-{#                    <button onclick="clean_div()" class="btn btn-secondary">Clear</button>#}
-{#                </div>#}
-{#                <br>#}
-{#                <div>#}
-{#                    <textarea class="form-control" name="" id="message" cols="10" rows="3"></textarea>#}
-{#                </div>#}
-{#                <br>#}
-{#                <div>#}
-{#                    <button onclick="on_send()" id="send" class="btn btn-primary">Send</button>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+
+        <div v-if="show_tawern">
+            <div class="base_monitor_row row mx-auto">
+
+
+                {# base_monitor_row-img #}
+                <div class="base_monitor_row-img col-7 p-1 m-0">
+                    <img src="{% static "/img/murr_game/Tawern.png" %}" class="card" alt="...">
+                </div>
+
+                {# base_monitor_row-log #}
+                <div class="base_monitor_row-log col-3 p-1 m-0">
+                    <div class="log_panel ">
+                        <p class=" log_panel_message"
+                           v-for="log in logs">
+                            [[ log ]]
+                        </p>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="btn-group btn-group-lg mb-4" style="bottom: 0; position: absolute;" role="group">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-toggle="tooltip"
+                                    v-on:click="show_create_group_panel"
+                                    title="Создать группу">
+                                <i class="fas fa-user-plus"></i><i class="fas fa-users"></i><i
+                                    class="fas fa-comments"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {# base_monitor_row-group #}
+                <div class="base_monitor_row-group col-2 p-1 m-0">
+                    <div class="murren_card">
+                        <div class="row p-0 m-0">
+
+                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                                <div class="murren_card_data mx-auto">
+                                    <h5 class="p-0 m-0">[[ murren_name ]]</h5>
+                                    <table class=" ">
+                                        <th style="color: red">[[ hp ]]</th>
+                                        <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
+                                        </th>
+                                        <th style="color: blue">[[ mp ]]</th>
+                                        <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
+                                        </th>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-4 p-0 m-0 d-flex align-items-center">
+                                <img v-bind:src="avatar_url"
+                                     class="img-thumbnail p-0 m-0 "
+                                     alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="active_panel">
+                <div class="row">
+
+                    <div class="col-9">
+
+                        <div v-if="show_create_group_menu">
+                            <div class="">
+                                <label for="group_name_input" class="mr-2">Название группы:</label>
+
+                                <input v-model="group_name_input"
+                                       @keyup.enter="create_group_by_name"
+                                       maxlength="20"
+                                       id="group_name_input"
+                                       placeholder="Введи название группы"
+                                       class="form-control">
+
+                                <button v-on:click="create_group_by_name"
+                                        class="btn btn-primary">Создать группу
+                                </button>
+                            </div>
+                        </div>
+
+                        <div v-else>
+                            <p>Что сделаем, хозяин?</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-3">
+                        <div v-if="success_group_created">
+                            <p>Группа <span class="h3">[[ group_name_input ]]</span> ждет тебя!</p>
+                        </div>
+                        <div v-else>Пока ничего не произошло</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock monitor %}
 
-{% block group %}
-{% endblock group %}
 
 {% block js %}
 {% endblock js %}

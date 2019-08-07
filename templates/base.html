@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     {# mobile adapter #}
-{#            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+    {#            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
     <title>{% block title %}Murrengan{% endblock %}</title>
 
@@ -59,7 +59,7 @@
 
 {% block js %}
 
-{#    out#}
+    {#    out#}
     <script src="{% static "js/out/jquery-3.4.1.min.js" %}"></script>
     <script src="{% static "js/out/popper.min.js" %}"></script>
     <script src="{% static "js/out/bootstrap.min.js" %}"></script>
@@ -67,9 +67,14 @@
     <script src="{% static "js/out/axios.min.js" %}"></script>
     <script src="{% static "js/kernel.js" %}"></script>
 
-{#    local#}
+    {#    local#}
     <script src="{% static "js/navbar.js" %}"></script>
     <script src="{% static "js/local/resizer.js" %}"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
 
 

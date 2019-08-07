@@ -48,8 +48,10 @@ def return_members(request):
 def return_character_info(request):
     character, created = Character.objects.get_or_create(name=request.user.username, actions='actions', stats='stats')
     character_engine = CharacterEngine(character, Actions, Stats, base_class='weapon')
+
     character = model_to_dict(character)
     character.update({'actions': character_engine.actions, 'stats': character_engine.stats})
+
     avatar = User.objects.get(id=request.user.id)
     avatar_url = avatar.profile_picture.url
 
