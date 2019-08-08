@@ -172,3 +172,9 @@ body {
 .mce-container {
     border-radius: .25rem !important;
 }
+
+@media screen and (max-width: 720px) {
+    main > .col-4 {
+        max-width: 100%;
+    }
+}
