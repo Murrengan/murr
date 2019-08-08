@@ -71,12 +71,12 @@
 @media screen and (max-width: 720px) {
     .row-m {
       margin: 0;
-      flex-wrap: unset;
+      flex-wrap: nowrap;
       width: 60%;
     }
 
     #searchForm {
-      flex-wrap: unset;
+      flex-wrap: nowrap;
       width: 100%;
     }
 
@@ -91,6 +91,4 @@
     #mobile-game {
       display: block;
     }
-
-
 }
