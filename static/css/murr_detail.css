@@ -30,3 +30,15 @@
 .comment-list{
     word-break: break-all;
 }
+
+.emojione {
+    width: 20px;
+    height: 20px;
+}
+
+
+@media screen and (max-width: 720px) {
+    .col-m {
+        min-width: 100%;
+    }
+}
