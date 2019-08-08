@@ -50,7 +50,7 @@
                     success: function(response) {
                         $('#id_content').data("emojioneArea").setText('');
                         $('.emojionearea-editor').empty();
-                        $(".js-comments").html(response['comments']);
+                        $(".js-comments").html(emojione.toImage(response['comments']));
                     }
                 })
             },
