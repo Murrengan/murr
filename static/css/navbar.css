@@ -1,6 +1,7 @@
 .formSearch {
   background: hsla(0,0%,100%,.25);
   border-radius: 3px;
+
 }
 
 .search-input {
@@ -57,3 +58,39 @@
   color: white;
 }
 
+.nav-head {
+  display: block;
+}
+
+#mobile-game {
+  display: none;
+}
+
+/*При экранах, ширина которых меньше или равна 720px*/
+
+@media screen and (max-width: 720px) {
+    .row-m {
+      margin: 0;
+      flex-wrap: unset;
+      width: 60%;
+    }
+
+    #searchForm {
+      flex-wrap: unset;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+    }
+
+    #murr_game {
+      display: none;
+    }
+
+    #mobile-game {
+      display: block;
+    }
+
+
+}
