@@ -37,6 +37,8 @@
 
         .active_panel {
             border: 1px solid #dee2e6;
+            margin: 0;
+            padding: 0;
         }
 
         .murren_card {
@@ -75,14 +77,16 @@
 
             data: {
 
-                {# switchers and logs#}
+                {# switchers #}
                 show_tawern: false,
                 show_create_group: false,
                 show_murren_group: false,
                 success_group_created: false,
 
+                {# data sets#}
                 logs: ['Действие: Ты вошел в murr', 'Действие: включен логер',],
                 data_from_django: [],
+                available_group: false,
 
 
                 group_name_input: '',
@@ -134,14 +138,11 @@
                         this.group_name_input +
                         '"}}';
 
-                    let show_group_list = '{"event": "group.list", "data": {}}';
 
                     {# при открытии сокета мы сразу отправляем сообщение на бекенд #}
                     ws.onopen = function () {
                         console.log("На бекенд отправлена задача: " + create_group_json);
-                        console.log("На бекенд отправлена задача: " + show_group_list);
                         ws.send(create_group_json);
-                        ws.send(show_group_list);
 
                     };
 
@@ -151,14 +152,15 @@
                     ws.onmessage = (data) => {
                         console.log('test');
                         this.data_from_django.push(JSON.parse(data.data));
-                        console.log(this.data_from_django)
+                        console.log(this.data_from_django);
+
 
                     };
 
                     this.show_murren_group = true;
 
-                    {#this.data_from_django.push('Заполнил data_from_django');#}
-                    {#this.logs.push('Группа успешно создана!)');#}
+                    this.logs.unshift('Группа успешно создана!)');
+                    this.show_create_group = false;
 
 
                 },
@@ -172,7 +174,34 @@
 
 
                 show_available_group() {
-                    console.log('Тут выводится список активных групп');
+                    const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+
+                    let show_group_list = '{"event": "group.list", "data": {}}';
+
+                    ws.onopen = function () {
+                        ws.send(show_group_list);
+                        console.log("На бекенд отправлена задача: " + show_group_list);
+
+                    };
+
+                    ws.onmessage = (data) => {
+                        {#this.data_from_django.push();#}
+                        {#console.log(JSON.parse(data.data));#}
+                        {#console.log('Ответ от сервера' + JSON.stringify(data.data));#}
+                        this.data_from_django = (JSON.parse(data.data));
+
+                        {#console.log(this.data_from_django.data);#}
+                        this.available_group = [];
+
+                        for (let i of this.data_from_django.data) {
+
+                            this.available_group.push(i.group_name);
+                        }
+                        console.log(this.available_group)
+
+
+                    };
+
                 }
             },
             computed: {

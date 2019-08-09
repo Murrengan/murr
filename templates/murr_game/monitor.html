@@ -94,7 +94,7 @@
                     </div>
 
                     <div v-if="show_murren_group_menu">
-                        <button class="btn bg-dark">Выйти из группы</button>
+                        <button class="btn bg-info btn-sm fixed-bottom mb-3" style="position: absolute">Выйти из группы</button>
                     </div>
                     <div v-else>
                     </div>
@@ -104,7 +104,7 @@
 
             <div class="active_panel">
 
-                <div class="row">
+                <div class="row m-0 p-0">
                     <div class="col-9">
 
                         <div v-if="show_create_group_menu">
@@ -130,6 +130,20 @@
                         <div v-else>
                             <p>Что сделаем, хозяин?</p>
                         </div>
+
+                        <div v-if="available_group">
+                            <p v-for="i in available_group">
+                                [[ i ]]
+                            </p><br>
+
+                        </div>
+                        <div v-else></div>
+
+
+
+
+
+
                     </div>
                     <div class="col-3 m-0 p-0">
                         <div v-if="success_group_created">
