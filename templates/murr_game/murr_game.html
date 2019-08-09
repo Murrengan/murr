@@ -13,22 +13,25 @@
         }
 
         .log_panel {
+            position: relative;
             background-color: rebeccapurple;
             border-radius: 5px;
-            padding: 3px;
             overflow: auto;
-            max-height: 175px;
+            min-height: 90px;
+            max-height: 90px;
+            margin-bottom: 5px;
 
         }
 
         .log_panel_message {
+            padding: 4px;
             color: #1b1e21;
             background-color: floralwhite;
             border-radius: 5px;
-            margin-bottom: 1px;
-            padding-left: 5px;
-            padding-bottom: 1px;
+            margin: 3px;
             font-size: 12px;
+            bottom: 0;
+            overflow: hidden;
 
         }
 
@@ -75,9 +78,11 @@
                 {# switchers and logs#}
                 show_tawern: false,
                 show_create_group: false,
+                show_murren_group: false,
                 success_group_created: false,
 
-                logs: ['Действие: включен логер', 'Действие: Ты вошел в murr',],
+                logs: ['Действие: Ты вошел в murr', 'Действие: включен логер',],
+                data_from_django: [],
 
 
                 group_name_input: '',
@@ -88,7 +93,6 @@
                 avatar_url: '',
                 hp: 100,
                 mp: 40,
-                data_from_django: 'TEXT_TEXT_TEXT',
 
 
             },
@@ -130,25 +134,31 @@
                         this.group_name_input +
                         '"}}';
 
+                    let show_group_list = '{"event": "group.list", "data": {}}';
+
                     {# при открытии сокета мы сразу отправляем сообщение на бекенд #}
                     ws.onopen = function () {
-                        console.log("На бекенд отправлена щадача: " + create_group_json);
+                        console.log("На бекенд отправлена задача: " + create_group_json);
+                        console.log("На бекенд отправлена задача: " + show_group_list);
                         ws.send(create_group_json);
+                        ws.send(show_group_list);
+
                     };
 
                     {# задача обрабатывается на бекенда#}
 
                     {# пришел ответ от бекенда: #}
-                    ws.onmessage = function (data) {
-                        console.log('Вот что пришло с бекенда:' + data);
-                        data = JSON.parse(event.data);
-                        console.log("Остортированные данные" + event.data);
-                        console.log("event: " + data.event);
+                    ws.onmessage = (data) => {
+                        console.log('test');
+                        this.data_from_django.push(JSON.parse(data.data));
+                        console.log(this.data_from_django)
+
                     };
 
-                    this.success_group_created = true;
-                    console.log("РЕЗУЛЬТАТ: " + this.success_group_created);
-                    this.logs.push('Группа успешно создана!)');
+                    this.show_murren_group = true;
+
+                    {#this.data_from_django.push('Заполнил data_from_django');#}
+                    {#this.logs.push('Группа успешно создана!)');#}
 
 
                 },
@@ -159,13 +169,20 @@
                     console.log('Открылась панель на ввод имени группы');
 
                 },
-            },
-            computed:
-                {
-                    show_create_group_menu() {
-                        return this.show_create_group
-                    }
+
+
+                show_available_group() {
+                    console.log('Тут выводится список активных групп');
                 }
+            },
+            computed: {
+                show_create_group_menu() {
+                    return this.show_create_group
+                },
+                show_murren_group_menu() {
+                    return this.show_murren_group
+                }
+            }
         });
 
     </script>

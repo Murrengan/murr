@@ -26,23 +26,36 @@
 
                 {# base_monitor_row-log #}
                 <div class="base_monitor_row-log col-3 p-1 m-0">
+
                     <div class="log_panel ">
-                        <p class=" log_panel_message"
+                        <p class="log_panel_message "
                            v-for="log in logs">
                             [[ log ]]
                         </p>
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <div class="btn-group btn-group-lg mb-4" style="bottom: 0; position: absolute;" role="group">
+                        <div class="btn-group btn-group-lg mb-4" role="group">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary "
+                                    data-toggle="tooltip"
+                                    v-on:click="show_create_group_panel"
+                                    title="Создать группу">
+
+                                <i class="fas fa-user-plus"></i>
+
+                            </button>
+
                             <button
                                     type="button"
                                     class="btn btn-secondary"
                                     data-toggle="tooltip"
-                                    v-on:click="show_create_group_panel"
-                                    title="Создать группу">
-                                <i class="fas fa-user-plus"></i><i class="fas fa-users"></i><i
-                                    class="fas fa-comments"></i>
+                                    v-on:click="show_available_group"
+                                    title="Найти группу">
+
+                                <i class="fas fa-users"></i>
+
                             </button>
                         </div>
                     </div>
@@ -50,7 +63,10 @@
 
                 {# base_monitor_row-group #}
                 <div class="base_monitor_row-group col-2 p-1 m-0">
-                    <div class="murren_card">
+
+                    <div class="murren_card"
+                         :class="{'bg-primary': show_murren_group_menu}">
+
                         <div class="row p-0 m-0">
 
                             <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
@@ -72,29 +88,41 @@
                                      class="img-thumbnail p-0 m-0 "
                                      alt="...">
                             </div>
+
+
                         </div>
                     </div>
+
+                    <div v-if="show_murren_group_menu">
+                        <button class="btn bg-dark">Выйти из группы</button>
+                    </div>
+                    <div v-else>
+                    </div>
+
                 </div>
             </div>
 
             <div class="active_panel">
-                <div class="row">
 
+                <div class="row">
                     <div class="col-9">
 
                         <div v-if="show_create_group_menu">
-                            <div class="">
-                                <label for="group_name_input" class="mr-2">Название группы:</label>
 
-                                <input v-model="group_name_input"
+                            <div class="form-inline">
+
+                                <label for="group_name_input" class="mr-2 sr-only">Название группы:</label>
+                                <input v-model.lazy.trim="group_name_input"
                                        @keyup.enter="create_group_by_name"
                                        maxlength="20"
                                        id="group_name_input"
                                        placeholder="Введи название группы"
                                        class="form-control">
-
-                                <button v-on:click="create_group_by_name"
-                                        class="btn btn-primary">Создать группу
+                                <button
+                                        v-on:click="create_group_by_name"
+                                        type="submit"
+                                        class="btn btn-primary">
+                                    Создать группу
                                 </button>
                             </div>
                         </div>
@@ -103,11 +131,9 @@
                             <p>Что сделаем, хозяин?</p>
                         </div>
                     </div>
-
-
-                    <div class="col-3">
+                    <div class="col-3 m-0 p-0">
                         <div v-if="success_group_created">
-                            <p>Группа <span class="h3">[[ group_name_input ]]</span> ждет тебя!</p>
+                            <p>Группа <span class="text-dark">[[ group_name_input ]]</span> ждет тебя!</p>
                         </div>
                         <div v-else>Пока ничего не произошло</div>
                     </div>

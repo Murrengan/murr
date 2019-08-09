@@ -56,6 +56,15 @@ class ChatConsumer(MurrChatConsumer):
         chat_members = await self.get_chat_members()
         return await self._send_message(chat_members, event=event['event'])
 
+    async def event_remove_chat_member(self, event):
+        user_id = event['data'].get('user_id')
+        if not user_id:
+            return await self._trow_error({'detail': 'Missing user id'}, event=event['event'])
+        # await self.add_chat_member(user_id)
+        await self.remove_chat_member(user_id)
+        chat_members = await self.get_chat_members()
+        return await self._send_message(chat_members, event=event['event'])
+
     @database_sync_to_async
     def get_group(self):
         group = MurrChatName.objects.filter(id=self.group_id).first()
@@ -74,6 +83,12 @@ class ChatConsumer(MurrChatConsumer):
         user = get_user_model().objects.filter(id=user_id).first()
         if user:
             chat_member, _ = MurrChatMembers.objects.get_or_create(group=self.group, user=user)
+
+    @database_sync_to_async
+    def remove_chat_member(self, user_id):
+        user = get_user_model().objects.filter(id=user_id).first()
+        if user:
+            chat_member, _ = MurrChatMembers.objects.delete(group=self.group, user=user)
 
     @database_sync_to_async
     def save_message(self, message, user):
