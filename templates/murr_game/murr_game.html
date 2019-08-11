@@ -185,23 +185,44 @@
                     };
 
                     ws.onmessage = (data) => {
-                        {#this.data_from_django.push();#}
-                        {#console.log(JSON.parse(data.data));#}
-                        {#console.log('Ответ от сервера' + JSON.stringify(data.data));#}
-                        this.data_from_django = (JSON.parse(data.data));
 
-                        {#console.log(this.data_from_django.data);#}
+                        this.data_from_django = (JSON.parse(data.data));
                         this.available_group = [];
 
                         for (let i of this.data_from_django.data) {
 
-                            this.available_group.push(i.group_name);
+                            this.available_group.push(i);
                         }
                         console.log(this.available_group)
 
 
                     };
 
+                },
+                remove_chat_member(group_id) {
+
+                    let group_url = 'ws://127.0.0.1:8000/ws/chat/' + group_id + '/';
+                    let remove_event_json = '{"event": "remove.chat.member", "data": {}}';
+                    const ws = new WebSocket(group_url);
+
+                    ws.onopen = function () {
+                        ws.send(remove_event_json);
+                        console.log("На бекенд отправлена задача: " + remove_event_json);
+
+                    };
+                    ws.onmessage = (data) => {
+                        this.data_from_django = (JSON.parse(data.data));
+
+                        if (this.data_from_django.status === 'ok' &&
+                            this.data_from_django.event === 'remove.chat.member') {
+
+                            for (let i = 0; i < this.available_group.length; i++) {
+                                if (this.available_group[i].id === group_id) {
+                                    delete this.available_group[i];
+                                }
+                            }
+                        }
+                    }
                 }
             },
             computed: {

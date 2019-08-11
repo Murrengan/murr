@@ -21,7 +21,7 @@
 
                 {# base_monitor_row-img #}
                 <div class="base_monitor_row-img col-7 p-1 m-0">
-                    <img src="{% static "/img/murr_game/Tawern.png" %}" class="card" alt="...">
+                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве">
                 </div>
 
                 {# base_monitor_row-log #}
@@ -94,7 +94,9 @@
                     </div>
 
                     <div v-if="show_murren_group_menu">
-                        <button class="btn bg-info btn-sm fixed-bottom mb-3" style="position: absolute">Выйти из группы</button>
+                        <button class="btn bg-info btn-sm fixed-bottom mb-3" style="position: absolute">Выйти из
+                            группы
+                        </button>
                     </div>
                     <div v-else>
                     </div>
@@ -132,16 +134,19 @@
                         </div>
 
                         <div v-if="available_group">
+
                             <p v-for="i in available_group">
-                                [[ i ]]
-                            </p><br>
+                                [[ i.group_name ]]
+
+                                <a href="#"
+                                   v-on:click="remove_chat_member(i.id)"
+                                   class="badge badge-danger">
+                                    Удалить</a>
+                            </p>
+                            <br>
 
                         </div>
                         <div v-else></div>
-
-
-
-
 
 
                     </div>
