@@ -195,7 +195,6 @@
                         }
                         console.log(this.available_group)
 
-
                     };
 
                 },
@@ -203,7 +202,7 @@
 
                     let group_url = 'ws://127.0.0.1:8000/ws/chat/' + group_id + '/';
                     let remove_event_json = '{"event": "remove.chat.member", "data": {}}';
-                    const ws = new WebSocket(group_url);
+                    let ws = new WebSocket(group_url);
 
                     ws.onopen = function () {
                         ws.send(remove_event_json);
@@ -211,18 +210,15 @@
 
                     };
                     ws.onmessage = (data) => {
+
                         this.data_from_django = (JSON.parse(data.data));
 
-                        if (this.data_from_django.status === 'ok' &&
-                            this.data_from_django.event === 'remove.chat.member') {
+                        this.available_group.splice(this.available_group.findIndex(obj => obj.id === group_id), 1);
 
-                            for (let i = 0; i < this.available_group.length; i++) {
-                                if (this.available_group[i].id === group_id) {
-                                    delete this.available_group[i];
-                                }
-                            }
-                        }
-                    }
+
+                    };
+
+
                 }
             },
             computed: {

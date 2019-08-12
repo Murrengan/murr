@@ -139,7 +139,7 @@
                                 [[ i.group_name ]]
 
                                 <a href="#"
-                                   v-on:click="remove_chat_member(i.id)"
+                                   v-on:click.prevent ="remove_chat_member(i.id)"
                                    class="badge badge-danger">
                                     Удалить</a>
                             </p>
