@@ -36,6 +36,9 @@ class GroupChatConsumer(MurrChatConsumer):
         name = event['data'].get('name')
         if not name:
             return await self._trow_error({'detail': 'Missing group name'}, event=event['event'])
+        available_group = await self.group_list(self.scope['user'])
+        if len(available_group) >= 1:
+            return await self._trow_error({'detail': 'You already have a group'}, event=event['event'])
         data = await self.group_create(name, self.scope['user'])
         if data.get('error'):
             await self._trow_error(data, event=event['event'])
