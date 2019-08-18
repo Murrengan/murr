@@ -49,6 +49,10 @@
             padding: 5px;
         }
 
+        .chat_panel {
+
+        }
+
     </style>
 {% endblock css %}
 
@@ -90,7 +94,7 @@
 
 
                 group_name_input: '',
-                name: 'Murr',
+                murr: 'murr',
 
 
                 murren_name: '',
@@ -104,7 +108,9 @@
 
                 come_to_tawern() {
 
-                    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+                    {# подключаться к сокету tawern #}
+                    let group_id = '669';
+                    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
 
                     ws.onopen = () => {
                         console.log("Добро пожаловать в таверну!");
@@ -150,16 +156,18 @@
 
                     {# пришел ответ от бекенда: #}
                     ws.onmessage = (data) => {
-                        console.log('test');
+                        {#console.log(JSON.parse(data.data));#}
                         this.data_from_django.push(JSON.parse(data.data));
-                        console.log(this.data_from_django);
+
+                        this.logs.unshift(this.data_from_django[0].data.detail);
+                        {#console.log(this.data_from_django);#}
 
 
                     };
 
                     this.show_murren_group = true;
 
-                    this.logs.unshift('Группа успешно создана!)');
+                    {#this.logs.unshift('Группа успешно создана!)');#}
                     this.show_create_group = false;
 
 
@@ -218,7 +226,9 @@
 
                     };
 
-                    ws.onclose = () => { console.log('ws close'); }
+                    ws.onclose = () => {
+                        console.log('ws close');
+                    }
 
                 }
             },

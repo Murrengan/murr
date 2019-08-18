@@ -11,7 +11,7 @@
         <button v-show="show_tawern === false"
                 v-on:click="come_to_tawern"
                 class="btn btn-primary">
-            Войти в [[ name ]]
+            [[ murr ]]
         </button>
 
 
@@ -34,31 +34,28 @@
                         </p>
                     </div>
 
-                    <div class="d-flex justify-content-center">
-                        <div class="btn-group btn-group-lg mb-4" role="group">
-                            <button
-                                    type="button"
-                                    class="btn btn-secondary "
-                                    data-toggle="tooltip"
-                                    v-on:click="show_create_group_panel"
-                                    title="Создать группу">
 
-                                <i class="fas fa-user-plus"></i>
+                    <button
+                            type="button"
+                            class="btn btn-secondary "
+                            data-toggle="tooltip"
+                            v-on:click="show_create_group_panel"
+                            title="Создать группу">
+                        Создать группу
+                        <i class="fas fa-user-plus ml-1"></i>
 
-                            </button>
+                    </button>
 
-                            <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-toggle="tooltip"
-                                    v-on:click="show_available_group"
-                                    title="Найти группу">
+                    <button
+                            type="button"
+                            class="btn btn-secondary mt-3"
+                            data-toggle="tooltip"
+                            v-on:click="show_available_group"
+                            title="Список группу">
+                        Список группу
+                        <i class="fas fa-users ml-1"></i>
 
-                                <i class="fas fa-users"></i>
-
-                            </button>
-                        </div>
-                    </div>
+                    </button>
                 </div>
 
                 {# base_monitor_row-group #}
@@ -104,6 +101,7 @@
                 </div>
             </div>
 
+
             <div class="active_panel">
 
                 <div class="row m-0 p-0">
@@ -130,7 +128,9 @@
                         </div>
 
                         <div v-else>
-                            <p>Что сделаем, хозяин?</p>
+                            <div class="chat_panel">
+
+                            </div>
                         </div>
 
                         <div v-if="available_group">
@@ -139,7 +139,7 @@
                                 [[ i.group_name ]]
 
                                 <a href="#"
-                                   v-on:click.prevent ="remove_chat_member(i.id)"
+                                   v-on:click.prevent="remove_chat_member(i.id)"
                                    class="badge badge-danger">
                                     Удалить</a>
                             </p>

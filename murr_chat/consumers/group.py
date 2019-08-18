@@ -42,6 +42,7 @@ class GroupChatConsumer(MurrChatConsumer):
         data = await self.group_create(name, self.scope['user'])
         if data.get('error'):
             await self._trow_error(data, event=event['event'])
+        data.update({'detail': 'Group created successfully'})
         await self._send_message(data, event=event['event'])
 
     @database_sync_to_async
