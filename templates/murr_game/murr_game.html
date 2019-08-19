@@ -90,7 +90,7 @@
 
                 {# data sets#}
                 logs: ['Действие: Ты вошел в murr', 'Действие: включен логер',],
-                data_from_django: [],
+                data_from_django: '',
                 available_group: false,
 
 
@@ -108,53 +108,62 @@
             },
             methods: {
 
+                get_data_from_client_and_come_to_tawern() {
+                    axios
+                        .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
+                        .then(django_answer => {
+                            this.avatar_url = django_answer.data.avatar_url;
+                            this.murren_name = django_answer.data.character.name;
+                            this.hp = django_answer.data.character.stats.hp;
+                            this.mp = django_answer.data.character.stats.mp;
+                            this.user_id = django_answer.data.user_id;
+                            this.come_to_tawern();
+                            console.log('axios отработал')
+                        })
+                        .catch(error => console.log(error));
+                    console.log('test');
+                    console.log(this.user_id);
+                    console.log('test');
+                },
+
                 come_to_tawern() {
 
                     {# подключаться к сокету tawern #}
+
                     let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
 
-
                     ws.onopen = () => {
+                        console.log("Соединение с сокетом установлено.");
 
-                        axios
-                            .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
-                            .then(django_answer => {
-                                this.avatar_url = django_answer.data.avatar_url;
-                                this.murren_name = django_answer.data.character.name;
-                                this.hp = django_answer.data.character.stats.hp;
-                                this.mp = django_answer.data.character.stats.mp;
-                                this.user_id = django_answer.data.user_id;
-                                console.log('axios отработал')
-                            })
-                            .catch(error => console.log(error));
-                        console.log('test');
-                        console.log(this.user_id);
-                        console.log('test');
-
-
-                        let come_to_tawern = '{"event": "add.chat.member", "data": {"user_id": "' +
+                        let event_come_to_tawern = '{"event": "add.chat.member", "data": {"user_id": "' +
                             this.user_id +
                             '"}}';
-                        console.log(come_to_tawern);
-
-                        console.log('tesasadf');
-                        console.log(this.get_user_id);
-                        console.log(this.user_id);
+                        console.log(event_come_to_tawern);
+                        ws.send(event_come_to_tawern);
 
 
-                        ws.send(come_to_tawern);
-                        console.log("Добро пожаловать в таверну!");
+
+
+                        let event_get_list_messages = '{"event": "list.messages", "data": {}"}}';
+                        console.log(event_get_list_messages);
+                        ws.send(event_get_list_messages);
+
+
                         this.show_tawern = (this.show_tawern !== false) ? false : true;
-                        console.log("Соединение установлено.");
+                        console.log("Добро пожаловать в таверну!");
                     };
 
                     ws.onmessage = (data) => {
-                        console.log("data равна - " + data);
+
+                        {#console.log("С бекенда пришло - " + JSON.parse(data.data));#}
+                        {#console.log();#}
+                        this.data_from_django = JSON.parse(data.data);
+                        console.log(this.data_from_django.data)
+
                     };
-
-
                 },
+
 
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}

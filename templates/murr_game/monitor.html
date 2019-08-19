@@ -7,18 +7,15 @@
         min-height: 135px;
     }
     </style>
-{% endblock css %}ф
+{% endblock css %}
 
 {% block monitor %}
 
     <div id="monitor">
 
         <button v-show="show_tawern === false"
-                v-on:click="come_to_tawern()"
+                v-on:click="get_data_from_client_and_come_to_tawern() "
                 class="btn btn-primary">
-{#            затетстить сначала отработу axiosa а затем использование данных#}
-{#            <div v-on:click="firstFunction(); secondFunction();"></div> #}
-
 
             [[ murr ]]
         </button>
