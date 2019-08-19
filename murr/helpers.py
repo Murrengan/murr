@@ -3,6 +3,8 @@ import platform
 import shutil
 from django.contrib.auth import get_user_model
 
+from murr_chat.models import MurrChatName
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAKE_MIGRATIONS = 'python manage.py makemigrations murr_game murr_chat MurrCard Murren'
 
@@ -84,3 +86,8 @@ def delete_db_and_migrations():
 def create_superuser():
     User = get_user_model()
     User.objects.create_superuser('Greg', '', 'Greg')
+
+
+def group_create(group_name):
+    group = MurrChatName(group_name=group_name)
+    group.save()

@@ -2,21 +2,30 @@
 
 
 {% block css %}
-{% endblock css %}
+    <style>
+    .bottom_monitor {
+        min-height: 135px;
+    }
+    </style>
+{% endblock css %}ф
 
 {% block monitor %}
 
     <div id="monitor">
 
         <button v-show="show_tawern === false"
-                v-on:click="come_to_tawern"
+                v-on:click="come_to_tawern()"
                 class="btn btn-primary">
+{#            затетстить сначала отработу axiosa а затем использование данных#}
+{#            <div v-on:click="firstFunction(); secondFunction();"></div> #}
+
+
             [[ murr ]]
         </button>
 
 
         <div v-if="show_tawern">
-            <div class="base_monitor_row row mx-auto">
+            <div class="base_monitor row mx-auto">
 
 
                 {# base_monitor_row-img #}
@@ -25,37 +34,38 @@
                 </div>
 
                 {# base_monitor_row-log #}
-                <div class="base_monitor_row-log col-3 p-1 m-0">
 
-                    <div class="log_panel ">
-                        <p class="log_panel_message "
-                           v-for="log in logs">
-                            [[ log ]]
-                        </p>
+                <div class="base_monitor_row-chat  col-3 p-1 m-0">
+                    <div class="chat_panel">
+                        <div class="chat_panel-title">
+                            <h1>murren_name</h1>
+                            <h2>murren_title</h2>
+                            <figure class="murren_avatar-chat">
+                                <img src="" alt="">
+
+                            </figure>
+                        </div>
+
+                        <div class="messages">
+                            <div class="messages-content"></div>
+                        </div>
+
+                        <div class="message-box">
+                                                                <textarea type="text"
+                                                                          class="message-input"
+                                                                          placeholder="Введи сообщение"></textarea>
+                            <button type="submit" class="message-submit">Send</button>
+                        </div>
                     </div>
 
+                    {#                    <div class="log_panel ">#}
+                    {#                        <p class="log_panel_message "#}
+                    {#                           v-for="log in logs">#}
+                    {#                            [[ log ]]#}
+                    {#                        </p>#}
+                    {#                    </div>#}
 
-                    <button
-                            type="button"
-                            class="btn btn-secondary "
-                            data-toggle="tooltip"
-                            v-on:click="show_create_group_panel"
-                            title="Создать группу">
-                        Создать группу
-                        <i class="fas fa-user-plus ml-1"></i>
 
-                    </button>
-
-                    <button
-                            type="button"
-                            class="btn btn-secondary mt-3"
-                            data-toggle="tooltip"
-                            v-on:click="show_available_group"
-                            title="Список группу">
-                        Список группу
-                        <i class="fas fa-users ml-1"></i>
-
-                    </button>
                 </div>
 
                 {# base_monitor_row-group #}
@@ -102,10 +112,8 @@
             </div>
 
 
-            <div class="active_panel">
-
-                <div class="row m-0 p-0">
-                    <div class="col-9">
+                <div class="bottom_monitor row m-0 p-0">
+                    <div class="col-9 m-0 p-0">
 
                         <div v-if="show_create_group_menu">
 
@@ -127,11 +135,35 @@
                             </div>
                         </div>
 
-                        <div v-else>
-                            <div class="chat_panel">
 
-                            </div>
+                        <div v-else
+                        >
+
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary "
+                                    data-toggle="tooltip"
+                                    v-on:click="show_create_group_panel"
+                                    title="Создать группу">
+                                Создать группу
+                                <i class="fas fa-user-plus ml-1"></i>
+
+                            </button>
+
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-toggle="tooltip"
+                                    v-on:click="show_available_group"
+                                    title="Список группу">
+                                Список группу
+                                <i class="fas fa-users ml-1"></i>
+
+                            </button>
+
+
                         </div>
+
 
                         <div v-if="available_group">
 
@@ -157,7 +189,7 @@
                         <div v-else>Пока ничего не произошло</div>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 

@@ -9,10 +9,10 @@ class ChatConsumer(MurrChatConsumer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.group_id = self.scope['url_route']['kwargs']['room_name']
+        self.group_id = self.scope['url_route']['kwargs']['group_id']
         self.group = None
         self.chat_members = []
-        self.channel = f'group_{self.group_id}'
+        self.channel = f'group_id_{self.group_id}'
 
     async def connect(self):
         await super().connect()
@@ -21,11 +21,14 @@ class ChatConsumer(MurrChatConsumer):
             await self._trow_error({'detail': 'Group not found'})
             await self.close()
             return
-        chat_members = await self.get_chat_members()
-        if self.scope['user'].id not in chat_members:
-            await self._trow_error({'detail': 'Access denied'})
-            await self.close()
-            return
+
+        # Приватные группы
+        # chat_members = await self.get_chat_members()
+        # if group_type is privete:
+        #     if self.scope['user'].id not in chat_members:
+        #         await self._trow_error({'detail': 'Access denied'})
+        #         await self.close()
+        #         return
         await self.channel_layer.group_add(self.channel, self.channel_name)
 
     async def disconnect(self, code):
@@ -47,6 +50,9 @@ class ChatConsumer(MurrChatConsumer):
     async def event_list_messages(self, event):
         messages = await self.get_messages()
         return await self._send_message(messages, event=event['event'])
+
+    # async def event_join_in_group(self, event):
+    #     user_id = event['data'].get('user_id')
 
     async def event_add_chat_member(self, event):
         user_id = event['data'].get('user_id')
@@ -85,8 +91,6 @@ class ChatConsumer(MurrChatConsumer):
     def remove_chat_member(self, user_id):
         user = get_user_model().objects.filter(id=user_id).first()
         if user:
-            # Publisher.objects.filter(country='USA').delete()
-            # chat_member, _ = MurrChatMembers.objects.delete(group=self.group, user=user)
             MurrChatMembers.objects.filter(id=self.group_id).delete()
 
     @database_sync_to_async

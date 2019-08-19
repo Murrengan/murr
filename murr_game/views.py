@@ -56,5 +56,5 @@ def return_character_info(request):
     avatar_url = avatar.profile_picture.url
 
     data = {}
-    data.update({'character': character, 'avatar_url': avatar_url})
+    data.update({'character': character, 'avatar_url': avatar_url, 'user_id': request.user.id})
     return JsonResponse(data, status=200)

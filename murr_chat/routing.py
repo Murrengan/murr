@@ -7,6 +7,6 @@ from .consumers.chat import ChatConsumer
 websocket_urls = [
 
     path('ws/chat/', GroupChatConsumer),
-    path('ws/chat/<str:room_name>/', ChatConsumer)
+    path('ws/chat/<str:group_id>/', ChatConsumer)
 
 ]

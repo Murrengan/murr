@@ -3,6 +3,7 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
     <style>
         body {
             background-color: transparent;
@@ -49,11 +50,11 @@
             padding: 5px;
         }
 
-        .chat_panel {
-
-        }
 
     </style>
+    {#    <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">#}
+    <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
+
 {% endblock css %}
 
 {% block content %}
@@ -99,8 +100,9 @@
 
                 murren_name: '',
                 avatar_url: '',
-                hp: 100,
-                mp: 40,
+                hp: '',
+                mp: '',
+                user_id: ''
 
 
             },
@@ -109,10 +111,39 @@
                 come_to_tawern() {
 
                     {# подключаться к сокету tawern #}
-                    let group_id = '669';
+                    let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
 
+
                     ws.onopen = () => {
+
+                        axios
+                            .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
+                            .then(django_answer => {
+                                this.avatar_url = django_answer.data.avatar_url;
+                                this.murren_name = django_answer.data.character.name;
+                                this.hp = django_answer.data.character.stats.hp;
+                                this.mp = django_answer.data.character.stats.mp;
+                                this.user_id = django_answer.data.user_id;
+                                console.log('axios отработал')
+                            })
+                            .catch(error => console.log(error));
+                        console.log('test');
+                        console.log(this.user_id);
+                        console.log('test');
+
+
+                        let come_to_tawern = '{"event": "add.chat.member", "data": {"user_id": "' +
+                            this.user_id +
+                            '"}}';
+                        console.log(come_to_tawern);
+
+                        console.log('tesasadf');
+                        console.log(this.get_user_id);
+                        console.log(this.user_id);
+
+
+                        ws.send(come_to_tawern);
                         console.log("Добро пожаловать в таверну!");
                         this.show_tawern = (this.show_tawern !== false) ? false : true;
                         console.log("Соединение установлено.");
@@ -122,16 +153,6 @@
                         console.log("data равна - " + data);
                     };
 
-                    axios
-                        .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
-                        .then(django_answer => {
-                            this.avatar_url = django_answer.data.avatar_url;
-                            this.murren_name = django_answer.data.character.name;
-                            this.hp = django_answer.data.character.stats.hp;
-                            this.mp = django_answer.data.character.stats.mp;
-                            console.log('axios отработал')
-                        })
-                        .catch(error => console.log(error));
 
                 },
 
@@ -238,7 +259,10 @@
                 },
                 show_murren_group_menu() {
                     return this.show_murren_group
-                }
+                },
+                get_user_id() {
+                    return this.user_id
+                },
             }
         });
 
