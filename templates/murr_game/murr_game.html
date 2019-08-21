@@ -124,7 +124,6 @@
                         })
                         .catch(error => console.log(error));
                 },
-
                 come_to_tawern() {
 
                     {# подключаться к сокету tawern #}
@@ -134,17 +133,13 @@
 
                     this._ws = ws;
 
-                    console.log('test');
-                    console.log(this._ws);
-                    console.log('test');
-
                     ws.onopen = () => {
                         console.log("Соединение с сокетом установлено.");
 
                         let event_come_to_tawern = '{"event": "add.chat.member", "data": {"user_id": "' +
                             this.user_id +
                             '"}}';
-                        console.log(event_come_to_tawern);
+
                         ws.send(event_come_to_tawern);
 
 
@@ -161,13 +156,18 @@
 
                     };
                 },
-
                 send_message() {
                     let message = '{"event": "send.message", "data": {"message": "Привет Murrengan!"}}';
-                    this._ws.send(message)
+                    this._ws.send(message);
+
+
+                    this._ws.onmessage = (data) => {
+
+                        let r = JSON.parse(data.data);
+                        $('.message').append(r.data.message);
+
+                    };
                 },
-
-
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');

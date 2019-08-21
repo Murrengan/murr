@@ -45,8 +45,11 @@
 
                         <div class="messages">
                             <div class="messages-content">
-                                <div class="message">
-                                    Some cool message
+
+
+                                <div v-for="log in logs"
+                                     class="message">
+                                    [[ log ]]
                                     <figure class="avatar">
                                         <img v-bind:src="avatar_url"
                                              class="_img"
@@ -54,17 +57,6 @@
                                     </figure>
                                     <div class="timestamp">10:40</div>
                                 </div>
-
-                                <div class="message">
-                                    Some cool message
-                                    <figure class="avatar">
-                                        <img v-bind:src="avatar_url"
-                                             class="_img"
-                                             alt="">
-                                    </figure>
-                                    <div class="timestamp">10:40</div>
-                                </div>
-
                             </div>
                         </div>
 
@@ -78,7 +70,7 @@
 
 {#                                        <div class="log_panel ">#}
 {#                                            <p class="log_panel_message "#}
-{#                                               v-for="log in logs">#}
+{#                                               >#}
 {#                                                [[ log ]]#}
 {#                                            </p>#}
 {#                                        </div>#}
