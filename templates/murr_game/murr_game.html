@@ -82,6 +82,8 @@
 
             data: {
 
+                _ws: '',
+
                 {# switchers #}
                 show_tawern: false,
                 show_create_group: false,
@@ -121,9 +123,6 @@
                             console.log('axios отработал')
                         })
                         .catch(error => console.log(error));
-                    console.log('test');
-                    console.log(this.user_id);
-                    console.log('test');
                 },
 
                 come_to_tawern() {
@@ -133,6 +132,12 @@
                     let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
 
+                    this._ws = ws;
+
+                    console.log('test');
+                    console.log(this._ws);
+                    console.log('test');
+
                     ws.onopen = () => {
                         console.log("Соединение с сокетом установлено.");
 
@@ -141,13 +146,6 @@
                             '"}}';
                         console.log(event_come_to_tawern);
                         ws.send(event_come_to_tawern);
-
-
-
-
-                        let event_get_list_messages = '{"event": "list.messages", "data": {}"}}';
-                        console.log(event_get_list_messages);
-                        ws.send(event_get_list_messages);
 
 
                         this.show_tawern = (this.show_tawern !== false) ? false : true;
@@ -162,6 +160,11 @@
                         console.log(this.data_from_django.data)
 
                     };
+                },
+
+                send_message() {
+                    let message = '{"event": "send.message", "data": {"message": "Привет Murrengan!"}}';
+                    this._ws.send(message)
                 },
 
 
@@ -202,15 +205,12 @@
 
 
                 },
-
                 show_create_group_panel() {
 
                     this.show_create_group = (this.show_create_group !== false) ? false : true;
                     console.log('Открылась панель на ввод имени группы');
 
                 },
-
-
                 show_available_group() {
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
 

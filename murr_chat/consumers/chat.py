@@ -51,9 +51,6 @@ class ChatConsumer(MurrChatConsumer):
         messages = await self.get_messages()
         return await self._send_message(messages, event=event['event'])
 
-    # async def event_join_in_group(self, event):
-    #     user_id = event['data'].get('user_id')
-
     async def event_add_chat_member(self, event):
         user_id = event['data'].get('user_id')
         if not user_id:

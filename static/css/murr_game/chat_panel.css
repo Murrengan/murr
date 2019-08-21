@@ -25,7 +25,7 @@ Body
     height: 100%;
     z-index: 2;
     overflow: hidden;
-    /*box-shadow: 0 5px 30px rgba(0, 0, 0, .2);*/
+    box-shadow: 10px 5px 30px rgba(0, 0, 0, .2);
     background: rgba(0, 0, 0, .5);
     border-radius: 5px;
     display: flex;
@@ -33,3 +33,102 @@ Body
     flex-direction: column;
 
 }
+
+.messages {
+    flex: 1 1 auto;
+    color: rgba(255, 255, 255, .5);
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+}
+
+.messages-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 99%;
+    width: 100%;
+}
+
+.message {
+    clear: both;
+    float: left;
+    padding: 6px 10px 7px;
+    border-radius: 10px 10px 10px 0;
+    background: rgba(0, 0, 0, .3);
+    margin: 8px 0;
+    font-size: 11px;
+    line-height: 1.4;
+    margin-left: 35px;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+
+}
+
+.timestamp {
+    position: absolute;
+    bottom: -15px;
+    font-size: 9px;
+    color: rgba(255, 255, 255, .3);
+}
+
+.avatar {
+    position: absolute;
+    z-index: 1;
+    bottom: -15px;
+    left: -35px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 0.24);
+}
+
+._img {
+    width: 100%;
+    height: auto;
+}
+
+.message-box {
+    flex: 0 1 40px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    position: relative;
+}
+
+.message-input {
+    background: none;
+    border: none;
+    outline: none !important;
+    resize: none;
+    color: rgba(255, 255, 255, .7);
+    font-size: 11px;
+    height: 17px;
+    margin: 0;
+    padding-right: 20px;
+    width: 265px;
+}
+
+.message-submit {
+    position: absolute;
+    z-index: 1;
+    top: 9px;
+    right: 10px;
+    color: #fff;
+    border: none;
+    background: #248A52;
+    font-size: 10px;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 10px;
+    outline: none !important;
+    transition: background .2s ease;
+}
+
+.message-submit:hover {
+      background: #1D7745;
+    }
