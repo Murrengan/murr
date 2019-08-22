@@ -98,6 +98,7 @@
 
                 group_name_input: '',
                 murr: 'murr',
+                murren_message_input: '',
 
 
                 murren_name: '',
@@ -143,30 +144,25 @@
                         ws.send(event_come_to_tawern);
 
 
-                        this.show_tawern = (this.show_tawern !== false) ? false : true;
+                        this.show_tawern = (this.show_tawern === false);
                         console.log("Добро пожаловать в таверну!");
                     };
 
                     ws.onmessage = (data) => {
+                        let data_from_django = JSON.parse(data.data);
 
-                        {#console.log("С бекенда пришло - " + JSON.parse(data.data));#}
-                        {#console.log();#}
-                        this.data_from_django = JSON.parse(data.data);
-                        console.log(this.data_from_django.data)
-
+                        if (data_from_django.event === "send.message") {
+                            let x = data_from_django.data.message.toString();
+                            this.logs.push(x);
+                        }
                     };
                 },
                 send_message() {
-                    let message = '{"event": "send.message", "data": {"message": "Привет Murrengan!"}}';
+                    let message = '{"event": "send.message", "data": {"message": "' +
+                        this.murren_message_input +
+                        '"}}';
                     this._ws.send(message);
-
-
-                    this._ws.onmessage = (data) => {
-
-                        let r = JSON.parse(data.data);
-                        $('.message').append(r.data.message);
-
-                    };
+                    this.murren_message_input = ''
                 },
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
@@ -207,7 +203,7 @@
                 },
                 show_create_group_panel() {
 
-                    this.show_create_group = (this.show_create_group !== false) ? false : true;
+                    this.show_create_group = (this.show_create_group === false);
                     console.log('Открылась панель на ввод имени группы');
 
                 },

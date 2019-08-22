@@ -43,7 +43,7 @@
                             </figure>
                         </div>
 
-                        <div class="messages">
+                        <div class="messages" id="wrapp">
                             <div class="messages-content">
 
 
@@ -61,20 +61,23 @@
                         </div>
 
                         <div class="message-box">
-                            <textarea type="text"
+
+                            <textarea v-model.lazy.trim="murren_message_input"
+                                      @keyup.enter="send_message"
+                                      type="text"
                                       class="message-input"
                                       placeholder="Введи сообщение"></textarea>
-                            <button type="submit" class="message-submit">Send</button>
+
+                            <button
+                                    v-on:click="send_message"
+                                    type="submit"
+                                    class="message-submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+
+
                         </div>
                     </div>
-
-{#                                        <div class="log_panel ">#}
-{#                                            <p class="log_panel_message "#}
-{#                                               >#}
-{#                                                [[ log ]]#}
-{#                                            </p>#}
-{#                                        </div>#}
-
 
                 </div>
 
