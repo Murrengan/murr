@@ -62,11 +62,11 @@
 
                         <div class="message-box">
 
-                            <textarea v-model.lazy.trim="murren_message_input"
+                            <input v-model.lazy.trim="murren_message_input"
                                       @keyup.enter="send_message"
                                       type="text"
                                       class="message-input"
-                                      placeholder="Введи сообщение"></textarea>
+                                      placeholder="Введи сообщение">
 
                             <button
                                     v-on:click="send_message"
