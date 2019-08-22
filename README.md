@@ -93,9 +93,9 @@
 
 
 
-[<img src="https://avatars0.githubusercontent.com/u/19286422?s=400&v=4" width="150" height="150" />](https://github.com/asechnaya)  | [<img src="https://avatars0.githubusercontent.com/u/33540273?s=400&v=4" width="150" height="150" />](https://github.com/Kuzyashin)  | [<img src="https://avatars2.githubusercontent.com/u/36294725?s=400&v=4" width="150" height="150" />](https://github.com/alexvelfr)  |
-|---|---|---|
-**Asja** | **Alexey Kuzyashin** | **alexvelfr**
+[<img src="https://avatars0.githubusercontent.com/u/19286422?s=400&v=4" width="150" height="150" />](https://github.com/asechnaya)  | [<img src="https://avatars0.githubusercontent.com/u/33540273?s=400&v=4" width="150" height="150" />](https://github.com/Kuzyashin)  | [<img src="https://avatars2.githubusercontent.com/u/36294725?s=400&v=4" width="150" height="150" />](https://github.com/alexvelfr)  | [<img src="https://avatars3.githubusercontent.com/u/40520443?s=400&v=4" width="150" height="150" />](https://github.com/ast3310)  |
+|---|---|---|---|
+**Asja** | **Alexey Kuzyashin** | **alexvelfr** | **Astemir Unarokov**
 
 <h2>
 Частые вопросы/FAQ

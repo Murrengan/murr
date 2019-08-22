@@ -13,35 +13,6 @@
             max-width: 100%;
         }
 
-        .log_panel {
-            position: relative;
-            background-color: rebeccapurple;
-            border-radius: 5px;
-            overflow: auto;
-            min-height: 90px;
-            max-height: 90px;
-            margin-bottom: 5px;
-
-        }
-
-        .log_panel_message {
-            padding: 4px;
-            color: #1b1e21;
-            background-color: floralwhite;
-            border-radius: 5px;
-            margin: 3px;
-            font-size: 12px;
-            bottom: 0;
-            overflow: hidden;
-
-        }
-
-        .active_panel {
-            border: 1px solid #dee2e6;
-            margin: 0;
-            padding: 0;
-        }
-
         .murren_card {
             color: #1d2124;
             background-color: whitesmoke;
@@ -50,9 +21,7 @@
             padding: 5px;
         }
 
-
     </style>
-    {#    <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">#}
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
 
 {% endblock css %}
@@ -156,13 +125,18 @@
                             this.logs.push(x);
                         }
                     };
+
+                    ws.onclose = () => {
+                        console.log('Сокет закрыт')
+                    }
                 },
                 send_message() {
                     let message = '{"event": "send.message", "data": {"message": "' +
                         this.murren_message_input +
                         '"}}';
                     this._ws.send(message);
-                    this.murren_message_input = ''
+                    this.murren_message_input = '';
+
                 },
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
@@ -195,8 +169,6 @@
                     };
 
                     this.show_murren_group = true;
-
-                    {#this.logs.unshift('Группа успешно создана!)');#}
                     this.show_create_group = false;
 
 
@@ -230,6 +202,12 @@
                         console.log(this.available_group)
 
                     };
+
+                },
+                leave_group(){
+
+                    this._ws.close();
+                    console.log('Вы покидаете группу');
 
                 },
                 remove_chat_member(group_id) {

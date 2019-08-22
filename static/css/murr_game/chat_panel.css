@@ -1,15 +1,10 @@
 /* https://codepen.io/supah/pen/jqOBqp */
 
-/*--------------------
-Chat
---------------------*/
-
-
 .center {
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /*--------------------
@@ -17,11 +12,7 @@ Body
 --------------------*/
 
 .chat_panel {
-    /*width: 300px;*/
-    /*height: 80vh;*/
-    /*min-height: 300px;*/
     padding: 5px;
-    /*margin: 5px;*/
     height: 100%;
     z-index: 2;
     overflow: hidden;

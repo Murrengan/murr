@@ -15,24 +15,22 @@
 
         <button v-show="show_tawern === false"
                 v-on:click="get_data_from_client_and_come_to_tawern"
-                class="btn btn-primary">
+                class="btn btn-secondary btn-lg center">
 
-            [[ murr ]]
+            Войти в таверну
         </button>
 
 
         <div v-if="show_tawern">
+            {#main_monitor#}
             <div class="base_monitor row mx-auto">
 
+                {#monitor_img#}
+                <div class="col-7 p-1 m-0">
+                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве"></div>
 
-                {# base_monitor_row-img #}
-                <div class="base_monitor_row-img col-7 p-1 m-0">
-                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве">
-                </div>
-
-                {# base_monitor_row-log #}
-
-                <div class="base_monitor_row-chat col-3 p-1 m-0">
+                {#chat_panel#}
+                <div class="col-3 p-1 m-0">
                     <div class="chat_panel">
                         <div class="chat_panel-title">
                             <h1>murren_name</h1>
@@ -63,10 +61,10 @@
                         <div class="message-box">
 
                             <input v-model.lazy.trim="murren_message_input"
-                                      @keyup.enter="send_message"
-                                      type="text"
-                                      class="message-input"
-                                      placeholder="Введи сообщение">
+                                   @keyup.enter="send_message"
+                                   type="text"
+                                   class="message-input"
+                                   placeholder="Введи сообщение">
 
                             <button
                                     v-on:click="send_message"
@@ -81,8 +79,8 @@
 
                 </div>
 
-                {# base_monitor_row-group #}
-                <div class="base_monitor_row-group col-2 p-1 m-0">
+                {# murren_card #}
+                <div class="col-2 p-1 m-0">
 
                     <div class="murren_card"
                          :class="{'bg-primary': show_murren_group_menu}">
@@ -124,8 +122,8 @@
                 </div>
             </div>
 
-
-            <div class="bottom_monitor row m-0 p-0">
+            {#bottom_monitor#}
+            <div class="bottom_monitor row m-1 p-0">
                 <div class="col-9 m-0 p-0">
 
                     <div v-if="show_create_group_menu">
@@ -172,14 +170,6 @@
                             <i class="fas fa-users ml-1"></i>
 
                         </button>
-
-                        <button
-                                type="button"
-                                class="btn btn-primary"
-                                v-on:click="send_message">
-                            Отправить сообщение
-                        </button>
-
 
                     </div>
 
