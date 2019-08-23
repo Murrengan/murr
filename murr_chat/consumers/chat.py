@@ -5,7 +5,7 @@ from murr_chat.models import MurrChatName, MurrChatMembers, MurrChatMessage
 from .base import MurrChatConsumer
 
 
-class ChatConsumer(MurrChatConsumer):
+class GroupConsumer(MurrChatConsumer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,6 +51,10 @@ class ChatConsumer(MurrChatConsumer):
         messages = await self.get_messages()
         return await self._send_message(messages, event=event['event'])
 
+    async def event_murren_in_tawern_list(self, event):
+        data = await self.user_list(self.scope['user'])
+        await self._send_message(data, event=event['event'])
+
     async def event_add_chat_member(self, event):
         user_id = event['data'].get('user_id')
         if not user_id:
@@ -59,11 +63,12 @@ class ChatConsumer(MurrChatConsumer):
         chat_members = await self.get_chat_members()
         return await self._send_message(chat_members, event=event['event'])
 
-    async def event_remove_chat_member(self, event):
+    async def event_leave_group(self, event):
         user_id = self.scope['user'].id
-        await self.remove_chat_member(user_id)
-        chat_members = await self.get_chat_members()
-        return await self._send_message(chat_members, event=event['event'])
+        log = await self.remove_chat_member(user_id)
+        group_members = await self.get_chat_members()
+        await self._send_message({'log': log, 'group_members': group_members}, event=event['event'])
+        await self.close(code=1000)
 
     @database_sync_to_async
     def get_group(self):
@@ -87,8 +92,15 @@ class ChatConsumer(MurrChatConsumer):
     @database_sync_to_async
     def remove_chat_member(self, user_id):
         user = get_user_model().objects.filter(id=user_id).first()
+        log = ''
         if user:
-            MurrChatMembers.objects.filter(id=self.group_id).delete()
+            answer = MurrChatMembers.objects.filter(user=user_id).delete()[0]
+            if answer:
+                log = 'Муррен удален из группы'
+            else:
+                log = 'Ошибка удаления или 0'
+        return log
+
 
     @database_sync_to_async
     def save_message(self, message, user):
@@ -106,3 +118,15 @@ class ChatConsumer(MurrChatConsumer):
                 'message': message.message
             })
         return res
+
+    @database_sync_to_async
+    def user_list(self, user):
+        users = get_user_model().objects.all().exclude(pk=user.id)
+        result = []
+        for user in users:
+            result.append({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            })
+        return result

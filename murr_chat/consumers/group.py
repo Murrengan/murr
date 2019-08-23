@@ -1,5 +1,4 @@
 from channels.db import database_sync_to_async
-from django.contrib.auth import get_user_model
 
 from murr_chat.models import MurrChatMembers, MurrChatName
 
@@ -28,10 +27,6 @@ class GroupChatConsumer(MurrChatConsumer):
         data = await self.group_list(self.scope['user'])
         await self._send_message(data, event=event['event'])
 
-    async def event_user_list(self, event):
-        data = await self.user_list(self.scope['user'])
-        await self._send_message(data, event=event['event'])
-
     async def event_group_create(self, event):
         name = event['data'].get('name')
         if not name:
@@ -54,18 +49,6 @@ class GroupChatConsumer(MurrChatConsumer):
                 'id': group.id,
                 'group_name': group.group_name,
                 'link': group.link
-            })
-        return result
-
-    @database_sync_to_async
-    def user_list(self, user):
-        users = get_user_model().objects.all().exclude(pk=user.id)
-        result = []
-        for user in users:
-            result.append({
-                'id': user.id,
-                'username': user.username,
-                'email': user.email
             })
         return result
 

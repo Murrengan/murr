@@ -83,7 +83,7 @@
                 <div class="col-2 p-1 m-0">
 
                     <div class="murren_card"
-                         :class="{'bg-primary': show_murren_group_menu}">
+                         :class="{'bg-primary': show_murren_group}">
 
                         <div class="row p-0 m-0">
 
@@ -111,9 +111,12 @@
                         </div>
                     </div>
 
-                    <div v-if="show_murren_group_menu">
-                        <button class="btn bg-info btn-sm fixed-bottom mb-3" style="position: absolute">Выйти из
-                            группы
+                    <div v-if="show_murren_group">
+                        <button class="btn bg-info btn-sm fixed-bottom mb-3"
+                                v-on:click="event_leave_group"
+                                style="position: absolute">
+
+                            Выйти из группы
                         </button>
                     </div>
                     <div v-else>
@@ -122,7 +125,7 @@
                 </div>
             </div>
 
-            {#bottom_monitor#}
+            {# bottom_monitor #}
             <div class="bottom_monitor row m-1 p-0">
                 <div class="col-9 m-0 p-0">
 
@@ -145,31 +148,23 @@
                             </button>
                         </div>
                     </div>
-
-
                     <div v-else>
 
-                        <button
-                                type="button"
+                        <button type="button"
                                 class="btn btn-secondary "
                                 data-toggle="tooltip"
                                 v-on:click="show_create_group_panel"
                                 title="Создать группу">
                             Создать группу
-                            <i class="fas fa-user-plus ml-1"></i>
+                            <i class="fas fa-user-plus ml-1"></i></button>
 
-                        </button>
-
-                        <button
-                                type="button"
+                        <button type="button"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                v-on:click="show_available_group"
-                                title="Список группу">
-                            Список группу
-                            <i class="fas fa-users ml-1"></i>
-
-                        </button>
+                                v-on:click="show_murren_in_tawern"
+                                title="Кто в таверне?">
+                            Кто в таверне?
+                            <i class="fas fa-users ml-1"></i></button>
 
                     </div>
 
