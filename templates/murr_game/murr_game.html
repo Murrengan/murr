@@ -13,6 +13,35 @@
             max-width: 100%;
         }
 
+        .log_panel {
+            position: relative;
+            background-color: rebeccapurple;
+            border-radius: 5px;
+            overflow: auto;
+            min-height: 90px;
+            max-height: 90px;
+            margin-bottom: 5px;
+
+        }
+
+        .log_panel_message {
+            padding: 4px;
+            color: #1b1e21;
+            background-color: floralwhite;
+            border-radius: 5px;
+            margin: 3px;
+            font-size: 12px;
+            bottom: 0;
+            overflow: hidden;
+
+        }
+
+        .active_panel {
+            border: 1px solid #dee2e6;
+            margin: 0;
+            padding: 0;
+        }
+
         .murren_card {
             color: #1d2124;
             background-color: whitesmoke;
@@ -21,7 +50,9 @@
             padding: 5px;
         }
 
+
     </style>
+    {#    <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">#}
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
 
 {% endblock css %}
@@ -58,9 +89,11 @@
                 show_create_group: false,
                 show_murren_group: false,
                 success_group_created: false,
+                scroll_btn: false,
 
                 {# data sets#}
-                logs: ['Действие: Ты вошел в murr', 'Действие: включен логер',],
+                logs: [{type: 'action', text: 'Действие: Ты вошел в murr'}, {type: 'action', text: 'Действие: включен логер'},
+                ],
                 data_from_django: '',
                 available_group: false,
 
@@ -76,6 +109,7 @@
                 mp: '',
                 user_id: ''
 
+                
 
             },
             methods: {
@@ -94,9 +128,10 @@
                         })
                         .catch(error => console.log(error));
                 },
+
                 come_to_tawern() {
 
-                    {# подключаемся к сокету tawern #}
+                    {# подключаться к сокету tawern #}
 
                     let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
@@ -105,65 +140,35 @@
 
                     ws.onopen = () => {
                         console.log("Соединение с сокетом установлено.");
-
-                        let command = '{"event": "add.chat.member", "data": {"user_id": "' +
+                        let event_come_to_tawern = '{"event": "add.chat.member", "data": {"user_id": "' +
                             this.user_id +
                             '"}}';
-                        ws.send(command);
+
+                        ws.send(event_come_to_tawern);
 
 
-                        this.show_tawern = true;
+                        this.show_tawern = (this.show_tawern === false);
                         console.log("Добро пожаловать в таверну!");
+
                     };
 
                     ws.onmessage = (data) => {
                         let data_from_django = JSON.parse(data.data);
-
-                        {# Отлавливаем ответ с бекенда #}
                         if (data_from_django.event === "send.message") {
-                            let new_message = data_from_django.data.message.toString();
-                            this.logs.unshift(new_message);
-                        }
-                        if (data_from_django.event === "murren.in.tawern.list") {
-                            console.log('murren.in.tawern.list');
-                            console.log(data_from_django);
-                            console.log('murren.in.tawern.list');
-                        }
-                        if (data_from_django.event === "leave.group") {
+                            let x = data_from_django.data.message.toString();
+                            this.logs.push({type:'message', text:x});
+                            this.show_btn_scroll();
 
-                            this.logs.unshift('Вы вышли из группы');
-                            this.show_murren_group = false;
                         }
+
                     };
-
-                    ws.onclose = () => {
-                        console.log('Сокет закрыт')
-                    };
-
-                    this.show_murren_group = true;
                 },
                 send_message() {
                     let message = '{"event": "send.message", "data": {"message": "' +
                         this.murren_message_input +
                         '"}}';
                     this._ws.send(message);
-                    this.murren_message_input = '';
-
-                },
-
-
-                event_leave_group() {
-                    let command = '{"event": "leave.group", "data": {}}';
-                    this._ws.send(command);
-                    console.log('На бекенд отправлена задача' + command);
-                },
-
-                show_murren_in_tawern() {
-
-                    let command = '{"event": "murren.in.tawern.list", "data": {}}';
-                    this._ws.send(command);
-                    console.log('На бекенд отправлена задача' + command);
-
+                    this.murren_message_input = ''
                 },
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
@@ -179,7 +184,6 @@
                     ws.onopen = function () {
                         console.log("На бекенд отправлена задача: " + create_group_json);
                         ws.send(create_group_json);
-
                     };
 
                     {# задача обрабатывается на бекенда#}
@@ -195,7 +199,9 @@
 
                     };
 
+                    this.show_murren_group = true;
 
+                    {#this.logs.unshift('Группа успешно создана!)');#}
                     this.show_create_group = false;
 
 
@@ -206,6 +212,33 @@
                     console.log('Открылась панель на ввод имени группы');
 
                 },
+
+                scroll_to_new() {
+                    var container = this.$el.querySelector(".messages");
+                    var container_messages = this.$el.querySelector(".messages-content");
+                    var messages = container_messages.querySelectorAll(".message");
+                    container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                },
+
+                show_btn_scroll() {
+                    var container = this.$el.querySelector(".messages");
+                    var container_messages = this.$el.querySelector(".messages-content");
+                    var messages = container_messages.querySelectorAll(".message");
+                    if(container.scrollHeight - container.offsetHeight !== 0) {
+                        this.scroll_btn = false;
+                        const elemScroll = document.querySelector(".messages");
+                        container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                        elemScroll.addEventListener('scroll', (e) => {
+                            if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                                this.scroll_btn = false;
+                                container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                            }else{
+                                this.scroll_btn = true;
+                            }
+                        });
+                    }
+                },
+
                 show_available_group() {
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
 
@@ -229,12 +262,6 @@
                         console.log(this.available_group)
 
                     };
-
-                },
-                leave_group() {
-
-                    this._ws.close();
-                    console.log('Вы покидаете группу');
 
                 },
                 remove_chat_member(group_id) {
@@ -267,7 +294,9 @@
                 show_create_group_menu() {
                     return this.show_create_group
                 },
-
+                show_murren_group_menu() {
+                    return this.show_murren_group
+                },
                 get_user_id() {
                     return this.user_id
                 },
