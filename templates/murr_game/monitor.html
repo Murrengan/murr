@@ -15,30 +15,32 @@
 
         <button v-show="show_tawern === false"
                 v-on:click="get_data_from_client_and_come_to_tawern"
-                class="btn btn-secondary btn-lg center">
+                class="btn btn-primary">
 
-            Войти в таверну
+            [[ murr ]]
         </button>
 
 
         <div v-if="show_tawern">
-            {#main_monitor#}
             <div class="base_monitor row mx-auto">
 
-                {#monitor_img#}
-                <div class="col-7 p-1 m-0">
-                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве"></div>
 
-                {#chat_panel#}
-                <div class="col-3 p-1 m-0">
+                {# base_monitor_row-img #}
+                <div class="base_monitor_row-img col-7 p-1 m-0">
+                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве">
+                </div>
+
+                {# base_monitor_row-log #}
+
+                <div class="base_monitor_row-chat col-3 p-1 m-0">
                     <div class="chat_panel">
                         <div class="chat_panel-title">
                             <h1>murren_name</h1>
                             <h2>murren_title</h2>
-                            <figure class="murren_avatar-chat">
+                            <!-- <figure class="murren_avatar-chat">
                                 <img src="" alt="">
 
-                            </figure>
+                            </figure> -->
                         </div>
 
                         <div class="messages" id="wrapp">
@@ -47,24 +49,31 @@
 
                                 <div v-for="log in logs"
                                      class="message">
-                                    [[ log ]]
+                                    <div v-if="log.type !== 'action'"
+                                    class="message-from-user">
+                                    [[ log.text ]]
                                     <figure class="avatar">
                                         <img v-bind:src="avatar_url"
                                              class="_img"
                                              alt="">
                                     </figure>
                                     <div class="timestamp">10:40</div>
+                                    </div>
+                                    <div v-else
+                                    class="message-from-server">
+                                        [[ log.text ]]
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                         
                         <div class="message-box">
 
                             <input v-model.lazy.trim="murren_message_input"
-                                   @keyup.enter="send_message"
-                                   type="text"
-                                   class="message-input"
-                                   placeholder="Введи сообщение">
+                                      @keyup.enter="send_message"
+                                      type="text"
+                                      class="message-input"
+                                      placeholder="Введи сообщение">
 
                             <button
                                     v-on:click="send_message"
@@ -72,18 +81,25 @@
                                     class="message-submit">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
-
+                            <button
+                                v-on:click="scroll_to_new"
+                                class="scroll-bottom-btn"
+                                v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
+                                    <span class="scroll-bottom-circle">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </span>
+                            </button>
 
                         </div>
                     </div>
 
                 </div>
 
-                {# murren_card #}
-                <div class="col-2 p-1 m-0">
+                {# base_monitor_row-group #}
+                <div class="base_monitor_row-group col-2 p-1 m-0">
 
                     <div class="murren_card"
-                         :class="{'bg-primary': show_murren_group}">
+                         :class="{'bg-primary': show_murren_group_menu}">
 
                         <div class="row p-0 m-0">
 
@@ -111,12 +127,9 @@
                         </div>
                     </div>
 
-                    <div v-if="show_murren_group">
-                        <button class="btn bg-info btn-sm fixed-bottom mb-3"
-                                v-on:click="event_leave_group"
-                                style="position: absolute">
-
-                            Выйти из группы
+                    <div v-if="show_murren_group_menu">
+                        <button class="btn bg-info btn-sm fixed-bottom mb-3" style="position: absolute">Выйти из
+                            группы
                         </button>
                     </div>
                     <div v-else>
@@ -125,8 +138,8 @@
                 </div>
             </div>
 
-            {# bottom_monitor #}
-            <div class="bottom_monitor row m-1 p-0">
+
+            <div class="bottom_monitor row m-0 p-0">
                 <div class="col-9 m-0 p-0">
 
                     <div v-if="show_create_group_menu">
@@ -148,23 +161,39 @@
                             </button>
                         </div>
                     </div>
+
+
                     <div v-else>
 
-                        <button type="button"
+                        <button
+                                type="button"
                                 class="btn btn-secondary "
                                 data-toggle="tooltip"
                                 v-on:click="show_create_group_panel"
                                 title="Создать группу">
                             Создать группу
-                            <i class="fas fa-user-plus ml-1"></i></button>
+                            <i class="fas fa-user-plus ml-1"></i>
 
-                        <button type="button"
+                        </button>
+
+                        <button
+                                type="button"
                                 class="btn btn-secondary"
                                 data-toggle="tooltip"
-                                v-on:click="show_murren_in_tawern"
-                                title="Кто в таверне?">
-                            Кто в таверне?
-                            <i class="fas fa-users ml-1"></i></button>
+                                v-on:click="show_available_group"
+                                title="Список группу">
+                            Список группу
+                            <i class="fas fa-users ml-1"></i>
+
+                        </button>
+
+                        <button
+                                type="button"
+                                class="btn btn-primary"
+                                v-on:click="send_message">
+                            Отправить сообщение
+                        </button>
+
 
                     </div>
 
