@@ -22,110 +22,45 @@
 
 
         <div v-if="show_tawern">
-            {#main_monitor#}
-            <div class="base_monitor row mx-auto">
+            <div class="monitor-img">
+                <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+                     class="card"
+                     alt="Активная картинка монитора">
+            </div>
+            <div class="murren_card"
+                 :class="{'bg-primary': show_murren_group}">
 
-                {#monitor_img#}
-                <div class="col-7 p-1 m-0">
-                    <img src="{% static "/img/murr_game/Tawern_Barman.png" %}" class="card" alt="Таве"></div>
-
-                {#chat_panel#}
-                <div class="col-3 p-1 m-0">
-                    <div class="chat_panel">
-                        <div class="chat_panel-title">
-                            <h1>murren_name</h1>
-                            <h2>murren_title</h2>
-                            <figure class="murren_avatar-chat">
-                                <img src="" alt="">
-
-                            </figure>
-                        </div>
-
-                        <div class="messages" id="wrapp">
-                            <div class="messages-content">
-
-
-                                <div v-for="log in logs"
-                                     class="message">
-                                    [[ log ]]
-                                    <figure class="avatar">
-                                        <img v-bind:src="avatar_url"
-                                             class="_img"
-                                             alt="">
-                                    </figure>
-                                    <div class="timestamp">10:40</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="message-box">
-
-                            <input v-model.lazy.trim="murren_message_input"
-                                   @keyup.enter="send_message"
-                                   type="text"
-                                   class="message-input"
-                                   placeholder="Введи сообщение">
-
-                            <button
-                                    v-on:click="send_message"
-                                    type="submit"
-                                    class="message-submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-
-
-                        </div>
+                {# murren_avatar-data #}
+                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                    <div class="murren_card_data mx-auto">
+                        <h5 class="p-0 m-0">[[ murren_name ]]</h5>
+                        <table class=" ">
+                            <th style="color: red">[[ hp ]]</th>
+                            <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
+                            </th>
+                            <th style="color: blue">[[ mp ]]</th>
+                            <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
+                            </th>
+                        </table>
                     </div>
-
                 </div>
 
-                {# murren_card #}
-                <div class="col-2 p-1 m-0">
-
-                    <div class="murren_card"
-                         :class="{'bg-primary': show_murren_group}">
-
-                        <div class="row p-0 m-0">
-
-                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                                <div class="murren_card_data mx-auto">
-                                    <h5 class="p-0 m-0">[[ murren_name ]]</h5>
-                                    <table class=" ">
-                                        <th style="color: red">[[ hp ]]</th>
-                                        <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
-                                        </th>
-                                        <th style="color: blue">[[ mp ]]</th>
-                                        <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
-                                        </th>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="col-4 p-0 m-0 d-flex align-items-center">
-                                <img v-bind:src="avatar_url"
-                                     class="img-thumbnail p-0 m-0 "
-                                     alt="...">
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div v-if="show_murren_group">
-                        <button class="btn bg-info btn-sm fixed-bottom mb-3"
-                                v-on:click="event_leave_group"
-                                style="position: absolute">
-
-                            Выйти из группы
-                        </button>
-                    </div>
-                    <div v-else>
-                    </div>
-
+                {# murren_avatar-img #}
+                <div class="col-4 p-0 m-0 d-flex align-items-center">
+                    <img v-bind:src="avatar_url"
+                         class="img-thumbnail p-0 m-0 "
+                         alt="...">
                 </div>
+                <div v-if="show_murren_group">
+                    <button class="btn bg-info"
+                            v-on:click="event_leave_group">
+                        Выйти из группы
+                    </button>
+                </div>
+                <div v-else></div>
+
             </div>
 
-            {# bottom_monitor #}
             <div class="bottom_monitor row m-1 p-0">
                 <div class="col-9 m-0 p-0">
 
@@ -191,6 +126,52 @@
                         <p>Группа <span class="text-dark">[[ group_name_input ]]</span> ждет тебя!</p>
                     </div>
                     <div v-else>Пока ничего не произошло</div>
+                </div>
+            </div>
+
+            <div class="chat_panel">
+                <div class="chat_panel-title">
+                    <h1>murren_name</h1>
+                    <h2>murren_title</h2>
+                    <figure class="murren_avatar-chat">
+                        <img src="" alt="">
+
+                    </figure>
+                </div>
+
+                <div class="messages" id="wrapp">
+                    <div class="messages-content">
+
+
+                        <div v-for="log in logs"
+                             class="message">
+                            [[ log ]]
+                            <figure class="avatar">
+                                <img v-bind:src="avatar_url"
+                                     class="_img"
+                                     alt="">
+                            </figure>
+                            <div class="timestamp">10:40</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-box">
+
+                    <input v-model.lazy.trim="murren_message_input"
+                           @keyup.enter="send_message"
+                           type="text"
+                           class="message-input"
+                           placeholder="Введи сообщение">
+
+                    <button
+                            v-on:click="send_message"
+                            type="submit"
+                            class="message-submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+
+
                 </div>
             </div>
 

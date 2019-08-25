@@ -84,8 +84,8 @@ def delete_db_and_migrations():
 
 
 def create_superuser():
-    User = get_user_model()
-    User.objects.create_superuser('Greg', '', 'Greg')
+    user = get_user_model()
+    user.objects.create_superuser('Greg', '', 'Greg')
 
 
 def group_create(group_name):
