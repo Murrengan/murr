@@ -175,7 +175,14 @@
                             class="message-submit">
                         <i class="fas fa-paper-plane"></i>
                     </button>
-
+                    <button
+                        v-on:click="scroll_to_new"
+                        class="scroll-bottom-btn"
+                        v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
+                            <span class="scroll-bottom-circle">
+                                <i class="fas fa-arrow-down"></i>
+                            </span>
+                    </button>
 
                 </div>
             </div>
