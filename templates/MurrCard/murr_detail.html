@@ -12,16 +12,21 @@
 {% block title %}{{ murr.title }}{% endblock %}
 
 {% block content %}
-    <div class="container col-7 card murr_detail_container">
-    {% include 'MurrCard/includes/_murr-detail_drawer_view.html' %}
+    <div class="container">
+        <div class="container col-7 card murr_detail_container col-m">
+        {% include 'MurrCard/includes/_murr-detail_drawer_view.html' %}
+        </div>
     </div>
 {% endblock content %}
 
 {% block js %}
     {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/npm/emojione@4.0.0/lib/js/emojione.min.js"></script>
     <script src="{% static "js/out/emojionearea.min.js" %}"></script>
+    <script src="{% static "js/emojione.js" %}"></script>
     <script src="{% static "js/murr_detail.js" %}"></script>
     <script>$('.js-murr-detail').murrDetail();</script>
     <script src="{% static "js/profile.js" %}"></script>
     <script> $('.profile').murrenProfile(); </script>
+
 {% endblock js %}

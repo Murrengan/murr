@@ -4,15 +4,17 @@ from django.contrib.auth import get_user_model
 from murr_chat.models import MurrChatName, MurrChatMembers, MurrChatMessage
 from .base import MurrChatConsumer
 
+User = get_user_model()
 
-class ChatConsumer(MurrChatConsumer):
+
+class GroupConsumer(MurrChatConsumer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.group_id = self.scope['url_route']['kwargs']['room_name']
+        self.group_id = self.scope['url_route']['kwargs']['group_id']
         self.group = None
         self.chat_members = []
-        self.channel = f'group_{self.group_id}'
+        self.channel = f'group_id_{self.group_id}'
 
     async def connect(self):
         await super().connect()
@@ -21,11 +23,14 @@ class ChatConsumer(MurrChatConsumer):
             await self._trow_error({'detail': 'Group not found'})
             await self.close()
             return
-        chat_members = await self.get_chat_members()
-        if self.scope['user'].id not in chat_members:
-            await self._trow_error({'detail': 'Access denied'})
-            await self.close()
-            return
+
+        # Приватные группы
+        # chat_members = await self.get_chat_members()
+        # if group_type is privete:
+        #     if self.scope['user'].id not in chat_members:
+        #         await self._trow_error({'detail': 'Access denied'})
+        #         await self.close()
+        #         return
         await self.channel_layer.group_add(self.channel, self.channel_name)
 
     async def disconnect(self, code):
@@ -48,6 +53,26 @@ class ChatConsumer(MurrChatConsumer):
         messages = await self.get_messages()
         return await self._send_message(messages, event=event['event'])
 
+    async def event_murren_in_tawern_list(self, event):
+
+        murrens_in_group_id = await self.get_chat_members()
+        murrens_in_group_data = {
+            'id': [],
+            'name': [],
+            'avatar_url': []
+
+        }
+
+        for murren_id in murrens_in_group_id:
+
+            murren = User.objects.get(id=murren_id)
+
+            murrens_in_group_data['id'].append(murren_id)
+            murrens_in_group_data['name'].append(murren.username)
+            murrens_in_group_data['avatar_url'].append(murren.profile_picture.url)
+
+        await self._send_message(murrens_in_group_data, event=event['event'])
+
     async def event_add_chat_member(self, event):
         user_id = event['data'].get('user_id')
         if not user_id:
@@ -55,6 +80,12 @@ class ChatConsumer(MurrChatConsumer):
         await self.add_chat_member(user_id)
         chat_members = await self.get_chat_members()
         return await self._send_message(chat_members, event=event['event'])
+
+    async def event_leave_group(self, event):
+        user_id = self.scope['user'].id
+        log = await self.remove_chat_member(user_id)
+        group_members = await self.get_chat_members()
+        await self._send_message({'log': log, 'group_members': group_members}, event=event['event'])
 
     @database_sync_to_async
     def get_group(self):
@@ -76,6 +107,18 @@ class ChatConsumer(MurrChatConsumer):
             chat_member, _ = MurrChatMembers.objects.get_or_create(group=self.group, user=user)
 
     @database_sync_to_async
+    def remove_chat_member(self, user_id):
+        user = get_user_model().objects.filter(id=user_id).first()
+        log = ''
+        if user:
+            answer = MurrChatMembers.objects.filter(user=user_id).delete()[0]
+            if answer:
+                log = 'Муррен удален из группы'
+            else:
+                log = 'Ошибка удаления или 0'
+        return log
+
+    @database_sync_to_async
     def save_message(self, message, user):
         m = MurrChatMessage(user=user, group=self.group, message=message)
         m.save()
@@ -91,3 +134,15 @@ class ChatConsumer(MurrChatConsumer):
                 'message': message.message
             })
         return res
+
+    @database_sync_to_async
+    def user_list(self, user):
+        users = get_user_model().objects.all().exclude(pk=user.id)
+        result = []
+        for user in users:
+            result.append({
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            })
+        return result

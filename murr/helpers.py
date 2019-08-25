@@ -3,10 +3,50 @@ import platform
 import shutil
 from django.contrib.auth import get_user_model
 
+from murr_chat.models import MurrChatName
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAKE_MIGRATIONS = 'python manage.py makemigrations murr_game murr_chat MurrCard Murren'
 
 MIGRATE = 'python manage.py migrate'
+
+
+class BaseHelper:
+
+    def delete_db_and_migrations(self):
+
+        system = platform.system()
+
+        if system == 'Windows':
+            separator = '\\'
+        else:
+            separator = '/'
+
+        prepare_for_delete = []
+        for dirname, dirnames, filenames in os.walk(BASE_DIR):
+            if 'db.sqlite3' in filenames:
+                db_path = BASE_DIR + separator + 'db.sqlite3'
+                os.remove(db_path)
+            for subdirname in dirnames:
+                if '.git' in dirnames:
+                    dirnames.remove('.git')
+                if 'migrations' in subdirname:
+                    prepare_for_delete.append(os.path.join(dirname, subdirname))
+
+        for i in prepare_for_delete:
+            shutil.rmtree(i, ignore_errors=True)
+
+    def create_superuser(self, name, email, password):
+        user = get_user_model()
+        user.objects.create_superuser(name, email, password)
+
+    def create_user(self, name, email, password):
+        user = get_user_model()
+        user.objects.create_user(name, email, password)
+
+    def group_create(self, group_name):
+        group = MurrChatName(group_name=group_name)
+        group.save()
 
 
 class BaseProcessor:
@@ -57,30 +97,3 @@ class BaseProcessor:
     def _err(self, message, field=None):
         field = field or self._processed_field
         self.errors[field] = message
-
-
-def delete_db_and_migrations():
-    system = platform.system()
-    if system == 'Windows':
-        separator = '\\'
-    else:
-        separator = '/'
-
-    prepare_for_delete = []
-    for dirname, dirnames, filenames in os.walk(BASE_DIR):
-        if 'db.sqlite3' in filenames:
-            db_path = BASE_DIR + separator + 'db.sqlite3'
-            os.remove(db_path)
-        for subdirname in dirnames:
-            if '.git' in dirnames:
-                dirnames.remove('.git')
-            if 'migrations' in subdirname:
-                prepare_for_delete.append(os.path.join(dirname, subdirname))
-
-    for i in prepare_for_delete:
-        shutil.rmtree(i, ignore_errors=True)
-
-
-def create_superuser():
-    User = get_user_model()
-    User.objects.create_superuser('Greg', '', 'Greg')
