@@ -133,28 +133,33 @@
                 <div class="chat_panel-title">
                     <h1>murren_name</h1>
                     <h2>murren_title</h2>
-                    <figure class="murren_avatar-chat">
-                        <img src="" alt="">
+                    <!-- <figure class="murren_avatar-chat">
+                        <img src="" alt=""> -->
 
                     </figure>
                 </div>
 
                 <div class="messages" id="wrapp">
-                    <div class="messages-content">
-
-
-                        <div v-for="log in logs"
-                             class="message">
-                            [[ log ]]
-                            <figure class="avatar">
-                                <img v-bind:src="avatar_url"
-                                     class="_img"
-                                     alt="">
-                            </figure>
-                            <div class="timestamp">10:40</div>
+                            <div class="messages-content">
+                                <div v-for="log in logs"
+                                     class="message">
+                                    <div v-if="log.type !== 'action'"
+                                    class="message-from-user">
+                                    [[ log.text ]]
+                                    <figure class="avatar">
+                                        <img v-bind:src="avatar_url"
+                                             class="_img"
+                                             alt="">
+                                    </figure>
+                                    <div class="timestamp">10:40</div>
+                                    </div>
+                                    <div v-else
+                                    class="message-from-server">
+                                        [[ log.text ]]
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
                 <div class="message-box">
 
