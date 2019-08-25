@@ -149,3 +149,59 @@ Body
 .message-submit:hover {
     color: #c5c5c5;
 }
+
+.scroll-bottom-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 20px;
+    margin-top: -84px;
+    padding: 0px;
+    border: 0px;
+    outline: none !important;
+    background-color: transparent;
+}
+
+.scroll-bottom-btn-v {
+    display: block;
+    animation: show 0.5s ease-in-out;
+}
+
+.scroll-bottom-btn-n {
+    animation: hide 0.5s ease-in-out;
+    display: none;
+    
+}
+
+.scroll-bottom-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 7px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.scroll-bottom-circle > i {
+    color: #fff;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
