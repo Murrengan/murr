@@ -44,6 +44,7 @@
                 show_create_group: false,
                 show_murren_group: false,
                 success_group_created: false,
+                scroll_btn: false,
                 {# data sets#}
                 logs: [{type: 'action', text: 'Действие: Ты вошел в murr'}, {type: 'action', text: 'Действие: включен логер'},],
                 data_from_django: '',
@@ -91,7 +92,8 @@
                         {# Отлавливаем ответ с бекенда #}
                         if (data_from_django.event === "send.message") {
                             let new_message = data_from_django.data.message.toString();
-                            this.logs.unshift({type:'message', text: new_message});
+                            this.logs.push({type:'message', text: new_message});
+                            this.show_btn_scroll();
                         }
                         if (data_from_django.event === "murren.in.tawern.list") {
                             console.log('murren.in.tawern.list');
@@ -99,7 +101,8 @@
                             console.log('murren.in.tawern.list');
                         }
                         if (data_from_django.event === "leave.group") {
-                            this.logs.unshift({type:'action', text: 'Вы вышли из группы'});
+                            this.logs.push({type:'action', text: 'Вы вышли из группы'});
+                            this.show_btn_scroll();
                             this.show_murren_group = false;
                         }
                     };
@@ -146,6 +149,31 @@
                         {#console.log(this.data_from_django);#}
                     };
                     this.show_create_group = false;
+                },
+                scroll_to_new() {
+                    var container = this.$el.querySelector(".messages");
+                    var container_messages = this.$el.querySelector(".messages-content");
+                    var messages = container_messages.querySelectorAll(".message");
+                    container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                },
+
+                show_btn_scroll() {
+                    var container = this.$el.querySelector(".messages");
+                    var container_messages = this.$el.querySelector(".messages-content");
+                    var messages = container_messages.querySelectorAll(".message");
+                    if(container.scrollHeight - container.offsetHeight !== 0) {
+                        this.scroll_btn = false;
+                        const elemScroll = document.querySelector(".messages");
+                        container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                        elemScroll.addEventListener('scroll', (e) => {
+                            if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                                this.scroll_btn = false;
+                                container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
+                            }else{
+                                this.scroll_btn = true;
+                            }
+                        });
+                    }
                 },
                 show_create_group_panel() {
                     this.show_create_group = (this.show_create_group === false);
