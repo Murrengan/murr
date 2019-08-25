@@ -31,7 +31,7 @@ class Murr(models.Model):
     categories = models.CharField(max_length=20, verbose_name='Категория', choices=CATEGORIES)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
-    tags = TaggableManager(blank=True, verbose_name='Теги', help_text="Список тегов через запятую. Максимум 40 символов")
+    tags = TaggableManager(blank=True, verbose_name='Теги', help_text="Список тегов через запятую. Максимум 40 символов. # ставить НЕ НАДО!")
     slug = models.CharField(verbose_name='Слаг для мурра', max_length=100, blank=True)
 
     def __str__(self):
