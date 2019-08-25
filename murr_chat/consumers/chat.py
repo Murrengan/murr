@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from murr_chat.models import MurrChatName, MurrChatMembers, MurrChatMessage
 from .base import MurrChatConsumer
 
+User = get_user_model()
+
 
 class GroupConsumer(MurrChatConsumer):
 
@@ -52,8 +54,24 @@ class GroupConsumer(MurrChatConsumer):
         return await self._send_message(messages, event=event['event'])
 
     async def event_murren_in_tawern_list(self, event):
-        data = await self.user_list(self.scope['user'])
-        await self._send_message(data, event=event['event'])
+
+        murrens_in_group_id = await self.get_chat_members()
+        murrens_in_group_data = {
+            'id': [],
+            'name': [],
+            'avatar_url': []
+
+        }
+
+        for murren_id in murrens_in_group_id:
+
+            murren = User.objects.get(id=murren_id)
+
+            murrens_in_group_data['id'].append(murren_id)
+            murrens_in_group_data['name'].append(murren.username)
+            murrens_in_group_data['avatar_url'].append(murren.profile_picture.url)
+
+        await self._send_message(murrens_in_group_data, event=event['event'])
 
     async def event_add_chat_member(self, event):
         user_id = event['data'].get('user_id')
@@ -68,7 +86,6 @@ class GroupConsumer(MurrChatConsumer):
         log = await self.remove_chat_member(user_id)
         group_members = await self.get_chat_members()
         await self._send_message({'log': log, 'group_members': group_members}, event=event['event'])
-        await self.close(code=1000)
 
     @database_sync_to_async
     def get_group(self):
@@ -100,7 +117,6 @@ class GroupConsumer(MurrChatConsumer):
             else:
                 log = 'Ошибка удаления или 0'
         return log
-
 
     @database_sync_to_async
     def save_message(self, message, user):

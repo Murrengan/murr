@@ -28,9 +28,9 @@
 
 {% block content %}
 
-        <div class=" bg-success p-0">
-            {% include 'murr_game/monitor.html' %}
-        </div>
+    <div class=" bg-success p-0">
+        {% include 'murr_game/monitor.html' %}
+    </div>
 
 {% endblock content %}
 
@@ -112,26 +112,28 @@
                         let data_from_django = JSON.parse(data.data);
 
                         {# Отлавливаем ответ с бекенда #}
+
                         if (data_from_django.event === "send.message") {
                             let new_message = data_from_django.data.message.toString();
                             this.logs.unshift(new_message);
                         }
                         if (data_from_django.event === "murren.in.tawern.list") {
-                            console.log('murren.in.tawern.list');
+                            console.log('Выводим ответ за "murren.in.tawern.list"');
                             console.log(data_from_django);
-
-
-                            console.log('murren.in.tawern.list');
+                            {#console.log('murren.in.tawern.list');#}
                         }
                         if (data_from_django.event === "leave.group") {
 
                             this.logs.unshift('Вы вышли из группы');
+                            console.log(data_from_django);
                             this.show_murren_group = false;
                         }
                     };
 
                     ws.onclose = () => {
-                        console.log('Сокет закрыт')
+
+                        console.log('Сокет таверны закрыт');
+
                     };
 
                     this.show_murren_group = true;
@@ -144,18 +146,25 @@
                     this.murren_message_input = '';
 
                 },
-
-
                 event_leave_group() {
+
                     let command = '{"event": "leave.group", "data": {}}';
+
                     this._ws.send(command);
                     console.log('На бекенд отправлена задача' + command);
-                },
 
+
+                    this._ws.close();
+                    console.log('Активный сокет закрыт');
+
+                    this.show_tawern = false;
+                    console.log('Вы вышли из таверны. Ждем вас снова! =)');
+                },
                 show_murren_in_tawern() {
 
                     let command = '{"event": "murren.in.tawern.list", "data": {}}';
                     this._ws.send(command);
+
                     console.log('На бекенд отправлена задача' + command);
 
                 },
@@ -223,12 +232,6 @@
                         console.log(this.available_group)
 
                     };
-
-                },
-                leave_group() {
-
-                    this._ws.close();
-                    console.log('Вы покидаете группу');
 
                 },
                 remove_chat_member(group_id) {
