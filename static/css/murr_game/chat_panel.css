@@ -1,10 +1,10 @@
 /* https://codepen.io/supah/pen/jqOBqp */
 
 .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*--------------------
@@ -12,196 +12,234 @@ Body
 --------------------*/
 
 .chat_panel {
-    /*padding: 5px;*/
-    height: 100%;
-    z-index: 2;
-    overflow: hidden;
-    box-shadow: 10px 5px 30px rgba(0, 0, 0, .2);
-    background: rgba(0, 0, 0, .5);
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-
+  /*padding: 5px;*/
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .chat_panel-title {
-    padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .messages {
-    flex: 1 1 auto;
-    color: rgba(255, 255, 255, .5);
-    overflow-y: auto;
-    position: relative;
-    width: 100%;
-    min-height: 200px;
+  flex: 1 1 auto;
+  color: rgba(255, 255, 255, 0.5);
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+  min-height: 200px;
 }
 
 .messages-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 99%;
-    width: 100%;
-    padding: 5px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 99%;
+  width: 100%;
+  padding: 5px 20px;
 }
 
 .message {
-    width: 100%;
-    text-align: center;
-    margin: 8px 0;
+  width: 100%;
+  text-align: center;
+  margin: 8px 0;
 }
 
 .message::after {
-    clear: both;
-    content: " ";
-    display: block;
+  clear: both;
+  content: " ";
+  display: block;
 }
 
 .message-from-server {
-    padding: 5px 8px;
-    background: rgba(0, 0, 0, .3);
-    width: fit-content;
-    margin: 0 auto;
-    border-radius: 100px;
+  padding: 5px 8px;
+  background: rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 100px;
 }
 
 .message-from-user {
-    clear: both;
-    float: left;
-    padding: 6px 10px 7px;
-    border-radius: 10px 10px 10px 0;
-    background: rgba(0, 0, 0, .3);
-    font-size: 11px;
-    line-height: 1.4;
-    margin: 7px 0;
-    margin-left: 35px;
-    position: relative;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-
+  clear: both;
+  float: left;
+  padding: 6px 10px 7px;
+  border-radius: 10px 10px 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  line-height: 1.4;
+  margin: 7px 0;
+  margin-left: 35px;
+  position: relative;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .timestamp {
-    position: absolute;
-    bottom: -15px;
-    font-size: 9px;
-    color: rgba(255, 255, 255, .3);
+  position: absolute;
+  bottom: -15px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .avatar {
-    position: absolute;
-    z-index: 1;
-    bottom: -15px;
-    left: -35px;
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    border: 2px solid rgba(255, 255, 255, 0.24);
+  position: absolute;
+  z-index: 1;
+  bottom: -15px;
+  left: -35px;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.24);
 }
 
 ._img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .message-box {
-    flex: 0 1 40px;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    position: relative;
+  flex: 0 1 40px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  position: relative;
 }
 
 .message-input {
-    background: none;
-    border: none;
-    outline: none !important;
-    resize: none;
-    color: rgba(255, 255, 255, .7);
-    font-size: 11px;
-    height: 17px;
-    margin: 0;
-    padding-right: 20px;
-    width: 265px;
+  background: none;
+  border: none;
+  outline: none !important;
+  resize: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  height: 17px;
+  margin: 0;
+  padding-right: 20px;
+  width: 265px;
 }
 
 .message-submit {
-    position: absolute;
-    z-index: 1;
-    top: 15px;
-    right: 20px;
-    color: #fff;
-    border: none;
-    background: transparent;
-    font-size: 15px;
-    text-transform: uppercase;
-    line-height: 1;
-    padding: 6px 10px;
-    outline: none !important;
-    transition: background .2s ease;
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  right: 20px;
+  color: #fff;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 6px 10px;
+  outline: none !important;
+  transition: background 0.2s ease;
 }
 
 .message-submit:hover {
-    color: #c5c5c5;
+  color: #c5c5c5;
 }
 
 .scroll-bottom-btn {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    right: 20px;
-    margin-top: -84px;
-    padding: 0px;
-    border: 0px;
-    outline: none !important;
-    background-color: transparent;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  margin-top: -84px;
+  padding: 0px;
+  border: 0px;
+  outline: none !important;
+  background-color: transparent;
 }
 
 .scroll-bottom-btn-v {
-    display: block;
-    animation: show 0.5s ease-in-out;
+  display: block;
+  animation: show 0.5s ease-in-out;
 }
 
 .scroll-bottom-btn-n {
-    animation: hide 0.5s ease-in-out;
-    display: none;
-    
+  animation: hide 0.5s ease-in-out;
+  display: none;
 }
 
 .scroll-bottom-circle {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    padding: 7px;
-    background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 7px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .scroll-bottom-circle > i {
-    color: #fff;
+  color: #fff;
 }
 
 @keyframes show {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes hide {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-        display: none;
-    }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.anim-chake {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }

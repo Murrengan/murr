@@ -25,7 +25,8 @@
             <div class="monitor-img">
                 <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
                      class="card"
-                     alt="Активная картинка монитора">
+                     alt="Активная картинка монитора"
+                     id="onChake">
             </div>
             <div class="murren_card"
                  :class="{'bg-primary': show_murren_group}">
@@ -101,6 +102,14 @@
                             Кто в таверне?
                             <i class="fas fa-users ml-1"></i></button>
 
+                        <button type="button"
+                            class="btn btn-info"
+                            title="Кто в таверне?"
+
+                            @click="shakeBtn">
+
+                            Тестовый текст
+                        </button>
                     </div>
 
 

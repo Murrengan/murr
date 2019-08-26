@@ -145,6 +145,13 @@
 
                     console.log('На бекенд отправлена задача' + command);
                 },
+                  shakeBtn() {
+              const img = document.getElementById('onChake');
+              img.classList.add('anim-chake');
+              setTimeout(function() {
+                  img.classList.remove('anim-chake');
+              }, 2000)
+          },
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
