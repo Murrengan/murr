@@ -74,6 +74,7 @@
                         .catch(error => console.log(error));
                 },
                 come_to_tawern() {
+                    
                     {# подключаемся к сокету tawern #}
                     let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
@@ -167,16 +168,16 @@
                     this.show_create_group = false;
                 },
                 scroll_to_new() {
-                    var container = this.$el.querySelector(".messages");
-                    var container_messages = this.$el.querySelector(".messages-content");
-                    var messages = container_messages.querySelectorAll(".message");
+                    let container = this.$el.querySelector(".messages");
+                    let container_messages = this.$el.querySelector(".messages-content");
+                    let messages = container_messages.querySelectorAll(".message");
                     container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
                 },
 
                 show_btn_scroll() {
-                    var container = this.$el.querySelector(".messages");
-                    var container_messages = this.$el.querySelector(".messages-content");
-                    var messages = container_messages.querySelectorAll(".message");
+                    let container = this.$el.querySelector(".messages");
+                    let container_messages = this.$el.querySelector(".messages-content");
+                    let messages = container_messages.querySelectorAll(".message");
                     if(container.scrollHeight - container.offsetHeight !== 0) {
                         this.scroll_btn = false;
                         const elemScroll = document.querySelector(".messages");
