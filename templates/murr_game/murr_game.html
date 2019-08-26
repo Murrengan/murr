@@ -61,7 +61,7 @@
             methods: {
                 get_data_from_client_and_come_to_tawern() {
                     axios
-                        .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
+                        .get('http://murrengan.ru/murr_game/api/return_character_info/')
                         .then(django_answer => {
                             this.avatar_url = django_answer.data.avatar_url;
                             this.murren_name = django_answer.data.character.name;
@@ -76,7 +76,7 @@
                 come_to_tawern() {
                     {# подключаемся к сокету tawern #}
                     let group_id = '1';
-                    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
+                    let ws = new WebSocket('ws://murrengan.ru/ws/chat/' + group_id + '/');
                     this._ws = ws;
                     ws.onopen = () => {
                         console.log("Соединение с сокетом установлено.");
@@ -146,7 +146,7 @@
                 },
                 create_group_by_name() {
                     {# инициализируем сокет по юрл #}
-                    const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+                    const ws = new WebSocket('ws://murrengan.ru/ws/chat/');
                     {# создаем нужный запрос для бекенда #}
                     let create_group_json = '{"event": "group.create", "data": {"name": "' +
                         this.group_name_input +
@@ -196,7 +196,7 @@
                     console.log('Открылась панель на ввод имени группы');
                 },
                 show_available_group() {
-                    const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+                    const ws = new WebSocket('ws://murrengan.ru/ws/chat/');
                     let show_group_list = '{"event": "group.list", "data": {}}';
                     ws.onopen = function () {
                         ws.send(show_group_list);
@@ -213,7 +213,7 @@
                 },
 
                 remove_chat_member(group_id) {
-                    let group_url = 'ws://127.0.0.1:8000/ws/chat/' + group_id + '/';
+                    let group_url = 'ws://murrengan.ru/ws/chat/' + group_id + '/';
                     let remove_event_json = '{"event": "remove.chat.member", "data": {}}';
                     let ws = new WebSocket(group_url);
                     ws.onopen = function () {
