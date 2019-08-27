@@ -7,16 +7,24 @@
             min-height: 135px;
         }
 
-        .monitor-img {
+        .monitor_img {
             border-radius: 10px;
 
         }
+
+    .murren_card {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        border-radius: 5px;
+    }
     </style>
 {% endblock css %}
 
 {% block monitor %}
 
-    <div id="monitor">
+    <div id="monitor"
+         class="container p-1">
         <div v-show="show_tawern === false">
             <button
                     v-on:click="get_data_from_client_and_come_to_tawern"
@@ -35,41 +43,53 @@
         <div v-if="show_tawern">
 
             <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
-                 class="monitor-img"
+                 class="monitor_img"
                  alt="Активная картинка монитора"
                  id="onChake">
 
-            <div class="murren_card"
+            <div class="murren_group"
                  :class="{'bg-primary': show_murren_group}">
 
-                {# murren_avatar-data #}
-                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                    <div class="murren_card_data mx-auto">
-                        <h5 class="p-0 m-0">[[ murren_name ]]</h5>
-                        <table class=" ">
-                            <th style="color: red">[[ hp ]]</th>
-                            <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
-                            </th>
-                            <th style="color: blue">[[ mp ]]</th>
-                            <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
-                            </th>
-                        </table>
+                <div class="row m-0 p-0">
+
+                    <div class="murren_card col-4">
+
+                        <div class="row m-0 p-0" style="">
+
+                            {# murren_avatar-img #}
+                            <div class="col-4 p-0 m-0 d-flex align-items-center">
+                                <img v-bind:src="avatar_url"
+                                     class="img-thumbnail p-0 m-0 "
+                                     alt="...">
+                            </div>
+
+                            {# murren_avatar-data #}
+                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                                <div class="murren_card_data mx-auto">
+                                    <h5 class="p-0 m-0">[[ murren_name ]]</h5>
+
+                                        <th style="color: red">[[ hp ]]</th>
+                                        <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
+                                        </th>
+                                        <th style="color: blue">[[ mp ]]</th>
+                                        <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
+                                        </th>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
                     </div>
+
+                    <div class="inventory_and_skills col-8 m-0 p-0">
+
+                    </div>
+
+
                 </div>
 
-                {# murren_avatar-img #}
-                <div class="col-4 p-0 m-0 d-flex align-items-center">
-                    <img v-bind:src="avatar_url"
-                         class="img-thumbnail p-0 m-0 "
-                         alt="...">
-                </div>
-                <div v-if="show_murren_group">
-                    <button class="btn bg-info"
-                            v-on:click="event_leave_group">
-                        Выйти из группы
-                    </button>
-                </div>
-                <div v-else></div>
 
             </div>
 
@@ -96,6 +116,14 @@
                         </div>
                     </div>
                     <div v-else>
+
+                        <div v-if="show_murren_group">
+                            <button class="btn bg-info"
+                                    v-on:click="event_leave_group">
+                                Выйти из группы
+                            </button>
+                        </div>
+                        <div v-else></div>
 
                         <button type="button"
                                 class="btn btn-secondary "
