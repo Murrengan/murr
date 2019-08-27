@@ -133,7 +133,7 @@ input[type="image"] {
 }
 
 body {
-    background: radial-gradient(circle farthest-corner at 85.4% 50.8%, rgba(14, 72, 222, 1) 0%, rgba(3, 22, 65, 1) 74.2%) no-repeat fixed;
+    background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #ff4b1f 0%, #ff9068 74.2%) no-repeat fixed;
     color: whitesmoke;
     font-family: 'PT Sans', sans-serif;
     background-size: cover;

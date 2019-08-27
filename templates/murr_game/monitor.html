@@ -6,28 +6,39 @@
         .bottom_monitor {
             min-height: 135px;
         }
+
+        .monitor-img {
+            border-radius: 10px;
+
+        }
     </style>
 {% endblock css %}
 
 {% block monitor %}
 
     <div id="monitor">
+        <div v-show="show_tawern === false">
+            <button
+                    v-on:click="get_data_from_client_and_come_to_tawern"
+                    class="btn btn-secondary btn-lg center">
+                Войти в таверну
+            </button>
 
-        <button v-show="show_tawern === false"
-                v-on:click="get_data_from_client_and_come_to_tawern"
-                class="btn btn-secondary btn-lg center">
+            <div class="container col-9 text-center mt-5" style="font-size: 1.6rem">
+                <p>Вы стоите перед открытой дверью в красную таверну</p>
+                <p>Запах вкусной курочки доносится из шумного здания</p>
+            </div>
 
-            Войти в таверну
-        </button>
+        </div>
 
 
         <div v-if="show_tawern">
-            <div class="monitor-img">
-                <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
-                     class="card"
-                     alt="Активная картинка монитора"
-                     id="onChake">
-            </div>
+
+            <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+                 class="monitor-img"
+                 alt="Активная картинка монитора"
+                 id="onChake">
+
             <div class="murren_card"
                  :class="{'bg-primary': show_murren_group}">
 
@@ -103,10 +114,10 @@
                             <i class="fas fa-users ml-1"></i></button>
 
                         <button type="button"
-                            class="btn btn-info"
-                            title="Кто в таверне?"
+                                class="btn btn-info"
+                                title="Кто в таверне?"
 
-                            @click="shakeBtn">
+                                @click="shakeBtn">
 
                             Тестовый текст
                         </button>
@@ -149,26 +160,26 @@
                 </div>
 
                 <div class="messages" id="wrapp">
-                            <div class="messages-content">
-                                <div v-for="log in logs"
-                                     class="message">
-                                    <div v-if="log.type !== 'action'"
-                                    class="message-from-user">
-                                    [[ log.text ]]
-                                    <figure class="avatar">
-                                        <img v-bind:src="avatar_url"
-                                             class="_img"
-                                             alt="">
-                                    </figure>
-                                    <div class="timestamp">10:40</div>
-                                    </div>
-                                    <div v-else
-                                    class="message-from-server">
-                                        [[ log.text ]]
-                                    </div>
-                                </div>
+                    <div class="messages-content">
+                        <div v-for="log in logs"
+                             class="message">
+                            <div v-if="log.type !== 'action'"
+                                 class="message-from-user">
+                                [[ log.text ]]
+                                <figure class="avatar">
+                                    <img v-bind:src="avatar_url"
+                                         class="_img"
+                                         alt="">
+                                </figure>
+                                <div class="timestamp">10:40</div>
+                            </div>
+                            <div v-else
+                                 class="message-from-server">
+                                [[ log.text ]]
                             </div>
                         </div>
+                    </div>
+                </div>
 
                 <div class="message-box">
 
@@ -185,9 +196,9 @@
                         <i class="fas fa-paper-plane"></i>
                     </button>
                     <button
-                        v-on:click="scroll_to_new"
-                        class="scroll-bottom-btn"
-                        v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
+                            v-on:click="scroll_to_new"
+                            class="scroll-bottom-btn"
+                            v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
                             <span class="scroll-bottom-circle">
                                 <i class="fas fa-arrow-down"></i>
                             </span>
