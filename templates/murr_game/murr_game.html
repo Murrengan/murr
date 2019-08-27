@@ -91,23 +91,29 @@
                     ws.onmessage = (data) => {
                         let data_from_django = JSON.parse(data.data);
                         {# Отлавливаем ответ с бекенда #}
-
                         if (data_from_django.event === "send.message") {
                             let new_message = data_from_django.data.message.toString();
                             this.logs.push({type:'message', text: new_message});
                             this.show_btn_scroll();
+                            this.$nextTick(() => {
+                                if (this.scroll_btn === false) {
+                                    this.scroll_to_new();
+                                }
+                            });
                         }
                         if (data_from_django.event === "murren.in.tawern.list") {
-                            console.log('Выводим ответ за "murren.in.tawern.list"');
+                            console.log('murren.in.tawern.list');
                             console.log(data_from_django);
-
-                            {#console.log('murren.in.tawern.list');#}
+                            console.log('murren.in.tawern.list');
                         }
                         if (data_from_django.event === "leave.group") {
-
-                            this.logs.unshift('Вы вышли из группы');
-                            console.log(data_from_django);
-
+                            this.logs.push({type:'action', text: 'Вы вышли из группы'});
+                            this.show_btn_scroll();
+                            this.$nextTick(() => {
+                                if (this.scroll_btn === false) {
+                                    this.scroll_to_new();
+                                }
+                            });
                             this.show_murren_group = false;
                         }
                     };
@@ -186,13 +192,10 @@
                     let container_messages = this.$el.querySelector(".messages-content");
                     let messages = container_messages.querySelectorAll(".message");
                     if(container.scrollHeight - container.offsetHeight !== 0) {
-                        this.scroll_btn = false;
                         const elemScroll = document.querySelector(".messages");
-                        container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
                         elemScroll.addEventListener('scroll', (e) => {
-                            if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 40) {
                                 this.scroll_btn = false;
-                                container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
                             }else{
                                 this.scroll_btn = true;
                             }
