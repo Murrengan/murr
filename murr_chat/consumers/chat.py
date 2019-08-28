@@ -56,20 +56,18 @@ class GroupConsumer(MurrChatConsumer):
     async def event_murren_in_tawern_list(self, event):
 
         murrens_in_group_id = await self.get_chat_members()
-        murrens_in_group_data = {
-            'id': [],
-            'name': [],
-            'avatar_url': []
 
-        }
+        murrens_in_group_data = []
 
         for murren_id in murrens_in_group_id:
 
             murren = User.objects.get(id=murren_id)
-
-            murrens_in_group_data['id'].append(murren_id)
-            murrens_in_group_data['name'].append(murren.username)
-            murrens_in_group_data['avatar_url'].append(murren.profile_picture.url)
+            murren_data = {
+                'murren_id': murren_id,
+                'name': murren.username,
+                'avatar_url': murren.profile_picture.url
+            }
+            murrens_in_group_data.append(murren_data)
 
         await self._send_message(murrens_in_group_data, event=event['event'])
 
