@@ -4,13 +4,13 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
+
     <style>
-        body {
-            background-color: transparent;
-        }
+
         img {
             max-width: 100%;
         }
+
         .murren_group {
             color: #1d2124;
             background-color: whitesmoke;
@@ -18,16 +18,261 @@
             font-size: 13px;
             padding: 5px;
         }
+
+        .monitor_img {
+            border-radius: 10px;
+
+        }
+
+        .murren_card {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            border-radius: 5px;
+        }
+
+        .group_members-enter-active, .group_members-leave-active {
+            transition: opacity .5s;
+        }
+
+        .group_members-enter, .group_members-leave-to /* .fade-leave-active до версии 2.1.8 */
+        {
+            opacity: 0;
+        }
+
     </style>
+
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
 
 {% endblock css %}
 
 {% block content %}
 
-    <div class="p-0">
-        {% include 'murr_game/monitor.html' %}
+
+    <div id="monitor"
+         class="container px-1">
+        <div v-show="show_tawern === false">
+            <button
+                    v-on:click="get_data_from_client_and_come_to_tawern"
+                    class="btn btn-secondary btn-lg center">
+                Войти в таверну
+            </button>
+
+            <div class="container col-9 text-center mt-5" style="font-size: 1.6rem">
+                <p>Вы стоите перед открытой дверью в красную таверну</p>
+                <p>Запах вкусной курочки доносится из шумного здания</p>
+            </div>
+
+        </div>
+
+
+        <div v-if="show_tawern">
+
+            <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+                 class="monitor_img"
+                 alt="Активная картинка монитора"
+                 id="onChake">
+
+            <div class="murren_group"
+                 :class="{'bg-primary': show_murren_group}">
+
+                <div class="row m-0 p-0">
+
+                    <div class="murren_card col-4">
+
+                        <div class="row m-0 p-0" style="">
+
+                            {# murren_avatar-img #}
+                            <div class="col-4 p-0 m-0 d-flex align-items-center">
+                                <img v-bind:src="avatar_url"
+                                     class="img-thumbnail p-0 m-0 "
+                                     alt="...">
+                            </div>
+
+                            {# murren_avatar-data #}
+                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                                <div class="murren_card_data mx-auto">
+                                    <h5 class="p-0 m-0">[[ murren_name ]]</h5>
+
+                                    <th style="color: red">[[ hp ]]</th>
+                                    <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
+                                    </th>
+                                    <th style="color: blue">[[ mp ]]</th>
+                                    <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
+                                    </th>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="inventory_and_skills col-8 m-0 p-0">
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            <div class="bottom_monitor container my-1">
+                <div class="row">
+                    <div class="col-9 m-0 p-0">
+
+                        <div v-if="show_create_group_menu">
+
+                            <div class="form-inline">
+
+                                <label for="group_name_input" class="mr-2 sr-only">Название группы:</label>
+                                <input v-model.lazy.trim="group_name_input"
+                                       @keyup.enter="create_group_by_name"
+                                       maxlength="20"
+                                       id="group_name_input"
+                                       placeholder="Введи название группы"
+                                       class="form-control">
+                                <button
+                                        v-on:click="create_group_by_name"
+                                        type="submit"
+                                        class="btn btn-primary">
+                                    Создать группу
+                                </button>
+                            </div>
+                        </div>
+
+                        <div v-else>
+
+                            <div v-if="show_murren_group">
+                                <button class="btn bg-info btn-sm"
+                                        v-on:click="event_leave_group">
+                                    Выйти из группы
+                                </button>
+                            </div>
+                            <div v-else></div>
+
+                            <button type="button"
+                                    class="btn btn-secondary btn-sm"
+                                    data-toggle="tooltip"
+                                    v-on:click="show_create_group_panel"
+                                    title="Создать группу">
+                                Создать группу
+                                <i class="fas fa-user-plus ml-1"></i></button>
+
+                            <button type="button"
+                                    class="btn btn-info btn-sm"
+                                    data-toggle="tooltip"
+                                    v-on:click="show_murren_in_tawern(), show_group_members = !show_group_members"
+                                    title="Кто в таверне?">
+                                Кто в таверне?
+                                <i class="fas fa-users ml-1"></i></button>
+
+                            <button type="button"
+                                    class="btn btn-info btn-sm"
+                                    title="Кто в таверне?"
+
+                                    @click="shakeBtn">
+
+                                Тестовый текст
+                            </button>
+                        </div>
+
+
+                        <div v-if="available_group">
+
+                            <p v-for="i in available_group">
+                                [[ i.group_name ]]
+
+                                <a href="#"
+                                   v-on:click.prevent="remove_chat_member(i.id)"
+                                   class="badge badge-danger">
+                                    Удалить</a>
+                            </p>
+                            <br>
+
+                        </div>
+                        <div v-else></div>
+
+
+                    </div>
+                    <div class="col-3 m-0 p-0">
+                        <div v-if="success_group_created">
+                            <p>Группа <span class="text-dark">[[ group_name_input ]]</span> ждет тебя!</p>
+                        </div>
+                        <div v-else>Пока ничего не произошло</div>
+                    </div>
+                </div>
+            </div>
+
+            <transition name="group_members">
+                <div v-if="show_group_members">
+                    <h1>Murrengan</h1>
+                </div>
+            </transition>
+
+            <div class="chat_panel">
+                <div class="chat_panel-title">
+                    <h1>murren_name</h1>
+                    <h2>murren_title</h2>
+                    <!-- <figure class="murren_avatar-chat">
+                        <img src="" alt=""> -->
+
+                    </figure>
+                </div>
+
+                <div class="messages" id="wrapp">
+                    <div class="messages-content">
+                        <div v-for="log in logs"
+                             class="message">
+                            <div v-if="log.type !== 'action'"
+                                 class="message-from-user">
+                                [[ log.text ]]
+                                <figure class="avatar">
+                                    <img v-bind:src="avatar_url"
+                                         class="_img"
+                                         alt="">
+                                </figure>
+                                <div class="timestamp">10:40</div>
+                            </div>
+                            <div v-else
+                                 class="message-from-server">
+                                [[ log.text ]]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-box">
+
+                    <input v-model.lazy.trim="murren_message_input"
+                           @keyup.enter="send_message"
+                           type="text"
+                           class="message-input"
+                           placeholder="Введи сообщение">
+
+                    <button
+                            v-on:click="send_message"
+                            type="submit"
+                            class="message-submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button
+                            v-on:click="scroll_to_new"
+                            class="scroll-bottom-btn"
+                            v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
+                            <span class="scroll-bottom-circle">
+                                <i class="fas fa-arrow-down"></i>
+                            </span>
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
     </div>
+
 
 {% endblock content %}
 
@@ -38,15 +283,21 @@
             el: '#monitor',
             delimiters: ['[[', ']]'],
             data: {
+
                 _ws: '',
+
                 {# switchers #}
                 show_tawern: false,
                 show_create_group: false,
                 show_murren_group: false,
+                show_group_members: false,
                 success_group_created: false,
                 scroll_btn: false,
+
                 {# data sets#}
-                logs: [{type: 'action', text: 'Действие: Ты вошел в murr'}, {type: 'action', text: 'Действие: включен логер'},],
+                logs: [{type: 'action', text: 'Действие: Ты вошел в murr'},
+                    {type: 'action', text: 'Действие: включен логер'}],
+
                 data_from_django: '',
                 available_group: false,
                 group_name_input: '',
@@ -74,7 +325,7 @@
                         .catch(error => console.log(error));
                 },
                 come_to_tawern() {
-                    
+
                     {# подключаемся к сокету tawern #}
                     let group_id = '1';
                     let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
@@ -93,7 +344,7 @@
                         {# Отлавливаем ответ с бекенда #}
                         if (data_from_django.event === "send.message") {
                             let new_message = data_from_django.data.message.toString();
-                            this.logs.push({type:'message', text: new_message});
+                            this.logs.push({type: 'message', text: new_message});
                             this.show_btn_scroll();
                             this.$nextTick(() => {
                                 if (this.scroll_btn === false) {
@@ -102,12 +353,10 @@
                             });
                         }
                         if (data_from_django.event === "murren.in.tawern.list") {
-                            console.log('murren.in.tawern.list');
                             console.log(data_from_django);
-                            console.log('murren.in.tawern.list');
                         }
                         if (data_from_django.event === "leave.group") {
-                            this.logs.push({type:'action', text: 'Вы вышли из группы'});
+                            this.logs.push({type: 'action', text: 'Вы вышли из группы'});
                             this.show_btn_scroll();
                             this.$nextTick(() => {
                                 if (this.scroll_btn === false) {
@@ -143,40 +392,42 @@
 
                     this.show_tawern = false;
                     console.log('Вы вышли из таверны. Ждем вас снова! =)');
-                  
+
                 },
                 show_murren_in_tawern() {
                     let command = '{"event": "murren.in.tawern.list", "data": {}}';
                     this._ws.send(command);
 
+
                     console.log('На бекенд отправлена задача' + command);
                 },
-                  shakeBtn() {
-              const img = document.getElementById('onChake');
-              img.classList.add('anim-chake');
-              setTimeout(function() {
-                  img.classList.remove('anim-chake');
-              }, 2000)
-          },
+                shakeBtn() {
+                    const img = document.getElementById('onChake');
+                    img.classList.add('anim-chake');
+                    setTimeout(function () {
+                        img.classList.remove('anim-chake');
+                    }, 250)
+                },
                 create_group_by_name() {
+
                     {# инициализируем сокет по юрл #}
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+
                     {# создаем нужный запрос для бекенда #}
                     let create_group_json = '{"event": "group.create", "data": {"name": "' +
                         this.group_name_input +
                         '"}}';
+
                     {# при открытии сокета мы сразу отправляем сообщение на бекенд #}
                     ws.onopen = function () {
                         console.log("На бекенд отправлена задача: " + create_group_json);
                         ws.send(create_group_json);
                     };
-                    {# задача обрабатывается на бекенда#}
+
                     {# пришел ответ от бекенда: #}
                     ws.onmessage = (data) => {
-                        {#console.log(JSON.parse(data.data));#}
                         this.data_from_django.push(JSON.parse(data.data));
                         this.logs.unshift(this.data_from_django[0].data.detail);
-                        {#console.log(this.data_from_django);#}
                     };
                     this.show_create_group = false;
                 },
@@ -186,17 +437,16 @@
                     let messages = container_messages.querySelectorAll(".message");
                     container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
                 },
-
                 show_btn_scroll() {
                     let container = this.$el.querySelector(".messages");
                     let container_messages = this.$el.querySelector(".messages-content");
                     let messages = container_messages.querySelectorAll(".message");
-                    if(container.scrollHeight - container.offsetHeight !== 0) {
+                    if (container.scrollHeight - container.offsetHeight !== 0) {
                         const elemScroll = document.querySelector(".messages");
                         elemScroll.addEventListener('scroll', (e) => {
                             if (container.scrollTop + container.clientHeight >= container.scrollHeight - 40) {
                                 this.scroll_btn = false;
-                            }else{
+                            } else {
                                 this.scroll_btn = true;
                             }
                         });
@@ -222,7 +472,6 @@
                         console.log(this.available_group)
                     };
                 },
-
                 remove_chat_member(group_id) {
                     let group_url = 'ws://127.0.0.1:8000/ws/chat/' + group_id + '/';
                     let remove_event_json = '{"event": "remove.chat.member", "data": {}}';
