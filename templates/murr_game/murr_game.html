@@ -77,9 +77,7 @@
                  :class="{'bg-primary': show_murren_group}">
 
                 <div class="row m-0 p-0">
-
                     <div class="murren_card col-4">
-
                         <div class="row m-0 p-0" style="">
 
                             {# murren_avatar-img #}
@@ -100,13 +98,9 @@
                                     <th style="color: blue">[[ mp ]]</th>
                                     <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
                                     </th>
-
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
 
                     <div class="inventory_and_skills col-8 m-0 p-0">
@@ -183,7 +177,7 @@
                         <div v-if="available_group">
 
                             <p v-for="i in available_group">
-                                [[ i.group_name ]]
+                                [[ i ]]
 
                                 <a href="#"
                                    v-on:click.prevent="remove_chat_member(i.id)"
@@ -208,6 +202,44 @@
 
             <transition name="group_members">
                 <div v-if="show_group_members">
+
+{#                    <p v-for="i in available_group">#}
+{#                        [[ i.group_name ]]#}
+{##}
+{#                        <a href="#"#}
+{#                           v-on:click.prevent="remove_chat_member(i.id)"#}
+{#                           class="badge badge-danger">#}
+{#                            Удалить</a>#}
+{#                    </p>#}
+
+
+                    <div v-for="i in murren_in_tawern_list"
+                         class="murren_card col-4">
+                        <div class="row m-0 p-0" style="">
+
+                            {# murren_avatar-img #}
+                            <div class="col-4 p-0 m-0 d-flex align-items-center">
+                                <img v-bind:src="avatar_url"
+                                     class="img-thumbnail p-0 m-0 "
+                                     alt="...">
+                            </div>
+
+                            {# murren_avatar-data #}
+                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                                <div class="murren_card_data mx-auto">
+                                    <h5 class="p-0 m-0">[[ i ]]</h5>
+
+                                    <th style="color: red">[[ hp ]]</th>
+                                    <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
+                                    </th>
+                                    <th style="color: blue">[[ mp ]]</th>
+                                    <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
+                                    </th>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <h1>Murrengan</h1>
                 </div>
             </transition>
@@ -297,7 +329,7 @@
                 {# data sets#}
                 logs: [{type: 'action', text: 'Действие: Ты вошел в murr'},
                     {type: 'action', text: 'Действие: включен логер'}],
-
+                murren_in_tawern_list: [],
                 data_from_django: '',
                 available_group: false,
                 group_name_input: '',
@@ -354,6 +386,8 @@
                         }
                         if (data_from_django.event === "murren.in.tawern.list") {
                             console.log(data_from_django);
+                            this.murren_in_tawern_list = data_from_django.data
+
                         }
                         if (data_from_django.event === "leave.group") {
                             this.logs.push({type: 'action', text: 'Вы вышли из группы'});
