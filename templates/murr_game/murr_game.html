@@ -78,7 +78,7 @@
 
                 <div class="row m-0 p-0">
                     <div class="murren_card col-4">
-                        <div class="row m-0 p-0" style="">
+                        <div class="row m-0 p-0">
 
                             {# murren_avatar-img #}
                             <div class="col-4 p-0 m-0 d-flex align-items-center">
@@ -205,7 +205,7 @@
 
                     <div class="container">
                         <div v-for="i in murren_in_tawern_list"
-                             class="murren_card col-4 text-dark">
+                             class="murren_card text-dark">
 
                             <div class="row m-0 p-0" style="">
 
@@ -213,6 +213,7 @@
                                 <div class="col-4 p-0 m-0 d-flex align-items-center">
                                     <img v-bind:src="i.avatar_url"
                                          class="img-thumbnail p-0 m-0 "
+                                         style="max-height: 50px"
                                          alt="...">
                                 </div>
 
@@ -221,12 +222,6 @@
                                     <div class="murren_card_data mx-auto">
                                         <h5 class="p-0 m-0">[[ i.name ]]</h5>
 
-                                        <th style="color: red">[[ hp ]]</th>
-                                        <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
-                                        </th>
-                                        <th style="color: blue">[[ mp ]]</th>
-                                        <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
-                                        </th>
                                     </div>
                                 </div>
                             </div>
