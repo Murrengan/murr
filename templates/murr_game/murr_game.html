@@ -11,17 +11,28 @@
             max-width: 100%;
         }
 
+        .active_monitor {
+            position: relative;
+        }
+
         .murren_group {
             color: #1d2124;
             background-color: whitesmoke;
             border-radius: 5px;
             font-size: 13px;
             padding: 5px;
+            margin-bottom: 5px;
         }
 
         .monitor_img {
             border-radius: 10px;
+        }
 
+        .monitor_wrapper {
+            position: absolute;
+            bottom: 5px;
+            width: 33%;
+            right: 0;
         }
 
         .murren_card {
@@ -29,6 +40,17 @@
             margin: 0;
             padding: 0;
             border-radius: 5px;
+        }
+
+        .menu-btn {
+            background-color: #9fcdff;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 5%;
+            right: 5%;
+            width: 40px;
+            height: 40px;
+            outline: 0 !important;
         }
 
         .group_members-enter-active, .group_members-leave-active {
@@ -68,10 +90,20 @@
 
         <div v-if="show_tawern">
 
-            <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
-                 class="monitor_img"
-                 alt="Активная картинка монитора"
-                 id="onChake">
+            <div class="active_monitor">
+
+                <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+                     class="monitor_img"
+                     alt="Активная картинка монитора"
+                     id="onChake">
+
+                <div class="monitor_wrapper">
+                    <p>Lorem ipsum dolor sit amet.</p>a
+                    <button class="">test</button>
+                </div>
+
+            </div>
+
 
             <div class="murren_group"
                  :class="{'bg-primary': show_murren_group}">
@@ -106,129 +138,8 @@
                     <div class="inventory_and_skills col-8 m-0 p-0">
 
                     </div>
-
-
-                </div>
-
-
-            </div>
-
-            <div class="bottom_monitor container my-1">
-                <div class="row">
-                    <div class="col-9 m-0 p-0">
-
-                        <div v-if="show_create_group_menu">
-
-                            <div class="form-inline">
-
-                                <label for="group_name_input" class="mr-2 sr-only">Название группы:</label>
-                                <input v-model.lazy.trim="group_name_input"
-                                       @keyup.enter="create_group_by_name"
-                                       maxlength="20"
-                                       id="group_name_input"
-                                       placeholder="Введи название группы"
-                                       class="form-control">
-                                <button
-                                        v-on:click="create_group_by_name"
-                                        type="submit"
-                                        class="btn btn-primary">
-                                    Создать группу
-                                </button>
-                            </div>
-                        </div>
-
-                        <div v-else>
-
-                            <div v-if="show_murren_group">
-                                <button class="btn bg-info btn-sm"
-                                        v-on:click="event_leave_group">
-                                    Выйти из группы
-                                </button>
-                            </div>
-                            <div v-else></div>
-
-                            <button type="button"
-                                    class="btn btn-secondary btn-sm"
-                                    data-toggle="tooltip"
-                                    v-on:click="show_create_group_panel"
-                                    title="Создать группу">
-                                Создать группу
-                                <i class="fas fa-user-plus ml-1"></i></button>
-
-                            <button type="button"
-                                    class="btn btn-info btn-sm"
-                                    data-toggle="tooltip"
-                                    v-on:click="show_murren_in_tawern(), show_group_members = !show_group_members"
-                                    title="Кто в таверне?">
-                                Кто в таверне?
-                                <i class="fas fa-users ml-1"></i></button>
-
-                            <button type="button"
-                                    class="btn btn-info btn-sm"
-                                    title="Кто в таверне?"
-
-                                    @click="shakeBtn">
-
-                                Тестовый текст
-                            </button>
-                        </div>
-
-
-                        <div v-if="available_group">
-
-                            <p v-for="i in available_group">
-                                [[ i ]]
-
-                                <a href="#"
-                                   v-on:click.prevent="remove_chat_member(i.id)"
-                                   class="badge badge-danger">
-                                    Удалить</a>
-                            </p>
-                            <br>
-
-                        </div>
-                        <div v-else></div>
-
-
-                    </div>
-                    <div class="col-3 m-0 p-0">
-                        <div v-if="success_group_created">
-                            <p>Группа <span class="text-dark">[[ group_name_input ]]</span> ждет тебя!</p>
-                        </div>
-                        <div v-else>Пока ничего не произошло</div>
-                    </div>
                 </div>
             </div>
-
-            <transition name="group_members">
-                <div v-if="show_group_members">
-
-                    <div class="container">
-                        <div v-for="i in murren_in_tawern_list"
-                             class="murren_card text-dark">
-
-                            <div class="row m-0 p-0" style="">
-
-                                {# murren_avatar-img #}
-                                <div class="col-4 p-0 m-0 d-flex align-items-center">
-                                    <img v-bind:src="i.avatar_url"
-                                         class="img-thumbnail p-0 m-0 "
-                                         style="max-height: 50px"
-                                         alt="...">
-                                </div>
-
-                                {# murren_avatar-data #}
-                                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                                    <div class="murren_card_data mx-auto">
-                                        <h5 class="p-0 m-0">[[ i.name ]]</h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
 
             <div class="chat_panel">
                 <div class="chat_panel-title">
@@ -283,6 +194,107 @@
 
                 </div>
             </div>
+
+            <div class="button_panel container my-1">
+
+                <div v-if="show_create_group_menu">
+
+                    <input v-model.lazy.trim="group_name_input"
+                           @keyup.enter="create_group_by_name"
+                           maxlength="20"
+                           id="group_name_input"
+                           placeholder="Введи название группы"
+                           class="form-control">
+                    <button
+                            v-on:click="create_group_by_name"
+                            type="submit"
+                            class="btn btn-primary">
+                        Создать группу
+                    </button>
+
+                </div>
+                <div v-else>
+
+
+                    <button v-if="show_murren_group"
+                            class="btn bg-info btn-sm"
+                            v-on:click="event_leave_group">
+                        Выйти из группы
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-toggle="tooltip"
+                            v-on:click="show_create_group_panel"
+                            title="Создать группу">
+                        Создать группу
+                        <i class="fas fa-user-plus ml-1"></i></button>
+
+                    <button type="button"
+                            class="btn btn-info btn-sm"
+                            data-toggle="tooltip"
+                            v-on:click="show_murren_in_tawern(), show_group_members = !show_group_members"
+                            title="Кто в таверне?">
+                        Кто в таверне?
+                        <i class="fas fa-users ml-1"></i></button>
+
+                    <button type="button"
+                            class="btn btn-info btn-sm"
+                            title="Кто в таверне?"
+                            @click="shakeBtn">
+
+                        shakeBtn
+                    </button>
+                </div>
+                <div v-if="available_group">
+
+                    <p v-for="i in available_group">
+                        [[ i ]]
+
+                        <a href="#"
+                           v-on:click.prevent="remove_chat_member(i.id)"
+                           class="badge badge-danger">
+                            Удалить</a>
+                    </p>
+                    <br>
+
+                </div>
+
+            </div>
+
+            <transition name="group_members">
+                <div v-if="show_group_members">
+
+                    <div class="container">
+                        <div v-for="i in murren_in_tawern_list"
+                             class="murren_card text-dark">
+
+                            <div class="row m-0 p-0" style="">
+
+                                {# murren_avatar-img #}
+                                <div class="col-4 p-0 m-0 d-flex align-items-center">
+                                    <img v-bind:src="i.avatar_url"
+                                         class="img-thumbnail p-0 m-0 "
+                                         style="max-height: 50px"
+                                         alt="...">
+                                </div>
+
+                                {# murren_avatar-data #}
+                                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
+                                    <div class="murren_card_data mx-auto">
+                                        <h5 class="p-0 m-0">[[ i.name ]]</h5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <button class="menu-btn">
+                <i class="fas fa-om"></i>
+            </button>
 
         </div>
     </div>
@@ -426,24 +438,20 @@
                 },
                 create_group_by_name() {
 
-                    {# инициализируем сокет по юрл #}
                     const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
 
-                    {# создаем нужный запрос для бекенда #}
                     let create_group_json = '{"event": "group.create", "data": {"name": "' +
                         this.group_name_input +
                         '"}}';
 
-                    {# при открытии сокета мы сразу отправляем сообщение на бекенд #}
                     ws.onopen = function () {
                         console.log("На бекенд отправлена задача: " + create_group_json);
                         ws.send(create_group_json);
                     };
 
-                    {# пришел ответ от бекенда: #}
                     ws.onmessage = (data) => {
-                        this.data_from_django.push(JSON.parse(data.data));
-                        this.logs.unshift(this.data_from_django[0].data.detail);
+                        console.log("С бекенда пришел ответ:");
+                        console.log(JSON.parse(data.data));
                     };
                     this.show_create_group = false;
                 },
@@ -455,8 +463,6 @@
                 },
                 show_btn_scroll() {
                     let container = this.$el.querySelector(".messages");
-                    let container_messages = this.$el.querySelector(".messages-content");
-                    let messages = container_messages.querySelectorAll(".message");
                     if (container.scrollHeight - container.offsetHeight !== 0) {
                         const elemScroll = document.querySelector(".messages");
                         elemScroll.addEventListener('scroll', (e) => {
