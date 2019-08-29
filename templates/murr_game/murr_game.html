@@ -4,6 +4,7 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
 
     <style>
 
@@ -30,9 +31,11 @@
 
         .monitor_wrapper {
             position: absolute;
-            bottom: 5px;
+            bottom: 0;
             width: 33%;
             right: 0;
+            margin: 10px;
+
         }
 
         .murren_card {
@@ -51,6 +54,18 @@
             width: 40px;
             height: 40px;
             outline: 0 !important;
+        }
+
+        .talk_with_barmen {
+            outline: 0 !important;
+        }
+
+        .barmen_dialog {
+            background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
         }
 
         .group_members-enter-active, .group_members-leave-active {
@@ -82,6 +97,7 @@
 
             <div class="container col-9 text-center mt-5" style="font-size: 1.6rem">
                 <p>Вы стоите перед открытой дверью в красную таверну.</p>
+                <br>
                 <p>Запах вкусной курочки доносится из шумного здания</p>
             </div>
 
@@ -98,10 +114,32 @@
                      id="onChake">
 
                 <div class="monitor_wrapper">
-                    <p>Lorem ipsum dolor sit amet.</p>a
-                    <button class="">test</button>
+
+                    <vs-button color="success"
+                               type="relief"
+                               class="talk_with_barmen"
+                               v-on:click.prevent='show_barmen_dialog = !show_barmen_dialog'>
+                        Поговить с барменом
+                    </vs-button>
                 </div>
 
+            </div>
+
+            <div v-if="show_barmen_dialog"
+                 class="barmen_dialog">
+                <p>Привет, мой сладкий! Ты выглядишь аппетитно 😍</p>
+                <p>Что тебя интересует?</p>
+                <div class="row">
+
+                    <div class="col-6">
+                        <p>Купить курочку и попить</p>
+                    </div>
+
+                    <div class="col-6">
+                        <p>Взять квест</p>
+
+                    </div>
+                </div>
             </div>
 
 
@@ -304,6 +342,7 @@
 
 {% block js %}
     {{ block.super }}
+    <script src="https://unpkg.com/vuesax"></script>
     <script>
         new Vue({
             el: '#monitor',
@@ -317,8 +356,10 @@
                 show_create_group: false,
                 show_murren_group: false,
                 show_group_members: false,
+                show_barmen_dialog: false,
                 success_group_created: false,
                 scroll_btn: false,
+
 
                 {# data sets#}
                 logs: [{type: 'action', text: 'Действие: Ты вошел в murr'},
