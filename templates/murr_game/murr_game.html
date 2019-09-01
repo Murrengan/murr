@@ -12,6 +12,10 @@
             max-width: 100%;
         }
 
+        .monitor {
+            margin-top: 5px;
+        }
+
         .active_monitor {
             position: relative;
         }
@@ -31,18 +35,19 @@
 
         .monitor_wrapper {
             position: absolute;
-            bottom: 0;
+            top: 0;
             width: 33%;
             right: 0;
             margin: 10px;
 
         }
 
-        .murren_card {
-            background-color: white;
+
+        .murren_data_card {
             margin: 0;
             padding: 0;
             border-radius: 5px;
+            background-color: white;
         }
 
         .menu-btn {
@@ -56,8 +61,24 @@
             outline: 0 !important;
         }
 
-        .talk_with_barmen {
+        .murr-btn {
             outline: 0 !important;
+        }
+
+        .active_btn_panel {
+            background-color: white;
+            border-radius: 5px;
+            margin: 0;
+            padding: 5px;;
+        }
+
+        .murren_avatar_img {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: .25rem;
+        {#max-width: 100%;#} max-height: 100%;
+            margin-top: 5px;
+            max-width: 70px;
         }
 
         .barmen_dialog {
@@ -87,7 +108,7 @@
 
 
     <div id="monitor"
-         class="container px-1">
+         class="monitor container px-1">
         <div v-show="show_tawern === false">
             <button
                     v-on:click="get_data_from_client_and_come_to_tawern"
@@ -109,73 +130,171 @@
             <div class="active_monitor">
 
                 <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+
                      class="monitor_img"
                      alt="Активная картинка монитора"
                      id="onChake">
 
                 <div class="monitor_wrapper">
 
-                    <vs-button color="success"
-                               type="relief"
-                               class="talk_with_barmen"
-                               v-on:click.prevent='show_barmen_dialog = !show_barmen_dialog'>
-                        Поговить с барменом
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quod.</p>
+                </div>
+
+            </div>
+
+
+            <div v-if="show_Barmen_dialog">
+                <h1>Barmen</h1>
+            </div>
+            <div v-if="show_OrkVeteran_dialog">
+                <h1>OrkVeteran</h1>
+            </div>
+            <div v-if="show_Veronika_dialog">
+                <h1>Veronika</h1>
+            </div>
+
+            <div class="active_btn_panel mb-1">
+
+                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+
+
+                    <vs-button
+                            color="#ec008c"
+                            type="relief"
+                            class="btn murr-btn mr-1"
+                            v-on:click="show_Barmen_dialog = !show_Barmen_dialog">
+                        Поговорить с барменом
                     </vs-button>
+
+                    <vs-button color="#79CBCA"
+                               type="relief"
+                               class="btn murr-btn mr-1"
+                               v-on:click.prevent='show_OrkVeteran_dialog = !show_OrkVeteran_dialog'>
+                        Поговорить с большим орком
+                    </vs-button>
+
+                    <vs-button color="#fc6767"
+                               type="relief"
+                               class="btn murr-btn mr-1"
+                               v-on:click.prevent='show_Veronika_dialog = !show_Veronika_dialog'>
+                        Поговорить с рыжей девушкой
+                    </vs-button>
+
+
                 </div>
+
 
             </div>
 
-            <div v-if="show_barmen_dialog"
-                 class="barmen_dialog">
-                <p>Привет, мой сладкий! Ты выглядишь аппетитно 😍</p>
-                <p>Что тебя интересует?</p>
-                <div class="row">
 
-                    <div class="col-6">
-                        <p>Купить курочку и попить</p>
-                    </div>
-
-                    <div class="col-6">
-                        <p>Взять квест</p>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="murren_group"
-                 :class="{'bg-primary': show_murren_group}">
+            <div class="murren_group">
 
                 <div class="row m-0 p-0">
-                    <div class="murren_card col-4">
-                        <div class="row m-0 p-0">
 
-                            {# murren_avatar-img #}
-                            <div class="col-4 p-0 m-0 d-flex align-items-center">
-                                <img v-bind:src="avatar_url"
-                                     class="img-thumbnail p-0 m-0 "
-                                     alt="...">
+                    <div class="inventory_and_skills col-6 m-0 p-0">
+
+                        <div class="row text-center  m-0 p-0">
+
+                            <div class="col-6 m-0 p-0">
+
+                                <vs-button
+                                        type="relief"
+                                        color="rgb(187, 138, 200)"
+                                        size="small"
+                                        class="murr-btn">
+
+                                    <img v-bind:src="bag_icon_url"
+                                         color="rgb(187, 138, 200)"
+                                         size="small"
+                                         class="img-thumbnail p-0 m-0 "
+                                         alt="...">
+                                </vs-button>
+
+
                             </div>
 
-                            {# murren_avatar-data #}
-                            <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                                <div class="murren_card_data mx-auto">
-                                    <h5 class="p-0 m-0">[[ murren_name ]]</h5>
+                            <div class="col-6 m-0 p-0">
+                                <vs-button
+                                        type="relief"
+                                        color="rgb(187, 138, 200)"
+                                        size="small"
+                                        class="murr-btn">
 
-                                    <th style="color: red">[[ hp ]]</th>
-                                    <th><img src="/static/img/murr_game/hp.svg" width="15" height="15" alt="">
-                                    </th>
-                                    <th style="color: blue">[[ mp ]]</th>
-                                    <th><img src="/static/img/murr_game/mp.svg" width="15" height="15" alt="">
-                                    </th>
-                                </div>
+                                    <img v-bind:src="skill_icon_url"
+                                         color="rgb(187, 138, 200)"
+                                         size="small"
+                                         class="img-thumbnail p-0 m-0 "
+                                         alt="...">
+                                </vs-button>
+
                             </div>
                         </div>
-                    </div>
-
-                    <div class="inventory_and_skills col-8 m-0 p-0">
 
                     </div>
+
+                    <div class="murren_and_group col-6 m-0 p-0">
+
+                        <vs-button
+                                type="relief"
+                                color="#DA22FF"
+                                class="murren_data_card murr-btn m-0 p-0">
+
+                            <div class="row m-0 p-0">
+
+                                {# murren_avatar-data #}
+                                <div class="col-6 p-0 m-0 d-flex align-items-center">
+
+                                    <div class="mx-auto p-0 m-0">
+
+                                        <h5 class="p-0 mb-1">[[ murren_name ]]</h5>
+
+                                        <div class="container p-0 m-0">
+
+                                            <div class="row p-0 m-0">
+                                                <div class="col-6 p-0 m-0" style="position: relative;">
+                                                    <img src="/static/img/murr_game/hp.svg" width="100px"
+                                                         alt="">
+                                                </div>
+
+                                                <p class="align-content-between" style="
+                                                            position: absolute;
+                                                            top: 45%;
+                                                            right: 50%;
+                                                            width: 50%;
+                                                            font-size: 18px">
+                                                    [[ hp ]] </p>
+
+
+                                                <div class="col-6 p-0 m-0" style="position: relative;">
+                                                    <img src="/static/img/murr_game/mp.svg" width="100px"
+                                                         alt="">
+                                                </div>
+
+                                                <p class="align-content-between" style="
+                                                            position: absolute;
+                                                            top: 45%;
+                                                            left: 50%;
+                                                            width: 50%;
+                                                            font-size: 18px">
+                                                    [[ mp ]] </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# murren_avatar-img #}
+                                <div class="col-6 m-0 p-0 ">
+
+                                    <img v-bind:src="avatar_url "
+                                         class=" murren_avatar_img"
+                                         alt="...">
+
+                                </div>
+                            </div>
+                        </vs-button>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -319,7 +438,7 @@
 
                                 {# murren_avatar-data #}
                                 <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                                    <div class="murren_card_data mx-auto">
+                                    <div class="murren_data_card mx-auto">
                                         <h5 class="p-0 m-0">[[ i.name ]]</h5>
 
                                     </div>
@@ -356,9 +475,13 @@
                 show_create_group: false,
                 show_murren_group: false,
                 show_group_members: false,
-                show_barmen_dialog: false,
+                show_Barmen_dialog: false,
+                show_Veronika_dialog: false,
+                show_OrkVeteran_dialog: false,
                 success_group_created: false,
                 scroll_btn: false,
+                bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
+                skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
 
 
                 {# data sets#}
