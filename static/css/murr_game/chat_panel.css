@@ -12,21 +12,21 @@ Body
 --------------------*/
 
 .chat_panel {
-  /*padding: 5px;*/
   height: 100%;
   z-index: 2;
   overflow: hidden;
   box-shadow: 10px 5px 30px rgba(0, 0, 0, 0.2);
-  background: rgba(0, 0, 0, 0.5);
+  background-color: #DA22FF;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  border: #e6e6e6 solid 3px;
 }
 
 .chat_panel-title {
   padding: 10px 20px;
-  background: rgba(0, 0, 0, 0.3);
+  background-color: #9733EE;
 }
 
 .messages {
@@ -110,22 +110,24 @@ Body
 .message-box {
   flex: 0 1 40px;
   width: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: #9733EE;
   padding: 10px;
   position: relative;
 }
 
 .message-input {
-  background: none;
+
+  background-color: #78ffd6;
   border: none;
   outline: none !important;
   resize: none;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
-  height: 17px;
+  color: blue;
+  font-size: 14px;
+  height: 30px;
   margin: 0;
-  padding-right: 20px;
-  width: 265px;
+  padding: 0;
+  /*padding-right: 20px;*/
+  width: 90%;
 }
 
 .message-submit {

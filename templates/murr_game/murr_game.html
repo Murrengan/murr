@@ -31,6 +31,7 @@
 
         .monitor_img {
             border-radius: 10px;
+            border: solid whitesmoke 3px;
         }
 
         .monitor_wrapper {
@@ -81,6 +82,7 @@
             max-width: 70px;
         }
 
+
         .barmen_dialog {
             background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;
             margin-bottom: 5px;
@@ -96,6 +98,16 @@
         .group_members-enter, .group_members-leave-to /* .fade-leave-active до версии 2.1.8 */
         {
             opacity: 0;
+        }
+
+        .quest {
+            background-color: whitesmoke;
+            border-radius: 5px;
+            color: #1d2124;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        {#min-height: 150px;#} overflow: auto;
+
         }
 
     </style>
@@ -128,8 +140,8 @@
         <div v-if="show_tawern">
 
             <div class="active_monitor">
-
-                <img src="{% static "/img/murr_game/Tawern_Barman.png" %}"
+{#{% static "" %}#}
+                <img v-bind:src="murr_game_Tawern"
 
                      class="monitor_img"
                      alt="Активная картинка монитора"
@@ -144,8 +156,27 @@
 
 
             <div v-if="show_Barmen_dialog">
-                <h1>Barmen</h1>
+
+                <div class="container quest">
+
+                    <h3 class="text-center mb-2 pt-2">Barmen</h3>
+                    <p style="color: green; padding-bottom: 10px">
+                        """
+                        Привет мой сладкий!<br><br>
+                        Наступают заморозки крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
+                        Ты выглядишь достаточно крепо, что-бы разобратьсяс этой пакостью.<br><br>
+                        Я насчитал 5 штук. Принеси мне их тушки.<br><br>
+                        Клиентам будет спокойнее... и обед вкуснее 😉<br><br>
+                        В награжу получишь мой теплый ватник (  <a href="">ватник</a> +10 защита) и 1 золотой за каждую тушку.<br><br>
+                        """</p>
+
+
+                </div>
+
+
             </div>
+
+
             <div v-if="show_OrkVeteran_dialog">
                 <h1>OrkVeteran</h1>
             </div>
@@ -236,7 +267,7 @@
 
                         <vs-button
                                 type="relief"
-                                color="#DA22FF"
+                                color="rgb(187, 138, 200)"
                                 class="murren_data_card murr-btn m-0 p-0">
 
                             <div class="row m-0 p-0">
@@ -248,9 +279,9 @@
 
                                         <h5 class="p-0 mb-1">[[ murren_name ]]</h5>
 
-                                        <div class="container p-0 m-0">
+                                        <div class="container p-0 ml-1">
 
-                                            <div class="row p-0 m-0">
+                                            <div class=" row p-0 m-0 ">
                                                 <div class="col-6 p-0 m-0" style="position: relative;">
                                                     <img src="/static/img/murr_game/hp.svg" width="100px"
                                                          alt="">
@@ -332,8 +363,8 @@
                            @keyup.enter="send_message"
                            type="text"
                            class="message-input"
-                           placeholder="Введи сообщение">
-
+                           placeholder="Написать сообщение..."
+                    >
                     <button
                             v-on:click="send_message"
                             type="submit"
@@ -482,6 +513,8 @@
                 scroll_btn: false,
                 bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
                 skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
+                {#murr_game_Tawern: '/img/murr_game/Tawern.png',#}
+                murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
 
 
                 {# data sets#}
