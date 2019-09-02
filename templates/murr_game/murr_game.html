@@ -66,7 +66,7 @@
             outline: 0 !important;
         }
 
-        .active_btn_panel {
+        .quests_panel {
             background-color: white;
             border-radius: 5px;
             margin: 0;
@@ -140,7 +140,7 @@
         <div v-if="show_tawern">
 
             <div class="active_monitor">
-{#{% static "" %}#}
+
                 <img v-bind:src="murr_game_Tawern"
 
                      class="monitor_img"
@@ -148,8 +148,26 @@
                      id="onChake">
 
                 <div class="monitor_wrapper">
+                    <div class="enemy_data">
+                        <h2 class="enemy_name"></h2>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, quod.</p>
+
+                        <p class="align-content-between" style="
+                                                            position: absolute;
+                                                            top: 45%;
+                                                            right: 50%;
+                                                            z-index: 3;
+                                                            width: 50%;
+                                                            font-size: 18px">
+                            [[ hp ]] </p>
+
+                        <div class="p-0 m-0" style="position: relative;">
+                            <img src="/static/img/murr_game/hp.svg" width="30" alt="">
+                        </div>
+
+                    </div>
+
+{#                    <p>Полезная возможность покрыть картинку сверху</p>#}
                 </div>
 
             </div>
@@ -161,14 +179,41 @@
 
                     <h3 class="text-center mb-2 pt-2">Barmen</h3>
                     <p style="color: green; padding-bottom: 10px">
-                        """
+                        """<br><br>
                         Привет мой сладкий!<br><br>
-                        Наступают заморозки крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
-                        Ты выглядишь достаточно крепо, что-бы разобратьсяс этой пакостью.<br><br>
+                        Наступают заморозки и крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
+                        Ты выглядишь достаточно крепко, что-бы разобраться с этой пакостью.<br><br>
                         Я насчитал 5 штук. Принеси мне их тушки.<br><br>
                         Клиентам будет спокойнее... и обед вкуснее 😉<br><br>
-                        В награжу получишь мой теплый ватник (  <a href="">ватник</a> +10 защита) и 1 золотой за каждую тушку.<br><br>
+                        В награжу получишь мой теплый ватник ( <a href="">ватник</a> +10 защита) и 1 золотой за каждую
+                        тушку.<br><br>
                         """</p>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <vs-button
+                                    v-on:click="battle_begin"
+                                    color="#F4D03F"
+                                    type="relief"
+                                    size="large"
+                                    class="btn murr-btn m-4"
+                            >
+                                Я возьмусь за задание
+                            </vs-button>
+
+                        </div>
+                        <div class="col-6 text-center">
+                            <vs-button
+                                    color="#02AAB0"
+                                    type="relief"
+                                    size="large"
+                                    class="btn murr-btn m-4"
+                            >
+                                Покажи товары
+                            </vs-button>
+
+
+                        </div>
+                    </div>
 
 
                 </div>
@@ -184,7 +229,8 @@
                 <h1>Veronika</h1>
             </div>
 
-            <div class="active_btn_panel mb-1">
+            <div v-if="show_quests_panel"
+                 class="quests_panel mb-1">
 
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
 
@@ -193,7 +239,7 @@
                             color="#ec008c"
                             type="relief"
                             class="btn murr-btn mr-1"
-                            v-on:click="show_Barmen_dialog = !show_Barmen_dialog">
+                            v-on:click="begin_quest_barmen">
                         Поговорить с барменом
                     </vs-button>
 
@@ -509,11 +555,12 @@
                 show_Barmen_dialog: false,
                 show_Veronika_dialog: false,
                 show_OrkVeteran_dialog: false,
+                show_quests_panel: true,
                 success_group_created: false,
+
                 scroll_btn: false,
                 bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
                 skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
-                {#murr_game_Tawern: '/img/murr_game/Tawern.png',#}
                 murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
 
 
@@ -706,7 +753,23 @@
                     ws.onclose = () => {
                         console.log('ws close');
                     }
+                },
+                begin_quest_barmen() {
+
+                    this.show_Barmen_dialog = !this.show_Barmen_dialog;
+                    this.show_quests_panel = !this.show_quests_panel;
+                    this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png';
+                    console.log('Вы начали квест Бармена')
+
+
+                },
+
+                battle_begin() {
+                    this.show_Barmen_dialog = !this.show_Barmen_dialog;
+                    this.show_quests_panel = !this.show_quests_panel;
+                    this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/rat.jpg';
                 }
+
             },
             computed: {
                 show_create_group_menu() {
