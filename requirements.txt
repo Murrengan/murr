@@ -26,6 +26,7 @@ django-recaptcha==2.0.4
 django-taggit==1.1.0
 django-tinymce4-lite==1.7.4
 django-uuslug==1.1.8
+djangorestframework==3.10.2
 hiredis==1.0.0
 hyperlink==19.0.0
 idna==2.8
