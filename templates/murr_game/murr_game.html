@@ -77,7 +77,7 @@
             background-color: #fff;
             border: 1px solid #dee2e6;
             border-radius: .25rem;
-        {#max-width: 100%;#} max-height: 100%;
+            max-height: 100%;
             margin-top: 5px;
             max-width: 70px;
         }
@@ -106,8 +106,26 @@
             color: #1d2124;
             margin-top: 5px;
             margin-bottom: 5px;
-        {#min-height: 150px;#} overflow: auto;
+            overflow: auto;
 
+        }
+
+        .enemy_data {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            text-align: right;
+            height: 100%
+        }
+
+        .enemy_data-hp {
+            right: 0;
+            top: 45%;
+            margin-right: 7px;
+            position: absolute;
+            text-align: right;
+            transform: translate(0, -50%);
+            font-size: 18px
         }
 
     </style>
@@ -149,77 +167,71 @@
 
                 <div class="monitor_wrapper">
                     <div class="enemy_data">
-                        <h2 class="enemy_name"></h2>
 
+                        <div class="row m-0 p-0">
 
-                        <p class="align-content-between" style="
-                                                            position: absolute;
-                                                            top: 45%;
-                                                            right: 50%;
-                                                            z-index: 3;
-                                                            width: 50%;
-                                                            font-size: 18px">
-                            [[ hp ]] </p>
+                            <div class="col-8 m-0 p-0">
+                                <h1 class="enemy_data-hp"
+                                    style="font-size: 35px; text-align: right;">rat</h1>
+                            </div>
 
-                        <div class="p-0 m-0" style="position: relative;">
-                            <img src="/static/img/murr_game/hp.svg" width="30" alt="">
+                            <div class="col-4 m-0 p-0">
+                                <img src="/static/img/murr_game/hp.svg" height="45" alt="">
+
+                                <p class="enemy_data-hp">
+                                    [[ hp ]] </p>
+                            </div>
                         </div>
+
 
                     </div>
 
-{#                    <p>Полезная возможность покрыть картинку сверху</p>#}
                 </div>
 
             </div>
 
+            <transition name="group_members">
+                <div v-if="show_Barmen_dialog">
 
-            <div v-if="show_Barmen_dialog">
+                    <div class="container quest">
 
-                <div class="container quest">
+                        <h3 class="text-center mb-2 pt-2">Barmen</h3>
+                        <p style="color: green; padding-bottom: 10px">
+                            """<br><br>
+                            Привет мой сладкий!<br><br>
+                            Наступают заморозки и крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
+                            Ты выглядишь достаточно крепко, что-бы разобраться с этой пакостью.<br><br>
+                            Я насчитал 5 штук. Принеси мне их тушки.<br><br>
+                            Клиентам будет спокойнее... и обед вкуснее 😉<br><br>
+                            В награжу получишь мой теплый ватник ( <a href="">ватник</a> +10 защита) и 1 золотой за
+                            каждую
+                            тушку.<br><br>
+                            """</p>
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 text-center">
+                                <vs-button
+                                        v-on:click="battle_begin"
+                                        color="#F4D03F"
+                                        type="relief"
+                                        size="large"
+                                        class="btn murr-btn m-4">
+                                    Я возьмусь за задание
+                                </vs-button>
 
-                    <h3 class="text-center mb-2 pt-2">Barmen</h3>
-                    <p style="color: green; padding-bottom: 10px">
-                        """<br><br>
-                        Привет мой сладкий!<br><br>
-                        Наступают заморозки и крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
-                        Ты выглядишь достаточно крепко, что-бы разобраться с этой пакостью.<br><br>
-                        Я насчитал 5 штук. Принеси мне их тушки.<br><br>
-                        Клиентам будет спокойнее... и обед вкуснее 😉<br><br>
-                        В награжу получишь мой теплый ватник ( <a href="">ватник</a> +10 защита) и 1 золотой за каждую
-                        тушку.<br><br>
-                        """</p>
-                    <div class="row">
-                        <div class="col-6 text-center">
-                            <vs-button
-                                    v-on:click="battle_begin"
-                                    color="#F4D03F"
-                                    type="relief"
-                                    size="large"
-                                    class="btn murr-btn m-4"
-                            >
-                                Я возьмусь за задание
-                            </vs-button>
-
-                        </div>
-                        <div class="col-6 text-center">
-                            <vs-button
-                                    color="#02AAB0"
-                                    type="relief"
-                                    size="large"
-                                    class="btn murr-btn m-4"
-                            >
-                                Покажи товары
-                            </vs-button>
-
-
+                            </div>
+                            <div class="col-6 m-0 p-0 text-center">
+                                <vs-button
+                                        color="#02AAB0"
+                                        type="relief"
+                                        size="large"
+                                        class="btn murr-btn m-4">
+                                    Покажи товары
+                                </vs-button>
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
-
-
-            </div>
+            </transition>
 
 
             <div v-if="show_OrkVeteran_dialog">
