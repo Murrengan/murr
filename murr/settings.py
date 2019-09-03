@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'croppie',
     'captcha',
     'channels',
+    'rest_framework',
 
     # Local
     'murr.apps.MurrConfig',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'Dashboard.apps.DashboardConfig',
     'murr_game.apps.MurrGameConfig',
     'murr_chat.apps.MurrChatConfig',
+    'murr_api.apps.MurrApiConfig',
 
 ]
 
@@ -208,4 +210,10 @@ CHANNEL_LAYERS = {
             "hosts": [("127.0.0.1", 6379)],
         },
     },
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
 }
