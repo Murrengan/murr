@@ -2,10 +2,12 @@
 
 <nav class="navbar navbar-expand navbar-expand-lg navbar-light nav-head">
     <div class="container">
-
-        <div class="row row-m">
+        <button class="nav-mobile-btn" type="button" id="burger">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="row row-m" id="logo-id">
             <a class="navbar-brand" href="{% url 'murr_list' %}" style="color:white; margin-top: 7px;">
-                Murr
+                <img class="logo-header" src="{% static "img/logo-header.png" %}"></img>
             </a>
 
             <form action="{% url 'simple_search' %}" style="margin-top:12px;">
@@ -14,42 +16,50 @@
                            autocomplete="off"
                            id="searchInput">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary search-query" type="submit" id="btnQuery"><i
+                        <button class="btn btn-outline-secondary search-query btn-search" type="submit" id="btnQuery"><i
                                 class="fa fa-search"></i></button>
                     </div>
                 </div>
             </form>
         </div>
+        <div class="nav-mobile">
         <div  class="collapse navbar-collapse" id="navbar1">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="btn btn-info mb-1 mr-2" href="{% url 'murr_game' %}" id="murr_game"><i class="fas fa-gamepad" style="margin-top: auto; margin-right: 10px;"></i>murr_game</a>
-                <a class="nav-link" href="{% url 'murr_game' %}" style="color:white;" id="mobile-game" title="murr_game"><i class="fas fa-gamepad"></i></a>
-            </li>
 
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
-                        <i class="far fa-compass"></i>
+                    <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
+                        Главная
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
-                        <i class="fas fa-home"></i>
+                    <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+                        Мурры
                     </a>
                 </li>
-
                 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_game' %}" id="murr_game" style="color:white;">Игра</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_create' %}" style="color:white; margin-right: 15px;" title="Создать Мурр">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <img class="avatar-img" src="{{ user.profile_picture.url }}"></img>
+                    
+                </li>
                 <li class="nav-item dropleft">
                     <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" style="color:white;">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-sort-down"></i>
                     </a>
 
 
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdown">
 
 
                         <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
@@ -63,13 +73,6 @@
                     </div>
 
                 </li>
-
-                <li class="nav-item">
-                    <a href="{% url 'murr_create' %}" class="btn btn-sm btn-primary mt-1 ml-3" role="button"
-                       aria-pressed="true" title="Создать Мурр">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                </li>
             {% else %}
                 <li class="nav-item">
                     <a href="{% url 'account_login' %}" class="text-white mr-1">Войти</a>
@@ -79,6 +82,10 @@
         </ul>
 
     </div>
+    </div>
+    <button class="nav-mobile-btn" type="button" id="search">
+                    <i class="fas fa-search"></i>
+                </button>
     </div>
 
 </nav>
