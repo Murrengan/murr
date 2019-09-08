@@ -132,6 +132,24 @@ input[type="image"] {
     color: white;
 }
 
+.content-block {
+    transition: .3s;
+    transform: translateX(0px);
+    width: 100%;
+    height: 100%;
+}
+
+.menu-block {
+    position: fixed;
+    width: 200px;
+    height: 100vh;
+    background-color: #181818;
+    padding: 10px;
+    transform: translateX(-200px);
+    transition: .3s;
+    z-index: 9999;
+}
+
 body {
     background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #ff4b1f 0%, #ff9068 74.2%) no-repeat fixed;
     color: whitesmoke;
