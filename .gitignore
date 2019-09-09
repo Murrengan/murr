@@ -6,6 +6,7 @@ media/*
 !default_murren_img.jpg
 .cache
 .pytest_cache/
+murr_venv
 
 
 # Django stuff:
