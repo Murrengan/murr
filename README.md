@@ -4,6 +4,12 @@
 
 **Выберите язык:**&nbsp; [<img src="readme/examples/en.png" title="Английский" />](readme/en) &nbsp; [<img src="readme/examples/pl.png" title="Польский" />](readme/pl)
 
+<pre>
+
+
+
+</pre>
+
 
 <h2>
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
@@ -28,11 +34,59 @@
 Разработка осуществляется через ветку develop - будь внимателен!
 </h3>
 
-<h2>
-Установка:
-</h2>
 
-##### 0. Делаешь форк и ставишь звездочку =)
+
+
+Рекомендации по настройке murr
+
+Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js //
+
+Для работы с ментальной картой и сценарием используется приложение xmind zen https://www.xmind.net/zen/
+
+<h2>Установка:</h2>
+<pre>
+    сделать форк и ставишь звездочку =)
+    
+    создать дирректорию mkdir murr_venv
+    
+    войти в дирректорию cd murr_venv
+    
+    скачать murr с github git clone ссылка_сгенерированная_в_твоем_репо
+    
+    откройте murr в PyCharm
+    
+    создать виртуальное окружение для python  PyCharm -> Preferences -> Progect: murr project interpreter -> 
+    cogwheel -> Add... -> New environment location *workspase/murr/murr_venv -> Create
+    
+    открыть термина PyCharm // убедиться, что (murr_venv) отображается слева
+    
+    если вы на unix - удалите из requirements.txt pywin и pipwin
+    
+    установить зависимости pip install -r requirements.txt
+    
+    переименовать _local_settings.py в local_settings.py
+    
+    создать миграции для базы данных python manage.py makemigrations murr_game murr_chat MurrCard Murren
+    
+    мигрировать python manage.py migrate
+    
+    создать суперпользователя/пользователя/группу :  
+        python manage.py shell 
+        from murr.helpers import BaseHelper
+        murr = BaseHelper()
+        murr.create_superuser("admin", "1@2.ru", "admin")
+        murr.create_user("Greg", "1@2.ru", "Murrengan1")
+        murr.group_create("Murrengan1")
+        
+    запустить сервер python manage.py runserver
+    
+    если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545
+   
+</pre>
+
+
+
+##### 0. 
 
 ##### 1. Скачиваешь себе на машину из своего репозитория:
 
