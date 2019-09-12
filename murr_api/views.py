@@ -33,10 +33,10 @@ class MurrDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 def start(request):
-    data = {'img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png'}
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Gorbug.png'}
     return JsonResponse(data, status=200)
 
 
 def hell_gate(request):
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Dragon.jpg'}
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/hell_gate.png'}
     return JsonResponse(data, status=200)
