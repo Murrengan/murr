@@ -31,6 +31,10 @@ INSTALLED_APPS = [
     'croppie',
     'captcha',
     'channels',
+    'rest_framework',
+    'corsheaders',
+    # 'rest_framework.authtoken',
+    # 'rest_auth'
 
     # Local
     'murr.apps.MurrConfig',
@@ -39,10 +43,13 @@ INSTALLED_APPS = [
     'Dashboard.apps.DashboardConfig',
     'murr_game.apps.MurrGameConfig',
     'murr_chat.apps.MurrChatConfig',
+    'murr_api.apps.MurrApiConfig',
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,6 +122,7 @@ USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
@@ -209,3 +217,20 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+
+}
+
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8080",
+    "http://35.235.86.186",
+
+]
