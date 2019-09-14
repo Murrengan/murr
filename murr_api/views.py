@@ -30,7 +30,7 @@ class MurrDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 def start(request):
-    text = """""<br>
+    text = """\"\"\"<br>
                     <span class="hell-font">"Оставьте всякую надежду, вы, входящие"</span><br><br>
 
                     Горбаг - город на границе у врат ада.<br><br>
@@ -41,8 +41,7 @@ def start(request):
                     Надежда еще жива...<br><br>
 
                     Я стою перед открытой дверью в красную таверну.<br><br>
-                    Запах вкусной курочки доносится из шумного здания.<br>
-                    """""
+                    Запах вкусной курочки доносится из шумного здания.<br>\"\"\""""
     show_btn = [
         {
             'btb': 'show_hell_gate__btn',
@@ -65,8 +64,8 @@ def start(request):
     return JsonResponse(data, status=200)
 
 
-def hell_gate(request):
-    text = """""<br>
+def look_at_hell_gate(request):
+    text = """\"\"\"<br>
         Врата ада<br>
         и жарко и холодно.<br>
         Я представлял их по другому.<br><br>
@@ -77,11 +76,35 @@ def hell_gate(request):
 
 
         <span class="hell-font">"Lasciate ogni speranza, voi ch’entrate"</span><br>
+        \"\"\""""
 
-        """""
-    show_btn = ['show_come_to_tawern__btn']
+    show_btn = [
+        {
+            'btb': 'show_tawern_card__btn',
+            'btn_text': 'Войти в таверну',
+            'btn_color': '#ff91fb',
+            'def_on_click': 'come_to_tawern',
+        }]
 
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/hell_gate.png',
             'base_card_text': text,
             'show_btn': show_btn}
+    return JsonResponse(data, status=200)
+
+
+def come_to_tawern(request):
+    text = """\"\"\"<br>В крайнее время в таверне море людей.<br>Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>У барной стойки вы замечаете свободное место и ловко протискиваетесь сквозь отдыхающих.<br>\"\"\""""
+
+    show_btn = [
+        {
+            'btb': 'show_barmen__btn',
+            'btn_text': 'Поговорить с барменом',
+            'btn_color': '#E8CAEB',
+            'def_on_click': 'come_to_tawern',
+        }]
+
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
+            'base_card_text': text,
+            'show_btn': show_btn
+            }
     return JsonResponse(data, status=200)
