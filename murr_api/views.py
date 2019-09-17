@@ -30,18 +30,7 @@ class MurrDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 def start(request):
-    text = """\"\"\"<br>
-                    <span class="hell-font">"Оставьте всякую надежду, вы, входящие"</span><br><br>
-
-                    Горбаг - город на границе у врат ада.<br><br>
-
-                    Первая территория, куда попадают души.<br>
-                    Путники наполняют таверны золотом.<br>
-                    Теплый кров спасает от ужаса ночи.<br>
-                    Надежда еще жива...<br><br>
-
-                    Я стою перед открытой дверью в красную таверну.<br><br>
-                    Запах вкусной курочки доносится из шумного здания.<br>\"\"\""""
+    text = """\"\"\"<br><span class="hell-font">"Оставьте всякую надежду, вы, входящие"</span><br><br>Горбаг - город на границе у врат ада.<br><br>Первая территория, куда попадают души.<br>Путники наполняют таверны золотом.<br>Теплый кров спасает от ужаса ночи.<br>Надежда еще жива...<br><br>Я стою перед открытой дверью в красную таверну.<br><br>Запах вкусной курочки доносится из шумного здания.<br>\"\"\""""
     show_btn = [
         {
             'btb': 'show_hell_gate__btn',
@@ -59,8 +48,10 @@ def start(request):
         }
 
     ]
+    murren_data = 'Привет мои сладкие мурр =))))'
 
-    data = {'base_card_img_url': '', 'base_card_text': text, 'show_btn': show_btn}
+    data = {'murren_id': request.user.id, 'base_card_img_url': '', 'base_card_text': text,
+            'show_btn': show_btn, 'murren_data': murren_data}
     return JsonResponse(data, status=200)
 
 
