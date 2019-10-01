@@ -1,797 +1,461 @@
-{% extends 'base.html' %}
 {% load static %}
 
-{% block css %}
-    {{ block.super }}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static "css/bootstrap-dialog.min.css" %}"/>
+
+
     <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
-    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
-
-    <style>
-
-        img {
-            max-width: 100%;
-        }
-
-        .monitor {
-            margin-top: 5px;
-        }
-
-        .active_monitor {
-            position: relative;
-        }
-
-        .murren_group {
-            color: #1d2124;
-            background-color: whitesmoke;
-            border-radius: 5px;
-            font-size: 13px;
-            padding: 5px;
-            margin-bottom: 5px;
-        }
-
-        .monitor_img {
-            border-radius: 10px;
-            border: solid whitesmoke 3px;
-        }
-
-        .monitor_wrapper {
-            position: absolute;
-            top: 0;
-            width: 33%;
-            right: 0;
-            margin: 10px;
-
-        }
-
-
-        .murren_data_card {
-            margin: 0;
-            padding: 0;
-            border-radius: 5px;
-            background-color: white;
-        }
-
-        .menu-btn {
-            background-color: #9fcdff;
-            border-radius: 50%;
-            position: fixed;
-            bottom: 5%;
-            right: 5%;
-            width: 40px;
-            height: 40px;
-            outline: 0 !important;
-        }
-
-        .murr-btn {
-            outline: 0 !important;
-        }
-
-        .quests_panel {
-            background-color: white;
-            border-radius: 5px;
-            margin: 0;
-            padding: 5px;;
-        }
-
-        .murren_avatar_img {
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-            border-radius: .25rem;
-            max-height: 100%;
-            margin-top: 5px;
-            max-width: 70px;
-        }
-
-
-        .barmen_dialog {
-            background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .group_members-enter-active, .group_members-leave-active {
-            transition: opacity .5s;
-        }
-
-        .group_members-enter, .group_members-leave-to /* .fade-leave-active до версии 2.1.8 */
-        {
-            opacity: 0;
-        }
-
-        .quest {
-            background-color: whitesmoke;
-            border-radius: 5px;
-            color: #1d2124;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            overflow: auto;
-
-        }
-
-        .enemy_data {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            text-align: right;
-            height: 100%
-        }
-
-        .enemy_data-hp {
-            right: 0;
-            top: 45%;
-            margin-right: 7px;
-            position: absolute;
-            text-align: right;
-            transform: translate(0, -50%);
-            font-size: 18px
-        }
-
-    </style>
-
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
-
-{% endblock css %}
-
-{% block content %}
-
-
-    <div id="monitor"
-         class="monitor container px-1">
-        <div v-show="show_tawern === false">
-            <button
-                    v-on:click="get_data_from_client_and_come_to_tawern"
-                    class="btn btn-secondary btn-lg center">
-                Войти в таверну
-            </button>
-
-            <div class="container col-9 text-center mt-5" style="font-size: 1.6rem">
-                <p>Вы стоите перед открытой дверью в красную таверну.</p>
-                <br>
-                <p>Запах вкусной курочки доносится из шумного здания</p>
-            </div>
-
-        </div>
-
-
-        <div v-if="show_tawern">
-
-            <div class="active_monitor">
-
-                <img v-bind:src="murr_game_Tawern"
-
-                     class="monitor_img"
-                     alt="Активная картинка монитора"
-                     id="onChake">
-
-                <div class="monitor_wrapper">
-                    <div class="enemy_data">
-
-                        <div class="row m-0 p-0">
-
-                            <div class="col-8 m-0 p-0">
-                                <h1 class="enemy_data-hp"
-                                    style="font-size: 35px; text-align: right;">rat</h1>
-                            </div>
-
-                            <div class="col-4 m-0 p-0">
-                                <img src="/static/img/murr_game/hp.svg" height="45" alt="">
-
-                                <p class="enemy_data-hp">
-                                    [[ hp ]] </p>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <transition name="group_members">
-                <div v-if="show_Barmen_dialog">
-
-                    <div class="container quest">
-
-                        <h3 class="text-center mb-2 pt-2">Barmen</h3>
-                        <p style="color: green; padding-bottom: 10px">
-                            """<br><br>
-                            Привет мой сладкий!<br><br>
-                            Наступают заморозки и крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>
-                            Ты выглядишь достаточно крепко, что-бы разобраться с этой пакостью.<br><br>
-                            Я насчитал 5 штук. Принеси мне их тушки.<br><br>
-                            Клиентам будет спокойнее... и обед вкуснее 😉<br><br>
-                            В награжу получишь мой теплый ватник ( <a href="">ватник</a> +10 защита) и 1 золотой за
-                            каждую
-                            тушку.<br><br>
-                            """</p>
-                        <div class="row m-0 p-0">
-                            <div class="col-6 m-0 p-0 text-center">
-                                <vs-button
-                                        v-on:click="battle_begin"
-                                        color="#F4D03F"
-                                        type="relief"
-                                        size="large"
-                                        class="btn murr-btn m-4">
-                                    Я возьмусь за задание
-                                </vs-button>
-
-                            </div>
-                            <div class="col-6 m-0 p-0 text-center">
-                                <vs-button
-                                        color="#02AAB0"
-                                        type="relief"
-                                        size="large"
-                                        class="btn murr-btn m-4">
-                                    Покажи товары
-                                </vs-button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-
-
-            <div v-if="show_OrkVeteran_dialog">
-                <h1>OrkVeteran</h1>
-            </div>
-            <div v-if="show_Veronika_dialog">
-                <h1>Veronika</h1>
-            </div>
-
-            <div v-if="show_quests_panel"
-                 class="quests_panel mb-1">
-
-                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-
-
-                    <vs-button
-                            color="#ec008c"
-                            type="relief"
-                            class="btn murr-btn mr-1"
-                            v-on:click="begin_quest_barmen">
-                        Поговорить с барменом
-                    </vs-button>
-
-                    <vs-button color="#79CBCA"
-                               type="relief"
-                               class="btn murr-btn mr-1"
-                               v-on:click.prevent='show_OrkVeteran_dialog = !show_OrkVeteran_dialog'>
-                        Поговорить с большим орком
-                    </vs-button>
-
-                    <vs-button color="#fc6767"
-                               type="relief"
-                               class="btn murr-btn mr-1"
-                               v-on:click.prevent='show_Veronika_dialog = !show_Veronika_dialog'>
-                        Поговорить с рыжей девушкой
-                    </vs-button>
-
-
-                </div>
-
-
-            </div>
-
-
-            <div class="murren_group">
-
-                <div class="row m-0 p-0">
-
-                    <div class="inventory_and_skills col-6 m-0 p-0">
-
-                        <div class="row text-center  m-0 p-0">
-
-                            <div class="col-6 m-0 p-0">
-
-                                <vs-button
-                                        type="relief"
-                                        color="rgb(187, 138, 200)"
-                                        size="small"
-                                        class="murr-btn">
-
-                                    <img v-bind:src="bag_icon_url"
-                                         color="rgb(187, 138, 200)"
-                                         size="small"
-                                         class="img-thumbnail p-0 m-0 "
-                                         alt="...">
-                                </vs-button>
-
-
-                            </div>
-
-                            <div class="col-6 m-0 p-0">
-                                <vs-button
-                                        type="relief"
-                                        color="rgb(187, 138, 200)"
-                                        size="small"
-                                        class="murr-btn">
-
-                                    <img v-bind:src="skill_icon_url"
-                                         color="rgb(187, 138, 200)"
-                                         size="small"
-                                         class="img-thumbnail p-0 m-0 "
-                                         alt="...">
-                                </vs-button>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="murren_and_group col-6 m-0 p-0">
-
-                        <vs-button
-                                type="relief"
-                                color="rgb(187, 138, 200)"
-                                class="murren_data_card murr-btn m-0 p-0">
-
-                            <div class="row m-0 p-0">
-
-                                {# murren_avatar-data #}
-                                <div class="col-6 p-0 m-0 d-flex align-items-center">
-
-                                    <div class="mx-auto p-0 m-0">
-
-                                        <h5 class="p-0 mb-1">[[ murren_name ]]</h5>
-
-                                        <div class="container p-0 ml-1">
-
-                                            <div class=" row p-0 m-0 ">
-                                                <div class="col-6 p-0 m-0" style="position: relative;">
-                                                    <img src="/static/img/murr_game/hp.svg" width="100px"
-                                                         alt="">
-                                                </div>
-
-                                                <p class="align-content-between" style="
-                                                            position: absolute;
-                                                            top: 45%;
-                                                            right: 50%;
-                                                            width: 50%;
-                                                            font-size: 18px">
-                                                    [[ hp ]] </p>
-
-
-                                                <div class="col-6 p-0 m-0" style="position: relative;">
-                                                    <img src="/static/img/murr_game/mp.svg" width="100px"
-                                                         alt="">
-                                                </div>
-
-                                                <p class="align-content-between" style="
-                                                            position: absolute;
-                                                            top: 45%;
-                                                            left: 50%;
-                                                            width: 50%;
-                                                            font-size: 18px">
-                                                    [[ mp ]] </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {# murren_avatar-img #}
-                                <div class="col-6 m-0 p-0 ">
-
-                                    <img v-bind:src="avatar_url "
-                                         class=" murren_avatar_img"
-                                         alt="...">
-
-                                </div>
-                            </div>
-                        </vs-button>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <div class="chat_panel">
-                <div class="chat_panel-title">
-                    <h1>Топовый чатик =)</h1>
-
-                </div>
-
-                <div class="messages" id="wrapp">
-                    <div class="messages-content">
-                        <div v-for="log in logs"
-                             class="message">
-                            <div v-if="log.type !== 'action'"
-                                 class="message-from-user">
-                                [[ log.text ]]
-                                <figure class="avatar">
-                                    <img v-bind:src="avatar_url"
-                                         class="_img"
-                                         alt="">
-                                </figure>
-                                <div class="timestamp">10:40</div>
-                            </div>
-                            <div v-else
-                                 class="message-from-server">
-                                [[ log.text ]]
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="message-box">
-
-                    <input v-model.lazy.trim="murren_message_input"
-                           @keyup.enter="send_message"
-                           type="text"
-                           class="message-input"
-                           placeholder="Написать сообщение..."
-                    >
-                    <button
-                            v-on:click="send_message"
-                            type="submit"
-                            class="message-submit">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                    <button
-                            v-on:click="scroll_to_new"
-                            class="scroll-bottom-btn"
-                            v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">
-                            <span class="scroll-bottom-circle">
-                                <i class="fas fa-arrow-down"></i>
-                            </span>
-                    </button>
-
-                </div>
-            </div>
-
-            <div class="button_panel container my-1">
-
-                <div v-if="show_create_group_menu">
-
-                    <input v-model.lazy.trim="group_name_input"
-                           @keyup.enter="create_group_by_name"
-                           maxlength="20"
-                           id="group_name_input"
-                           placeholder="Введи название группы"
-                           class="form-control">
-                    <button
-                            v-on:click="create_group_by_name"
-                            type="submit"
-                            class="btn btn-primary">
-                        Создать группу
-                    </button>
-
-                </div>
-                <div v-else>
-
-
-                    <button v-if="show_murren_group"
-                            class="btn bg-info btn-sm"
-                            v-on:click="event_leave_group">
-                        Выйти из группы
-                    </button>
-
-                    <button type="button"
-                            class="btn btn-secondary btn-sm"
-                            data-toggle="tooltip"
-                            v-on:click="show_create_group_panel"
-                            title="Создать группу">
-                        Создать группу
-                        <i class="fas fa-user-plus ml-1"></i></button>
-
-                    <button type="button"
-                            class="btn btn-info btn-sm"
-                            data-toggle="tooltip"
-                            v-on:click="show_murren_in_tawern(), show_group_members = !show_group_members"
-                            title="Кто в таверне?">
-                        Кто в таверне?
-                        <i class="fas fa-users ml-1"></i></button>
-
-                    <button type="button"
-                            class="btn btn-info btn-sm"
-                            title="Кто в таверне?"
-                            @click="shakeBtn">
-
-                        shakeBtn
-                    </button>
-                </div>
-                <div v-if="available_group">
-
-                    <p v-for="i in available_group">
-                        [[ i ]]
-
-                        <a href="#"
-                           v-on:click.prevent="remove_chat_member(i.id)"
-                           class="badge badge-danger">
-                            Удалить</a>
-                    </p>
-                    <br>
-
-                </div>
-
-            </div>
-
-            <transition name="group_members">
-                <div v-if="show_group_members">
-
-                    <div class="container">
-                        <div v-for="i in murren_in_tawern_list"
-                             class="murren_card text-dark">
-
-                            <div class="row m-0 p-0" style="">
-
-                                {# murren_avatar-img #}
-                                <div class="col-4 p-0 m-0 d-flex align-items-center">
-                                    <img v-bind:src="i.avatar_url"
-                                         class="img-thumbnail p-0 m-0 "
-                                         style="max-height: 50px"
-                                         alt="...">
-                                </div>
-
-                                {# murren_avatar-data #}
-                                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">
-                                    <div class="murren_data_card mx-auto">
-                                        <h5 class="p-0 m-0">[[ i.name ]]</h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-
-            <button class="menu-btn">
-                <i class="fas fa-om"></i>
-            </button>
-
-        </div>
-    </div>
-
-
-{% endblock content %}
-
-{% block js %}
+    <link rel="stylesheet" href="{% static "css/murr_game/murr_game.css" %}"/>
+
+    <script src="{% static "js/out/vue.js" %}"></script>
+    <script src="{% static "js/out/axios.min.js" %}"></script>
+    <script src="{% static "js/out/axios.min.js" %}"></script>
+    <title>murr_game</title>
+</head>
+<body>
+
+{% verbatim %}
+<div class="murr_game"
+     id="murr_game">
+
+</div>
+{% endverbatim %}
+
+<script src="{% static "js/murr_game/murr_game.js" %}"></script>
+</body>
+</html>
+
+
+
+{#    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">#}
+
+{##}
+{#{% block content %}#}
+{##}
+{##}
+{#    <div id="monitor"#}
+{#         class="monitor container px-1">#}
+{#        <div v-show="show_tawern === false">#}
+{#            <button#}
+{#                    v-on:click="get_data_from_client_and_come_to_tawern"#}
+{#                    class="btn btn-secondary btn-lg center">#}
+{#                Войти в таверну#}
+{#            </button>#}
+{##}
+{#            <div class="container col-9 text-center mt-5" style="font-size: 1.6rem">#}
+{#                <p>Вы стоите перед открытой дверью в красную таверну.</p>#}
+{#                <br>#}
+{#                <p>Запах вкусной курочки доносится из шумного здания</p>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{##}
+{##}
+{#        <div v-if="show_tawern">#}
+{##}
+{#            <div class="active_monitor">#}
+{##}
+{#                <img v-bind:src="murr_game_Tawern"#}
+{##}
+{#                     class="monitor_img"#}
+{#                     alt="Активная картинка монитора"#}
+{#                     id="onChake">#}
+{##}
+{#                <div class="monitor_wrapper">#}
+{#                    <div class="enemy_data">#}
+{##}
+{#                        <div class="row m-0 p-0">#}
+{##}
+{#                            <div class="col-8 m-0 p-0">#}
+{#                                <h1 class="enemy_data-hp"#}
+{#                                    style="font-size: 35px; text-align: right;">rat</h1>#}
+{#                            </div>#}
+{##}
+{#                            <div class="col-4 m-0 p-0">#}
+{#                                <img src="/static/img/murr_game/hp.svg" height="45" alt="">#}
+{##}
+{#                                <p class="enemy_data-hp">#}
+{#                                    [[ hp ]] </p>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{##}
+{#            </div>#}
+{##}
+{#            <transition name="group_members">#}
+{#                <div v-if="show_Barmen_dialog">#}
+{##}
+{#                    <div class="container quest">#}
+{##}
+{#                        <h3 class="text-center mb-2 pt-2">Barmen</h3>#}
+{#                        <p style="color: green; padding-bottom: 10px">#}
+{#                            """<br><br>#}
+{#                            Привет мой сладкий!<br><br>#}
+{#                            Наступают заморозки и крысы ищут теплое место. В моем подвале завелись эти мелкие твари.<br><br>#}
+{#                            Ты выглядишь достаточно крепко, что-бы разобраться с этой пакостью.<br><br>#}
+{#                            Я насчитал 5 штук. Принеси мне их тушки.<br><br>#}
+{#                            Клиентам будет спокойнее... и обед вкуснее 😉<br><br>#}
+{#                            В награжу получишь мой теплый ватник ( <a href="">ватник</a> +10 защита) и 1 золотой за#}
+{#                            каждую#}
+{#                            тушку.<br><br>#}
+{#                            """</p>#}
+{#                        <div class="row m-0 p-0">#}
+{#                            <div class="col-6 m-0 p-0 text-center">#}
+{#                                <vs-button#}
+{#                                        v-on:click="battle_begin"#}
+{#                                        color="#F4D03F"#}
+{#                                        type="relief"#}
+{#                                        size="large"#}
+{#                                        class="btn murr-btn m-4">#}
+{#                                    Я возьмусь за задание#}
+{#                                </vs-button>#}
+{##}
+{#                            </div>#}
+{#                            <div class="col-6 m-0 p-0 text-center">#}
+{#                                <vs-button#}
+{#                                        color="#02AAB0"#}
+{#                                        type="relief"#}
+{#                                        size="large"#}
+{#                                        class="btn murr-btn m-4">#}
+{#                                    Покажи товары#}
+{#                                </vs-button>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </transition>#}
+{##}
+{##}
+{#            <div v-if="show_OrkVeteran_dialog">#}
+{#                <h1>OrkVeteran</h1>#}
+{#            </div>#}
+{#            <div v-if="show_Veronika_dialog">#}
+{#                <h1>Veronika</h1>#}
+{#            </div>#}
+{##}
+{#            <div v-if="show_quests_panel"#}
+{#                 class="quests_panel mb-1">#}
+{##}
+{#                <div class="btn-group btn-group-sm" role="group" aria-label="...">#}
+{##}
+{##}
+{#                    <vs-button#}
+{#                            color="#ec008c"#}
+{#                            type="relief"#}
+{#                            class="btn murr-btn mr-1"#}
+{#                            v-on:click="begin_quest_barmen">#}
+{#                        Поговорить с барменом#}
+{#                    </vs-button>#}
+{##}
+{#                    <vs-button color="#79CBCA"#}
+{#                               type="relief"#}
+{#                               class="btn murr-btn mr-1"#}
+{#                               v-on:click.prevent='show_OrkVeteran_dialog = !show_OrkVeteran_dialog'>#}
+{#                        Поговорить с большим орком#}
+{#                    </vs-button>#}
+{##}
+{#                    <vs-button color="#fc6767"#}
+{#                               type="relief"#}
+{#                               class="btn murr-btn mr-1"#}
+{#                               v-on:click.prevent='show_Veronika_dialog = !show_Veronika_dialog'>#}
+{#                        Поговорить с рыжей девушкой#}
+{#                    </vs-button>#}
+{##}
+{##}
+{#                </div>#}
+{##}
+{##}
+{#            </div>#}
+{##}
+{##}
+{#            <div class="murren_group">#}
+{##}
+{#                <div class="row m-0 p-0">#}
+{##}
+{#                    <div class="inventory_and_skills col-6 m-0 p-0">#}
+{##}
+{#                        <div class="row text-center  m-0 p-0">#}
+{##}
+{#                            <div class="col-6 m-0 p-0">#}
+{##}
+{#                                <vs-button#}
+{#                                        type="relief"#}
+{#                                        color="rgb(187, 138, 200)"#}
+{#                                        size="small"#}
+{#                                        class="murr-btn">#}
+{##}
+{#                                    <img v-bind:src="bag_icon_url"#}
+{#                                         color="rgb(187, 138, 200)"#}
+{#                                         size="small"#}
+{#                                         class="img-thumbnail p-0 m-0 "#}
+{#                                         alt="...">#}
+{#                                </vs-button>#}
+{##}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="col-6 m-0 p-0">#}
+{#                                <vs-button#}
+{#                                        type="relief"#}
+{#                                        color="rgb(187, 138, 200)"#}
+{#                                        size="small"#}
+{#                                        class="murr-btn">#}
+{##}
+{#                                    <img v-bind:src="skill_icon_url"#}
+{#                                         color="rgb(187, 138, 200)"#}
+{#                                         size="small"#}
+{#                                         class="img-thumbnail p-0 m-0 "#}
+{#                                         alt="...">#}
+{#                                </vs-button>#}
+{##}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{##}
+{#                    <div class="murren_and_group col-6 m-0 p-0">#}
+{##}
+{#                        <vs-button#}
+{#                                type="relief"#}
+{#                                color="rgb(187, 138, 200)"#}
+{#                                class="murren_data_card murr-btn m-0 p-0">#}
+{##}
+{#                            <div class="row m-0 p-0">#}
+{##}
+{# murren_avatar-data #}
+{#                                <div class="col-6 p-0 m-0 d-flex align-items-center">#}
+{##}
+{#                                    <div class="mx-auto p-0 m-0">#}
+{##}
+{#                                        <h5 class="p-0 mb-1">[[ murren_name ]]</h5>#}
+{##}
+{#                                        <div class="container p-0 ml-1">#}
+{##}
+{#                                            <div class=" row p-0 m-0 ">#}
+{#                                                <div class="col-6 p-0 m-0" style="position: relative;">#}
+{#                                                    <img src="/static/img/murr_game/hp.svg" width="100px"#}
+{#                                                         alt="">#}
+{#                                                </div>#}
+{##}
+{#                                                <p class="align-content-between" style="#}
+{#                                                            position: absolute;#}
+{#                                                            top: 45%;#}
+{#                                                            right: 50%;#}
+{#                                                            width: 50%;#}
+{#                                                            font-size: 18px">#}
+{#                                                    [[ hp ]] </p>#}
+{##}
+{##}
+{#                                                <div class="col-6 p-0 m-0" style="position: relative;">#}
+{#                                                    <img src="/static/img/murr_game/mp.svg" width="100px"#}
+{#                                                         alt="">#}
+{#                                                </div>#}
+{##}
+{#                                                <p class="align-content-between" style="#}
+{#                                                            position: absolute;#}
+{#                                                            top: 45%;#}
+{#                                                            left: 50%;#}
+{#                                                            width: 50%;#}
+{#                                                            font-size: 18px">#}
+{#                                                    [[ mp ]] </p>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{# murren_avatar-img #}
+{#                                <div class="col-6 m-0 p-0 ">#}
+{##}
+{#                                    <img v-bind:src="avatar_url "#}
+{#                                         class=" murren_avatar_img"#}
+{#                                         alt="...">#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </vs-button>#}
+{#                    </div>#}
+{##}
+{##}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="chat_panel">#}
+{#                <div class="chat_panel-title">#}
+{#                    <h1>Топовый чатик =)</h1>#}
+{##}
+{#                </div>#}
+{##}
+{#                <div class="messages" id="wrapp">#}
+{#                    <div class="messages-content">#}
+{#                        <div v-for="log in logs"#}
+{#                             class="message">#}
+{#                            <div v-if="log.type !== 'action'"#}
+{#                                 class="message-from-user">#}
+{#                                [[ log.text ]]#}
+{#                                <figure class="avatar">#}
+{#                                    <img v-bind:src="avatar_url"#}
+{#                                         class="_img"#}
+{#                                         alt="">#}
+{#                                </figure>#}
+{#                                <div class="timestamp">10:40</div>#}
+{#                            </div>#}
+{#                            <div v-else#}
+{#                                 class="message-from-server">#}
+{#                                [[ log.text ]]#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="message-box">#}
+{##}
+{#                    <input v-model.lazy.trim="murren_message_input"#}
+{#                           @keyup.enter="send_message"#}
+{#                           type="text"#}
+{#                           class="message-input"#}
+{#                           placeholder="Написать сообщение..."#}
+{#                    >#}
+{#                    <button#}
+{#                            v-on:click="send_message"#}
+{#                            type="submit"#}
+{#                            class="message-submit">#}
+{#                        <i class="fas fa-paper-plane"></i>#}
+{#                    </button>#}
+{#                    <button#}
+{#                            v-on:click="scroll_to_new"#}
+{#                            class="scroll-bottom-btn"#}
+{#                            v-bind:class="{'scroll-bottom-btn-v': scroll_btn, 'scroll-bottom-btn-n': !scroll_btn}">#}
+{#                            <span class="scroll-bottom-circle">#}
+{#                                <i class="fas fa-arrow-down"></i>#}
+{#                            </span>#}
+{#                    </button>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="button_panel container my-1">#}
+{##}
+{#                <div v-if="show_create_group_menu">#}
+{##}
+{#                    <input v-model.lazy.trim="group_name_input"#}
+{#                           @keyup.enter="create_group_by_name"#}
+{#                           maxlength="20"#}
+{#                           id="group_name_input"#}
+{#                           placeholder="Введи название группы"#}
+{#                           class="form-control">#}
+{#                    <button#}
+{#                            v-on:click="create_group_by_name"#}
+{#                            type="submit"#}
+{#                            class="btn btn-primary">#}
+{#                        Создать группу#}
+{#                    </button>#}
+{##}
+{#                </div>#}
+{#                <div v-else>#}
+{##}
+{##}
+{#                    <button v-if="show_murren_group"#}
+{#                            class="btn bg-info btn-sm"#}
+{#                            v-on:click="event_leave_group">#}
+{#                        Выйти из группы#}
+{#                    </button>#}
+{##}
+{#                    <button type="button"#}
+{#                            class="btn btn-secondary btn-sm"#}
+{#                            data-toggle="tooltip"#}
+{#                            v-on:click="show_create_group_panel"#}
+{#                            title="Создать группу">#}
+{#                        Создать группу#}
+{#                        <i class="fas fa-user-plus ml-1"></i></button>#}
+{##}
+{#                    <button type="button"#}
+{#                            class="btn btn-info btn-sm"#}
+{#                            data-toggle="tooltip"#}
+{#                            v-on:click="show_murren_in_tawern(), show_group_members = !show_group_members"#}
+{#                            title="Кто в таверне?">#}
+{#                        Кто в таверне?#}
+{#                        <i class="fas fa-users ml-1"></i></button>#}
+{##}
+{#                    <button type="button"#}
+{#                            class="btn btn-info btn-sm"#}
+{#                            title="Кто в таверне?"#}
+{#                            @click="shakeBtn">#}
+{##}
+{#                        shakeBtn#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div v-if="available_group">#}
+{##}
+{#                    <p v-for="i in available_group">#}
+{#                        [[ i ]]#}
+{##}
+{#                        <a href="#"#}
+{#                           v-on:click.prevent="remove_chat_member(i.id)"#}
+{#                           class="badge badge-danger">#}
+{#                            Удалить</a>#}
+{#                    </p>#}
+{#                    <br>#}
+{##}
+{#                </div>#}
+{##}
+{#            </div>#}
+{##}
+{#            <transition name="group_members">#}
+{#                <div v-if="show_group_members">#}
+{##}
+{#                    <div class="container">#}
+{#                        <div v-for="i in murren_in_tawern_list"#}
+{#                             class="murren_card text-dark">#}
+{##}
+{#                            <div class="row m-0 p-0" style="">#}
+{##}
+{# murren_avatar-img #}
+{#                                <div class="col-4 p-0 m-0 d-flex align-items-center">#}
+{#                                    <img v-bind:src="i.avatar_url"#}
+{#                                         class="img-thumbnail p-0 m-0 "#}
+{#                                         style="max-height: 50px"#}
+{#                                         alt="...">#}
+{#                                </div>#}
+{##}
+{# murren_avatar-data #}
+{#                                <div class="col-8 p-0 m-0 d-flex align-items-center text-center">#}
+{#                                    <div class="murren_data_card mx-auto">#}
+{#                                        <h5 class="p-0 m-0">[[ i.name ]]</h5>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </transition>#}
+{##}
+{#            <button class="menu-btn">#}
+{#                <i class="fas fa-om"></i>#}
+{#            </button>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{#{% endblock content %}#}
+{##}
+{#{% block js %}#}
     {{ block.super }}
     <script src="https://unpkg.com/vuesax"></script>
+
     <script>
-        new Vue({
-            el: '#monitor',
-            delimiters: ['[[', ']]'],
-            data: {
 
-                _ws: '',
-
-                {# switchers #}
-                show_tawern: false,
-                show_create_group: false,
-                show_murren_group: false,
-                show_group_members: false,
-                show_Barmen_dialog: false,
-                show_Veronika_dialog: false,
-                show_OrkVeteran_dialog: false,
-                show_quests_panel: true,
-                success_group_created: false,
-
-                scroll_btn: false,
-                bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
-                skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
-                murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
-
-
-                {# data sets#}
-                logs: [{type: 'action', text: 'Действие: Ты вошел в murr'},
-                    {type: 'action', text: 'Действие: включен логер'}],
-                murren_in_tawern_list: [],
-                data_from_django: '',
-                available_group: false,
-                group_name_input: '',
-                murr: 'murr',
-                murren_message_input: '',
-                murren_name: '',
-                avatar_url: '',
-                hp: '',
-                mp: '',
-                user_id: ''
-            },
-            methods: {
-                get_data_from_client_and_come_to_tawern() {
-                    axios
-                        .get('http://127.0.0.1:8000/murr_game/api/return_character_info/')
-                        .then(django_answer => {
-                            this.avatar_url = django_answer.data.avatar_url;
-                            this.murren_name = django_answer.data.character.name;
-                            this.hp = django_answer.data.character.stats.hp;
-                            this.mp = django_answer.data.character.stats.mp;
-                            this.user_id = django_answer.data.user_id;
-                            this.come_to_tawern();
-                            console.log('axios отработал')
-                        })
-                        .catch(error => console.log(error));
-                },
-                come_to_tawern() {
-
-                    {# подключаемся к сокету tawern #}
-                    let group_id = '1';
-                    let ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + group_id + '/');
-                    this._ws = ws;
-                    ws.onopen = () => {
-                        console.log("Соединение с сокетом установлено.");
-                        let command = '{"event": "add.chat.member", "data": {"user_id": "' +
-                            this.user_id +
-                            '"}}';
-                        ws.send(command);
-                        this.show_tawern = true;
-                        console.log("Добро пожаловать в таверну!");
-                    };
-                    ws.onmessage = (data) => {
-                        let data_from_django = JSON.parse(data.data);
-                        {# Отлавливаем ответ с бекенда #}
-                        if (data_from_django.event === "send.message") {
-                            let new_message = data_from_django.data.message.toString();
-                            this.logs.push({type: 'message', text: new_message});
-                            this.show_btn_scroll();
-                            this.$nextTick(() => {
-                                if (this.scroll_btn === false) {
-                                    this.scroll_to_new();
-                                }
-                            });
-                        }
-                        if (data_from_django.event === "murren.in.tawern.list") {
-                            console.log(data_from_django);
-                            this.murren_in_tawern_list = data_from_django.data
-
-                        }
-                        if (data_from_django.event === "leave.group") {
-                            this.logs.push({type: 'action', text: 'Вы вышли из группы'});
-                            this.show_btn_scroll();
-                            this.$nextTick(() => {
-                                if (this.scroll_btn === false) {
-                                    this.scroll_to_new();
-                                }
-                            });
-                            this.show_murren_group = false;
-                        }
-                    };
-                    ws.onclose = () => {
-
-                        console.log('Сокет таверны закрыт');
-
-                    };
-                    this.show_murren_group = true;
-                },
-                send_message() {
-                    let message = '{"event": "send.message", "data": {"message": "' +
-                        this.murren_message_input +
-                        '"}}';
-                    this._ws.send(message);
-                    this.murren_message_input = '';
-                },
-                event_leave_group() {
-
-                    let command = '{"event": "leave.group", "data": {}}';
-
-                    this._ws.send(command);
-                    console.log('На бекенд отправлена задача' + command);
-
-                    this._ws.close();
-                    console.log('Активный сокет закрыт');
-
-                    this.show_tawern = false;
-                    console.log('Вы вышли из таверны. Ждем вас снова! =)');
-
-                },
-                show_murren_in_tawern() {
-                    let command = '{"event": "murren.in.tawern.list", "data": {}}';
-                    this._ws.send(command);
-
-
-                    console.log('На бекенд отправлена задача' + command);
-                },
-                shakeBtn() {
-                    const img = document.getElementById('onChake');
-                    img.classList.add('anim-chake');
-                    setTimeout(function () {
-                        img.classList.remove('anim-chake');
-                    }, 250)
-                },
-                create_group_by_name() {
-
-                    const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
-
-                    let create_group_json = '{"event": "group.create", "data": {"name": "' +
-                        this.group_name_input +
-                        '"}}';
-
-                    ws.onopen = function () {
-                        console.log("На бекенд отправлена задача: " + create_group_json);
-                        ws.send(create_group_json);
-                    };
-
-                    ws.onmessage = (data) => {
-                        console.log("С бекенда пришел ответ:");
-                        console.log(JSON.parse(data.data));
-                    };
-                    this.show_create_group = false;
-                },
-                scroll_to_new() {
-                    let container = this.$el.querySelector(".messages");
-                    let container_messages = this.$el.querySelector(".messages-content");
-                    let messages = container_messages.querySelectorAll(".message");
-                    container.scrollTop = messages[messages.length - 1].scrollHeight + container.scrollHeight;
-                },
-                show_btn_scroll() {
-                    let container = this.$el.querySelector(".messages");
-                    if (container.scrollHeight - container.offsetHeight !== 0) {
-                        const elemScroll = document.querySelector(".messages");
-                        elemScroll.addEventListener('scroll', (e) => {
-                            if (container.scrollTop + container.clientHeight >= container.scrollHeight - 40) {
-                                this.scroll_btn = false;
-                            } else {
-                                this.scroll_btn = true;
-                            }
-                        });
-                    }
-                },
-                show_create_group_panel() {
-                    this.show_create_group = (this.show_create_group === false);
-                    console.log('Открылась панель на ввод имени группы');
-                },
-                show_available_group() {
-                    const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
-                    let show_group_list = '{"event": "group.list", "data": {}}';
-                    ws.onopen = function () {
-                        ws.send(show_group_list);
-                        console.log("На бекенд отправлена задача: " + show_group_list);
-                    };
-                    ws.onmessage = (data) => {
-                        this.data_from_django = (JSON.parse(data.data));
-                        this.available_group = [];
-                        for (let i of this.data_from_django.data) {
-                            this.available_group.push(i);
-                        }
-                        console.log(this.available_group)
-                    };
-                },
-                remove_chat_member(group_id) {
-                    let group_url = 'ws://127.0.0.1:8000/ws/chat/' + group_id + '/';
-                    let remove_event_json = '{"event": "remove.chat.member", "data": {}}';
-                    let ws = new WebSocket(group_url);
-                    ws.onopen = function () {
-                        ws.send(remove_event_json);
-                        console.log("На бекенд отправлена задача: " + remove_event_json);
-                    };
-                    ws.onmessage = (data) => {
-                        this.data_from_django = (JSON.parse(data.data));
-                        this.available_group.splice(this.available_group.findIndex(obj => obj.id === group_id), 1);
-                    };
-                    ws.onclose = () => {
-                        console.log('ws close');
-                    }
-                },
-                begin_quest_barmen() {
-
-                    this.show_Barmen_dialog = !this.show_Barmen_dialog;
-                    this.show_quests_panel = !this.show_quests_panel;
-                    this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png';
-                    console.log('Вы начали квест Бармена')
-
-
-                },
-
-                battle_begin() {
-                    this.show_Barmen_dialog = !this.show_Barmen_dialog;
-                    this.show_quests_panel = !this.show_quests_panel;
-                    this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/rat.jpg';
-                }
-
-            },
-            computed: {
-                show_create_group_menu() {
-                    return this.show_create_group
-                },
-                get_user_id() {
-                    return this.user_id
-                },
-            }
-        });
     </script>
-
-{% endblock js %}
+{##}
+{#{% endblock js %}#}
