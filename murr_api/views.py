@@ -34,37 +34,51 @@ User = get_user_model()
 
 
 def start(request):
-    text = """\"\"\"<br><span class="hell-font">"Оставьте всякую надежду, вы, входящие"</span><br><br>Горбаг - город на границе у врат ада.<br><br>Первая территория, куда попадают души.<br>Путники наполняют таверны золотом.<br>Теплый кров спасает от ужаса ночи.<br>Надежда еще жива...<br><br>Я стою перед открытой дверью в красную таверну.<br><br>Запах вкусной курочки доносится из шумного здания.<br>\"\"\""""
-    # show_btn = [
-    #     {
-    #         'btb': 'show_hell_gate__btn',
-    #         'btn_text': 'Взглянуть на ворота',
-    #         'btn_color': '#14c8ff',
-    #         'def_on_click': 'look_at_hell_gate',
-    #
-    #     },
-    #
-    #     {
-    #         'btb': 'show_tawern_card__btn',
-    #         'btn_text': 'Войти в таверну',
-    #         'btn_color': '#ff91fb',
-    #         'def_on_click': 'come_to_tawern',
-    #     }
-    #
-    # ]
+    text = """\"\"\"<br>
+        <span class="hell-font">"Оставьте всякую надежду, вы, входящие"</span><br><br>
+        
+        Горбаг - город у врат ада.<br><br>
+        
+        Первая территория, куда попадают души.<br>
+        Путники наполняют таверны золотом.<br>
+        Теплый кров спасает от ужаса ночи.<br>
+        Надежда еще жива...<br><br>
+        
+        Я стою перед открытой дверью в красную таверну.<br><br>
+        
+        Запах вкусной курочки доносится из шумного здания.<br>
+        \"\"\""""
+
+    show_btn = [
+        {
+            'btb': 'show_hell_gate__btn',
+            'btn_text': 'Взглянуть на ворота',
+            'btn_color': '#14c8ff',
+            'def_on_click': 'look_at_hell_gate',
+
+        },
+
+        {
+            'btb': 'show_tawern_card__btn',
+            'btn_text': 'Войти в таверну',
+            'btn_color': '#ff91fb',
+            'def_on_click': 'come_to_tawern',
+        }
+
+    ]
     # murren_data = 'Привет мои сладкие мурр =))))'
     #
     # data = {'murren_id': request.user.id, 'base_card_img_url': '', 'base_card_text': text,
     #         'show_btn': show_btn, 'murren_data': murren_data}
     murren = User.objects.get(username=request.user.username)
-    data = {'murren_id': murren.id, 'base_card_text': text}
+    data = {'murren_id': murren.id, 'base_card_text': text, 'show_btn': show_btn}
     return JsonResponse(data, status=200)
 
 
 def look_at_hell_gate(request):
     text = """\"\"\"<br>
-        Врата ада<br>
-        и жарко и холодно.<br>
+        Врата ада.<br>
+        И жарко и холодно.<br>
         Я представлял их по другому.<br><br>
         
         Их образ всегда перед моими глазами.<br>
@@ -90,7 +104,12 @@ def look_at_hell_gate(request):
 
 
 def come_to_tawern(request):
-    text = """\"\"\"<br>В крайнее время в таверне море людей.<br>Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>У барной стойки вы замечаете свободное место и ловко протискиваетесь сквозь отдыхающих.<br>\"\"\""""
+    text = """\"\"\"<br>
+        В последнее время в таверне море людей.<br>
+        Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>
+        
+        У барной стойки вы замечаете свободное место и ловко протискиваетесь сквозь отдыхающих.<br>
+        \"\"\""""
 
     show_btn = [
         {

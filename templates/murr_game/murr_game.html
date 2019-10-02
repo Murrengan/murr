@@ -10,11 +10,11 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
     <link rel="stylesheet" href="{% static "css/murr_game/murr_game.css" %}"/>
-    {# fonts #}
     <link href="https://fonts.googleapis.com/css?family=Bad+Script|Fira+Sans+Condensed&display=swap" rel="stylesheet">
-
     <script src="{% static "js/out/vue.js" %}"></script>
     <script src="{% static "js/out/axios.min.js" %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <title>murr_game</title>
 </head>
 <body>
@@ -22,13 +22,39 @@
 {% verbatim %}
 <div class="app"
      id="app">
+
     <div class="base_card">
+
+        <div v-if="base_card_img_url"
+             class="card-img">
+
+            <img alt="base card img"
+                 v-bind:src="base_card_img_url"
+                 class="card-img__base">
+        </div>
 
         <div v-if="base_card_text"
              class="card-text ">
             <p v-html="base_card_text">
             </p>
         </div>
+
+
+        <div v-if="show_btn"
+             v-for="btn in show_btn"
+             class="card-btb">
+
+            <div class="card-btb">
+                <v-btn block
+                       class="card-btb"
+                       x-large
+                       v-bind:color="btn.btn_color"
+                       v-on:click="v_on_click_handler(btn.def_on_click)">
+                    {{ btn.btn_text}}
+                </v-btn>
+            </div>
+        </div>
+
 
     </div>
 

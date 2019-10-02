@@ -1,22 +1,54 @@
 new Vue({
     el: '#app',
     data: {
-        murren_id: '',
-        base_card_text: '',
-    },
 
+        murren_id: '',
+
+        base_card_img_url: '',
+        base_card_text: '',
+        show_btn: [],
+    },
+    methods: {
+        come_to_tawern() {
+            axios
+                .get('/murr_api/come_to_tawern/')
+                .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            console.log('отработал come_to_tawern/');
+        },
+
+        look_at_hell_gate() {
+            axios
+                .get('/murr_api/look_at_hell_gate/')
+                .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            console.log('отработал look_at_hell_gate/');
+        },
+        v_on_click_handler(method_name) {
+            this[method_name]()
+        }
+    },
     created() {
         axios.get('/murr_api/start/')
             .then((django_answer) => {
                 // this.murren_id = django_answer.data;
                 this.murren_id = django_answer.data.murren_id;
                 this.base_card_text = django_answer.data.base_card_text;
+                this.show_btn = django_answer.data.show_btn;
             })
             .catch(error => console.log(error));
         console.log('отработал murr_api/start/');
 
     }
-})
+});
 
 //
 //         _ws: 'murr/static/img/murr_game/Tawern.png',
