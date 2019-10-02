@@ -33,8 +33,10 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
     'corsheaders',
-    # 'rest_framework.authtoken',
-    # 'rest_auth'
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+
 
     # Local
     'murr.apps.MurrConfig',

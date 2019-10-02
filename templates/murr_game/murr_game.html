@@ -6,23 +6,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-    <link rel="stylesheet" href="{% static "css/bootstrap-dialog.min.css" %}"/>
-
-
+    <link rel="stylesheet" href="{% static "css/out/bootstrap.min.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
     <link rel="stylesheet" href="{% static "css/murr_game/murr_game.css" %}"/>
+    {# fonts #}
+    <link href="https://fonts.googleapis.com/css?family=Bad+Script|Fira+Sans+Condensed&display=swap" rel="stylesheet">
 
     <script src="{% static "js/out/vue.js" %}"></script>
-    <script src="{% static "js/out/axios.min.js" %}"></script>
     <script src="{% static "js/out/axios.min.js" %}"></script>
     <title>murr_game</title>
 </head>
 <body>
 
 {% verbatim %}
-<div class="murr_game"
-     id="murr_game">
+<div class="app"
+     id="app">
+    <div class="base_card">
+
+        <div v-if="base_card_text"
+             class="card-text ">
+            <p v-html="base_card_text">
+            </p>
+        </div>
+
+    </div>
 
 </div>
 {% endverbatim %}
@@ -30,7 +38,6 @@
 <script src="{% static "js/murr_game/murr_game.js" %}"></script>
 </body>
 </html>
-
 
 
 {#    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">#}
@@ -451,11 +458,6 @@
 {#{% endblock content %}#}
 {##}
 {#{% block js %}#}
-    {{ block.super }}
-    <script src="https://unpkg.com/vuesax"></script>
 
-    <script>
-
-    </script>
 {##}
 {#{% endblock js %}#}

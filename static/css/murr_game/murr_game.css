@@ -1,119 +1,157 @@
-img {
-    max-width: 100%;
+/* Base */
+
+body {
+    /*background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #00fd10 0%, #ff660e 74.2%) no-repeat fixed;*/
+    background: #e8430a;
+    /*background: #247BA0;*/
+    background-size: cover;
 }
 
-.murr_game {
-    margin-top: 5px;
+.app {
+    margin: 5px;
 }
 
-.active_monitor {
-    position: relative;
-}
-
-.murren_group {
-    color: #1d2124;
-    background-color: whitesmoke;
-    border-radius: 5px;
-    font-size: 13px;
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-.monitor_img {
+.base_card {
+    max-width: 812px;
+    max-height: 812px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    padding: 20px;
     border-radius: 10px;
-    border: solid whitesmoke 3px;
-}
-
-.monitor_wrapper {
-    position: absolute;
-    top: 0;
-    width: 33%;
-    right: 0;
-    margin: 10px;
+    color: #1a2a6c;
+    font-family: 'Fira Sans Condensed', sans-serif;
 
 }
 
 
-.murren_data_card {
-    margin: 0;
-    padding: 0;
-    border-radius: 5px;
-    background-color: white;
+.hell-font {
+    font-family: 'Bad Script', cursive;
 }
 
-.menu-btn {
-    background-color: #9fcdff;
-    border-radius: 50%;
-    position: fixed;
-    bottom: 5%;
-    right: 5%;
-    width: 40px;
-    height: 40px;
-    outline: 0 !important;
-}
-
-.murr-btn {
-    outline: 0 !important;
-}
-
-.quests_panel {
-    background-color: white;
-    border-radius: 5px;
-    margin: 0;
-    padding: 5px;;
-}
-
-.murren_avatar_img {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: .25rem;
-    max-height: 100%;
-    margin-top: 5px;
-    max-width: 70px;
-}
-
-
-.barmen_dialog {
-    background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;
-    margin-bottom: 5px;
+.card-text {
+    background-color: aliceblue;
     border-radius: 5px;
     padding: 5px;
+    color: #1a2a6c;
     text-align: center;
 }
 
-.group_members-enter-active, .group_members-leave-active {
-    transition: opacity .5s;
-}
+/*img {*/
+/*max-width: 100%;*/
+/*}*/
 
-.group_members-enter, .group_members-leave-to /* .fade-leave-active до версии 2.1.8 */
-{
-    opacity: 0;
-}
+/*.murr_game {*/
+/*margin-top: 5px;*/
+/*}*/
 
-.quest {
-    background-color: whitesmoke;
-    border-radius: 5px;
-    color: #1d2124;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    overflow: auto;
+/*.active_monitor {*/
+/*position: relative;*/
+/*}*/
 
-}
+/*.murren_group {*/
+/*color: #1d2124;*/
+/*background-color: whitesmoke;*/
+/*border-radius: 5px;*/
+/*font-size: 13px;*/
+/*padding: 5px;*/
+/*margin-bottom: 5px;*/
+/*}*/
 
-.enemy_data {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    text-align: right;
-    height: 100%
-}
+/*.monitor_img {*/
+/*border-radius: 10px;*/
+/*border: solid whitesmoke 3px;*/
+/*}*/
 
-.enemy_data-hp {
-    right: 0;
-    top: 45%;
-    margin-right: 7px;
-    position: absolute;
-    text-align: right;
-    transform: translate(0, -50%);
-    font-size: 18px
-}
+/*.monitor_wrapper {*/
+/*position: absolute;*/
+/*top: 0;*/
+/*width: 33%;*/
+/*right: 0;*/
+/*margin: 10px;*/
+
+/*}*/
+
+
+/*.murren_data_card {*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*border-radius: 5px;*/
+/*background-color: white;*/
+/*}*/
+
+/*.menu-btn {*/
+/*background-color: #9fcdff;*/
+/*border-radius: 50%;*/
+/*position: fixed;*/
+/*bottom: 5%;*/
+/*right: 5%;*/
+/*width: 40px;*/
+/*height: 40px;*/
+/*outline: 0 !important;*/
+/*}*/
+
+/*.murr-btn {*/
+/*outline: 0 !important;*/
+/*}*/
+
+/*.quests_panel {*/
+/*background-color: white;*/
+/*border-radius: 5px;*/
+/*margin: 0;*/
+/*padding: 5px;;*/
+/*}*/
+
+/*.murren_avatar_img {*/
+/*background-color: #fff;*/
+/*border: 1px solid #dee2e6;*/
+/*border-radius: .25rem;*/
+/*max-height: 100%;*/
+/*margin-top: 5px;*/
+/*max-width: 70px;*/
+/*}*/
+
+
+/*.barmen_dialog {*/
+/*background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;*/
+/*margin-bottom: 5px;*/
+/*border-radius: 5px;*/
+/*padding: 5px;*/
+/*text-align: center;*/
+/*}*/
+
+/*.group_members-enter-active, .group_members-leave-active {*/
+/*transition: opacity .5s;*/
+/*}*/
+
+/*.group_members-enter, .group_members-leave-to !* .fade-leave-active до версии 2.1.8 *!*/
+/*{*/
+/*opacity: 0;*/
+/*}*/
+
+/*.quest {*/
+/*background-color: whitesmoke;*/
+/*border-radius: 5px;*/
+/*color: #1d2124;*/
+/*margin-top: 5px;*/
+/*margin-bottom: 5px;*/
+/*overflow: auto;*/
+
+/*}*/
+
+/*.enemy_data {*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*position: relative;*/
+/*text-align: right;*/
+/*height: 100%*/
+/*}*/
+
+/*.enemy_data-hp {*/
+/*right: 0;*/
+/*top: 45%;*/
+/*margin-right: 7px;*/
+/*position: absolute;*/
+/*text-align: right;*/
+/*transform: translate(0, -50%);*/
+/*font-size: 18px*/
+/*}*/
