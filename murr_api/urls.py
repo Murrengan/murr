@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import MurrenList, MurrenById, start, MurrList, MurrDetail, look_at_hell_gate, come_to_tawern
+from .views import *
 
 urlpatterns = [
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path('start/', start),
     path('look_at_hell_gate/', look_at_hell_gate),
     path('come_to_tawern/', come_to_tawern),
+    path('barmen/', barmen),
 ]

@@ -1,5 +1,6 @@
 new Vue({
     el: '#app',
+    vuetify: new Vuetify(),
     data: {
 
         murren_id: '',
@@ -32,6 +33,18 @@ new Vue({
                 .catch(error => console.log(error));
             console.log('отработал look_at_hell_gate/');
         },
+        barmen() {
+            axios
+                .get('/murr_api/barmen/')
+                .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            console.log('отработал barmen/');
+        },
+
         v_on_click_handler(method_name) {
             this[method_name]()
         }
