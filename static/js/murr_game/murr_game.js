@@ -8,6 +8,9 @@ new Vue({
         base_card_img_url: '',
         base_card_text: '',
         show_btn: [],
+
+        virgil_tell: false,
+
     },
     methods: {
         come_to_tawern() {

@@ -1,9 +1,5 @@
-/* Base */
-
 body {
-    /*background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #00fd10 0%, #ff660e 74.2%) no-repeat fixed;*/
     background: #e8430a;
-    /*background: #247BA0;*/
     background-size: cover;
 }
 
@@ -13,7 +9,6 @@ body {
 
 .base_card {
     max-width: 812px;
-    max-height: 812px;
     margin-right: auto !important;
     margin-left: auto !important;
     padding: 20px;
@@ -53,6 +48,46 @@ body {
     border: white solid 2px;
     border-radius: 5px;
 
+}
+
+.virgil-btn {
+    background-color: #0072ff;
+    border-radius: 5px;
+    padding: 5px;
+    position: fixed;
+    bottom: 5%;
+    right: 10%;
+    color: aliceblue;
+    box-shadow: 0 5px #666;
+    outline: 0 !important;
+    z-index: 1;
+}
+
+.virgil-btn:active {
+    background-color: #00c6ff;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+.virgil_tell__panel{
+    background-color: #ffe4f6;
+    border-radius: 10px;
+    position: fixed;
+    width: 310px;
+    height: 300px;
+    bottom: 10%;
+    right: 10%;
+    padding: 5px;
+    z-index: 1;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 /*img {*/

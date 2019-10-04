@@ -56,6 +56,27 @@
         </div>
 
 
+        <transition name="fade">
+
+            <div v-if="virgil_tell"
+                 class="virgil_tell__panel">
+
+                <div class="container p-0 m-0">
+                    <div class="row p-0 m-0">
+                        <div class="col-6 p-0 m-0 border border-dark">r</div>
+                        <div class="col-6 p-0 m-0 border border-dark">r</div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+
+        <button class="virgil-btn"
+                v-on:click="virgil_tell = !virgil_tell"
+        >Вергилий
+        </button>
+
+
     </div>
 
 </div>
