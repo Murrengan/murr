@@ -70,12 +70,12 @@ body {
 
 }
 
-.virgil_tell__panel{
-    background-color: #ffe4f6;
+.virgil_tell__panel {
+    background-color: #7d807e;
     border-radius: 10px;
     position: fixed;
     width: 310px;
-    height: 300px;
+    height: 100px;
     bottom: 10%;
     right: 10%;
     padding: 5px;
@@ -83,11 +83,20 @@ body {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+    transition: opacity .5s;
 }
 
 .fade-enter, .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
+}
+
+.vertical-center {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 /*img {*/
@@ -155,14 +164,14 @@ body {
 /*padding: 5px;;*/
 /*}*/
 
-/*.murren_avatar_img {*/
-/*background-color: #fff;*/
-/*border: 1px solid #dee2e6;*/
-/*border-radius: .25rem;*/
-/*max-height: 100%;*/
-/*margin-top: 5px;*/
-/*max-width: 70px;*/
-/*}*/
+.murren_avatar_img {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-height: 100%;
+    width: 64px;
+    
+}
 
 
 /*.barmen_dialog {*/

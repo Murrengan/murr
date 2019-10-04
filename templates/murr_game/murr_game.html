@@ -58,13 +58,19 @@
 
         <transition name="fade">
 
-            <div v-if="virgil_tell"
-                 class="virgil_tell__panel">
+            <div
+                    class="virgil_tell__panel">
 
-                <div class="container p-0 m-0">
+                <div class="container p-0 m-0 vertical-center">
                     <div class="row p-0 m-0">
-                        <div class="col-6 p-0 m-0 border border-dark">r</div>
-                        <div class="col-6 p-0 m-0 border border-dark">r</div>
+                        <div class="col-3 p-0 m-0 ">r</div>
+                        <div class="col-3 p-0 m-0 ">r</div>
+                        <div class="col-6 p-0 m-0 ">
+                            <img v-bind:src="murren_avatar_img"
+                                  class="murren_avatar_img"
+                                  alt="...">
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -330,9 +336,7 @@
 {# murren_avatar-img #}
 {#                                <div class="col-6 m-0 p-0 ">#}
 {##}
-{#                                    <img v-bind:src="avatar_url "#}
-{#                                         class=" murren_avatar_img"#}
-{#                                         alt="...">#}
+{#
 {##}
 {#                                </div>#}
 {#                            </div>#}
