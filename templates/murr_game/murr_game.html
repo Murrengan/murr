@@ -59,17 +59,31 @@
         <transition name="fade">
 
             <div
-                    class="virgil_tell__panel">
+                 class="virgil_tell__panel">
 
                 <div class="container p-0 m-0 vertical-center">
                     <div class="row p-0 m-0">
-                        <div class="col-3 p-0 m-0 ">r</div>
-                        <div class="col-3 p-0 m-0 ">r</div>
-                        <div class="col-6 p-0 m-0 ">
-                            <img v-bind:src="murren_avatar_img"
-                                  class="murren_avatar_img"
-                                  alt="...">
+                        <div class="col-6 p-0 m-0">
+                            <div class="row p-0 m-0">
+                                <div class="col-6 p-0 m-0 text-center">
+                                    <img v-bind:src="murren_avatar_img"
+                                         class="murren_avatar_img "
+                                         alt="...">
+
+                                </div>
+                                <div class="col-6 p-0 m-0 ">
+                                    <h2>HP</h2><br>
+                                    <h2>MP</h2>
+
+                                </div>
+
+                            </div>
+
+
                         </div>
+                        <div class="col-3 p-0 m-0 ">r</div>
+                        <div class="col-3 p-0 m-0 ">r</div>
+
 
                     </div>
                 </div>
@@ -92,8 +106,6 @@
 </body>
 </html>
 
-
-{#    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">#}
 
 {##}
 {#{% block content %}#}
@@ -336,7 +348,7 @@
 {# murren_avatar-img #}
 {#                                <div class="col-6 m-0 p-0 ">#}
 {##}
-{#
+
 {##}
 {#                                </div>#}
 {#                            </div>#}
