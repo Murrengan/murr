@@ -3,6 +3,12 @@ body {
     background-size: cover;
 }
 
+img {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .app {
     margin: 5px;
 }
@@ -70,18 +76,6 @@ body {
 
 }
 
-.virgil_tell__panel {
-    background-color: #f2f6f4;
-    border-radius: 10px;
-    position: fixed;
-    width: 310px;
-    height: 100px;
-    bottom: 10%;
-    right: 10%;
-    padding: 5px;
-    z-index: 1;
-}
-
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
 }
@@ -98,6 +92,73 @@ body {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+/* ------------ Grid ------------*/
+
+.grid {
+    display: grid;
+    grid-template-columns: 136px 64px 64px;
+    grid-column-gap: 12px;
+    grid-row-gap: 5px;
+    /*grid-auto-rows: minmax(50px, auto);*/
+    justify-items: center; /* start center*/
+    align-items: center;
+    /*grid-gap: 5px; - отступы для всего автоматом*/
+
+}
+
+.murren_data {
+
+    height: 64px;
+    width: 136px;
+    background-color: blueviolet;
+    align-items: center;
+    justify-self: center; /* start center end*/
+}
+
+
+/*.item:first-child{*/
+/*!*Можно образаться к нужным блокам по порядку*!*/
+/*background-color: #e83e8c;*/
+/*justify-self: end; !* start center end*!*/
+/*align-self: end;*/
+/*}*/
+
+/* ------------ EndGrid ------------*/
+
+/* ------------ VirgilPanel ------------*/
+
+.virgil_tell__panel {
+    background-color: #f2f6f4;
+    border-radius: 10px;
+    position: fixed;
+    width: 310px;
+    height: 80px;
+    bottom: 10%;
+    right: 10%;
+    padding: 5px;
+    z-index: 1;
+}
+
+.murren_data-img {
+    height: 60px;
+
+}
+
+.inventory {
+    height: 64px;
+    width: 64px;
+    background-color: #e83e8c;
+
+}
+
+.skill {
+    height: 64px;
+    width: 64px;
+    background-color: greenyellow;
+}
+
+/* ------------ VirgilPanel ------------*/
 
 /*img {*/
 /*max-width: 100%;*/
@@ -165,12 +226,13 @@ body {
 /*}*/
 
 .murren_avatar_img {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
+    /*background-color: #fff;*/
+    /*border: 1px solid #dee2e6;*/
     border-radius: .25rem;
-    max-height: 100%;
+    /*max-height: 100%;*/
     width: 64px;
-    
+    height: 64px;
+
 }
 
 

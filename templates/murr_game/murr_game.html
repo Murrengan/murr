@@ -59,34 +59,24 @@
         <transition name="fade">
 
             <div
-                 class="virgil_tell__panel">
+                    class="virgil_tell__panel">
 
-                <div class="container p-0 m-0 vertical-center">
-                    <div class="row p-0 m-0">
-                        <div class="col-6 p-0 m-0">
-                            <div class="row p-0 m-0">
-                                <div class="col-6 p-0 m-0 text-center">
-                                    <img v-bind:src="murren_avatar_img"
-                                         class="murren_avatar_img "
-                                         alt="...">
+                <div class="grid vertical-center">
 
-                                </div>
-                                <div class="col-6 p-0 m-0 ">
-                                    <h2>HP</h2><br>
-                                    <h2>MP</h2>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="col-3 p-0 m-0 ">r</div>
-                        <div class="col-3 p-0 m-0 ">r</div>
+                    <div class="murren_data">
 
 
                     </div>
+
+
+                    <div class="inventory">
+
+                    </div>
+                    <div class="skill"></div>
+
                 </div>
+
+
             </div>
         </transition>
 
@@ -101,6 +91,20 @@
 
 </div>
 {% endverbatim %}
+
+{#                <div class="container vertical-center">#}
+{#                    <div class="row ">#}
+{#                        <div class="col-6 p-0 m-0">#}
+
+{##}
+{##}
+{#                        </div>#}
+{#                        <div class="col-3 p-0 m-0 ">r</div>#}
+{#                        <div class="col-3 p-0 m-0 ">r</div>#}
+{##}
+{##}
+{#                    </div>#}
+{#                </div>#}
 
 <script src="{% static "js/murr_game/murr_game.js" %}"></script>
 </body>
