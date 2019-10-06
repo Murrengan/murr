@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
-    <link rel="stylesheet" href="{% static "css/out/bootstrap.min.css" %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static "css/murr_game/reset.css" %}">
     <link rel="stylesheet" href="{% static "css/murr_game/chat_panel.css" %}"/>
     <link rel="stylesheet" href="{% static "css/murr_game/murr_game.css" %}"/>
     <link href="https://fonts.googleapis.com/css?family=Bad+Script|Fira+Sans+Condensed&display=swap" rel="stylesheet">
@@ -65,6 +63,22 @@
 
                     <div class="murren_data">
 
+                        <img v-bind:src="murren_avatar"
+                             alt="аватарочка Муррена"
+                             class="murren_avatar vertical-center">
+
+                        <table class="murren_stat vertical-center">
+                            <tbody>
+                            <tr>
+                                <td>HP</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>MP</td>
+                                <td>50</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
                     </div>
 

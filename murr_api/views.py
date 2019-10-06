@@ -71,7 +71,7 @@ def start(request):
     # data = {'murren_id': request.user.id, 'base_card_img_url': '', 'base_card_text': text,
     #         'show_btn': show_btn, 'murren_data': murren_data}
     murren = User.objects.get(username=request.user.username)
-    data = {'murren_id': murren.id, 'murren_avatar_img': murren.profile_picture.url,
+    data = {'murren_id': murren.id, 'murren_avatar': murren.profile_picture.url,
             'base_card_text': text, 'show_btn': show_btn}
     return JsonResponse(data, status=200)
 

@@ -1,3 +1,45 @@
+/* ------------ Reset ------------ */
+
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+
+/* ------------ EndReset ------------ */
+
+
 body {
     background: #e8430a;
     background-size: cover;
@@ -85,8 +127,6 @@ img {
 }
 
 .vertical-center {
-    margin: 0;
-    padding: 0;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
@@ -112,8 +152,30 @@ img {
     height: 64px;
     width: 136px;
     background-color: blueviolet;
+    border-radius: 5px;
     align-items: center;
     justify-self: center; /* start center end*/
+    box-shadow: 0 5px #666;
+}
+
+.murren_data:active {
+    background-color: #a72bff;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+.inventory {
+    height: 64px;
+    width: 64px;
+    background-color: #e83e8c;
+
+}
+
+.skill {
+    height: 64px;
+    width: 64px;
+    background-color: greenyellow;
 }
 
 
@@ -140,23 +202,22 @@ img {
     z-index: 1;
 }
 
-.murren_data-img {
-    height: 60px;
+.murren_avatar {
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    margin-left: 5px;
+    width: 55px;
+    height: 55px;
 
 }
 
-.inventory {
-    height: 64px;
-    width: 64px;
-    background-color: #e83e8c;
-
+.murren_stat{
+    font-size: 18px;
+    margin-left: 70px;
+    color: #00c6ff;
 }
 
-.skill {
-    height: 64px;
-    width: 64px;
-    background-color: greenyellow;
-}
+
 
 /* ------------ VirgilPanel ------------*/
 
@@ -225,15 +286,7 @@ img {
 /*padding: 5px;;*/
 /*}*/
 
-.murren_avatar_img {
-    /*background-color: #fff;*/
-    /*border: 1px solid #dee2e6;*/
-    border-radius: .25rem;
-    /*max-height: 100%;*/
-    width: 64px;
-    height: 64px;
 
-}
 
 
 /*.barmen_dialog {*/

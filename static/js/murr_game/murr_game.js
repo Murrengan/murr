@@ -4,7 +4,7 @@ new Vue({
     data: {
 
         murren_id: '',
-        murren_avatar_img: '',
+        murren_avatar: '',
 
         base_card_img_url: '',
         base_card_text: '',
@@ -61,7 +61,7 @@ new Vue({
                 this.base_card_text = django_answer.data.base_card_text;
                 this.show_btn = django_answer.data.show_btn;
 
-                this.murren_avatar_img = django_answer.data.murren_avatar_img;
+                this.murren_avatar = django_answer.data.murren_avatar;
             })
             .catch(error => console.log(error));
         console.log('отработал murr_api/start/');
