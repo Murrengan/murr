@@ -37,7 +37,7 @@ img{vertical-align: top;}
 
 h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 
-/* ------------ EndReset ------------ */
+/* ------------ Base ------------ */
 
 
 body {
@@ -126,6 +126,8 @@ img {
     opacity: 0;
 }
 
+/* ------------ Helpers ------------*/
+
 .vertical-center {
     position: absolute;
     top: 50%;
@@ -133,7 +135,15 @@ img {
     transform: translateY(-50%);
 }
 
-/* ------------ Grid ------------*/
+.disable-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* ------------ VirgilGrid ------------*/
 
 .grid {
     display: grid;
@@ -169,13 +179,31 @@ img {
     height: 64px;
     width: 64px;
     background-color: #e83e8c;
+    box-shadow: 0 5px #666;
+    border-radius: 5px;
+
+}
+
+.inventory:active {
+    background-color: #ff439c;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
 
 }
 
 .skill {
     height: 64px;
     width: 64px;
-    background-color: greenyellow;
+    background-color: #71b1aa;
+    box-shadow: 0 5px #666;
+    border-radius: 5px;
+}
+
+.skill:active {
+    background-color: #9cf5ec;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
 }
 
 
@@ -186,9 +214,6 @@ img {
 /*align-self: end;*/
 /*}*/
 
-/* ------------ EndGrid ------------*/
-
-/* ------------ VirgilPanel ------------*/
 
 .virgil_tell__panel {
     background-color: #f2f6f4;
