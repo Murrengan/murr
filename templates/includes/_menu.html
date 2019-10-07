@@ -1,0 +1,59 @@
+<div class="modal-menu">
+	<ul class="navbar-nav ml-auto">
+
+            {% if user.is_authenticated %}
+            <li class="nav-item dropleft">
+            	<div class="account-block" style="display: flex;">
+                    <img class="avatar-img" src="{{ user.profile_picture.url }}"></img>
+                	<p style="margin: auto 10px;">{{ user.username }}</p>
+                    <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" style="color:white; margin-left: 5px; ">
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby=navbarDropdown">
+
+
+                        <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
+                        <a class="dropdown-item" href="{% url 'about' %}"><i class="fas fa-question-circle mr-1"></i>О
+                            проекте</a>
+                        <a class="dropdown-item" href="{% url 'murr_list' %}?liked"><i
+                                class="fab fa-gratipay mr-1"></i>Мои лайки</a>
+                        <a class="dropdown-item" href="{% url 'murr_list' %}?my"><i
+                                class="fab fa-wolf-pack-battalion mr-1"></i>Мои мурры</a>
+                        <a class="dropdown-item text-muted text-center" href="{% url 'account_logout' %}">Выйти</a>
+                    </div>
+                </div>
+                    
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}" title="На главную" style="color:white;">
+                        Главная
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_list' %}" title="Найти Мурр" style="color:white;">
+                        Мурры
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_game' %}" id="murr_game" style="color:white;">Игра</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'murr_create' %}" style="color:white; margin-right: 15px;" title="Создать Мурр">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </li>
+                
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'account_login' %}" class="text-white mr-1">Войти</a>
+                    <a class="btn btn-success" href="{% url 'account_signup' %}">Регистрация</a>
+                </li>
+            {% endif %}
+        </ul>
+
+</div>

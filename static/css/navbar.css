@@ -1,7 +1,13 @@
+.drop-menu {
+  top: 60px;
+  right: 0;
+}
+
 .formSearch {
   background: hsla(0,0%,100%,.25);
   border-radius: 3px;
-
+  padding: 5px 10px;
+  border-radius: 100px;
 }
 
 .search-input {
@@ -38,6 +44,8 @@
 .form-search__focus {
   background: white;
   border-radius: 3px;
+  padding: 5px 10px;
+  border-radius: 100px;
 }
 
 .form-search__focus > div > button {
@@ -47,6 +55,10 @@
 .search-input:focus + .search-query {
   background: white;
   color: black;
+}
+
+.btn-search:hover {
+  background-color: transparent;
 }
 
 .btn-login {
@@ -62,13 +74,47 @@
   display: block;
 }
 
+.logo-header {
+  width: 42px;
+  height: 42px;
+}
+
+.avatar-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 100px;
+}
+
+.nav-mobile-btn {
+  display: none;
+  background-color: transparent;
+  border: 0px;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.show-side-nav {
+  transition: .3s;
+  transform: translateX(0px);
+}
+
+.show-side-body {
+  transition: .3s;
+  transform: translateX(200px);
+}
+
+.nav-mobile-btn > i {
+  color: #fff;
+  font-size: 22px;
+}
+
 #mobile-game {
   display: none;
 }
 
-/*При экранах, ширина которых меньше или равна 720px*/
+/*При экранах, ширина которых меньше или равна 767px*/
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 767px) {
     .row-m {
       margin: 0;
       flex-wrap: nowrap;
@@ -84,11 +130,19 @@
       width: 100%;
     }
 
-    #murr_game {
+    .nav-mobile-btn {
+      display: block;
+    }
+
+    #searchForm {
       display: none;
     }
 
-    #mobile-game {
-      display: block;
+    .nav-mobile {
+      display: none !important;
+    }
+
+    .navbar-brand {
+      margin: 0 auto; 
     }
 }
