@@ -1,6 +1,6 @@
 new Vue({
     el: '#app',
-    vuetify: new Vuetify(),
+    // vuetify: new Vuetify(),
     data: {
 
         murren_id: '',
@@ -11,6 +11,13 @@ new Vue({
         show_btn: [],
 
         virgil_tell: false,
+
+        styleObject: {
+            color: 'blue',
+            fontSize: '20px',
+            background: 'white',
+
+        }
 
     },
     methods: {

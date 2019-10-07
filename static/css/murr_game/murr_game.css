@@ -246,6 +246,12 @@ img {
 
 /* ------------ VirgilPanel ------------*/
 
+
+.choose_btn {
+    border: #000000 1px solid;
+
+}
+
 /*img {*/
 /*max-width: 100%;*/
 /*}*/
