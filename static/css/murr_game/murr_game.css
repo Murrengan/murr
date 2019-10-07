@@ -1,0 +1,360 @@
+/* ------------ Reset ------------ */
+
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+
+/* ------------ Base ------------ */
+
+
+body {
+    background: #e8430a;
+    background-size: cover;
+}
+
+img {
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.app {
+    margin: 5px;
+}
+
+.base_card {
+    max-width: 812px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    padding: 20px;
+    border-radius: 10px;
+    color: #1a2a6c;
+    font-family: 'Fira Sans Condensed', sans-serif;
+
+}
+
+
+.hell-font {
+    font-family: 'Bad Script', cursive;
+}
+
+.card-img {
+    text-align: center !important;
+    margin-bottom: 5px;
+
+}
+
+.card-text {
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding: 5px;
+    color: #1a2a6c;
+    text-align: center;
+}
+
+.card-btb {
+    outline: 0 !important;
+    text-align: center !important;
+    margin-top: 10px;
+}
+
+.card-img__base {
+    max-width: 100%;
+    border: white solid 2px;
+    border-radius: 5px;
+
+}
+
+.virgil-btn {
+    background-color: #0072ff;
+    border-radius: 5px;
+    padding: 5px;
+    position: fixed;
+    bottom: 5%;
+    right: 10%;
+    color: aliceblue;
+    box-shadow: 0 5px #666;
+    outline: 0 !important;
+    z-index: 1;
+}
+
+.virgil-btn:active {
+    background-color: #00c6ff;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+/* ------------ Helpers ------------*/
+
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.disable-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* ------------ VirgilGrid ------------*/
+
+.grid {
+    display: grid;
+    grid-template-columns: 136px 64px 64px;
+    grid-column-gap: 12px;
+    grid-row-gap: 5px;
+    /*grid-auto-rows: minmax(50px, auto);*/
+    justify-items: center; /* start center*/
+    align-items: center;
+    /*grid-gap: 5px; - отступы для всего автоматом*/
+
+}
+
+.murren_data {
+
+    height: 64px;
+    width: 136px;
+    background-color: blueviolet;
+    border-radius: 5px;
+    align-items: center;
+    justify-self: center; /* start center end*/
+    box-shadow: 0 5px #666;
+}
+
+.murren_data:active {
+    background-color: #a72bff;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+.inventory {
+    height: 64px;
+    width: 64px;
+    background-color: #e83e8c;
+    box-shadow: 0 5px #666;
+    border-radius: 5px;
+
+}
+
+.inventory:active {
+    background-color: #ff439c;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+.skill {
+    height: 64px;
+    width: 64px;
+    background-color: #71b1aa;
+    box-shadow: 0 5px #666;
+    border-radius: 5px;
+}
+
+.skill:active {
+    background-color: #9cf5ec;
+    transform: translateY(4px);
+    box-shadow: 0 0 #666;
+
+}
+
+
+/*.item:first-child{*/
+/*!*Можно образаться к нужным блокам по порядку*!*/
+/*background-color: #e83e8c;*/
+/*justify-self: end; !* start center end*!*/
+/*align-self: end;*/
+/*}*/
+
+
+.virgil_tell__panel {
+    background-color: #f2f6f4;
+    border-radius: 10px;
+    position: fixed;
+    width: 310px;
+    height: 80px;
+    bottom: 10%;
+    right: 10%;
+    padding: 5px;
+    z-index: 1;
+}
+
+.murren_avatar {
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    margin-left: 5px;
+    width: 55px;
+    height: 55px;
+
+}
+
+.murren_stat{
+    font-size: 18px;
+    margin-left: 70px;
+    color: #00c6ff;
+}
+
+
+
+/* ------------ VirgilPanel ------------*/
+
+/*img {*/
+/*max-width: 100%;*/
+/*}*/
+
+/*.murr_game {*/
+/*margin-top: 5px;*/
+/*}*/
+
+/*.active_monitor {*/
+/*position: relative;*/
+/*}*/
+
+/*.murren_group {*/
+/*color: #1d2124;*/
+/*background-color: whitesmoke;*/
+/*border-radius: 5px;*/
+/*font-size: 13px;*/
+/*padding: 5px;*/
+/*margin-bottom: 5px;*/
+/*}*/
+
+/*.monitor_img {*/
+/*border-radius: 10px;*/
+/*border: solid whitesmoke 3px;*/
+/*}*/
+
+/*.monitor_wrapper {*/
+/*position: absolute;*/
+/*top: 0;*/
+/*width: 33%;*/
+/*right: 0;*/
+/*margin: 10px;*/
+
+/*}*/
+
+
+/*.murren_data_card {*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*border-radius: 5px;*/
+/*background-color: white;*/
+/*}*/
+
+/*.menu-btn {*/
+/*background-color: #9fcdff;*/
+/*border-radius: 50%;*/
+/*position: fixed;*/
+/*bottom: 5%;*/
+/*right: 5%;*/
+/*width: 40px;*/
+/*height: 40px;*/
+/*outline: 0 !important;*/
+/*}*/
+
+/*.murr-btn {*/
+/*outline: 0 !important;*/
+/*}*/
+
+/*.quests_panel {*/
+/*background-color: white;*/
+/*border-radius: 5px;*/
+/*margin: 0;*/
+/*padding: 5px;;*/
+/*}*/
+
+
+
+
+/*.barmen_dialog {*/
+/*background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;*/
+/*margin-bottom: 5px;*/
+/*border-radius: 5px;*/
+/*padding: 5px;*/
+/*text-align: center;*/
+/*}*/
+
+/*.group_members-enter-active, .group_members-leave-active {*/
+/*transition: opacity .5s;*/
+/*}*/
+
+/*.group_members-enter, .group_members-leave-to !* .fade-leave-active до версии 2.1.8 *!*/
+/*{*/
+/*opacity: 0;*/
+/*}*/
+
+/*.quest {*/
+/*background-color: whitesmoke;*/
+/*border-radius: 5px;*/
+/*color: #1d2124;*/
+/*margin-top: 5px;*/
+/*margin-bottom: 5px;*/
+/*overflow: auto;*/
+
+/*}*/
+
+/*.enemy_data {*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*position: relative;*/
+/*text-align: right;*/
+/*height: 100%*/
+/*}*/
+
+/*.enemy_data-hp {*/
+/*right: 0;*/
+/*top: 45%;*/
+/*margin-right: 7px;*/
+/*position: absolute;*/
+/*text-align: right;*/
+/*transform: translate(0, -50%);*/
+/*font-size: 18px*/
+/*}*/

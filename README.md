@@ -5,12 +5,15 @@
 **Выберите язык:**&nbsp; [<img src="readme/examples/en.png" title="Английский" />](readme/en) &nbsp; [<img src="readme/examples/pl.png" title="Польский" />](readme/pl)
 
 
+[Сайт](http://murrengan.ru/murrs/)
+
+
 <h2>
 Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 </h2>
 
 <h3>
-Если у тебя есть вопросы или предложения:
+Мы есть тут:
 </h3>
 
 
@@ -22,63 +25,51 @@
 
 [Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan) 
 
-Проект разрабатывается на фреймворке Django 2. Официальная <a href="https://docs.djangoproject.com">документация</a> .
 
-<h3 align="center">
-Разработка осуществляется через ветку develop - будь внимателен!
-</h3>
-
-<h2>
-Установка:
-</h2>
-
-##### 0. Делаешь форк и ставишь звездочку =)
-
-##### 1. Скачиваешь себе на машину из своего репозитория:
-
-`git clone ссылка_сгенерированная_в_твоем_репо`
-
-##### 2. Переименовываешь `_local_settings.py` в `local_settings.py`
-
-##### 3. Устанавливаешь зависимости:
-
-`pip install -r requirements.txt`
+Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js //
 
 
-##### 4. Применяешь миграции:
-
-`python manage.py makemigrations murr_game murr_chat MurrCard Murren`
-
-`python manage.py migrate`
-
-
-##### 5. Запускаешь сервер:
-
-`python manage.py runserver`
-
-
-<h3 align="center">
-После того как скачал к себе в гит проект и хочешь его синхронизировать с основной веткой, когда она изменилась:
-</h3>
-
-##### 1. добавляем удалённый репозиторий
-`git remote add  название_бранча_на_локальной_машине https://github.com/Murrengan/murr`
-
-##### 2. Смотрим появился ли он 
-`git remote -v`
-
-##### 3. Синхронизируем с основной веткой на своей машине
-`git pull название_бранча_на_локальной_машине develop`
-
-##### 4. Внесенные изменения добавляем в ветку в своем репозитории и пушим в свой удаленный репозиторий
-
-`git add .`
-
-`git commit -m "четкое_и_понятное_описание_проделанной_работы""`
-
-`git push`
-
-##### 5. Делаем пулл реквест в основной ветке Мурренгана в develop branch
+<h2>Установка:</h2>
+<pre>
+Делаешь форк и ставишь звездочку.
+Дальше все просто:
+    
+    создать дирректорию mkdir murr_venv
+    
+    войти в дирректорию cd murr_venv
+    
+    скачать murr с github git clone ссылка_сгенерированная_в_твоем_репо
+    
+    открыть murr в PyCharm
+    
+    создать виртуальное окружение для python  PyCharm -> Preferences -> Progect: murr project interpreter -> 
+    cogwheel -> Add... -> New environment location *workspase/murr/murr_venv -> Create
+    
+    открыть термина PyCharm // убедиться, что (murr_venv) отображается слева
+    
+    если вы на unix - удалите из requirements.txt pywin и pipwin
+    
+    установить зависимости pip install -r requirements.txt
+    
+    переименовать _local_settings.py в local_settings.py
+    
+    создать миграции для базы данных python manage.py makemigrations murr_game murr_chat MurrCard Murren
+    
+    мигрировать python manage.py migrate
+    
+    создать суперпользователя/пользователя/группу :  
+        python manage.py shell 
+        from murr.helpers import BaseHelper
+        murr = BaseHelper()
+        murr.create_superuser("admin", "1@2.ru", "admin")
+        murr.create_user("Greg", "1@2.ru", "Murrengan1")
+        murr.group_create("Murrengan1")
+        
+    запустить сервер python manage.py runserver
+    
+    если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545
+   
+</pre>
 
 
 <h2>

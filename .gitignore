@@ -6,11 +6,11 @@ media/*
 !default_murren_img.jpg
 .cache
 .pytest_cache/
+murr_venv
 
 
 # Django stuff:
 *.log
-local_settings.py
 db.sqlite3
 
 # Environments

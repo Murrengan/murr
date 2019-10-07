@@ -33,6 +33,10 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+
 
     # Local
     'murr.apps.MurrConfig',
@@ -120,7 +124,7 @@ USE_TZ = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
-DATA_UPLOAD_MAX_MEMORY_SIZE = 20*1024*1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
 TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
@@ -219,9 +223,16 @@ CHANNEL_LAYERS = {
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
     ]
+
 }
 
 CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:8080"
+    "http://127.0.0.1:8080",
+    "http://35.235.86.186",
+
 ]
