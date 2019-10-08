@@ -38,22 +38,13 @@
 
         <div v-if="show_btn"
              v-for="btn in show_btn"
-             class="card-btb">
+            class="card-btb">
 
-            <div class="card-btb">
-
-
-
-
-
-
-                <button class="choose_btn"
-                        v-bind:style="styleObject"
+                <button class="btn choice_btn"
                         v-on:click="v_on_click_handler(btn.def_on_click)">
                     {{ btn.btn_text}}
                 </button>
 
-            </div>
         </div>
 
 
@@ -64,7 +55,7 @@
 
                 <div class="grid vertical-center">
 
-                    <div class="murren_data">
+                    <div class="btn murren_data">
 
                         <img v-bind:src="murren_avatar"
                              alt="аватарочка Муррена"
@@ -86,12 +77,12 @@
                     </div>
 
 
-                    <div class="inventory">
+                    <div class="btn inventory">
                         <img src="/static/img/murr_game/icon/bag.jpg"
                              alt="Кнопка сумки"
                              class="murren_avatar vertical-center">
                     </div>
-                    <div class="skill">
+                    <div class="btn skill">
                         <img src="/static/img/murr_game/icon/skill.jpg"
                              alt="Кнопка скилов"
                              class="murren_avatar vertical-center">

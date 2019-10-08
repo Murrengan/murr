@@ -53,7 +53,6 @@ def start(request):
         {
             'btb': 'show_hell_gate__btn',
             'btn_text': 'Взглянуть на ворота',
-            'btn_color': '#14c8ff',
             'def_on_click': 'look_at_hell_gate',
 
         },
@@ -61,15 +60,11 @@ def start(request):
         {
             'btb': 'show_tawern_card__btn',
             'btn_text': 'Войти в таверну',
-            'btn_color': '#ff91fb',
             'def_on_click': 'come_to_tawern',
         }
 
     ]
-    # murren_data = 'Привет мои сладкие мурр =))))'
-    #
-    # data = {'murren_id': request.user.id, 'base_card_img_url': '', 'base_card_text': text,
-    #         'show_btn': show_btn, 'murren_data': murren_data}
+
     murren = User.objects.get(username=request.user.username)
     data = {'murren_id': murren.id, 'murren_avatar': murren.profile_picture.url,
             'base_card_text': text, 'show_btn': show_btn}
@@ -94,7 +89,6 @@ def look_at_hell_gate(request):
         {
             'btb': 'show_tawern_card__btn',
             'btn_text': 'Войти в таверну',
-            'btn_color': '#ff91fb',
             'def_on_click': 'come_to_tawern',
         }]
 
@@ -116,7 +110,6 @@ def come_to_tawern(request):
         {
             'btb': 'show_barmen__btn',
             'btn_text': 'Поговорить с барменом',
-            'btn_color': '#E8CAEB',
             'def_on_click': 'barmen',
         }]
 
@@ -147,11 +140,15 @@ def barmen(request):
 
     show_btn = [
         {
-            'btb': 'show_barmen__btn',
-            'btn_text': 'Поговорить с барменом',
-            'btn_color': '#E8CAEB',
-            'def_on_click': 'come_to_tawern',
-        }
+            'btb': 'show_quest_accept__btn',
+            'btn_text': 'Принять задание',
+            'def_on_click': 'quest_accept',
+        },
+        {
+            'btb': 'show_shop__btn',
+            'btn_text': 'Покажи свои товары',
+            'def_on_click': 'quest_accept',
+        },
     ]
 
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',

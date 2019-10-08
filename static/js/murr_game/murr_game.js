@@ -12,12 +12,6 @@ new Vue({
 
         virgil_tell: false,
 
-        styleObject: {
-            color: 'blue',
-            fontSize: '20px',
-            background: 'white',
-
-        }
 
     },
     methods: {
