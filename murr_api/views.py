@@ -140,18 +140,63 @@ def barmen(request):
 
     show_btn = [
         {
-            'btb': 'show_quest_accept__btn',
+            'btb': 'show_barmen_quest_accept__btn',
             'btn_text': 'Принять задание',
-            'def_on_click': 'quest_accept',
+            'def_on_click': 'barmen_quest_accept',
         },
-        {
-            'btb': 'show_shop__btn',
-            'btn_text': 'Покажи свои товары',
-            'def_on_click': 'quest_accept',
-        },
+        # {
+        #     'btb': 'show_shop__btn',
+        #     'btn_text': 'Покажи свои товары',
+        #     'def_on_click': 'quest_accept',
+        # },
     ]
 
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',
+            'base_card_text': text,
+            'show_btn': show_btn
+            }
+    return JsonResponse(data, status=200)
+
+
+def barmen_quest_accept(request):
+    text = """\"\"\"<br>
+
+        Замечательно!<br>
+        
+        Держи ключ от подвала и постарайся не шуметь<br>
+        \"\"\""""
+
+    show_btn = [
+        {
+            'btb': 'come_to_basement__btn',
+            'btn_text': 'Войти в подвал',
+            'def_on_click': 'come_to_basement',
+        },
+    ]
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',
+            'base_card_text': text,
+            'show_btn': show_btn
+            }
+
+    return JsonResponse(data, status=200)
+
+
+def come_to_basement(request):
+    text = """\"\"\"<br>
+
+        Замечательно!<br>
+
+        Держи ключ от подвала и постарайся не шуметь<br>
+        \"\"\""""
+
+    show_btn = [
+        {
+            'btb': 'come_to_basement__btn',
+            'btn_text': 'Войти в подвал',
+            'def_on_click': 'come_to_basement',
+        },
+    ]
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/tawern/tawern_basement.jpg',
             'base_card_text': text,
             'show_btn': show_btn
             }

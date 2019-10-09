@@ -15,8 +15,8 @@ new Vue({
 
     },
     methods: {
-        come_to_tawern() {
-            axios
+        async come_to_tawern() {
+            await axios
                 .get('/murr_api/come_to_tawern/')
                 .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
@@ -48,6 +48,29 @@ new Vue({
                 })
                 .catch(error => console.log(error));
             console.log('отработал barmen/');
+        },
+        async barmen_quest_accept() {
+            await axios
+                .get('/murr_api/barmen_quest_accept/')
+                .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            console.log('отработал barmen_quest_accept/');
+        },
+
+        async come_to_basement(){
+            await axios
+                .get('/murr_api/come_to_basement/')
+                .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            console.log('отработал come_to_basement/');
         },
 
         v_on_click_handler(method_name) {
