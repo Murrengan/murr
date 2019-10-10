@@ -35,6 +35,11 @@
 
 {#{% if tip_data %}#}
 
+<div class="menu-block">
+    {% include 'includes/_menu.html' %}
+</div>
+<div class="content-block">
+
 <header>
     {% include 'navbar.html' %}
 </header>
@@ -63,15 +68,13 @@
 
 
 </main>
-
+</div>
 {% block js %}
 
     {#    out#}
     <script src="{% static "js/out/jquery-3.4.1.min.js" %}"></script>
     <script src="{% static "js/out/popper.min.js" %}"></script>
     <script src="{% static "js/out/bootstrap.min.js" %}"></script>
-    <script src="{% static "js/out/vue.js" %}"></script>
-    <script src="{% static "js/out/axios.min.js" %}"></script>
     <script src="{% static "js/kernel.js" %}"></script>
 
     {#    local#}
