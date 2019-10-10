@@ -11,6 +11,7 @@ new Vue({
         show_btn: [],
 
         virgil_tell: false,
+        show_enemy_data: false,
 
 
     },
@@ -73,6 +74,20 @@ new Vue({
             console.log('отработал come_to_basement/');
         },
 
+        async attack_a_rat(){
+            await axios
+            .get('/murr_api/attack_a_rat/')
+            .then(django_answer => {
+                    this.base_card_img_url = django_answer.data.base_card_img_url;
+                    this.base_card_text = django_answer.data.base_card_text;
+                    this.show_btn = django_answer.data.show_btn;
+                })
+                .catch(error => console.log(error));
+            this.virgil_tell = true;
+            this.show_enemy_data = true;
+            console.log('отработал attack_a_rat/');
+        },
+
         v_on_click_handler(method_name) {
             this[method_name]()
         }
@@ -80,7 +95,6 @@ new Vue({
     created() {
         axios.get('/murr_api/start/')
             .then((django_answer) => {
-                // this.murren_id = django_answer.data;
                 this.murren_id = django_answer.data.murren_id;
                 this.base_card_text = django_answer.data.base_card_text;
                 this.show_btn = django_answer.data.show_btn;

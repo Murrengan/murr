@@ -24,6 +24,16 @@
         <div v-if="base_card_img_url"
              class="card-img">
 
+            <div v-if="show_enemy_data"
+                 class="enemy_data">
+                <div class="container">
+                    <img src="/static/img/murr_game/hp.svg" alt="" width="40">
+                    <div class="center">100</div>
+                </div>
+
+            </div>
+
+
             <img alt="base card img"
                  v-bind:src="base_card_img_url"
                  class="card-img__base">
@@ -38,12 +48,12 @@
 
         <div v-if="show_btn"
              v-for="btn in show_btn"
-            class="card-btb">
+             class="card-btb">
 
-                <button class="btn choice_btn"
-                        v-on:click="v_on_click_handler(btn.def_on_click)">
-                    {{ btn.btn_text}}
-                </button>
+            <button class="btn choice_btn"
+                    v-on:click="v_on_click_handler(btn.def_on_click)">
+                {{ btn.btn_text}}
+            </button>
 
         </div>
 
@@ -105,20 +115,6 @@
 
 </div>
 {% endverbatim %}
-
-{#                <div class="container vertical-center">#}
-{#                    <div class="row ">#}
-{#                        <div class="col-6 p-0 m-0">#}
-
-{##}
-{##}
-{#                        </div>#}
-{#                        <div class="col-3 p-0 m-0 ">r</div>#}
-{#                        <div class="col-3 p-0 m-0 ">r</div>#}
-{##}
-{##}
-{#                    </div>#}
-{#                </div>#}
 
 <script src="{% static "js/murr_game/murr_game.js" %}"></script>
 </body>

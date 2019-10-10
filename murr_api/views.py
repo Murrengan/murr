@@ -144,11 +144,7 @@ def barmen(request):
             'btn_text': 'Принять задание',
             'def_on_click': 'barmen_quest_accept',
         },
-        # {
-        #     'btb': 'show_shop__btn',
-        #     'btn_text': 'Покажи свои товары',
-        #     'def_on_click': 'quest_accept',
-        # },
+
     ]
 
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',
@@ -184,19 +180,32 @@ def barmen_quest_accept(request):
 def come_to_basement(request):
     text = """\"\"\"<br>
 
-        Замечательно!<br>
-
-        Держи ключ от подвала и постарайся не шуметь<br>
+        Дубовая дверь на удивление легко открывается.<br>
+        В темных углу  я замечаю желтые бусинки глаз.<br>
+        Работа будет быстрой и простой<br>
         \"\"\""""
 
     show_btn = [
         {
             'btb': 'come_to_basement__btn',
-            'btn_text': 'Войти в подвал',
-            'def_on_click': 'come_to_basement',
+            'btn_text': 'Приблизиться и атаковать крысу',
+            'def_on_click': 'attack_a_rat',
         },
     ]
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/tawern/tawern_basement.jpg',
+            'base_card_text': text,
+            'show_btn': show_btn
+            }
+    return JsonResponse(data, status=200)
+
+
+def attack_a_rat(request):
+    text = ''
+
+    show_btn = [
+
+    ]
+    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/tawern/rat.jpg',
             'base_card_text': text,
             'show_btn': show_btn
             }

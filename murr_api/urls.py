@@ -21,4 +21,5 @@ urlpatterns = [
     path('barmen/', barmen),
     path('barmen_quest_accept/', barmen_quest_accept),
     path('come_to_basement/', come_to_basement),
+    path('attack_a_rat/', attack_a_rat),
 ]
