@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from rest_framework import generics
@@ -30,6 +31,7 @@ class MurrDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MurrSerializer
 
 
+
 User = get_user_model()
 
 
@@ -49,10 +51,12 @@ def start(request):
         Запах вкусной курочки доносится из шумного здания.<br>
         \"\"\""""
 
+
     show_btn = [
         {
             'btb': 'show_hell_gate__btn',
             'btn_text': 'Взглянуть на ворота',
+
             'def_on_click': 'look_at_hell_gate',
 
         },
@@ -60,19 +64,23 @@ def start(request):
         {
             'btb': 'show_tawern_card__btn',
             'btn_text': 'Войти в таверну',
+
             'def_on_click': 'come_to_tawern',
         }
 
     ]
 
+
     murren = User.objects.get(username=request.user.username)
     data = {'murren_id': murren.id, 'murren_avatar': murren.profile_picture.url,
             'base_card_text': text, 'show_btn': show_btn}
+
     return JsonResponse(data, status=200)
 
 
 def look_at_hell_gate(request):
     text = """\"\"\"<br>
+
         Врата ада.<br>
         И жарко и холодно.<br>
         Я представлял их по другому.<br><br>
@@ -99,6 +107,7 @@ def look_at_hell_gate(request):
 
 
 def come_to_tawern(request):
+
     text = """\"\"\"<br>
         В последнее время в таверне море людей.<br>
         Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>
@@ -106,11 +115,14 @@ def come_to_tawern(request):
         У барной стойки вы замечаете свободное место и ловко протискиваетесь сквозь отдыхающих.<br>
         \"\"\""""
 
+
     show_btn = [
         {
             'btb': 'show_barmen__btn',
             'btn_text': 'Поговорить с барменом',
+
             'def_on_click': 'barmen',
+
         }]
 
     data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
@@ -118,7 +130,6 @@ def come_to_tawern(request):
             'show_btn': show_btn
             }
     return JsonResponse(data, status=200)
-
 
 def barmen(request):
     text = """\"\"\"<br>
@@ -210,3 +221,4 @@ def attack_a_rat(request):
             'show_btn': show_btn
             }
     return JsonResponse(data, status=200)
+
