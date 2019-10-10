@@ -284,8 +284,10 @@ img {
 }
 
 .murren_stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     font-size: 18px;
-    margin-left: 70px;
     color: #00c6ff;
 
 }
@@ -314,6 +316,7 @@ img {
     margin-bottom: 5px;
 
 }
+
 /*.choose_btn {*/
 /*border: #000000 1px solid;*/
 
