@@ -20,10 +20,8 @@
 [Telegram чат всей тусовки.](https://t.me/MurrenganChat) 
 
 
-[Youtube канал со стримами и видосами.](https://www.youtube.com/murrengan)
 
-
-[Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan) 
+</pre>
 
 
 Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js //

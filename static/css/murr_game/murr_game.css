@@ -266,7 +266,6 @@ img {
     border-radius: 10px;
     position: fixed;
     width: 310px;
-    /*height: 80px;*/
     bottom: 10%;
     right: 10%;
     padding: 5px;
@@ -281,6 +280,7 @@ img {
     height: 55px;
     margin-top: 5px;
 
+
 }
 
 .murren_stat {
@@ -289,7 +289,6 @@ img {
     justify-content: space-around;
     font-size: 18px;
     color: #00c6ff;
-
 }
 
 

@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from rest_framework import generics
@@ -49,10 +50,12 @@ def start(request):
         Запах вкусной курочки доносится из шумного здания.<br>
         \"\"\""""
 
+
     show_btn = [
         {
             'btb': 'show_hell_gate__btn',
             'btn_text': 'Взглянуть на ворота',
+
             'def_on_click': 'look_at_hell_gate',
 
         },
@@ -60,19 +63,23 @@ def start(request):
         {
             'btb': 'show_tawern_card__btn',
             'btn_text': 'Войти в таверну',
+
             'def_on_click': 'come_to_tawern',
         }
 
     ]
 
+
     murren = User.objects.get(username=request.user.username)
     data = {'murren_id': murren.id, 'murren_avatar': murren.profile_picture.url,
             'base_card_text': text, 'show_btn': show_btn}
+
     return JsonResponse(data, status=200)
 
 
 def look_at_hell_gate(request):
     text = """\"\"\"<br>
+
         Врата ада.<br>
         И жарко и холодно.<br>
         Я представлял их по другому.<br><br>
@@ -92,19 +99,23 @@ def look_at_hell_gate(request):
             'def_on_click': 'come_to_tawern',
         }]
 
+
     data = {'base_card_img_url': '/static/img/murr_game/hell_gate.png',
+
             'base_card_text': text,
             'show_btn': show_btn}
     return JsonResponse(data, status=200)
 
 
 def come_to_tawern(request):
+
     text = """\"\"\"<br>
         В последнее время в таверне море людей.<br>
         Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>
-        
+
         У барной стойки освободилось место.<br>
         \"\"\""""
+
 
     show_btn = [
         {
@@ -114,6 +125,7 @@ def come_to_tawern(request):
         }]
 
     data = {'base_card_img_url': '/static/img/murr_game/Tawern.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -133,6 +145,7 @@ def barmen(request):
         Клиентам так будет спокойнее...<br>
         
         Готов заплатить 1 золотой за каждую тушку.<br>
+
         \"\"\""""
 
     show_btn = [
@@ -144,7 +157,9 @@ def barmen(request):
 
     ]
 
+
     data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -166,7 +181,9 @@ def barmen_quest_accept(request):
             'def_on_click': 'come_to_basement',
         },
     ]
+
     data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -178,7 +195,9 @@ def come_to_basement(request):
     text = """\"\"\"<br>
 
         Дубовая дверь на удивление легко открывается.<br>
+
         В дальнем углу горят желтые бусинки глаз.<br>
+
         Работа будет быстрой и простой<br>
         \"\"\""""
 
@@ -189,7 +208,9 @@ def come_to_basement(request):
             'def_on_click': 'attack_a_rat',
         },
     ]
+
     data = {'base_card_img_url': '/static/img/murr_game/tawern/tawern_basement.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -202,8 +223,11 @@ def attack_a_rat(request):
     show_btn = [
 
     ]
+
     data = {'base_card_img_url': '/static/img/murr_game/tawern/rat.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
     return JsonResponse(data, status=200)
+

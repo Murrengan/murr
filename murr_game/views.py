@@ -20,6 +20,7 @@ User = get_user_model()
 @login_required
 def murr_game(request):
 
+
     murren = User.objects.get(username=request.user.username)
 
     context = {

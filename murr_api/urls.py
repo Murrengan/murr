@@ -1,3 +1,4 @@
+
 from django.urls import path
 
 from .views import *
@@ -14,12 +15,15 @@ urlpatterns = [
     # path('rest-auth/', include('rest_auth.urls')),
     # path('rest-auth/registration/', include('rest_auth.registration.urls')),
 
+
     # murr_game
     path('start/', start),
     path('look_at_hell_gate/', look_at_hell_gate),
     path('come_to_tawern/', come_to_tawern),
+
     path('barmen/', barmen),
     path('barmen_quest_accept/', barmen_quest_accept),
     path('come_to_basement/', come_to_basement),
     path('attack_a_rat/', attack_a_rat),
 ]
+
