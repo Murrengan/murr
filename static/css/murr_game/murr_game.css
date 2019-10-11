@@ -312,9 +312,21 @@ img {
 
 .virgil_tell__panel-skill{
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 5px;
+    justify-content: space-between;
+    margin: 5px;
+    margin-bottom: 10px;
 
+
+}
+
+.skill_description {
+    border: #e83e8c 1px solid;
+    flex-basis: 75%;
+}
+
+.skill_btn {
+    flex-basis: 25%;
+    border: #333fe8 1px solid;
 }
 
 /*.choose_btn {*/
