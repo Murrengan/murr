@@ -14,7 +14,8 @@
     <script src="{% static "js/out/axios.min.js" %}"></script>
     <title>murr_game</title>
 </head>
-<body>
+
+<body ontouchstart>
 
 {% verbatim %}
 <div class="app"
@@ -61,42 +62,56 @@
 
         <transition name="fade">
 
-            <div v-if="virgil_tell"
-                 class="virgil_tell__panel">
+            <div
 
-                <div class="grid vertical-center">
+                    class="virgil_tell__panel">
 
-                    <div class="btn murren_data">
+                <div class="virgil_tell__panel-skill">
+                    <div class="skill_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, numquam.</div>
 
-                        <img v-bind:src="murren_avatar"
-                             alt="аватарочка Муррена"
-                             class="murren_avatar vertical-center">
-
-                        <table class="murren_stat disable-select vertical-center">
-                            <tbody>
-                            <tr>
-                                <td>HP</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>MP</td>
-                                <td>50</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+                    <div class="skill_btn">
+                        <div class="">
+                            <img src="/static/img/murr_game/icon/punch.png"
+                             alt=""
+                             class="murren_avatar">
+                        </div>
                     </div>
 
+                </div>
 
+
+                <div class="virgil_tell__panel-bottom">
+
+                    <div class="btn murren_data ">
+
+                        <div class=" murren_stat disable-select">
+                            <img v-bind:src="murren_avatar"
+                                 alt="аватарочка Муррена"
+                                 class="murren_avatar ">
+
+                            <table class="">
+                                <tbody>
+                                <tr>
+                                    <td>HP</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>MP</td>
+                                    <td>50</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="btn inventory">
                         <img src="/static/img/murr_game/icon/bag.jpg"
                              alt="Кнопка сумки"
-                             class="murren_avatar vertical-center">
+                             class="murren_avatar ">
                     </div>
                     <div class="btn skill">
                         <img src="/static/img/murr_game/icon/skill.jpg"
                              alt="Кнопка скилов"
-                             class="murren_avatar vertical-center">
+                             class="murren_avatar ">
                     </div>
 
                 </div>

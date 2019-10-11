@@ -31,7 +31,6 @@ class MurrDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MurrSerializer
 
 
-
 User = get_user_model()
 
 
@@ -100,7 +99,9 @@ def look_at_hell_gate(request):
             'def_on_click': 'come_to_tawern',
         }]
 
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/hell_gate.png',
+
+    data = {'base_card_img_url': '/static/img/murr_game/hell_gate.png',
+
             'base_card_text': text,
             'show_btn': show_btn}
     return JsonResponse(data, status=200)
@@ -111,8 +112,8 @@ def come_to_tawern(request):
     text = """\"\"\"<br>
         В последнее время в таверне море людей.<br>
         Столы ломятся от выпивки, а служанки не успевают разносить мясо и хлеб.<br><br>
-        
-        У барной стойки вы замечаете свободное место и ловко протискиваетесь сквозь отдыхающих.<br>
+
+        У барной стойки освободилось место.<br>
         \"\"\""""
 
 
@@ -120,33 +121,31 @@ def come_to_tawern(request):
         {
             'btb': 'show_barmen__btn',
             'btn_text': 'Поговорить с барменом',
-
             'def_on_click': 'barmen',
-
         }]
 
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
     return JsonResponse(data, status=200)
 
+
 def barmen(request):
     text = """\"\"\"<br>
 
-        Привет мой сладкий!<br>
+        Привет, сладкий!<br>
         
-        Наступают заморозки крысы ищут теплое место.<br>
-        В моем подвале завелись эти мелкие твари.<br><br>
+        С Его падением, в моем подвале завелись мелкие крысы.<br><br>
         
         Ты выглядишь достаточно крепо, что-бы разобраться с этой пакостью.<br>
         
-        Я насчитал 5 штук. Принеси мне их тушки.<br>
         
-        Клиентам будет спокойнее...<br>
-        и обед вкуснее 😉<br>
+        Клиентам так будет спокойнее...<br>
         
-        В награжу получишь мой теплый ватник (ватник +5 защита) и 1 золотой за каждую тушку.<br>
+        Готов заплатить 1 золотой за каждую тушку.<br>
+
         \"\"\""""
 
     show_btn = [
@@ -158,7 +157,9 @@ def barmen(request):
 
     ]
 
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',
+
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -180,7 +181,9 @@ def barmen_quest_accept(request):
             'def_on_click': 'come_to_basement',
         },
     ]
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png',
+
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -192,7 +195,9 @@ def come_to_basement(request):
     text = """\"\"\"<br>
 
         Дубовая дверь на удивление легко открывается.<br>
-        В темных углу  я замечаю желтые бусинки глаз.<br>
+
+        В дальнем углу горят желтые бусинки глаз.<br>
+
         Работа будет быстрой и простой<br>
         \"\"\""""
 
@@ -203,7 +208,9 @@ def come_to_basement(request):
             'def_on_click': 'attack_a_rat',
         },
     ]
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/tawern/tawern_basement.jpg',
+
+    data = {'base_card_img_url': '/static/img/murr_game/tawern/tawern_basement.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -216,7 +223,9 @@ def attack_a_rat(request):
     show_btn = [
 
     ]
-    data = {'base_card_img_url': 'http://127.0.0.1:8000/static/img/murr_game/tawern/rat.jpg',
+
+    data = {'base_card_img_url': '/static/img/murr_game/tawern/rat.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }

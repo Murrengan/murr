@@ -4,12 +4,6 @@
 
 **Выберите язык:**&nbsp; [<img src="readme/examples/en.png" title="Английский" />](readme/en) &nbsp; [<img src="readme/examples/pl.png" title="Польский" />](readme/pl)
 
-<pre>
-
-
-
-</pre>
-
 
 [Сайт](http://murrengan.ru/murrs/)
 
@@ -26,10 +20,8 @@
 [Telegram чат всей тусовки.](https://t.me/MurrenganChat) 
 
 
-[Youtube канал со стримами и видосами.](https://www.youtube.com/murrengan)
 
-
-[Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan) 
+</pre>
 
 
 Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js //

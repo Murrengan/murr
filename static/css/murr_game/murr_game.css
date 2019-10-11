@@ -266,7 +266,6 @@ img {
     border-radius: 10px;
     position: fixed;
     width: 310px;
-    height: 80px;
     bottom: 10%;
     right: 10%;
     padding: 5px;
@@ -279,12 +278,16 @@ img {
     margin-left: 5px;
     width: 55px;
     height: 55px;
+    margin-top: 5px;
+
 
 }
 
 .murren_stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     font-size: 18px;
-    margin-left: 70px;
     color: #00c6ff;
 }
 
@@ -296,6 +299,33 @@ img {
     position: absolute;
     right: 0;
 
+}
+
+.virgil_tell__panel-bottom{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+
+}
+
+
+.virgil_tell__panel-skill{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    margin-bottom: 10px;
+
+
+}
+
+.skill_description {
+    border: #e83e8c 1px solid;
+    flex-basis: 75%;
+}
+
+.skill_btn {
+    flex-basis: 25%;
+    border: #333fe8 1px solid;
 }
 
 /*.choose_btn {*/
