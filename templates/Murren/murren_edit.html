@@ -10,7 +10,8 @@
                 <input type="image" alt="" src="{{ user.profile_picture.url }}"
                        data-toggle="tooltip" data-placement="bottom" title="Измени свой аватар"
                        width="150px" height="150px" class="rounded-circle bg-light" style="outline: none;"
-                       id="profile-avatap"/>
+                       id="profile-avatap"/><br>
+                <button class="change_profile-avatap-btn btn btn-info btn-lg">Изменить аватар</button>
             </div>
 
             <div class="col border-left">
@@ -20,7 +21,8 @@
                         <p>
                             {{ field.errors }}
                             {% if field.label %}
-                                <label class="input-label_text text-muted" for="{{ field.name }}">{{ field.label }}</label>
+                                <label class="input-label_text text-muted"
+                                       for="{{ field.name }}">{{ field.label }}</label>
                             {% endif %}
                             {{ field }}
                         </p>
@@ -31,7 +33,7 @@
                 </form>
             </div>
         </div>
-    <p></p>
+        <p></p>
     </div>
 
 
@@ -88,6 +90,10 @@
         $("input[id='profile-avatap']").on('click', function () {
             $("input[id='id_profile_picture_0']").click();
             console.log($("input[id='id_profile_picture_0']").val());
+        });
+
+        $('.change_profile-avatap-btn').on('click', function () {
+            $("input[id='id_profile_picture_0']").click();
         });
 
         $('#modalCrop').on('shown.bs.modal', function () {
