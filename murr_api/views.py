@@ -92,7 +92,7 @@ def look_at_hell_gate(request):
             'def_on_click': 'come_to_tawern',
         }]
 
-    data = {'base_card_img_url': '/static/img/murr_game/hell_gate.png',
+    data = {'base_card_img_url': '/static/img/murr_game/hell_gate.jpg',
             'base_card_text': text,
             'show_btn': show_btn}
     return JsonResponse(data, status=200)
@@ -113,7 +113,7 @@ def come_to_tawern(request):
             'def_on_click': 'barmen',
         }]
 
-    data = {'base_card_img_url': '/static/img/murr_game/Tawern.png',
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern.jpg',
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -144,7 +144,7 @@ def barmen(request):
 
     ]
 
-    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.jpg',
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -166,7 +166,7 @@ def barmen_quest_accept(request):
             'def_on_click': 'come_to_basement',
         },
     ]
-    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.png',
+    data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.jpg',
             'base_card_text': text,
             'show_btn': show_btn
             }

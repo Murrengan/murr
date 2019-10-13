@@ -36,7 +36,7 @@
 
             <img alt="base card img"
                  v-bind:src="base_card_img_url"
-                 class="card-img__base">
+                 class="card-img__base onChake">
         </div>
 
         <div v-if="base_card_text"
@@ -65,14 +65,15 @@
                     class="virgil_tell__panel">
 
                 <div class="virgil_tell__panel-skill">
-                    <div class="skill_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, numquam.</div>
 
-                    <div class="skill_btn">
-                        <div class="">
+                    <div class="panel-skill__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, numquam.</div>
+
+                    <div class="panel-skill__btn">
+
                             <img src="/static/img/murr_game/icon/punch.png"
                              alt=""
-                             class="murren_avatar">
-                        </div>
+                             class="">
+
                     </div>
 
                 </div>
@@ -87,7 +88,7 @@
                                  alt="аватарочка Муррена"
                                  class="murren_avatar ">
 
-                            <table class="">
+                            <table>
                                 <tbody>
                                 <tr>
                                     <td>HP</td>
@@ -120,7 +121,7 @@
 
 
         <button class="virgil-btn"
-                v-on:click="virgil_tell = !virgil_tell"
+                v-on:click="shakeBtn(), virgil_tell = !virgil_tell"
         >Вергилий
         </button>
 
@@ -487,7 +488,7 @@
 {#                    <button type="button"#}
 {#                            class="btn btn-info btn-sm"#}
 {#                            title="Кто в таверне?"#}
-{#                            @click="shakeBtn">#}
+{#                            >#}
 {##}
 {#                        shakeBtn#}
 {#                    </button>#}

@@ -38,34 +38,29 @@
     {% include 'includes/_menu.html' %}
 </div>
 <div class="content-block">
-<header>
-    {% include 'navbar.html' %}
-</header>
+    <header>
+        {% include 'navbar.html' %}
+    </header>
 
-{#{% endif %}#}
+    <div class="container text-center">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
 
-{#{% if not tip_data %}#}
-{#    <h1>True</h1>#}
-{#{% else %}#}
-{#    <h1>False</h1>#}
-{#{% endif %}#}
+    <main>
 
-<div class="container text-center">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
+        <div class="text-center">
+            <a class="btn btn-info mb-1" href="{% url 'murr_game' %}">Войти в мурр гейм</a>
         </div>
-    {% endfor %}
-</div>
 
-<main>
-
-
-    {% block content %}
-    {% endblock content %}
+        {% block content %}
+        {% endblock content %}
 
 
-</main>
+    </main>
 </div>
 {% block js %}
 

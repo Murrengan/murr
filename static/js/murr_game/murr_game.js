@@ -62,7 +62,7 @@ new Vue({
             console.log('отработал barmen_quest_accept/');
         },
 
-        async come_to_basement(){
+        async come_to_basement() {
             await axios
                 .get('/murr_api/come_to_basement/')
                 .then(django_answer => {
@@ -74,10 +74,10 @@ new Vue({
             console.log('отработал come_to_basement/');
         },
 
-        async attack_a_rat(){
+        async attack_a_rat() {
             await axios
-            .get('/murr_api/attack_a_rat/')
-            .then(django_answer => {
+                .get('/murr_api/attack_a_rat/')
+                .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
                     this.base_card_text = django_answer.data.base_card_text;
                     this.show_btn = django_answer.data.show_btn;
@@ -90,7 +90,15 @@ new Vue({
 
         v_on_click_handler(method_name) {
             this[method_name]()
-        }
+        },
+
+        shakeBtn() {
+            const img = document.getElementsByClassName('onChake')[0];
+            img.classList.add('anim-chake');
+            setTimeout(function () {
+                img.classList.remove('anim-chake');
+            }, 250)
+        },
     },
     created() {
         axios.get('/murr_api/start/')
@@ -108,7 +116,7 @@ new Vue({
 });
 
 //
-//         _ws: 'murr/static/img/murr_game/Tawern.png',
+//         _ws: 'murr/static/img/murr_game/Tawern.jpg',
 //
 //         // switchers
 //         show_tawern: false,
@@ -124,7 +132,7 @@ new Vue({
 //         scroll_btn: false,
 //         bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
 //         skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
-//         murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
+//         murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.jpg',
 //
 //
 //         // data sets
@@ -321,7 +329,7 @@ new Vue({
 //
 //             this.show_Barmen_dialog = !this.show_Barmen_dialog;
 //             this.show_quests_panel = !this.show_quests_panel;
-//             this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png';
+//             this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.jpg';
 //             console.log('Вы начали квест Бармена')
 //
 //
