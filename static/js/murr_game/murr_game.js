@@ -5,6 +5,7 @@ new Vue({
         // murren data
         murren_id: '',
         murren_avatar: '',
+        murren_hp: 100,
 
         // enemy data
         enemy_hp: 100,
@@ -101,14 +102,29 @@ new Vue({
 
         classicPunch() {
             const img = document.getElementsByClassName('onPunch')[0];
-            img.classList.add('anim-chake');
+            img.classList.add('anim-shake');
             setTimeout(function () {
-                img.classList.remove('anim-chake');
+                img.classList.remove('anim-shake');
             }, 250);
             this.enemy_hp = this.enemy_hp - 5;
+            this.enemyAttack()
         },
 
-        myMove(){
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+
+        async enemyAttack() {
+            await this.sleep(2000);
+            const img = document.getElementsByClassName('onPunch')[0];
+            img.classList.add('anim-base_attack');
+            setTimeout(function () {
+                img.classList.remove('anim-base_attack');
+            }, 250);
+            this.murren_hp = this.murren_hp - 1;
+        },
+
+        myMove() {
             const enemy = document.getElementsByClassName('onPunch')[0];
         },
     },
@@ -258,9 +274,9 @@ new Vue({
 //         },
 //         shakeBtn() {
 //             const img = document.getElementById('onChake');
-//             img.classList.add('anim-chake');
+//             img.classList.add('anim-shake');
 //             setTimeout(function () {
-//                 img.classList.remove('anim-chake');
+//                 img.classList.remove('anim-shake');
 //             }, 250)
 //         },
 //         create_group_by_name() {
