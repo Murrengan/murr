@@ -299,6 +299,7 @@ img {
     margin: 10px;
     position: absolute;
     right: 0;
+    top: 0;
 
 }
 
@@ -320,13 +321,13 @@ img {
 }
 
 .panel-skill__description {
-    border: #e83e8c 1px solid;
     flex-basis: 75%;
+    padding: 5px;
 }
 
 .panel-skill__btn {
     flex-basis: 25%;
-    border: #333fe8 1px solid;
+    padding: 5px 5px 10px;;
 }
 
 /* BattleSystem */

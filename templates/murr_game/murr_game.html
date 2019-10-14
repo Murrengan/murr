@@ -22,21 +22,24 @@
     <div class="base_card">
 
         <div v-if="base_card_img_url"
-             class="card-img">
+             class="card-img"
+             v-bind:class="{ onPunch: can_attack }">
+
+
+            <img alt="Основное изображение на странице"
+                 v-bind:src="base_card_img_url"
+                 class="card-img__base"
+                 >
 
             <div v-if="show_enemy_data"
                  class="enemy_data">
                 <div class="container">
                     <img src="/static/img/murr_game/hp.svg" alt="" width="40">
-                    <div class="center">100</div>
+                    <div class="center">
+                        {{ enemy_hp }}</div>
                 </div>
-
             </div>
 
-
-            <img alt="base card img"
-                 v-bind:src="base_card_img_url"
-                 class="card-img__base onChake">
         </div>
 
         <div v-if="base_card_text"
@@ -62,18 +65,34 @@
 
             <div
 
+
                     class="virgil_tell__panel">
+
+
+
+
+
+
+
+
+
+
 
                 <div class="virgil_tell__panel-skill">
 
-                    <div class="panel-skill__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, numquam.</div>
+                    <div class="panel-skill__description">
+                        Классический удар
+
+                    </div>
 
                     <div class="panel-skill__btn">
 
+                        <div class="btn"
+                        v-on:click="classicPunch">
                             <img src="/static/img/murr_game/icon/punch.png"
                              alt=""
-                             class="">
-
+                             class="skill" style="border-radius: 5px">
+                        </div>
                     </div>
 
                 </div>
@@ -121,7 +140,7 @@
 
 
         <button class="virgil-btn"
-                v-on:click="shakeBtn(), virgil_tell = !virgil_tell"
+                v-on:click="virgil_tell = !virgil_tell"
         >Вергилий
         </button>
 
