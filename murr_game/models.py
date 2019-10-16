@@ -18,9 +18,15 @@ class MurrenGameData(models.Model):
     intelligence = models.IntegerField(default=5)
     luck = models.IntegerField(default=1)
 
-    inventory = models.ManyToManyField('Inventory')
-    skill = models.ManyToManyField('Skill')
-    armory = models.ManyToManyField('Armory')
+    inventory = models.ManyToManyField('Inventory', blank=True)
+    skill = models.ManyToManyField('Skill', blank=True)
+    armory = models.ManyToManyField('Armory', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name_plural = 'Данные Муррена'
 
 
 class Inventory(models.Model):
@@ -28,11 +34,23 @@ class Inventory(models.Model):
     value = models.IntegerField(default=0)
     description = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Инвентарь'
+
 
 class Skill(models.Model):
     name = models.CharField(max_length=30)
     mp_value = models.IntegerField(default=0)
     description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Умения'
 
 
 class Armory(models.Model):
@@ -41,3 +59,9 @@ class Armory(models.Model):
     defence = models.IntegerField(default=0)
     buff = models.IntegerField(default=0, help_text='Изменяет базовые характеристики')
     description = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Броня и оружие'
