@@ -3,6 +3,7 @@ new Vue({
     data: {
 
         // murren data
+        murren_data: '',
         murren_id: '',
         murren_avatar: '',
         murren_hp: 100,
