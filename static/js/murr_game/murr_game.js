@@ -132,6 +132,7 @@ new Vue({
     created() {
         axios.get('/murr_api/start/')
             .then((django_answer) => {
+                // this.murren_data = django_answer.data.murren_data;
                 this.murren_id = django_answer.data.murren_id;
                 this.base_card_text = django_answer.data.base_card_text;
                 this.show_btn = django_answer.data.show_btn;

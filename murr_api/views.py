@@ -6,6 +6,7 @@ from MurrCard.models import Murr
 from MurrCard.serializers import MurrSerializer
 from Murren.models import Murren
 from murr_api.permissions import IsAuthorOrReadOnly
+from murr_game.models import MurrenGameData, Inventory, Skill, Armory
 from .serializers import MurrenSerializer
 
 
@@ -64,6 +65,16 @@ def start(request):
         }
 
     ]
+
+    murren_game_data, created = MurrenGameData.objects.get_or_create(user=request.user)
+    if created:
+        inventory = Inventory.objects.all()
+        skill = Skill.objects.all()
+        armory = Armory.objects.all()
+        murren_game_data.inventory.add(inventory)
+        murren_game_data.skill.add(skill)
+        murren_game_data.armory.add(armory)
+    #     так добавляет все скиллы - сделать сортировку по начальным скиллам
 
     murren = User.objects.get(username=request.user.username)
     data = {'murren_id': murren.id, 'murren_avatar': murren.profile_picture.url,

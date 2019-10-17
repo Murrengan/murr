@@ -5,7 +5,9 @@ User = get_user_model()
 
 
 class MurrenGameData(models.Model):
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murren_game_data')
+
     hp = models.IntegerField(default=60)
     mp = models.IntegerField(default=20)
     lvl = models.IntegerField(default=1)
