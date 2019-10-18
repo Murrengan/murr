@@ -16,6 +16,7 @@ $(document).ready(function() {
       menublock.addClass('show-side-nav');
       contentblock.addClass('show-side-body');
       burger.addClass('show');
+
     }
     
   });

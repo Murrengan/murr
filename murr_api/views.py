@@ -7,6 +7,7 @@ from MurrCard.serializers import MurrSerializer
 from Murren.models import Murren
 from murr_api.permissions import IsAuthorOrReadOnly
 from murr_game.models import MurrenGameData, Inventory, Skill, Armory
+
 from .serializers import MurrenSerializer
 
 
@@ -103,6 +104,7 @@ def look_at_hell_gate(request):
             'def_on_click': 'come_to_tawern',
         }]
 
+
     data = {'base_card_img_url': '/static/img/murr_game/hell_gate.jpg',
             'base_card_text': text,
             'show_btn': show_btn}
@@ -116,15 +118,14 @@ def come_to_tawern(request):
         
         У барной стойки освободилось место.<br>
         \"\"\""""
-
     show_btn = [
         {
             'btb': 'show_barmen__btn',
             'btn_text': 'Поговорить с барменом',
             'def_on_click': 'barmen',
         }]
-
     data = {'base_card_img_url': '/static/img/murr_game/Tawern.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -154,8 +155,8 @@ def barmen(request):
         },
 
     ]
-
     data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -178,6 +179,7 @@ def barmen_quest_accept(request):
         },
     ]
     data = {'base_card_img_url': '/static/img/murr_game/Tawern_Barman.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -190,6 +192,7 @@ def come_to_basement(request):
 
         Дубовая дверь на удивление легко открывается.<br>
         В дальнем углу горят желтые бусинки глаз.<br>
+
         Работа будет быстрой и простой<br>
         \"\"\""""
 
@@ -201,6 +204,7 @@ def come_to_basement(request):
         },
     ]
     data = {'base_card_img_url': '/static/img/murr_game/tawern/tawern_basement.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
@@ -214,6 +218,7 @@ def attack_a_rat(request):
 
     ]
     data = {'base_card_img_url': '/static/img/murr_game/tawern/rat.jpg',
+
             'base_card_text': text,
             'show_btn': show_btn
             }
