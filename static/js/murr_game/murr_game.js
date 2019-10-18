@@ -102,12 +102,17 @@ new Vue({
 
         classicPunch() {
             const img = document.getElementsByClassName('onPunch')[0];
+            const dmg = document.getElementsByClassName('card-damage')[0];
+            dmg.classList.add('card-damage-show');
             img.classList.add('anim-shake');
             setTimeout(function () {
                 img.classList.remove('anim-shake');
             }, 250);
+            setTimeout(function () {
+                dmg.classList.remove('card-damage-show')
+            }, 2000);
             this.enemy_hp = this.enemy_hp - 5;
-            this.enemyAttack()
+            this.enemyAttack();
         },
 
         sleep(ms) {
