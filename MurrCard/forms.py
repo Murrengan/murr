@@ -21,9 +21,9 @@ class CustomCheckbox(Field):
 class MurrForm(forms.ModelForm):
 
     LIMIT_LEN_TAGS = 40
-    # captcha = ReCaptchaField(
-    #                          public_key=settings.RECAPTCHA_PUBLIC_KEY,
-    #                          private_key=settings.RECAPTCHA_PRIVATE_KEY)
+    captcha = ReCaptchaField(
+                             public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                             private_key=settings.RECAPTCHA_PRIVATE_KEY)
 
     content = forms.CharField(
         widget=TinyMCEWidget(
@@ -53,7 +53,7 @@ class MurrForm(forms.ModelForm):
     class Meta:
         model = Murr
         fields = ('title',  'description', 'content', 'tags', 'categories', 'cover',
-                  # 'captcha'
+                  'captcha'
                   # 'is_draft', 'is_public'
                   )
 
