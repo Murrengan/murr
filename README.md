@@ -26,50 +26,57 @@
 [Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan) 
 
 
-Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js //
+Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js
 
 
 <h2>Установка:</h2>
-<pre>
-Делаешь форк и ставишь звездочку.
-Дальше все просто:
-    
-    создать дирректорию mkdir murr_venv
-    
-    войти в дирректорию cd murr_venv
-    
-    скачать murr с github git clone ссылка_сгенерированная_в_твоем_репо
-    
-    открыть murr в PyCharm
-    
-    создать виртуальное окружение для python  PyCharm -> Preferences -> Progect: murr project interpreter -> 
+
+
+##### Делаешь форк и ставишь звездочку
+
+
+##### Создаешь дирректорию 
+
+    mkdir murr_venv
+
+##### Входишь в дирректорию
+    cd murr_venv
+
+##### Скачиваешь проект  с github
+    git clone ссылка_сгенерированная_в_твоем_репо (зеленая кнопка)
+
+##### Открываешь скачанный проект в PyCharm
+
+##### Создаешь виртуальное окружение для python  
+    PyCharm -> Preferences -> Progect: murr project interpreter -> 
     cogwheel -> Add... -> New environment location *workspase/murr/murr_venv -> Create
+
+##### Открываешь терминал PyCharm 
+    убедиться, что (murr_venv) отображается слева
+    если на unix - удалите из requirements.txt pywin и pipwin
+
+##### Устанавливаешь зависимости 
+    pip install -r requirements.txt
+
+##### Включаешь настройки для разработчика
+    переименовываешь файд _local_settings.py в local_settings.py
+
+##### Создаешь миграции для базы данных 
+    python manage.py makemigrations murr_game murr_chat MurrCard Murren
+    python manage.py migrate
+
+создать суперпользователя/пользователя/группу :  
+    python manage.py shell 
+    from murr.helpers import BaseHelper
+    murr = BaseHelper()
+    murr.create_superuser("admin", "admin@admin.ru", "admin")
+    murr.create_user("Greg", "Greg@Greg.ru", "Murrengan1")
+    murr.group_create("Murrengan1")
     
-    открыть термина PyCharm // убедиться, что (murr_venv) отображается слева
-    
-    если вы на unix - удалите из requirements.txt pywin и pipwin
-    
-    установить зависимости pip install -r requirements.txt
-    
-    переименовать _local_settings.py в local_settings.py
-    
-    создать миграции для базы данных python manage.py makemigrations murr_game murr_chat MurrCard Murren
-    
-    мигрировать python manage.py migrate
-    
-    создать суперпользователя/пользователя/группу :  
-        python manage.py shell 
-        from murr.helpers import BaseHelper
-        murr = BaseHelper()
-        murr.create_superuser("admin", "1@2.ru", "admin")
-        murr.create_user("Greg", "1@2.ru", "Murrengan1")
-        murr.group_create("Murrengan1")
-        
-    запустить сервер python manage.py runserver
-    
-    если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545
+запустить сервер python manage.py runserver
+
+если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545
    
-</pre>
 
 
 <h2>

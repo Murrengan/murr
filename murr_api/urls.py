@@ -23,3 +23,4 @@ urlpatterns = [
     path('come_to_basement/', come_to_basement),
     path('attack_a_rat/', attack_a_rat),
 ]
+

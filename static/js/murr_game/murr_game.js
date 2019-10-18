@@ -3,6 +3,7 @@ new Vue({
     data: {
 
         // murren data
+        murren_data: '',
         murren_id: '',
         murren_avatar: '',
         murren_hp: 100,
@@ -11,6 +12,7 @@ new Vue({
         enemy_hp: 100,
 
         // base data for card
+
         base_card_img_url: '',
         base_card_text: '',
         show_btn: [],
@@ -19,6 +21,7 @@ new Vue({
         virgil_tell: false,
         show_enemy_data: false,
         can_attack: false,
+
 
 
     },
@@ -37,6 +40,7 @@ new Vue({
 
         async look_at_hell_gate() {
             await axios
+
                 .get('/murr_api/look_at_hell_gate/')
                 .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
@@ -46,8 +50,10 @@ new Vue({
                 .catch(error => console.log(error));
             console.log('отработал look_at_hell_gate/');
         },
+
         async barmen() {
             await axios
+
                 .get('/murr_api/barmen/')
                 .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
@@ -70,6 +76,7 @@ new Vue({
         },
 
         async come_to_basement() {
+
             await axios
                 .get('/murr_api/come_to_basement/')
                 .then(django_answer => {
@@ -85,6 +92,7 @@ new Vue({
             await axios
                 .get('/murr_api/attack_a_rat/')
                 .then(django_answer => {
+
                     this.base_card_img_url = django_answer.data.base_card_img_url;
                     this.base_card_text = django_answer.data.base_card_text;
                     this.show_btn = django_answer.data.show_btn;
@@ -93,6 +101,7 @@ new Vue({
             this.virgil_tell = true;
             this.show_enemy_data = true;
             this.can_attack = true;
+
             console.log('отработал attack_a_rat/');
         },
 
@@ -132,10 +141,12 @@ new Vue({
         myMove() {
             const enemy = document.getElementsByClassName('onPunch')[0];
         },
+
     },
     created() {
         axios.get('/murr_api/start/')
             .then((django_answer) => {
+
                 this.murren_id = django_answer.data.murren_id;
                 this.base_card_text = django_answer.data.base_card_text;
                 this.show_btn = django_answer.data.show_btn;
@@ -149,6 +160,7 @@ new Vue({
 });
 
 //
+
 //         _ws: 'murr/static/img/murr_game/Tawern.jpg',
 //
 //         // switchers
@@ -282,6 +294,7 @@ new Vue({
 //             img.classList.add('anim-shake');
 //             setTimeout(function () {
 //                 img.classList.remove('anim-shake');
+
 //             }, 250)
 //         },
 //         create_group_by_name() {

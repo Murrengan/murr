@@ -28,18 +28,20 @@
 
                     {% if user.is_authenticated %}
 
-                        <li class="nav-item">
+                        <li class="nav-item nav-item-centered">
                             <a class="nav-link" href="{% url 'murr_game' %}" id="murr_game"
                                style="color:white;">murr_game<i class="fas fa-gamepad ml-1"></i></a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item nav-item-centered">
+
                             <a class="nav-link" href="{% url 'murr_create' %}" style="color:white; margin-right: 15px;"
                                title="Создать Мурр"> Создать Мурр
                                 <i class="fas fa-plus"></i>
                             </a>
                         </li>
 
-                        <li class="nav-item dropleft">
+                        <li class="nav-item dropleft nav-item-centered">
+
                             <a class="nav-link" href="#" title="Аккаунт" id="navbarDropdown" role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" style="color:white;">
@@ -49,6 +51,7 @@
 
 
                             <div class="dropdown-menu drop-menu" aria-labelledby="navbarDropdown">
+
 
 
                                 <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-cog mr-1"></i>Настройки</a>
@@ -71,6 +74,7 @@
                         </li>
                     {% endif %}
                 </ul>
+
 
             </div>
         </div>
