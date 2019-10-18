@@ -27,7 +27,6 @@ nav, footer, header, aside {
 html, body {
     height: 100%;
     width: 100%;
-    font-size: 100%;
     line-height: 1;
     font-size: 14px;
     -ms-text-size-adjust: 100%;
@@ -77,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 body {
-    background: #e8430a;
+    background: #a77ee8;
     background-size: cover;
 }
 
@@ -115,7 +114,7 @@ img {
 }
 
 .card-text {
-    background-color: aliceblue;
+    background-color: #8cffd2;
     border-radius: 5px;
     padding: 5px;
     color: #1a2a6c;
@@ -140,7 +139,7 @@ img {
 .virgil-btn {
     background-color: #0072ff;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
     position: fixed;
     bottom: 5%;
     right: 10%;
@@ -194,8 +193,10 @@ img {
 .choice_btn {
     width: 100%;
     height: 40px;
-    /*background-color: #a7e8dd;*/
+    background-color: #2a78e8;
     font-size: 20px;
+    color: whitesmoke;
+
 }
 
 
@@ -279,8 +280,6 @@ img {
     width: 55px;
     height: 55px;
     margin-top: 5px;
-
-
 }
 
 .murren_stat {
@@ -298,132 +297,87 @@ img {
     margin: 10px;
     position: absolute;
     right: 0;
+    top: 0;
 
 }
+.virgil_tell__panel-bottom {
 
-.virgil_tell__panel-bottom{
     display: flex;
     justify-content: space-around;
     margin-bottom: 5px;
 
 }
 
-
-.virgil_tell__panel-skill{
+.virgil_tell__panel-skill {
     display: flex;
     justify-content: space-between;
-    margin: 5px;
-    margin-bottom: 10px;
+    align-items: center;
+    margin: 5px 5px 10px;
+
 
 
 }
 
-.skill_description {
-    border: #e83e8c 1px solid;
+.panel-skill__description {
     flex-basis: 75%;
+    padding: 5px;
 }
 
-.skill_btn {
+.panel-skill__btn {
     flex-basis: 25%;
-    border: #333fe8 1px solid;
+    padding: 5px 5px 10px;;
 }
 
-/*.choose_btn {*/
-/*border: #000000 1px solid;*/
+/* ------------ BattleSystem ------------*/
 
-/*}*/
+.anim-base_attack {
+    animation: base_attack 0.25s;
+}
 
-/*img {*/
-/*max-width: 100%;*/
-/*}*/
+@keyframes base_attack {
+  0%   {left:0; top:0;}
+  50%  {left:0; top:30px;}
+  100% {left:0; top:0;}
+}
 
-/*.murr_game {*/
-/*margin-top: 5px;*/
-/*}*/
+.anim-shake {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
 
-/*.active_monitor {*/
-/*position: relative;*/
-/*}*/
-
-/*.murren_group {*/
-/*color: #1d2124;*/
-/*background-color: whitesmoke;*/
-/*border-radius: 5px;*/
-/*font-size: 13px;*/
-/*padding: 5px;*/
-/*margin-bottom: 5px;*/
-/*}*/
-
-/*.monitor_img {*/
-/*border-radius: 10px;*/
-/*border: solid whitesmoke 3px;*/
-/*}*/
-
-/*.monitor_wrapper {*/
-/*position: absolute;*/
-/*top: 0;*/
-/*width: 33%;*/
-/*right: 0;*/
-/*margin: 10px;*/
-
-/*}*/
-
-
-/*.murren_data_card {*/
-/*margin: 0;*/
-/*padding: 0;*/
-/*border-radius: 5px;*/
-/*background-color: white;*/
-/*}*/
-
-/*.menu-btn {*/
-/*background-color: #9fcdff;*/
-/*border-radius: 50%;*/
-/*position: fixed;*/
-/*bottom: 5%;*/
-/*right: 5%;*/
-/*width: 40px;*/
-/*height: 40px;*/
-/*outline: 0 !important;*/
-/*}*/
-
-/*.murr-btn {*/
-/*outline: 0 !important;*/
-/*}*/
-
-/*.quests_panel {*/
-/*background-color: white;*/
-/*border-radius: 5px;*/
-/*margin: 0;*/
-/*padding: 5px;;*/
-/*}*/
-
-
-/*.barmen_dialog {*/
-/*background: radial-gradient(circle farthest-corner at 85.4% 50.8%, #2193b0 0%, #6dd5ed 74.2%) no-repeat fixed;*/
-/*margin-bottom: 5px;*/
-/*border-radius: 5px;*/
-/*padding: 5px;*/
-/*text-align: center;*/
-/*}*/
-
-/*.group_members-enter-active, .group_members-leave-active {*/
-/*transition: opacity .5s;*/
-/*}*/
-
-/*.group_members-enter, .group_members-leave-to !* .fade-leave-active до версии 2.1.8 *!*/
-/*{*/
-/*opacity: 0;*/
-/*}*/
-
-/*.quest {*/
-/*background-color: whitesmoke;*/
-/*border-radius: 5px;*/
-/*color: #1d2124;*/
-/*margin-top: 5px;*/
-/*margin-bottom: 5px;*/
-/*overflow: auto;*/
-
-/*}*/
-
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
 

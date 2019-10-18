@@ -1,17 +1,27 @@
 new Vue({
     el: '#app',
-    // vuetify: new Vuetify(),
     data: {
 
+        // murren data
+        murren_data: '',
         murren_id: '',
         murren_avatar: '',
+        murren_hp: 100,
+
+        // enemy data
+        enemy_hp: 100,
+
+        // base data for card
 
         base_card_img_url: '',
         base_card_text: '',
         show_btn: [],
 
+        // switchers
         virgil_tell: false,
         show_enemy_data: false,
+        can_attack: false,
+
 
 
     },
@@ -28,8 +38,9 @@ new Vue({
             console.log('отработал come_to_tawern/');
         },
 
-        look_at_hell_gate() {
-            axios
+        async look_at_hell_gate() {
+            await axios
+
                 .get('/murr_api/look_at_hell_gate/')
                 .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
@@ -39,8 +50,10 @@ new Vue({
                 .catch(error => console.log(error));
             console.log('отработал look_at_hell_gate/');
         },
-        barmen() {
-            axios
+
+        async barmen() {
+            await axios
+
                 .get('/murr_api/barmen/')
                 .then(django_answer => {
                     this.base_card_img_url = django_answer.data.base_card_img_url;
@@ -62,7 +75,8 @@ new Vue({
             console.log('отработал barmen_quest_accept/');
         },
 
-        async come_to_basement(){
+        async come_to_basement() {
+
             await axios
                 .get('/murr_api/come_to_basement/')
                 .then(django_answer => {
@@ -74,10 +88,11 @@ new Vue({
             console.log('отработал come_to_basement/');
         },
 
-        async attack_a_rat(){
+        async attack_a_rat() {
             await axios
-            .get('/murr_api/attack_a_rat/')
-            .then(django_answer => {
+                .get('/murr_api/attack_a_rat/')
+                .then(django_answer => {
+
                     this.base_card_img_url = django_answer.data.base_card_img_url;
                     this.base_card_text = django_answer.data.base_card_text;
                     this.show_btn = django_answer.data.show_btn;
@@ -85,16 +100,48 @@ new Vue({
                 .catch(error => console.log(error));
             this.virgil_tell = true;
             this.show_enemy_data = true;
+            this.can_attack = true;
+
             console.log('отработал attack_a_rat/');
         },
 
         v_on_click_handler(method_name) {
             this[method_name]()
-        }
+        },
+
+        classicPunch() {
+            const img = document.getElementsByClassName('onPunch')[0];
+            img.classList.add('anim-shake');
+            setTimeout(function () {
+                img.classList.remove('anim-shake');
+            }, 250);
+            this.enemy_hp = this.enemy_hp - 5;
+            this.enemyAttack()
+        },
+
+        sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+
+        async enemyAttack() {
+            await this.sleep(2000);
+            const img = document.getElementsByClassName('onPunch')[0];
+            img.classList.add('anim-base_attack');
+            setTimeout(function () {
+                img.classList.remove('anim-base_attack');
+            }, 250);
+            this.murren_hp = this.murren_hp - 1;
+        },
+
+        myMove() {
+            const enemy = document.getElementsByClassName('onPunch')[0];
+        },
+
     },
     created() {
         axios.get('/murr_api/start/')
             .then((django_answer) => {
+
                 this.murren_id = django_answer.data.murren_id;
                 this.base_card_text = django_answer.data.base_card_text;
                 this.show_btn = django_answer.data.show_btn;
@@ -108,7 +155,8 @@ new Vue({
 });
 
 //
-//         _ws: 'murr/static/img/murr_game/Tawern.png',
+
+//         _ws: 'murr/static/img/murr_game/Tawern.jpg',
 //
 //         // switchers
 //         show_tawern: false,
@@ -124,7 +172,7 @@ new Vue({
 //         scroll_btn: false,
 //         bag_icon_url: '/static/img/murr_game/icon/bag.jpg',
 //         skill_icon_url: '/static/img/murr_game/icon/skill.jpg',
-//         murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.png',
+//         murr_game_Tawern: 'http://127.0.0.1:8000/static/img/murr_game/Tawern.jpg',
 //
 //
 //         // data sets
@@ -238,9 +286,10 @@ new Vue({
 //         },
 //         shakeBtn() {
 //             const img = document.getElementById('onChake');
-//             img.classList.add('anim-chake');
+//             img.classList.add('anim-shake');
 //             setTimeout(function () {
-//                 img.classList.remove('anim-chake');
+//                 img.classList.remove('anim-shake');
+
 //             }, 250)
 //         },
 //         create_group_by_name() {
@@ -321,7 +370,7 @@ new Vue({
 //
 //             this.show_Barmen_dialog = !this.show_Barmen_dialog;
 //             this.show_quests_panel = !this.show_quests_panel;
-//             this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.png';
+//             this.murr_game_Tawern = 'http://127.0.0.1:8000/static/img/murr_game/Tawern_Barman.jpg';
 //             console.log('Вы начали квест Бармена')
 //
 //

@@ -20,10 +20,10 @@ class Actions:
         actions_control = {'power': 10, 'help_text': 'Попытка напугать цель на 2 хода хода, мана 30'}
         healing = {'power': 10, 'help_text': 'Исцеление цели 20, мана 15'}
         return [cls.punch, mental_strike, actions_control, healing]
-    #
-    # @classmethod
-    # def trick(cls):
-    #     liquid = {'power': 0, 'help_text': 'Возможность группе уклониться от атаки на 5 ходов, уклонение +20%, мана 20'}
-    #     sleep = {'power': 0, 'help_text': 'Попытка усыпить или ослабить цель на 3 хода хода, мана 20'}
-    #     blow = {'power': 15, 'help_text': 'Классический удар сильнее на 15, вероятность критического удара +15%,мана 20'}
-    #     return [cls.punch, liquid, sleep, blow]
+
+    @classmethod
+    def trick(cls):
+        liquid = {'power': 0, 'help_text': 'Возможность группе уклониться от атаки на 5 ходов, уклонение +20%, мана 20'}
+        sleep = {'power': 0, 'help_text': 'Попытка усыпить или ослабить цель на 3 хода хода, мана 20'}
+        blow = {'power': 15, 'help_text': 'Классический удар сильнее на 15, вероятность критического удара +15%,мана 20'}
+        return [cls.punch, liquid, sleep, blow]

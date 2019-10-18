@@ -12,12 +12,11 @@ $(document).ready(function() {
       menublock.removeClass('show-side-nav');
       contentblock.removeClass('show-side-body');
       burger.removeClass('show');
-      $('body').css('overflow-x', 'auto');
     }else{
       menublock.addClass('show-side-nav');
       contentblock.addClass('show-side-body');
       burger.addClass('show');
-      $('body').css('overflow-x', 'hidden');
+
     }
     
   });

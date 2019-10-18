@@ -132,6 +132,13 @@ input[type="image"] {
     color: white;
 }
 
+.content-block {
+    transition: .3s;
+    width: 100%;
+    height: 100%;
+}
+
+
 .menu-block {
     position: fixed;
     width: 200px;
