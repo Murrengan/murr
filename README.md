@@ -8,80 +8,91 @@
 [Сайт](http://murrengan.ru/murrs/)
 
 
-<h2>
-Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
-</h2>
+## Социальная сеть, где люди помогают друг другу в достижении поставленных целей.
 
-<h3>
-Мы есть тут:
-</h3>
+### Мы есть тут:
 
-
-[Telegram чат всей тусовки.](https://t.me/MurrenganChat) 
-
-
-[Youtube канал со стримами и видосами.](https://www.youtube.com/murrengan)
-
-
-[Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan) 
+- [Telegram чат всей тусовки.](https://t.me/MurrenganChat)
+- [Youtube канал со стримами и видосами.](https://www.youtube.com/murrengan)
+- [Trello - список задач.](https://trello.com/b/yfjytAFU/murrengan)
 
 
 Основой проекта является язык программирования python и javaScript // фреймворки django и vue.js
 
 
-<h2>Установка:</h2>
-
+## Установка
 
 ##### Делаешь форк и ставишь звездочку
 
-
 ##### Создаешь дирректорию 
 
-    mkdir murr_venv
+```shell script
+mkdir murr_venv
+```
 
 ##### Входишь в дирректорию
-    cd murr_venv
 
-##### Скачиваешь проект  с github
+```shell script
+cd murr_venv
+```
+
+##### Скачиваешь проект с github
+
     git clone ссылка_сгенерированная_в_твоем_репо (зеленая кнопка)
 
 ##### Открываешь скачанный проект в PyCharm
 
-##### Создаешь виртуальное окружение для python  
-    PyCharm -> Preferences -> Progect: murr project interpreter -> 
+##### Создаешь виртуальное окружение для python
+
+    PyCharm -> Preferences -> Project: murr project interpreter ->
     cogwheel -> Add... -> New environment location *workspase/murr/murr_venv -> Create
 
-##### Открываешь терминал PyCharm 
-    убедиться, что (murr_venv) отображается слева
-    если на unix - удалите из requirements.txt pywin и pipwin
+##### Открываешь терминал PyCharm
 
-##### Устанавливаешь зависимости 
-    pip install -r requirements.txt
+Убедиться, что `(murr_venv)` отображается слева
+
+Если на **Unix** - удалите из `requirements.txt` библиотеки **pywin** и **pipwin**
+
+##### Устанавливаешь зависимости
+
+```shell script
+pip install -r requirements.txt
+```
 
 ##### Включаешь настройки для разработчика
-    переименовываешь файд _local_settings.py в local_settings.py
 
-##### Создаешь миграции для базы данных 
-    python manage.py makemigrations murr_game murr_chat MurrCard Murren
-    python manage.py migrate
+Переименовываешь файл `_local_settings.py` в `local_settings.py`
 
-создать суперпользователя/пользователя/группу :  
-    python manage.py shell 
-    from murr.helpers import BaseHelper
-    murr = BaseHelper()
-    murr.create_superuser("admin", "admin@admin.ru", "admin")
-    murr.create_user("Greg", "Greg@Greg.ru", "Murrengan1")
-    murr.group_create("Murrengan1")
-    
-запустить сервер python manage.py runserver
+##### Создаешь миграции для базы данных
 
-если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545
-   
+```shell script
+python manage.py makemigrations murr_game murr_chat MurrCard Murren
+python manage.py migrate
+```
 
+##### Создать суперпользователя/пользователя/группу
 
-<h2>
-Да пребудет с нами сила!
-</h2>
+```shell script
+python manage.py shell
+```
+
+```python
+from murr.helpers import BaseHelper
+murr = BaseHelper()
+murr.create_superuser("admin", "admin@admin.ru", "admin")
+murr.create_user("Greg", "Greg@Greg.ru", "Murrengan1")
+murr.group_create("Murrengan1")
+```
+
+##### Запустить сервер
+
+```shell script
+python manage.py runserver
+```
+
+Если возникла проблема с сертификатом у рекапчи -> https://stackoverflow.com/a/53310545  
+
+## Да пребудет с нами сила!
 
 ## Команда
 
@@ -89,17 +100,14 @@
 ---|---|---|---|---
 **Murrengan** | **Sergiej Selin** | **dipperside** | **das-dev** | **jKEeY**
 
-
-
 [<img src="https://avatars0.githubusercontent.com/u/19286422?s=400&v=4" width="150" height="150" />](https://github.com/asechnaya)  | [<img src="https://avatars0.githubusercontent.com/u/33540273?s=400&v=4" width="150" height="150" />](https://github.com/Kuzyashin)  | [<img src="https://avatars2.githubusercontent.com/u/36294725?s=400&v=4" width="150" height="150" />](https://github.com/alexvelfr)  | [<img src="https://avatars3.githubusercontent.com/u/40520443?s=400&v=4" width="150" height="150" />](https://github.com/ast3310)  |
 |---|---|---|---|
 **Asja** | **Alexey Kuzyashin** | **alexvelfr** | **Astemir Unarokov**
 
-<h2>
-Частые вопросы/FAQ
-</h2>
-<hr>
-<h3>
-Как официально попасть в проект?
-</h3>
+## Частые вопросы/FAQ
+
+---
+
+### Как официально попасть в проект?
+
 Сделать пулл реквест, который будет смержен в основной проект и пообщаться с текущей командой (голос/переписка/встреча в реале)
