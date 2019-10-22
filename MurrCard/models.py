@@ -28,7 +28,7 @@ class Murr(models.Model):
     content = HTMLField('Content')
     timestamp = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='murrs')
-    categories = models.CharField(max_length=20, verbose_name='Категория', choices=CATEGORIES)
+    categories = models.CharField(max_length=20, verbose_name='Категория', choices=CATEGORIES, blank=True)
     featured = models.BooleanField(default=True)
     cover = models.ImageField(blank=True, upload_to='murren_pics')
     tags = TaggableManager(blank=True, verbose_name='Теги', help_text="Список тегов через запятую. Максимум 40 символов. # ставить НЕ НАДО!")

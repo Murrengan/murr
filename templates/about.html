@@ -1,32 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
+{{% block css %}
+    {{ block.super }}
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        .card-text {
+            background-color: #8cffd2;
+            border-radius: 5px;
+            padding: 5px;
+            color: #1a2a6c;
+            text-align: center;
+            font-size: 18px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+    .about-font{
+        font-family: 'PT Sans', sans-serif;
+    }
+    </style>
+{% endblock %}
+
+
 {% block content %}
-  <section>
-    <div class="container text-center mb-4">
-      <h2 class="">Murrengan</h2>
-    </div>
-  </section>
 
-    <h3 class="text-center">0.8.337v</h3>
+    <div class="container about-font">
 
-  <section>
-    <div class="container text-center">
-      <div class="p-3">
-        <h3 class="mb-3">В команде единомышленников <br> добьешься большего,<br> чем в одиночку!</h3>
-        <img alt="" src="{% static "/img/about/about_logo.png" %}" width="150" height="150" class="img-fluid">
-      </div>
-    </div>
-  </section>
+        <div class="card-text">
+            <h2 class="mb-3">Учим программирование вместе.</h2>
+            <p>Если ты хочешь понять, что такое программирование,<br>
+                принять участие в настоящем проекте<br>
+                или найти друзей - добро пожаловать в Мурренган!<br><br>
 
-  <section>
-    <div class="text-center">
-      <p>Дополнительные ресурсы:</p>
-      <a href="https://vk.com/murrengan"><img alt="" src="{% static "/img/about/vk_about.png" %}" class="img-fluid"></a>
-      <a href="https://www.youtube.com/murrengan"><img alt="" src="{% static "/img/about/youtube_about.png" %}"
-                                                       class="img-fluid"></a>
-      <a href="https://t.me/MurrenganChat"><img alt="" src="{% static "/img/about/telegram_about.png" %}"
-                                                class="img-fluid"></a>
+
+                Фронтенд, бекенд и игровой модуль murrengan разрабатывается <br>
+                как открытое программное обеспечение.
+
+                </p>
+
+            <p class="text-muted">Версия сайта - 0.8.357</p>
+        </div>
+
     </div>
-  </section>
+
+
+    <div class="text-center mt-5">
+        <p>Официальные каналы:</p>
+        <a href="https://vk.com/murrengan"><img alt="" src="{% static "/img/about/vk_about.png" %}"></a>
+        <a href="https://www.youtube.com/murrengan"><img alt="" src="{% static "/img/about/youtube_about.png" %}"></a>
+        <a href="https://t.me/MurrenganChat"><img alt="" src="{% static "/img/about/telegram_about.png" %}"></a>
+
+    </div>
 
 {% endblock content %}
