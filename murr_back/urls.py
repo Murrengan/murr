@@ -9,5 +9,6 @@ urlpatterns = [
 
     # local
     path('murren/', include('murren.urls')),
+    path('murr_card/', include('murr_card.urls')),
 
 ]
