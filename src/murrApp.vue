@@ -229,7 +229,7 @@
 
     .border {
         border: #999999;
-        background-color: #666;
+        background-color: #9e69a3;
         max-width: 768px;
         margin: 0 auto;
         border-radius: 5px;
