@@ -64,11 +64,11 @@
 
         <div class="murr_menu">
 
-            <div class="murr_button_tooltip">This is menu btn --></div>
+            <!-- <div class="murr_button_tooltip">This is menu btn </div> -->
 
             <a class="murr_button"
                v-on:click="click_murr_btn">
-                murr
+                <i class="fas fa-bars"></i>
             </a>
 
         </div>
@@ -100,7 +100,7 @@
 <style>
 
     .pop_up_container {
-        border: #00c6ff solid 5px;
+        /*border: #00c6ff solid 5px;*/
         background-color: rgba(0, 0, 0, .3);
         border-radius: 5px;
         z-index: 1;
@@ -135,34 +135,45 @@
 
     body {
         background-color: #663399;
-        color: #ffc0cb;
+        color: #fff;
         font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
     }
 
+    .h1 {
+        margin-bottom: 10px;
+    }
 
     h1 {
         text-align: center;
-        color: #7dffd9;
+        color: #fff;
         margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
     }
 
     h2 {
         text-align: center;
-        color: #ff0a36;
+        color: #fff;
         margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
     }
 
     h3 {
         text-align: center;
-        color: #ffc400;
+        color: #fff;
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
     }
 
     .container {
         display: flex;
-        max-width: 1140px;
-        margin: 1.1rem auto;
+        max-width: 1200px;
+        margin: 30px auto;
         padding: 0 50px;
-        justify-content: space-around
+        justify-content: space-between;
     }
 
 
@@ -174,19 +185,19 @@
         text-decoration: none;
         outline: none;
         color: #fff;
-        background-color: #4CAF50;
+        background-color: #E67CB9;
         border: none;
         border-radius: 5px;
-        box-shadow: 0 5px #999;
+        box-shadow: 0 5px #AB5C9A;
         margin-right: 0.2rem;
     }
 
     .button:hover {
-        background-color: #3e8e41
+        background-color: #FA87E1;
     }
 
     .button:active {
-        background-color: #3e8e41;
+        background-color: #AB5C9A;
         box-shadow: 0 0 #666;
         transform: translateY(4px);
     }
@@ -198,7 +209,7 @@
         padding: 10px;
         position: relative;
         color: aliceblue;
-        box-shadow: 0 5px #666;
+        box-shadow: 0 5px #00499C;
         outline: 0 !important;
         cursor: pointer;
     }
@@ -208,7 +219,7 @@
     }
 
     .murr_button:active {
-        background-color: #00c6ff;
+        background-color: #00499C;
         transform: translateY(4px);
         box-shadow: 0 0 #666;
     }
@@ -229,20 +240,20 @@
 
     .border {
         border: #999999;
-        background-color: #666;
-        max-width: 768px;
+        background-color: #4d2179;
+        max-width: 1140px;
         margin: 0 auto;
         border-radius: 5px;
-        padding: 10px;;
+        padding: 30px;
     }
 
     input {
         width: 300px;
-        height: 50px;
         padding: 5px;
         margin-bottom: 5px;
         border-radius: 5px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        padding: 10px 20px;
     }
 
     .form {
@@ -253,6 +264,11 @@
         width: 100px;
         height: 50px;
         border-radius: 5px;
+    }
+
+    li > a {
+        color: #f2f2f2;
+        margin-left: 10px; 
     }
 
 </style>
