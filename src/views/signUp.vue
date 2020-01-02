@@ -30,7 +30,7 @@
 
             <br><br>
 
-            <button type="submit">Погнали</button>
+            <button type="submit" class="button">Погнали</button>
 
         </form>
     </div>
