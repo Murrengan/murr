@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import App from './murrApp.vue'
-import router from "./router";
+import App from './MurrApp.vue'
+import router from "./plugins/router";
 
 Vue.config.productionTip = false;
 

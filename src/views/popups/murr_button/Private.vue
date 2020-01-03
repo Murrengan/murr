@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Private information</h1>
-        <img src="../../all_images/she.jpg" alt="she" class="she">
+        <img src="../../../../public/img/she.jpg" alt="she" class="she">
     </div>
 </template>
 

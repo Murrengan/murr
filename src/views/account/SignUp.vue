@@ -6,27 +6,22 @@
         <form class="form"
               v-on:submit.prevent="on_click">
 
-            <label>
-                <input type="text"
-                       v-model="murren_name"
-                       placeholder="Имя Муррена">
-            </label>
+            <input type="text"
+                   v-model="murren_name"
+                   placeholder="Имя Муррена">
 
             <br>
 
-            <label>
-                <input type="email"
-                       v-model="email"
-                       placeholder="Почта">
-            </label>
+            <input type="email"
+                   v-model="email"
+                   placeholder="Почта">
 
             <br>
 
-            <label>
-                <input type="password"
-                       v-model="password"
-                       placeholder="Пароль">
-            </label>
+            <input type="password"
+                   v-model="password"
+                   placeholder="Пароль">
+
 
             <br><br>
 

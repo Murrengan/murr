@@ -86,7 +86,6 @@
 
         watch: {
             '$route'() {
-                // eslint-disable-next-line no-console
                 this.murr_btn_clicked = false;
             }
         },
