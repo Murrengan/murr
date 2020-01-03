@@ -24,37 +24,32 @@
 
                 <div class="pop_up_container">
                     <router-link to="/news">
-                        <span class="button"
-                              v-on:click="click_murr_btn">
+                        <span class="button">
                             Новости</span>
                     </router-link>
 
                     <router-link to="/about">
                         <span
-                                class="button"
-                                v-on:click="click_murr_btn">
+                                class="button">
                             О мурренган</span>
                     </router-link>
 
                     <router-link to="/team">
                         <span
-                                class="button"
-                                v-on:click="click_murr_btn">
+                                class="button">
                             Команда</span>
                     </router-link>
 
                     <router-link to="/stack">
                         <span
-                                class="button"
-                                v-on:click="click_murr_btn">
+                                class="button">
                             Стек</span>
                     </router-link>
 
                     <div class="bottom">
                         <router-link to="/private">
                         <span
-                                class="button"
-                                v-on:click="click_murr_btn">
+                                class="button">
                             Личное</span>
                         </router-link>
                     </div>
@@ -89,9 +84,16 @@
             }
         },
 
+        watch: {
+            '$route'() {
+                // eslint-disable-next-line no-console
+                this.murr_btn_clicked = false;
+            }
+        },
+
         methods: {
             click_murr_btn() {
-                return this.murr_btn_clicked = !this.murr_btn_clicked;
+                this.murr_btn_clicked = !this.murr_btn_clicked;
             }
         }
     }
