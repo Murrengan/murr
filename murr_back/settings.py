@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,9 @@ INSTALLED_APPS = [
 
     # 3rd party
     'rest_framework',
+    # 'djoser',
+    'corsheaders',
+    # 'rest_framework_simplejwt.token_blacklist',
 
     # local
     'murren.apps.MurrenConfig',
@@ -33,6 +37,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # 3rd party
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,3 +117,35 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'murren.Murren'
+
+# CSRF_COOKIE_SECURE = True
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'murrengan.test@gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_PASSWORD = 'oxsltrnytnjjeluq'
+
+DEFAULT_FROM_EMAIL = 'Письмо от Мурренган <murrengan.test@gmail.com>'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ROTATE_REFRESH_TOKENS': True,
+    # 'BLACKLIST_AFTER_ROTATION': True,
+
+}

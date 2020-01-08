@@ -1,10 +1,71 @@
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse, JsonResponse
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+import json
+
 # 3rd party
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+# local
+from .forms import MurrenSignupForm
+
+Murren = get_user_model()
 
 
 class MurrensMethods(APIView):
 
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        data = {'Who is Murren?': 'Murren is a main part of Murrengan'}
+        r = Murren.objects.get(id=request.user.id)
+        data = {'murren_name': r.username}
         return Response(data)
+
+
+def murren_register(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        murren_data = {
+            'username': json_data['username'],
+            'email': json_data['email'],
+            'password': json_data['password']
+        }
+
+        form = MurrenSignupForm(murren_data)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.set_password(murren_data.get('password'))
+            user.save()
+
+            message = 'http://127.0.0.1:8080' + '/murren_email_activate/?activation_code=' \
+                      + urlsafe_base64_encode(force_bytes(user.pk))
+            subject = 'Активация аккаунта Муррена'
+            email = EmailMessage(subject, message, to=[murren_data.get('email')])
+            email.send()
+
+            return JsonResponse({'is_murren_created': 'true'})
+
+        else:
+            return JsonResponse(form.errors)
+
+
+def murren_activate(request):
+    if request.method == 'POST':
+        try:
+            json_data = json.loads(request.body)
+            murren_id = force_text(urlsafe_base64_decode(json_data['murren_id']))
+            murren = Murren.objects.get(pk=murren_id)
+        except(TypeError, ValueError, OverflowError, Murren.DoesNotExist) as error:
+            print(error)
+            murren = None
+        if murren is not None:
+            murren.is_active = True
+            murren.save()
+            return HttpResponse("User is active now")
+        else:
+            return HttpResponse('Activation link is invalid!')
