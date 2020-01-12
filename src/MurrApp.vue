@@ -1,21 +1,39 @@
 <template>
     <div id="murr_app">
-        <div class="container">
 
-            <router-link to="/login">
+        <template v-if="isAuthenticatedGetter">
+            <div class="container">
+
+                <span
+                        class="button"
+                        v-on:click="murrenLogout">
+                        Выйти</span>
+
+            </div>
+
+        </template>
+
+
+        <template v-else
+        >
+
+            <div class="container">
+
+                <router-link to="/login">
                     <span
                             class="button"
                             v-on:click="murr_btn_clicked = false">
                         Войти</span>
-            </router-link>
+                </router-link>
 
-            <router-link to="/sign_up">
+                <router-link to="/sign_up">
                     <span
                             class="button"
                             v-on:click="murr_btn_clicked = false">
                         Зарегистрироваться</span>
-            </router-link>
-        </div>
+                </router-link>
+            </div>
+        </template>
 
 
         <transition name="murr_fade">
@@ -57,7 +75,24 @@
             </div>
         </transition>
 
+
+        <div class="check_authenticated">
+
+            <a class="murr_button"
+               v-on:click="check_is_murren_authenticated">
+                Запрос только для авторизированного
+            </a>
+
+
+            <h1 v-if="text_check_is_murren_authenticated">
+
+                {{ text_check_is_murren_authenticated }}</h1>
+
+            <h1 v-else>тут имя муррена</h1>
+
+        </div>
         <div class="murr_menu">
+
 
             <div class="murr_button_tooltip">This is menu btn --></div>
 
@@ -76,11 +111,17 @@
 </template>
 
 <script>
+    import axios from 'axios'
+    import {mapGetters} from 'vuex'
+    import {mapActions} from 'vuex'
+
     export default {
 
         data() {
             return {
                 murr_btn_clicked: false,
+
+                text_check_is_murren_authenticated: ''
             }
         },
 
@@ -91,9 +132,31 @@
         },
 
         methods: {
+
+            async check_is_murren_authenticated() {
+
+                let text = await axios.get('/murren/');
+
+                this.text_check_is_murren_authenticated = text.data.murren_name
+            },
+
             click_murr_btn() {
+
                 this.murr_btn_clicked = !this.murr_btn_clicked;
-            }
+            },
+
+            ...mapActions({
+
+                murrenLogout: 'auth/murrenLogout'
+            }),
+        },
+
+        computed: {
+
+            ...mapGetters({
+
+                isAuthenticatedGetter: 'auth/isAuthenticatedGetter',
+            })
         }
     }
 </script>
@@ -126,6 +189,19 @@
         grid-area: bottom;
     }
 
+    .check_authenticated {
+        bottom: 20%;
+        z-index: 0.5;
+        position: fixed;
+        right: 10%;
+        display: flex;
+        align-items: center
+    }
+
+    .submit_btn {
+        margin-top: 5px;
+    }
+
     .murr_fade-enter-active, .murr_fade-leave-active {
         transition: opacity 0.2s;
     }
@@ -156,6 +232,10 @@
     h3 {
         text-align: center;
         color: #ffc400;
+    }
+
+    p {
+        margin: 0;
     }
 
     .container {

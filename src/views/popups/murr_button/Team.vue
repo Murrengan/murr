@@ -1,15 +1,20 @@
 <template>
+
     <div class="border">
+
         <h1>Team</h1>
-        <p>If you interested in programming and web development, join in our Murrengan brotherhood.</p>
-        <p>Our primary goal for 2020 is create web app with common logic, like:</p>
-        <ol>
-            <li>user registration<a href="">more - тут описание</a></li>
-            <li>murr creation<a href="">more (editor.js) - тут описание</a></li>
-            <li>chat application<a href="">more - тут описание</a></li>
-            <li>payments<a href="">more - тут описание</a></li>
-            <li>cart<a href="">more - тут описание</a></li>
-            <li>available online at murrengan.ru<a href="">more - тут описание</a></li>
-        </ol>
+
+        <p>If you interested in programming and web development, join in our Murrengan brotherhood:</p>
+
+        <ul>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://discord.gg/gHFtAT3">Дискорд</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/murrengan/">Ютюб</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://t.me/MurrenganChat/">Телеграм</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://vk.com/murrengan">Вк</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/Murrengan/murr/">Github</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="http://www.murrengan.ru/">Сайт</a></li>
+        </ul>
+
     </div>
+
 </template>
