@@ -27,16 +27,22 @@ class MurrensMethods(APIView):
 
 
 def murren_register(request):
+
     if request.method == 'POST':
+
         json_data = json.loads(request.body)
+
         murren_data = {
+
             'username': json_data['username'],
             'email': json_data['email'],
             'password': json_data['password']
         }
 
         form = MurrenSignupForm(murren_data)
+
         if form.is_valid():
+
             user = form.save(commit=False)
             user.is_active = False
             user.set_password(murren_data.get('password'))
@@ -51,21 +57,31 @@ def murren_register(request):
             return JsonResponse({'is_murren_created': 'true'})
 
         else:
+
             return JsonResponse(form.errors)
 
 
 def murren_activate(request):
+
     if request.method == 'POST':
+
         try:
+
             json_data = json.loads(request.body)
             murren_id = force_text(urlsafe_base64_decode(json_data['murren_id']))
             murren = Murren.objects.get(pk=murren_id)
+
         except(TypeError, ValueError, OverflowError, Murren.DoesNotExist) as error:
-            print(error)
+
             murren = None
+
         if murren is not None:
+
             murren.is_active = True
             murren.save()
+
             return HttpResponse("User is active now")
+
         else:
+
             return HttpResponse('Activation link is invalid!')

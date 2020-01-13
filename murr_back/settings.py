@@ -121,12 +121,12 @@ AUTH_USER_MODEL = 'murren.Murren'
 # CSRF_COOKIE_SECURE = True
 
 CORS_ORIGIN_WHITELIST = [
+
     "http://localhost:8080",
     "http://127.0.0.1:8080",
 ]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = 'murrengan.test@gmail.com'
@@ -137,15 +137,20 @@ DEFAULT_FROM_EMAIL = 'Письмо от Мурренган <murrengan.test@gmail
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 REST_FRAMEWORK = {
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
+
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=15),
-    'ROTATE_REFRESH_TOKENS': True,
-    # 'BLACKLIST_AFTER_ROTATION': True,
 
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+
+    # when we want to add refresh token to blacklist, uncomment this field and make migrations.
+    # with this have some problem to remove murren form db
+    # 'BLACKLIST_AFTER_ROTATION': True,
 }
