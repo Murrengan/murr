@@ -6,14 +6,6 @@
 
         <form class="form"
               v-on:submit.prevent="murrenSignup">
-
-            <!-- <input type="text"
-                   id="murren_name"
-                   :class="{ error: error_container.hasOwnProperty('username') }"
-                   v-model="murrenName"
-                   placeholder="Имя Муррена">
-            <p v-if="error_container.hasOwnProperty('username')">{{ error_container.username }}</p>
-             -->
             <MurrInput  
                 type="text" 
                 placeholder="Имя Муррена" 
@@ -22,14 +14,6 @@
                 @input="val => murrenName = val" />
             <br>
 
-            <!-- <input type="email"
-                   id="email"
-                  :class="{ error: error_container.hasOwnProperty('email') }"
-                   v-model="murrenEmail"
-                   placeholder="Почта">
-            <p v-if="error_container.hasOwnProperty('email')">{{ error_container.email }}</p>
-            <br> -->
-
             <MurrInput  
                 type="email" 
                 placeholder="Почта" 
@@ -37,15 +21,6 @@
                 :errorText=" error_container.hasOwnProperty('email') ? error_container.email : null " 
                 @input="val => murrenEmail = val" />
             <br>
-
-            <!-- <input type="password"
-                   id="password"
-                   :class="{ error: error_container.hasOwnProperty('password') }"
-                   v-model="password"
-                   placeholder="Пароль">
-
-            <p v-if="error_container.hasOwnProperty('password')">{{ error_container.password }}</p>
-             -->
             
             <MurrInput  
                 type="password" 
@@ -88,33 +63,11 @@
 
 
                 murr_back_errors: '',
-
-                error_text: [],
                 error_container: {},
-
-                murren_name_form_error: false,
-                murren_email_form_error: false,
-                password_form_error: false,
 
                 input_have_error: false
             }
         },
-
-        watch: {
-
-            murren_name() {
-                this.reset_error_class_and_text();
-            },
-
-            murrenEmail() {
-                this.reset_error_class_and_text();
-            },
-
-            password() {
-                this.reset_error_class_and_text();
-            },
-        },
-
         methods: {
 
             async murrenSignup() {
@@ -135,22 +88,6 @@
                     this.error_container = {};
 
                     for (let error_field in murr_back_response.data) {
-
-                        // if (error_field === 'username') {
-
-                        //     this.murren_name_form_error = true;
-                        //     this.error_text.push(murr_back_response.data[error_field][0]);
-
-                        // } else if (error_field === 'email') {
-
-                        //     this.murren_email_form_error = true;
-                        //     this.error_text.push(murr_back_response.data[error_field][0]);
-
-                        // } else if (error_field === 'password') {
-
-                        //     this.password_form_error = true;
-                        //     this.error_text.push(murr_back_response.data[error_field][0]);
-                        // }
                         this.error_container = {
                             ...this.error_container,
                             [error_field]: murr_back_response.data[error_field][0]
