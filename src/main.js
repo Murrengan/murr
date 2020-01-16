@@ -34,7 +34,7 @@ axios.interceptors.response.use((response) => {
 
     const originalRequest = error.config;
 
-    if (error.response.status === 401
+    if ((error.response.status === 401 || error.response.status === 400)
         &&
         originalRequest.url.includes('/murren/token_refresh/')) {
 
@@ -74,7 +74,7 @@ axios.interceptors.response.use((response) => {
 });
 
 
-store.dispatch('auth/set_token', {
+store.dispatch('auth/setToken', {
 
     access: localStorage.getItem('accessToken'),
     refresh: localStorage.getItem('refreshToken')

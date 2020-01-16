@@ -46,11 +46,14 @@ export default {
 
         async murrenLogout({commit}) {
 
+            localStorage.setItem('accessToken', null);
+            localStorage.setItem('refreshToken', null);
+
             commit('LOGOUT_MURREN');
         },
 
 
-        async set_token({commit}, token) {
+        async setToken({commit}, token) {
 
             if (token) {
                 commit('SET_TOKEN', token);

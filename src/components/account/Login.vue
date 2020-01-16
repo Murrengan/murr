@@ -20,7 +20,8 @@
             <br><br>
 
             <button type="submit">
-                Погнали</button>
+                Погнали
+            </button>
 
         </form>
 
@@ -31,6 +32,8 @@
 <script>
 
     import axios from 'axios'
+    import {mapActions} from 'vuex'
+
 
     export default {
 
@@ -62,8 +65,13 @@
                     this.$store.commit('auth/AUTHENTICATE');
                 }
 
-                return this.$store.dispatch('auth/set_token', tokens.data)
+                this.setToken(tokens.data).then()
             },
+
+            ...mapActions({
+
+                setToken: 'auth/setToken'
+            }),
         },
     }
 
