@@ -17,8 +17,6 @@ urlpatterns = [
     path('register/', csrf_exempt(murren_register), name='murren_register'),
     path('activation/', csrf_exempt(murren_activate), name='murren_activate'),
 
-    # path('private_information/', private_information, name='private_information'),
-
     # 3rd party
     path('token_create/', TokenObtainPairView.as_view(), name='obtain_token_pair'),
     path('token_refresh/', TokenRefreshView.as_view(), name='token_refresh'),

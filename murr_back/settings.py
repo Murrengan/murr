@@ -27,8 +27,9 @@ INSTALLED_APPS = [
 
     # 3rd party
     'rest_framework',
-    # 'djoser',
     'corsheaders',
+
+    # if we want to add refresh token to blacklist
     # 'rest_framework_simplejwt.token_blacklist',
 
     # local
@@ -40,6 +41,7 @@ MIDDLEWARE = [
     # 3rd party
     'corsheaders.middleware.CorsMiddleware',
 
+    # local
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,8 +56,7 @@ ROOT_URLCONF = 'murr_back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,8 +118,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'murren.Murren'
-
-# CSRF_COOKIE_SECURE = True
 
 CORS_ORIGIN_WHITELIST = [
 
