@@ -6,12 +6,14 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 import json
 
 # 3rd party
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # local
 from .forms import MurrenSignupForm
+from .serializers import PasswordResetSerializer, PasswordResetConfirmSerializer
 
 Murren = get_user_model()
 
@@ -54,7 +56,7 @@ def murren_register(request):
             email = EmailMessage(subject, message, to=[murren_data.get('email')])
             email.send()
 
-            return JsonResponse({'is_murren_created': 'true'})
+            return JsonResponse({'is_murren_created': 'true'}, status=status.HTTP_201_CREATED)
 
         else:
 
@@ -85,3 +87,33 @@ def murren_activate(request):
         else:
 
             return HttpResponse('Activation link is invalid!')
+
+
+class PasswordResetView(generics.CreateAPIView):
+    """End Point reset password"""
+    serializer_class = PasswordResetSerializer
+    permission_classes = (AllowAny,)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.serializer = None
+
+    def post(self, request, *args, **kwargs):
+        self.serializer = self.get_serializer(data=request.data)
+        if self.serializer.is_valid():
+            self.serializer.save()
+            if not kwargs.get('heir', False):
+                kwargs['status_successfully'] = {"detail": f"Инструкция по восстановлению пароля отправлена на "
+                                                           f"{request.data['email']}"}
+            return Response(kwargs['status_successfully'], status=status.HTTP_200_OK)
+        else:
+            return Response(self.serializer.errors, status=status.HTTP_200_OK)
+
+
+class PasswordResetConfirmView(PasswordResetView):
+    """Password confirmation"""
+    serializer_class = PasswordResetConfirmSerializer
+
+    def post(self, request, *args, **kwargs):
+        status_successfully = {"detail": "Пвроль сброшен, перезайдите с новым паролем"}
+        return super().post(request, heir=True, status_successfully=status_successfully)
