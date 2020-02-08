@@ -50,11 +50,12 @@ class MurrenAccountTests(APITestCase):
         file = os.path.join(email_path, os.listdir(email_path)[0])
 
         with open(file, 'r') as f:
+            password = '1234rte7@_'
             text_mail = f.read()
             start_ind = text_mail.find('http://testserver/confirm-password')
             url = text_mail[start_ind:len(text_mail)].split()[0]
-            data = {'new_password1': '1234rte7@_',
-                    'new_password2': '1234rte7@_'}
+            data = {'new_password1': password,
+                    'new_password2': password}
 
             response = self.client.post(url, data, format='json')
             self.assertEqual(response.status_code, status.HTTP_200_OK)
