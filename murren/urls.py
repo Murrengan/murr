@@ -8,10 +8,12 @@ from rest_framework_simplejwt.views import (
 )
 
 # local
-from .views import MurrensMethods, murren_register, murren_activate
+from .views import MurrensMethods, murren_register, murren_activate, GetAllMurrens, PublicMurrenInfo
 
 urlpatterns = [
     path('', MurrensMethods.as_view(), name='MurrensMethods'),
+    path('all/', GetAllMurrens.as_view(), name='get_all_murrens'),
+    path('<int:pk>/', PublicMurrenInfo.as_view(), name='get_murren_info_by_pk'),
 
     # rest
     path('register/', csrf_exempt(murren_register), name='murren_register'),
