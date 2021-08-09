@@ -63,4 +63,4 @@ webencodings==0.5.1
 zope.interface==4.6.0
 
 pypiwin32==223; sys_platform == 'win32'
-pywin32==224; sys_platform == 'win32'
+pywin32==301; sys_platform == 'win32'
