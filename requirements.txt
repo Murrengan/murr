@@ -37,7 +37,7 @@ jsmin==2.2.2
 more-itertools==7.0.0
 msgpack==0.6.1
 oauthlib==3.0.1
-Pillow==5.4.1
+Pillow==9.0.1
 pluggy==0.11.0
 py==1.8.0
 pyasn1==0.4.7
